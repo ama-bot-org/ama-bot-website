@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "esnext", // 编译的目标语言版本
+    "module": "esnext", // 模块化方案
+    "moduleResolution": "node", // 模块解析策略
+    "importHelpers": true, // 在编译时需要引入辅助工具函数
+    "jsx": "preserve", // 使用的 JSX 编译器，保留 JSX 语法
+    "esModuleInterop": true, // 允许在导入 CommonJS 模块时使用 ES 模块语法
+    "sourceMap": true, // 生成源代码映射文件，用于调试
+    "baseUrl": "./", // 设置模块的基础目录，用于解析非相对模块名称
+    "skipLibCheck": true, // 不对所有的声明文件进行类型检查，加快编译速度
+    "experimentalDecorators": true, // 开启实验性的装饰器语法支持
+    "strict": true, // 开启严格类型检查，所有类型必须明确指定
+    "resolveJsonModule": true, // 允许导入 JSON 模块
+    "allowSyntheticDefaultImports": true, // 允许使用默认导入语法来导入没有默认导出的模块
+    "paths": {
+      // 路径映射，用于在导入模块时快速解析模块的路径
+      "@/*": ["./src/*"],
+      "@@/*": ["./src/.umi/*"],
+      "@@test/*": ["./src/.umi-test/*"]
+    }
+  },
+  "include": [
+    // 要编译的文件
+    "./**/*.d.ts",
+    "./**/*.ts",
+    "./**/*.tsx",
+    "../jest.config.ts"
+  ]
+}
