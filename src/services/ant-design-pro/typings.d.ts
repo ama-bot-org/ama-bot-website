@@ -61,6 +61,14 @@ declare namespace API {
     status?: string
   }
 
+  type RegisterParams = {
+    email?: string
+    password?: string
+    confirm?: string
+    mobile?: string
+    captcha?: string
+  }
+
   type LoginParams = {
     username?: string
     password?: string

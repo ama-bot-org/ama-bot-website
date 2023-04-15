@@ -12,18 +12,35 @@
  */
 export default [
   {
-    path: '/landing',
-    layout: false,
-    name: 'landing',
-    component: './Landing',
-  },
-  {
-    path: '/user',
+    path: '/',
     layout: false,
     routes: [
       {
+        path: '/',
+        redirect: '/landing',
+      },
+      {
+        path: 'landing',
+        layout: false,
+        name: 'landing',
+        component: './Landing',
+      },
+    ],
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component: './User/Layout',
+    layout: false,
+    routes: [
+      {
+        name: 'register',
+        path: 'register',
+        component: './User/Register',
+      },
+      {
         name: 'login',
-        path: '/user/login',
+        path: 'login',
         component: './User/Login',
       },
     ],
@@ -32,6 +49,7 @@ export default [
     path: '/ama',
     name: 'ama',
     icon: 'smile',
+    access: 'canAdmin',
     component: './AskMeAnything',
   },
   {
@@ -86,6 +104,7 @@ export default [
     path: '/balance',
     name: 'balance',
     icon: 'hourglassOutlined',
+    access: 'canAdmin',
     component: './Balance',
   },
   {

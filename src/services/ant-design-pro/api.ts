@@ -83,3 +83,11 @@ export async function removeRule(options?: { [key: string]: any }) {
     ...(options || {}),
   })
 }
+
+/** register /api/register */
+export async function register(options?: { [key: string]: any }) {
+  return request<Record<string, any>>('/api/register', {
+    method: 'post',
+    ...(options || {}),
+  })
+}
