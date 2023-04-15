@@ -1,5 +1,5 @@
 import LogoWithName from '@/components/LogoWithName'
-import { SelectLang, useIntl, Helmet } from '@umijs/max'
+import { SelectLang, useIntl, Helmet, Outlet } from '@umijs/max'
 import Settings from '../../../../config/defaultSettings'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import CreateAISteps from '@/components/CreateAISteps'
@@ -50,6 +50,7 @@ const Layout: React.FC = () => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      width: 480,
     }
   })
 
@@ -72,10 +73,7 @@ const Layout: React.FC = () => {
         <CreateAISteps marginTop="0px" />
       </div>
       <div className={loginPanelClassName}>
-        <div style={{ width: 480 }}>
-          <h1 style={{ textAlign: 'center' }}>{intl.formatMessage({ id: 'pages.landing.h1' })}</h1>
-          <p style={{ textAlign: 'center' }}>{intl.formatMessage({ id: 'pages.landing.p' })}</p>
-        </div>
+        <Outlet />
       </div>
     </div>
   )

@@ -40,14 +40,14 @@ const Register: React.FC = () => {
 
   return (
     <div className={styles.main}>
-      <h3>{intl.formatMessage({ id: 'pages.register.register' })}</h3>
+      <h3>{intl.formatMessage({ id: 'pages.login.registerAccount' })}</h3>
       <ProForm
         initialValues={{
           autoLogin: true,
         }}
         submitter={{
           searchConfig: {
-            submitText: intl.formatMessage({ id: 'pages.register.submit' }),
+            submitText: intl.formatMessage({ id: 'pages.login.submit' }),
           },
           render: (_, dom) => dom.pop(),
           submitButtonProps: {
