@@ -6,6 +6,7 @@ import pwa from './en-US/pwa'
 import settingDrawer from './en-US/settingDrawer'
 import settings from './en-US/settings'
 import landing from './en-US/landing'
+import register from './en-US/register'
 
 export default {
   'navBar.lang': 'Languages',
@@ -24,4 +25,5 @@ export default {
   ...component,
   ...pages,
   ...landing,
+  ...register,
 }

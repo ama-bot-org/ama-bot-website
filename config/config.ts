@@ -41,6 +41,7 @@ export default defineConfig({
     // 只有设置为 variable， 才能使用 configProvide 动态设置主色调
     'root-entry-name': 'variable',
     colorPrimary: '#e65c41',
+    primaryColor: '#e65c41',
   },
   /**
    * @name moment 的国际化配置

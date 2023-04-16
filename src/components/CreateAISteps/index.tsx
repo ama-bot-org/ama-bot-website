@@ -1,8 +1,9 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { useIntl } from '@umijs/max'
+import { useIntl, useLocation } from '@umijs/max'
 import styles from './steps.less'
 import { history } from '@umijs/max'
 import { ArrowDownOutlined } from '@ant-design/icons'
+import { useMemo } from 'react'
 
 type CreateAIStepsProps = {
   isShowCreate?: boolean // 是否显示创建机器人按钮
@@ -13,6 +14,11 @@ const CreateAISteps = (props: CreateAIStepsProps) => {
   const { isShowCreate, marginTop, layoutChangeMedia } = props
 
   const intl = useIntl()
+  const location = useLocation()
+
+  const isLoginPage = useMemo(() => {
+    return location.pathname === '/user/login'
+  }, [location.pathname])
 
   const headerClassName = useEmotionCss(() => {
     return {
@@ -122,6 +128,19 @@ const CreateAISteps = (props: CreateAIStepsProps) => {
           </span>
         </div>
       ) : null}
+      {isLoginPage && (
+        <p
+          style={{
+            width: '100%',
+            textAlign: 'center',
+            color: '#e65c41',
+            position: 'absolute',
+            bottom: '20px',
+          }}
+        >
+          {intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
+        </p>
+      )}
     </div>
   )
 }

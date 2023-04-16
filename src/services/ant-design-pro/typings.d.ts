@@ -62,6 +62,8 @@ declare namespace API {
   }
 
   type RegisterParams = {
+    domain?: string
+    logo?: string
     email?: string
     password?: string
     confirm?: string

@@ -1,3 +1,6 @@
+@ant-primary-color: #e65c41;
+@ant-primary-color-hover: #f8856e;
+
 html,
 body,
 #root {
@@ -24,9 +27,30 @@ button {
   filter: invert(80%);
 }
 
+/** antd 样式覆盖 start**/
+.login-page .ant-btn-primary {
+  color: #fff;
+  background-color: @ant-primary-color;
+}
+.login-page .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: @ant-primary-color;
+}
+.login-page .ant-btn-primary:not(:disabled):hover {
+  background: @ant-primary-color-hover;
+}
+.login-page .ant-tabs .ant-tabs-ink-bar {
+  background: @ant-primary-color;
+}
+
 .ant-layout {
   min-height: 100vh;
 }
+.ant-form-item-label label {
+  font-family: 'AlibabaPuHuiTi-2-65-Medium';
+  font-size: 16px;
+}
+/** antd 样式覆盖 end**/
+
 .ant-pro-sider.ant-layout-sider.ant-pro-sider-fixed {
   left: unset;
 }
@@ -88,6 +112,22 @@ ol {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.fcc-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.fcc-start {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.flex-1 {
+  flex: 1;
 }
 
 .text-white {

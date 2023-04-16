@@ -1,67 +1,20 @@
 import Footer from '@/components/Footer'
 import { login } from '@/services/ant-design-pro/api'
-import { getFakeCaptcha } from '@/services/ant-design-pro/login'
 import {
+  ArrowRightOutlined,
   // AlipayCircleOutlined,
   LockOutlined,
-  MobileOutlined,
   // TaobaoCircleOutlined,
   UserOutlined,
   // WeiboCircleOutlined,
 } from '@ant-design/icons'
-import { LoginForm, ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
+import { LoginForm, ProFormText } from '@ant-design/pro-components'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { FormattedMessage, history, SelectLang, useIntl, useModel, Helmet } from '@umijs/max'
+import { FormattedMessage, history, useIntl, useModel, Helmet, Link } from '@umijs/max'
 import { Alert, message, Tabs } from 'antd'
 import Settings from '../../../../config/defaultSettings'
 import React, { useState } from 'react'
 import { flushSync } from 'react-dom'
-
-// const ActionIcons = () => {
-//   const langClassName = useEmotionCss(({ token }) => {
-//     return {
-//       marginLeft: '8px',
-//       color: 'rgba(0, 0, 0, 0.2)',
-//       fontSize: '24px',
-//       verticalAlign: 'middle',
-//       cursor: 'pointer',
-//       transition: 'color 0.3s',
-//       '&:hover': {
-//         color: token.colorPrimaryActive,
-//       },
-//     };
-//   });
-
-//   return (
-//     <>
-//       <AlipayCircleOutlined key="AlipayCircleOutlined" className={langClassName} />
-//       <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={langClassName} />
-//       <WeiboCircleOutlined key="WeiboCircleOutlined" className={langClassName} />
-//     </>
-//   );
-// };
-
-const Lang = () => {
-  const langClassName = useEmotionCss(({ token }) => {
-    return {
-      width: 42,
-      height: 42,
-      lineHeight: '42px',
-      position: 'fixed',
-      right: 16,
-      borderRadius: token.borderRadius,
-      ':hover': {
-        backgroundColor: token.colorBgTextHover,
-      },
-    }
-  })
-
-  return (
-    <div className={langClassName} data-lang>
-      {SelectLang && <SelectLang />}
-    </div>
-  )
-}
 
 const LoginMessage: React.FC<{
   content: string
@@ -89,8 +42,8 @@ const Login: React.FC = () => {
       flexDirection: 'column',
       height: '100vh',
       overflow: 'auto',
-      backgroundImage: "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
-      backgroundSize: '100% 100%',
+      // backgroundImage: "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
+      // backgroundSize: '100% 100%',
     }
   })
 
@@ -138,7 +91,7 @@ const Login: React.FC = () => {
   const { status, type: loginType } = userLoginState
 
   return (
-    <div className={containerClassName}>
+    <div className={`${containerClassName} login-page`}>
       <Helmet>
         <title>
           {intl.formatMessage({
@@ -148,10 +101,14 @@ const Login: React.FC = () => {
           - {Settings.title}
         </title>
       </Helmet>
-      <Lang />
       <div
         style={{
           flex: '1',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
           padding: '32px 0',
         }}
       >
@@ -159,10 +116,14 @@ const Login: React.FC = () => {
           contentStyle={{
             minWidth: 280,
             maxWidth: '75vw',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="AMA"
-          subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
+          logo={null}
+          title={null}
+          subTitle={null}
           initialValues={{
             autoLogin: true,
           }}
@@ -187,16 +148,16 @@ const Login: React.FC = () => {
                 key: 'account',
                 label: intl.formatMessage({
                   id: 'pages.login.accountLogin.tab',
-                  defaultMessage: '账户密码登录',
+                  defaultMessage: '邮箱密码登录',
                 }),
               },
-              {
-                key: 'mobile',
-                label: intl.formatMessage({
-                  id: 'pages.login.phoneLogin.tab',
-                  defaultMessage: '手机号登录',
-                }),
-              },
+              // {
+              //   key: 'mobile',
+              //   label: intl.formatMessage({
+              //     id: 'pages.login.phoneLogin.tab',
+              //     defaultMessage: '手机号登录',
+              //   }),
+              // },
             ]}
           />
 
@@ -204,7 +165,7 @@ const Login: React.FC = () => {
             <LoginMessage
               content={intl.formatMessage({
                 id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误(admin/ant.design)',
+                defaultMessage: '邮箱或密码错误',
               })}
             />
           )}
@@ -248,7 +209,7 @@ const Login: React.FC = () => {
           )}
 
           {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
-          {type === 'mobile' && (
+          {/* {type === 'mobile' && (
             <>
               <ProFormText
                 fieldProps={{
@@ -325,6 +286,24 @@ const Login: React.FC = () => {
             <a
               style={{
                 float: 'right',
+              }}
+            >
+              <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
+            </a>
+          </div> */}
+          <div
+            style={{
+              marginBottom: 24,
+            }}
+          >
+            <Link to={'/user/register?step=1'} style={{ textDecoration: 'none', fontFamily: 'AlibabaPuHuiTi-2-85-Bold' }}>
+              <span style={{ color: '#e65c41', marginRight: '12px' }}>{intl.formatMessage({ id: 'register.register' })}</span>
+              <ArrowRightOutlined color="#e65c41" style={{ color: '#e65c41' }} />
+            </Link>
+            <a
+              style={{
+                float: 'right',
+                color: '#131415',
               }}
             >
               <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />

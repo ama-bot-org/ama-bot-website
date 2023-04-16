@@ -4,20 +4,32 @@
 // step3. 跳到登录页，通过邮箱密码登录
 
 import styles from './register.less'
-import { FormattedMessage } from '@/.umi/plugin-locale'
-import { MailOutlined, LockOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
-import { ProForm, ProFormText } from '@ant-design/pro-components'
-import { useIntl, Link } from '@umijs/max'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
+import { useIntl, Link, useLocation } from '@umijs/max'
 import { message } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { history } from '@/.umi/core/history'
 import { register } from '@/services/ant-design-pro/api'
+import RegisterForm from './RegisterForm'
+import EmailPassForm from './EmailPassForm'
 
-const Register: React.FC = () => {
+const Register = () => {
+  const query = new URLSearchParams(history.location.search)
+  const step = query.get('step')
+
   const intl = useIntl()
+  const location = useLocation()
 
   const [submitting, setSubmitting] = useState(false)
+  const [registerStep, setRegisterStep] = useState(step ? Number(step) : 1)
   const [type] = useState<string>('account')
+  const [registerParams, setRegisterParams] = useState<API.RegisterParams>({} as API.RegisterParams)
+
+  useEffect(() => {
+    const query = new URLSearchParams(history.location.search)
+    const step = query.get('step')
+    setRegisterStep(step ? Number(step) : 1)
+  }, [location])
 
   const handleSubmit = async (values: API.RegisterParams) => {
     setSubmitting(true)
@@ -38,81 +50,46 @@ const Register: React.FC = () => {
     setSubmitting(false)
   }
 
+  const onCreateSuccess = (domain: string, logo: string) => {
+    setRegisterParams({ ...registerParams, domain, logo })
+    setRegisterStep(2)
+  }
+
+  const onCompleteRegister = (email: string, password: string) => {
+    setRegisterParams({ ...registerParams, email, password })
+    handleSubmit(registerParams)
+  }
+
   return (
     <div className={styles.main}>
-      <Link to={'/landing'}>
-        <ArrowLeftOutlined />
-        <span>{intl.formatMessage({ id: 'landing.create' })}</span>
-      </Link>
-      <h3>{intl.formatMessage({ id: 'pages.login.registerAccount' })}</h3>
-      <ProForm
-        initialValues={{
-          autoLogin: true,
-        }}
-        submitter={{
-          searchConfig: {
-            submitText: intl.formatMessage({ id: 'landing.createmyai' }),
-          },
-          render: (_, dom) => dom.pop(),
-          submitButtonProps: {
-            loading: submitting,
-            size: 'large',
-            style: {
-              width: '100%',
-            },
-          },
-        }}
-        onFinish={async values => {
-          handleSubmit(values as API.RegisterParams)
+      <Link
+        to={registerStep === 1 ? '/landing' : '/user/register?step=1'}
+        style={{
+          fontFamily: 'AlibabaPuHuiTi-2-65-Medium',
+          fontSize: '20px',
+          fontWeight: 500,
+          color: '#131415',
+          textDecoration: 'none',
         }}
       >
-        {type === 'account' && (
-          <>
-            <ProFormText
-              name="email"
-              fieldProps={{
-                size: 'large',
-                prefix: <MailOutlined className={styles.prefixIcon} />,
-              }}
-              placeholder={`${intl.formatMessage({
-                id: 'pages.register.email.placeholder',
-              })}:`}
-              rules={[
-                {
-                  required: true,
-                  message: <FormattedMessage id="pages.register.email.required" defaultMessage="Please enter your email!" />,
-                },
-                {
-                  type: 'email',
-                  message: (
-                    <FormattedMessage id="pages.register.email.wrong-format" defaultMessage="The email address is in the wrong format!" />
-                  ),
-                },
-              ]}
-            />
-            <ProFormText.Password
-              name="password"
-              fieldProps={{
-                size: 'large',
-                prefix: <LockOutlined className={styles.prefixIcon} />,
-              }}
-              placeholder={`${intl.formatMessage({
-                id: 'pages.register.password.placeholder',
-              })}:`}
-              rules={[
-                {
-                  required: true,
-                  message: <FormattedMessage id="pages.register.password.required" defaultMessage="Please enter your password!" />,
-                },
-              ]}
-            />
-          </>
-        )}
-      </ProForm>
-      <Link to={'/user/login'}>
-        <span>{intl.formatMessage({ id: 'pages.register.skip' })}</span>
-        <ArrowRightOutlined />
+        <ArrowLeftOutlined style={{ marginRight: '12px' }} />
+        <span>{registerStep === 1 ? intl.formatMessage({ id: 'register.backHome' }) : intl.formatMessage({ id: 'register.create' })}</span>
       </Link>
+      <div className={styles.form}>
+        {registerStep === 1 ? (
+          <RegisterForm onCreateSuccess={onCreateSuccess} />
+        ) : (
+          <EmailPassForm onCompleteRegister={onCompleteRegister} submitting={submitting} />
+        )}
+        {registerStep === 1 ? (
+          <div className="w-full text-center">
+            <Link to={'/user/login'} style={{ textDecoration: 'none', fontFamily: 'AlibabaPuHuiTi-2-85-Bold' }}>
+              <span style={{ color: '#e65c41', marginRight: '12px' }}>{intl.formatMessage({ id: 'register.skip' })}</span>
+              <ArrowRightOutlined color="#e65c41" style={{ color: '#e65c41' }} />
+            </Link>
+          </div>
+        ) : null}
+      </div>
     </div>
   )
 }
