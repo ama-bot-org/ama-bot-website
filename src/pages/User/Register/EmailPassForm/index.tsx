@@ -5,11 +5,12 @@ import { useState } from 'react'
 
 type EmailPassFormProps = {
   onCompleteRegister: (email: string, password: string) => void
+  submitting?: boolean
 }
 
 // 组件：绑定邮箱设置密码以完成注册，绑定邮箱需要接收验证码，设置密码需要再次确认密码，两次密码输入不一致时会有提示，密码长度不足时会有提示
 const EmailPassForm: React.FC<EmailPassFormProps> = props => {
-  const { onCompleteRegister } = props
+  const { onCompleteRegister, submitting } = props
   const intl = useIntl()
   const [form] = Form.useForm()
   const [confirmPassword] = useState('')
@@ -125,7 +126,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
                 },
               }}
             >
-              <Button type="primary" style={{ width: '100%', height: '100%' }} htmlType="submit">
+              <Button type="primary" loading={submitting} style={{ width: '100%', height: '100%' }} htmlType="submit">
                 {intl.formatMessage({ id: 'menu.login' })}
               </Button>
             </ConfigProvider>
