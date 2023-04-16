@@ -4,6 +4,8 @@ export default {
   'pages.login.accountLogin.tab': 'Account Login',
   'pages.login.accountLogin.errorMessage': 'Incorrect username/password(admin/ant.design)',
   'pages.login.failure': 'Login failed, please try again!',
+  'pages.register.failure': 'Registration failed, please try again!',
+  'pages.register.skip': 'Already have an account, login directly',
   'pages.login.success': 'Login successful!',
   'pages.login.username.placeholder': 'Username: admin or user',
   'pages.login.username.required': 'Please input your username!',

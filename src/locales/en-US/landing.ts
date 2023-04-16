@@ -5,4 +5,5 @@ export default {
   'landing.steps.upload': 'Upload text material',
   'landing.steps.invite': 'Invite the robot to your IM chat tool',
   'landing.create': 'Create AI',
+  'landing.createmyai': 'Create My AI',
 }

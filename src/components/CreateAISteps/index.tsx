@@ -7,9 +7,10 @@ import { ArrowDownOutlined } from '@ant-design/icons'
 type CreateAIStepsProps = {
   isShowCreate?: boolean // 是否显示创建机器人按钮
   marginTop?: string | number // 自定义高度
+  layoutChangeMedia?: number // 自定义媒体查询
 }
 const CreateAISteps = (props: CreateAIStepsProps) => {
-  const { isShowCreate, marginTop } = props
+  const { isShowCreate, marginTop, layoutChangeMedia } = props
 
   const intl = useIntl()
 
@@ -33,7 +34,14 @@ const CreateAISteps = (props: CreateAIStepsProps) => {
       '@media screen and (min-width: 486px)': {
         width: '54%',
       },
-      '@media screen and (min-width: 768px)': {
+      '@media screen and (min-width: 768px)': layoutChangeMedia
+        ? { width: '70%', flexDirection: 'column', alignItems: 'flex-start' }
+        : {
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+          },
+      '@media screen and (min-width: 1080px)': {
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
@@ -98,7 +106,7 @@ const CreateAISteps = (props: CreateAIStepsProps) => {
       </div>
       <div className={stepContainer}>
         {stepsData.map(item => (
-          <span key={item.id} className={styles.step}>
+          <span key={item.id} className={layoutChangeMedia ? styles.stepCustom : styles.step}>
             <span className={styles['step-id']}>{item.id}</span>
             <span className={styles['step-title']}>{item.title}</span>
           </span>

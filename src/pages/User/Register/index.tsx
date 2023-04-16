@@ -5,9 +5,9 @@
 
 import styles from './register.less'
 import { FormattedMessage } from '@/.umi/plugin-locale'
-import { MailOutlined, LockOutlined } from '@ant-design/icons'
+import { MailOutlined, LockOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { ProForm, ProFormText } from '@ant-design/pro-components'
-import { useIntl } from '@umijs/max'
+import { useIntl, Link } from '@umijs/max'
 import { message } from 'antd'
 import { useState } from 'react'
 import { history } from '@/.umi/core/history'
@@ -28,8 +28,8 @@ const Register: React.FC = () => {
       history.push('/user/login')
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({
-        id: 'pages.login.failure',
-        defaultMessage: '登录失败，请重试！',
+        id: 'pages.register.failure',
+        defaultMessage: '注册失败，请重试！',
       })
       console.log(error)
       message.error(defaultLoginFailureMessage)
@@ -40,6 +40,10 @@ const Register: React.FC = () => {
 
   return (
     <div className={styles.main}>
+      <Link to={'/landing'}>
+        <ArrowLeftOutlined />
+        <span>{intl.formatMessage({ id: 'landing.create' })}</span>
+      </Link>
       <h3>{intl.formatMessage({ id: 'pages.login.registerAccount' })}</h3>
       <ProForm
         initialValues={{
@@ -47,7 +51,7 @@ const Register: React.FC = () => {
         }}
         submitter={{
           searchConfig: {
-            submitText: intl.formatMessage({ id: 'pages.login.submit' }),
+            submitText: intl.formatMessage({ id: 'landing.createmyai' }),
           },
           render: (_, dom) => dom.pop(),
           submitButtonProps: {
@@ -105,6 +109,10 @@ const Register: React.FC = () => {
           </>
         )}
       </ProForm>
+      <Link to={'/user/login'}>
+        <span>{intl.formatMessage({ id: 'pages.register.skip' })}</span>
+        <ArrowRightOutlined />
+      </Link>
     </div>
   )
 }

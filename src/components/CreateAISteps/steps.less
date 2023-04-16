@@ -1,6 +1,14 @@
-.step:nth-child(n + 2) {
+.step:nth-child(n + 2),
+.stepCustom:nth-child(n + 2) {
   margin-left: 55px;
   margin-top: 0px;
+}
+
+@media screen and (max-width: 1080px) {
+  .stepCustom:nth-child(n + 2) {
+    margin-top: 20px;
+    margin-left: 0px;
+  }
 }
 
 @media screen and (max-width: 768px) {

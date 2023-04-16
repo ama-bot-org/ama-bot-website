@@ -3,6 +3,8 @@ export default {
   'pages.login.accountLogin.tab': '账户密码登录',
   'pages.login.accountLogin.errorMessage': '错误的用户名和密码(admin/ant.design)',
   'pages.login.failure': '登录失败，请重试！',
+  'pages.register.failure': '注册失败，请重试！',
+  'pages.register.skip': '已有帐号，直接登录',
   'pages.login.success': '登录成功！',
   'pages.login.username.placeholder': '用户名: admin or user',
   'pages.login.username.required': '用户名是必填项！',

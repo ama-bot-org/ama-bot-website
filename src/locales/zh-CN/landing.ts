@@ -5,4 +5,5 @@ export default {
   'landing.steps.upload': '上传文本素材',
   'landing.steps.invite': '将机器人邀请到 IM 聊天工具',
   'landing.create': '创建 AI',
+  'landing.createmyai': '创建我的 AI',
 }

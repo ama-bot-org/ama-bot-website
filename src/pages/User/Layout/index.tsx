@@ -23,11 +23,11 @@ const Layout: React.FC = () => {
       padding: '0 16px',
       backgroundImage: "url('/images/back_register.png')",
       backgroundRepeat: 'no-repeat',
-      '@media screen and (max-width: 1440px)': {
-        backgroundSize: 'auto',
-      },
       backgroundSize: 'cover',
       backgroundPosition: 'top center',
+      '@media screen and (max-width: 768px)': {
+        display: 'none',
+      },
     }
   })
 
@@ -51,6 +51,10 @@ const Layout: React.FC = () => {
       justifyContent: 'center',
       alignItems: 'center',
       width: 480,
+      '@media screen and (max-width: 768px)': {
+        width: '100%',
+        minWidth: '320px',
+      },
     }
   })
 
@@ -70,7 +74,7 @@ const Layout: React.FC = () => {
           <LogoWithName logoTheme="light" notFixed />
           <SelectLang className="text-white" />
         </div>
-        <CreateAISteps marginTop="0px" />
+        <CreateAISteps marginTop="0px" layoutChangeMedia={1080} />
       </div>
       <div className={loginPanelClassName}>
         <Outlet />
