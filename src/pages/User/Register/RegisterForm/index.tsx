@@ -1,24 +1,29 @@
+import { getAIDomainUnique } from '@/services/ant-design-pro/register'
 import { CloudUploadOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useIntl } from '@umijs/max'
 import { Form, Input, Upload, Button, ConfigProvider, UploadFile, UploadProps, message } from 'antd'
 import { RuleObject } from 'antd/es/form'
 import { UploadChangeParam, RcFile } from 'antd/es/upload'
 import { useState } from 'react'
+import { DomainAvailable } from '@/services/ant-design-pro/enums'
 
 type RegisterFormProps = {
   onCreateSuccess: (domain: string, logo: string) => void
+  visible: boolean
 }
 
 const RegisterForm = (props: RegisterFormProps) => {
-  const { onCreateSuccess } = props
+  const { onCreateSuccess, visible } = props
 
   const intl = useIntl()
   const [imageUrl, setImageUrl] = useState<string>('')
+  const [postImageUrl, setPostImageUrl] = useState<string>('')
+
   const [loading, setLoading] = useState<boolean>(false)
 
   const onFinish = (values: any) => {
     console.log(values)
-    onCreateSuccess(values.domain, imageUrl)
+    onCreateSuccess(values.domain, postImageUrl)
   }
 
   const uploadButton = <div>{loading ? <LoadingOutlined /> : <CloudUploadOutlined style={{ fontSize: '50px' }} />}</div>
@@ -47,6 +52,7 @@ const RegisterForm = (props: RegisterFormProps) => {
       return
     }
     if (info.file.status === 'done') {
+      setPostImageUrl(info.file.response.data.display_url)
       // Get this url from response in real world.
       getBase64(info.file.originFileObj as RcFile, url => {
         setLoading(false)
@@ -74,22 +80,17 @@ const RegisterForm = (props: RegisterFormProps) => {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.domain.wrong-length', defaultMessage: '域名长度在 3~30 之间' })))
     }
     try {
-      // const res: any = await getNameOrDomainUnique(value, type, defaultStudio.id)
-      // if (res.reason === validResultOfDomain.ReasonOk) {
-      //   return Promise.resolve()
-      // }
-      // switch (res.reason) {
-      //   case validResultOfDomain.ReasonExistedValue:
-      //     return Promise.reject(new Error(t('register.requireUnique')))
-      //   case validResultOfDomain.ReasonInvalidField:
-      //     return Promise.reject(new Error(res.reason))
-      //   case validResultOfDomain.ReasonNotSupport:
-      //     return Promise.reject(new Error(t('register.ruleDomain')))
-      //   case validResultOfDomain.ReasonRequired:
-      //     return Promise.reject(new Error(type === 'name' ? t('register.requireName') : t('register.ruleDomain')))
-      //   default:
-      //     return Promise.reject(new Error(t('submiterror')))
-      // }
+      const res = await getAIDomainUnique(value)
+      if (res.available === DomainAvailable.Available) {
+        return Promise.resolve()
+      }
+      return Promise.reject(
+        new Error(
+          intl.formatMessage({
+            id: 'register.requireUnique',
+          }),
+        ),
+      )
     } catch (error) {
       return Promise.reject(new Error('submiterror'))
     }
@@ -103,7 +104,7 @@ const RegisterForm = (props: RegisterFormProps) => {
         flex: 1,
         overflow: 'auto',
         width: '100%',
-        display: 'flex',
+        display: visible ? 'flex' : 'none',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -125,15 +126,15 @@ const RegisterForm = (props: RegisterFormProps) => {
           rules={[{ required: true, message: '请上传logo' }]}
         >
           <Upload
-            name="avatar"
+            name="image"
             listType="picture-circle"
             className="avatar-uploader"
             showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            action="https://api.imgbb.com/1/upload?key=b5a35711fc74b069ae11302366d23b48"
             beforeUpload={beforeUpload}
             onChange={handleChange}
           >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+            {imageUrl ? <img src={imageUrl} alt="avatar" className="rounded-full" style={{ width: '100%' }} /> : uploadButton}
           </Upload>
         </Form.Item>
       </div>

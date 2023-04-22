@@ -1,5 +1,4 @@
-// @ts-ignore
-/* eslint-disable */
+import { CaptchaAvailableResult, DomainAvailable } from './enums'
 
 declare namespace API {
   type CurrentUser = {
@@ -25,7 +24,8 @@ declare namespace API {
 
   type LoginResult = {
     status?: string
-    type?: string
+    data?: any
+    type?: string // account or mobile or email
     currentAuthority?: string
   }
 
@@ -62,19 +62,24 @@ declare namespace API {
   }
 
   type RegisterParams = {
-    domain?: string
-    logo?: string
-    email?: string
-    password?: string
-    confirm?: string
-    mobile?: string
-    captcha?: string
+    bot_id?: string //机器人id，默认为0
+
+    level?: number //用户的权限，默认为2
+
+    domain: string //用户头注册的ai域名
+
+    logo: string //用户头像地址
+
+    email: string //用户邮箱地址
+
+    password: string //用户密码
+
+    captcha: string //邮箱验证码
   }
 
   type LoginParams = {
-    username?: string
-    password?: string
-    autoLogin?: boolean
+    email: string
+    password: string
     type?: string
   }
 
@@ -107,5 +112,20 @@ declare namespace API {
     datetime?: string
     description?: string
     type?: NoticeIconItemType
+  }
+
+  type DomainUniqueResponse = {
+    actionType: 'OK'
+    available: DomainAvailable //1 代表域名可用，0代表域名不可用
+  }
+
+  type UserRegisterResponse = {
+    actionType: boolean //注册失败
+    message: string //验证码错误
+  }
+
+  type CaptchaResponse = {
+    actionType: 'OK'
+    available: CaptchaAvailableResult
   }
 }

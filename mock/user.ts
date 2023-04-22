@@ -28,6 +28,14 @@ const getAccess = () => {
 
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
+  'GET /api/upload/logo': (req: Request, res: Response) => {
+    res.send({
+      success: true,
+      data: {
+        url: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+      },
+    })
+  },
   // 支持值为 Object 和 Array
   'GET /api/currentUser': (req: Request, res: Response) => {
     if (!getAccess()) {
@@ -198,6 +206,26 @@ export default {
       path: '/base/category/list',
     })
   },
-
   'GET  /api/login/captcha': getFakeCaptcha,
+  'POST /api/app/user/login': async (req: Request, res: Response) => {
+    const { password, username, type } = req.body
+    await waitTime(2000)
+    if (password === '123456') {
+      res.send({
+        status: 'ok',
+        data: '',
+        currentAuthority: 'admin',
+      })
+      access = 'admin'
+      return
+    } else {
+      res.send({
+        status: 'ok',
+        data: '',
+        currentAuthority: 'user',
+      })
+      access = 'user'
+      return
+    }
+  },
 }

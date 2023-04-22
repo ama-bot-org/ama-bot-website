@@ -9,9 +9,10 @@ import { useIntl, Link, useLocation } from '@umijs/max'
 import { message } from 'antd'
 import { useEffect, useState } from 'react'
 import { history } from '@umijs/max'
-import { register } from '@/services/ant-design-pro/api'
 import RegisterForm from './RegisterForm'
 import EmailPassForm from './EmailPassForm'
+import { API } from '@/services/ant-design-pro/typings'
+import { postUserRegister } from '@/services/ant-design-pro/register'
 
 const Register = () => {
   const query = new URLSearchParams(history.location.search)
@@ -22,7 +23,6 @@ const Register = () => {
 
   const [submitting, setSubmitting] = useState(false)
   const [registerStep, setRegisterStep] = useState(step ? Number(step) : 1)
-  const [type] = useState<string>('account')
   const [registerParams, setRegisterParams] = useState<API.RegisterParams>({} as API.RegisterParams)
 
   useEffect(() => {
@@ -33,11 +33,16 @@ const Register = () => {
 
   const handleSubmit = async (values: API.RegisterParams) => {
     setSubmitting(true)
-
     try {
       // 注册成功后跳转到登录页
-      await register({ ...values, type })
-      history.push('/user/login')
+      const registerResult: API.UserRegisterResponse = await postUserRegister(values)
+      console.log('registerResult', registerResult)
+      console.log('values', values)
+      if (registerResult.actionType) {
+        history.push('/user/login')
+      } else {
+        message.error(registerResult.message)
+      }
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({
         id: 'pages.register.failure',
@@ -45,9 +50,9 @@ const Register = () => {
       })
       console.log(error)
       message.error(defaultLoginFailureMessage)
+    } finally {
+      setSubmitting(false)
     }
-
-    setSubmitting(false)
   }
 
   const onCreateSuccess = (domain: string, logo: string) => {
@@ -55,8 +60,8 @@ const Register = () => {
     setRegisterStep(2)
   }
 
-  const onCompleteRegister = (email: string, password: string) => {
-    setRegisterParams({ ...registerParams, email, password })
+  const onCompleteRegister = (email: string, password: string, captcha: string) => {
+    setRegisterParams({ ...registerParams, email, password, captcha })
     handleSubmit(registerParams)
   }
 
@@ -76,11 +81,8 @@ const Register = () => {
         <span>{registerStep === 1 ? intl.formatMessage({ id: 'register.backHome' }) : intl.formatMessage({ id: 'register.create' })}</span>
       </Link>
       <div className={styles.form}>
-        {registerStep === 1 ? (
-          <RegisterForm onCreateSuccess={onCreateSuccess} />
-        ) : (
-          <EmailPassForm onCompleteRegister={onCompleteRegister} submitting={submitting} />
-        )}
+        <RegisterForm onCreateSuccess={onCreateSuccess} visible={registerStep === 1} />
+        <EmailPassForm onCompleteRegister={onCompleteRegister} submitting={submitting} visible={registerStep === 2} />
         {registerStep === 1 ? (
           <div className="w-full text-center">
             <Link to={'/user/login'} style={{ textDecoration: 'none', fontFamily: 'AlibabaPuHuiTi-2-85-Bold' }}>

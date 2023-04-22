@@ -15,6 +15,7 @@ import { Alert, message, Tabs } from 'antd'
 import Settings from '../../../../config/defaultSettings'
 import React, { useState } from 'react'
 import { flushSync } from 'react-dom'
+import { API } from '@/services/ant-design-pro/typings'
 
 const LoginMessage: React.FC<{
   content: string
@@ -32,7 +33,7 @@ const LoginMessage: React.FC<{
 }
 
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({})
+  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({} as API.LoginResult)
   const [type, setType] = useState<string>('account')
   const { initialState, setInitialState } = useModel('@@initialState')
 
@@ -53,7 +54,7 @@ const Login: React.FC = () => {
     const userInfo = await initialState?.fetchUserInfo?.()
     if (userInfo) {
       flushSync(() => {
-        setInitialState(s => ({
+        setInitialState((s: any) => ({
           ...s,
           currentUser: userInfo,
         }))

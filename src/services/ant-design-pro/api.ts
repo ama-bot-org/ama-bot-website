@@ -1,6 +1,7 @@
 // @ts-ignore
 /* eslint-disable */
 import { request } from '@umijs/max'
+import { API } from './typings'
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
@@ -22,7 +23,8 @@ export async function outLogin(options?: { [key: string]: any }) {
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/login/account', {
+  // return request<API.LoginResult>('/api/login/account', {
+  return request<API.LoginResult>('/api/app/user/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -84,10 +86,10 @@ export async function removeRule(options?: { [key: string]: any }) {
   })
 }
 
-/** register /api/register */
-export async function register(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/register', {
-    method: 'post',
-    ...(options || {}),
-  })
-}
+// /** register /api/register */
+// export async function register(options?: { [key: string]: any }) {
+//   return request<Record<string, any>>('/api/register', {
+//     method: 'post',
+//     ...(options || {}),
+//   })
+// }
