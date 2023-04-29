@@ -12,7 +12,8 @@ import { history } from '@umijs/max'
 import RegisterForm from './RegisterForm'
 import EmailPassForm from './EmailPassForm'
 import { API } from '@/services/ant-design-pro/typings'
-import { postUserRegister } from '@/services/ant-design-pro/register'
+import { registerNewUser } from '@/services/ant-design-pro/register'
+import { ActionType } from '@/services/ant-design-pro/enums'
 
 const Register = () => {
   const query = new URLSearchParams(history.location.search)
@@ -35,10 +36,10 @@ const Register = () => {
     setSubmitting(true)
     try {
       // 注册成功后跳转到登录页
-      const registerResult: API.UserRegisterResponse = await postUserRegister(values)
+      const registerResult: API.UserRegisterResponse = await registerNewUser(values)
       console.log('registerResult', registerResult)
       console.log('values', values)
-      if (registerResult.actionType) {
+      if (registerResult.ActionType === ActionType.OK) {
         history.push('/user/login')
       } else {
         message.error(registerResult.message)
@@ -56,13 +57,14 @@ const Register = () => {
   }
 
   const onCreateSuccess = (domain: string, logo: string) => {
-    setRegisterParams({ ...registerParams, domain, logo })
+    setRegisterParams({ ...registerParams, org_id: domain, logo })
     setRegisterStep(2)
   }
 
   const onCompleteRegister = (email: string, password: string, captcha: string) => {
-    setRegisterParams({ ...registerParams, email, password, captcha })
-    handleSubmit(registerParams)
+    const allParams = { ...registerParams, email, name: email, password, email_check: captcha }
+    setRegisterParams(allParams)
+    handleSubmit(allParams)
   }
 
   return (

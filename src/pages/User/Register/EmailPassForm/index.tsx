@@ -1,9 +1,9 @@
-import { requestCaptcha } from '@/services/ant-design-pro/register'
 import styles from './index.less'
 import { useIntl } from '@umijs/max'
-import { Form, Input, Row, Col, Button, ConfigProvider, message } from 'antd'
+import { Form, Input, Button, ConfigProvider } from 'antd'
 import { useState } from 'react'
-import { CaptchaAvailableResult } from '@/services/ant-design-pro/enums'
+import CaptchaForm from '../CaptchaForm'
+import { RegisterType } from '@/services/ant-design-pro/enums'
 
 type EmailPassFormProps = {
   onCompleteRegister: (email: string, password: string, captcha: string) => void
@@ -17,7 +17,6 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
   const intl = useIntl()
   const [form] = Form.useForm()
   const [confirmPassword] = useState('')
-  const [count, setCount] = useState(0)
 
   const compareToFirstPassword = (rule: any, value: any) => {
     if (value && value !== form.getFieldValue('password')) {
@@ -33,32 +32,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
     return Promise.resolve()
   }
 
-  const onGetCaptcha = async () => {
-    // 倒计时
-    let count = 59
-    setCount(count)
-    const timer = setInterval(() => {
-      count -= 1
-      setCount(count)
-      if (count === 0) {
-        clearInterval(timer)
-      }
-    }, 1000)
-    // 获取验证码
-    const email = form.getFieldValue('email')
-    if (email) {
-      const res = await requestCaptcha(email)
-      if (res.available === CaptchaAvailableResult.Available) {
-        message.success(intl.formatMessage({ id: 'register.code.available' }))
-      } else if (res.available === CaptchaAvailableResult.Unavailable) {
-        message.error(intl.formatMessage({ id: 'register.code.unavailable' }))
-      } else {
-        message.error(intl.formatMessage({ id: 'register.code.sendFail' }))
-      }
-    } else {
-      form.validateFields(['email'])
-    }
-  }
+
 
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values)
@@ -119,26 +93,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
         >
           <Input.Password size="large" placeholder={intl.formatMessage({ id: 'register.password.required' })} />
         </Form.Item>
-        <Form.Item
-          name="captcha"
-          rules={[
-            {
-              required: true,
-              message: intl.formatMessage({ id: 'register.code.required' }),
-            },
-          ]}
-        >
-          <Row gutter={8}>
-            <Col span={14}>
-              <Input size="large" placeholder={intl.formatMessage({ id: 'register.code.required' })} />
-            </Col>
-            <Col span={8}>
-              <Button size="large" disabled={count > 0} className={styles.getCaptcha} onClick={onGetCaptcha}>
-                {count ? `${count} s` : intl.formatMessage({ id: 'register.code.get' })}
-              </Button>
-            </Col>
-          </Row>
-        </Form.Item>
+        <CaptchaForm form={form} registerType={RegisterType.Register}/>
         <Form.Item>
           <ConfigProvider
             theme={{

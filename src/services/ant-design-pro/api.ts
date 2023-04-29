@@ -22,7 +22,7 @@ export async function outLogin(options?: { [key: string]: any }) {
 }
 
 /** 登录接口 POST /api/login/account */
-export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
+export async function login(body: API.LoginParams): Promise<API.LoginResult> {
   // return request<API.LoginResult>('/api/login/account', {
   return request<API.LoginResult>('/api/app/user/login', {
     method: 'POST',
@@ -30,7 +30,6 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
       'Content-Type': 'application/json',
     },
     data: body,
-    ...(options || {}),
   })
 }
 
