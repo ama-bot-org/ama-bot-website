@@ -1,6 +1,6 @@
 # ama-bot-website
 
-"AMA BOT" is a language model AI bot based on the ChatGPT architecture, designed for Discord DAO operations and fully customizable for your specific needs.
+"AMA BOT" is a language model AI bot based on the ChatGPT architecture, designed for Discord DAO operations or company and fully customizable for your specific needs.
 
 ## Description
 
