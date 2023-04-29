@@ -49,14 +49,14 @@ export default [
     path: '/ama',
     name: 'ama',
     icon: 'smile',
-    access: 'canAdmin',
+    access: 'user',
     component: './AskMeAnything',
   },
   {
     path: '/database-config',
     name: 'database-config',
     icon: 'databaseOutlined',
-    access: 'canAdmin',
+    access: 'user',
     routes: [
       {
         path: '/database-config',
@@ -80,7 +80,7 @@ export default [
     path: '/robot-config',
     name: 'robot-config',
     icon: 'robotOutlined',
-    access: 'canAdmin',
+    access: 'user',
     routes: [
       {
         path: '/robot-config',
@@ -104,7 +104,7 @@ export default [
     path: '/balance',
     name: 'balance',
     icon: 'hourglassOutlined',
-    access: 'canAdmin',
+    access: 'user',
     component: './Balance',
   },
   {
