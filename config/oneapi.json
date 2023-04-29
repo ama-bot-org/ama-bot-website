@@ -389,14 +389,13 @@
       "LoginResult": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "currentAuthority": {
-            "type": "string"
+          "ActionType": "string",
+          "data": {
+            "name": "string",
+            "email": "string",
+            "org_id": "string",
+            "bot_id": "string",
+            "level": "string"
           }
         }
       },
