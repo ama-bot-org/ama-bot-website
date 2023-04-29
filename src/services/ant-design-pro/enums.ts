@@ -7,3 +7,18 @@ export enum CaptchaAvailableResult {
   Unavailable = 0,
   SendFail = 2,
 }
+
+export enum RegisterType {
+  Register = 1,
+  Login = 0,
+}
+
+export enum AuthorityLevel {
+  user = 2,
+  admin = 1,
+}
+
+export enum CheckType {
+  Password = 'Password',
+  Captcha = 'Captcha',
+}

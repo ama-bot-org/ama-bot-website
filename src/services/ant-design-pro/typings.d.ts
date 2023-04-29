@@ -1,4 +1,4 @@
-import { CaptchaAvailableResult } from './enums'
+import { ActionType } from './enums'
 
 declare namespace API {
   type CurrentUser = {
@@ -22,11 +22,17 @@ declare namespace API {
     phone?: string
   }
 
+  type User = {
+    name: string
+    email: string
+    org_id: string // 域名
+    bot_id: string
+    level: AuthorityLevel
+  }
+
   type LoginResult = {
-    status?: string
-    data?: any
-    type?: string // account or mobile or email
-    currentAuthority?: string
+    ActionType: ActionType
+    data: User
   }
 
   type PageParams = {
@@ -64,9 +70,11 @@ declare namespace API {
   type RegisterParams = {
     bot_id?: string //机器人id，默认为0
 
-    level?: number //用户的权限，默认为2
+    level?: AuthorityLevel //用户的权限，默认为2
 
-    domain: string //用户头注册的ai域名
+    org_id: string //用户头注册的ai域名
+
+    name: string //用户名
 
     logo: string //用户头像地址
 
@@ -74,12 +82,22 @@ declare namespace API {
 
     password: string //用户密码
 
-    captcha: string //邮箱验证码
+    email_check: string //邮箱验证码
+  }
+
+  type LoginFormParams = {
+    email: string
+    password: string
+    captcha: string
+    checkType: CheckType
+    type?: string
   }
 
   type LoginParams = {
     email: string
-    password: string
+    password?: string
+    email_check?: string
+    checkType: CheckType
     type?: string
   }
 
@@ -119,12 +137,11 @@ declare namespace API {
   }
 
   type UserRegisterResponse = {
-    actionType: boolean //注册失败
-    message: string //验证码错误
+    ActionType: ActionType.OK
+    message?: string //验证码错误
   }
 
   type CaptchaResponse = {
-    actionType: 'OK'
-    available: CaptchaAvailableResult
+    ActionType: ActionType
   }
 }
