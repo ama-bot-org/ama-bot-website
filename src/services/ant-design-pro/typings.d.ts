@@ -1,4 +1,4 @@
-import { CaptchaAvailableResult, DomainAvailable } from './enums'
+import { CaptchaAvailableResult } from './enums'
 
 declare namespace API {
   type CurrentUser = {
@@ -115,8 +115,7 @@ declare namespace API {
   }
 
   type DomainUniqueResponse = {
-    actionType: 'OK'
-    available: DomainAvailable //1 代表域名可用，0代表域名不可用
+    ActionType: ActionType.OK
   }
 
   type UserRegisterResponse = {

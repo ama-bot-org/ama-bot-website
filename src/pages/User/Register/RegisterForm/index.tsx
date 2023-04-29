@@ -1,11 +1,11 @@
-import { getAIDomainUnique } from '@/services/ant-design-pro/register'
+import { checkAIDomainUnique } from '@/services/ant-design-pro/register'
 import { CloudUploadOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useIntl } from '@umijs/max'
 import { Form, Input, Upload, Button, ConfigProvider, UploadFile, UploadProps, message } from 'antd'
 import { RuleObject } from 'antd/es/form'
 import { UploadChangeParam, RcFile } from 'antd/es/upload'
 import { useState } from 'react'
-import { DomainAvailable } from '@/services/ant-design-pro/enums'
+import { ActionType } from '@/services/ant-design-pro/enums'
 
 type RegisterFormProps = {
   onCreateSuccess: (domain: string, logo: string) => void
@@ -80,14 +80,15 @@ const RegisterForm = (props: RegisterFormProps) => {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.domain.wrong-length', defaultMessage: '域名长度在 3~30 之间' })))
     }
     try {
-      const res = await getAIDomainUnique(value)
-      if (res.available === DomainAvailable.Available) {
+      const res = await checkAIDomainUnique(value)
+      if (res.ActionType === ActionType.OK) {
         return Promise.resolve()
       }
       return Promise.reject(
         new Error(
           intl.formatMessage({
             id: 'register.requireUnique',
+            defaultMessage: '域名已被注册',
           }),
         ),
       )

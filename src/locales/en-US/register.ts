@@ -1,6 +1,7 @@
 export default {
   'register.backHome': 'Back to Langing Page',
   'register.domain.register': 'Register your domain',
+  'register.requireUnique': 'Domain already exists',
   'register.logo': 'Upload LOGO',
   'register.failure': 'Registration failed, please try again!',
   'register.skip': 'Already have an account, login directly',

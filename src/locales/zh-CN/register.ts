@@ -1,6 +1,7 @@
 export default {
   'register.backHome': '返回首页',
   'register.domain.register': '注册你的 AI 域名',
+  'register.requireUnique': '域名已被注册',
   'register.logo': '上传 LOGO',
   'register.failure': '注册失败，请重试！',
   'register.skip': '已有帐号，直接登录',

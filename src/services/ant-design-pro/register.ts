@@ -1,16 +1,12 @@
-// @ts-ignore
-/* eslint-disable */
 import { request } from '@umijs/max'
 import { API } from './typings'
 
 /** 验证AI域名唯一性 GET /app/user/ai */
-export async function getAIDomainUnique(ai_area: string) {
+export async function checkAIDomainUnique(org_id: string) {
   return request<API.DomainUniqueResponse>('/api/app/user/ai', {
-    method: 'GET',
-    params: {
-      aiInfo: {
-        ai_area,
-      },
+    method: 'POST',
+    body: {
+      org_id,
     },
   })
 }

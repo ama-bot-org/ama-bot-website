@@ -17,6 +17,6 @@ declare module 'mockjs'
 declare module 'react-fittext'
 declare module 'bizcharts-plugin-slider'
 
-declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false
+declare const REACT_APP_ENV: 'dev' | 'pre' | 'test' | false
 declare const REACT_APP_OFFICIAL_SITE: string
 declare const REACT_APP_GITHUB_SITE: string
