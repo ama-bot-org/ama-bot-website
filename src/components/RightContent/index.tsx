@@ -6,11 +6,7 @@ export type SiderTheme = 'light' | 'dark'
 
 export const SelectLang = () => {
   return (
-    <UmiSelectLang
-      style={{
-        padding: 4,
-      }}
-    />
+    <UmiSelectLang className="p-4" />
   )
 }
 

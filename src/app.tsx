@@ -6,7 +6,7 @@ import type { RunTimeLayoutConfig } from '@umijs/max'
 import { history } from '@umijs/max'
 import defaultSettings from '../config/defaultSettings'
 import { errorConfig } from './requestErrorConfig'
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api'
+// import { currentUser as queryCurrentUser } from './services/ant-design-pro/api'
 import React from 'react'
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown'
 
@@ -22,34 +22,34 @@ export async function getInitialState(): Promise<{
   loading?: boolean
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>
 }> {
-  const { location } = history
+  // const { location } = history
   // 请求当前用户信息
-  const fetchUserInfo = async () => {
-    try {
-      const msg = await queryCurrentUser({
-        skipErrorHandler: true,
-      })
-      return msg.data
-    } catch (error) {
-      if (loginPaths.indexOf(location.pathname) === -1) {
-        history.push(loginPaths[2])
-      } else {
-        history.push(location.pathname)
-      }
-    }
-    return undefined
-  }
+  // const fetchUserInfo = async () => {
+  //   try {
+  //     const msg = await queryCurrentUser({
+  //       skipErrorHandler: true,
+  //     })
+  //     return msg.data
+  //   } catch (error) {
+  //     if (loginPaths.indexOf(location.pathname) === -1) {
+  //       history.push(loginPaths[2])
+  //     } else {
+  //       history.push(location.pathname)
+  //     }
+  //   }
+  //   return undefined
+  // }
   // 如果不是登录页面，执行
-  if (loginPaths.indexOf(location.pathname) === -1) {
-    const currentUser = await fetchUserInfo()
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: defaultSettings as Partial<LayoutSettings>,
-    }
-  }
+  // if (loginPaths.indexOf(location.pathname) === -1) {
+  //   const currentUser = await fetchUserInfo()
+  //   return {
+  //     fetchUserInfo,
+  //     currentUser,
+  //     settings: defaultSettings as Partial<LayoutSettings>,
+  //   }
+  // }
   return {
-    fetchUserInfo,
+    // fetchUserInfo,
     settings: defaultSettings as Partial<LayoutSettings>,
   }
 }
