@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer'
 import { login } from '@/services/ant-design-pro/api'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { history, useIntl, useModel, Helmet } from '@umijs/max'
+import { history, useIntl, useModel, Helmet, Link } from '@umijs/max'
 import { Button, ConfigProvider, Form, Input, message } from 'antd'
 import Settings from '../../../../config/defaultSettings'
 import React, { useState } from 'react'
@@ -10,6 +10,7 @@ import { API } from '@/services/ant-design-pro/typings'
 import CaptchaForm from '../Register/CaptchaForm'
 import { useForm } from 'antd/es/form/Form'
 import { ActionType, CheckType, RegisterType } from '@/services/ant-design-pro/enums'
+import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
 
 const Login: React.FC = () => {
   const { setInitialState } = useModel('@@initialState')
@@ -166,7 +167,11 @@ const Login: React.FC = () => {
             >
               <Input.Password size="large" placeholder={intl.formatMessage({ id: 'register.password.required' })} onChange={(e) => handleDynamicFieldChange(e.target.value, CheckType.Password)} />
             </Form.Item>}
-          <div className='w-full text-right' style={{ marginBottom: "20px" }}>
+          <div className='w-full frc-between' style={{ marginBottom: "20px" }}>
+            <Link to={'/user/register?step=1'} style={{ textDecoration: 'none', fontFamily: 'AlibabaPuHuiTi-2-85-Bold' }}>
+              <span style={{ color: '#e65c41', marginRight: '12px' }}>{intl.formatMessage({ id: 'register.register' })}</span>
+              <ArrowRightOutlined color="#e65c41" style={{ color: '#e65c41' }} />
+            </Link>
             <Button type="text" style={{ display: "inline", width: 'min-content' }} onClick={() => {
               setIsCheckBuyCaptcha(!isCheckBuyCaptcha)
             }}>

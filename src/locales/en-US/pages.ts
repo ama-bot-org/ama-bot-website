@@ -4,6 +4,7 @@ export default {
   'pages.login.accountLogin.tab': 'Account Login',
   'pages.login.accountLogin.errorMessage': 'Incorrect email/username/password',
   'pages.login.failure': 'Login failed, please try again!',
+  'pages.login.failure.401': 'Please register first!',
   'pages.login.success': 'Login successful!',
   'pages.login.username.placeholder': 'Username: admin or user',
   'pages.login.username.required': 'Please input your username!',

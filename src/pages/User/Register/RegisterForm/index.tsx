@@ -121,7 +121,7 @@ const RegisterForm = (props: RegisterFormProps) => {
       <div className="w-full flex-1 fcc-start">
         <Form.Item
           name="domain"
-          label={intl.formatMessage({ id: 'register.domain', defaultMessage: '域名' })}
+          label={intl.formatMessage({ id: 'register.domain.register', defaultMessage: '注册你的 AI 域名' })}
           rules={[{ required: true }, { validator: (rule, value) => validIsUnique(rule, value) }]}
         >
           <Input placeholder="请输入域名" suffix={<span className="mx-2">.AI</span>} />
