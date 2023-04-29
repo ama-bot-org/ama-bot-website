@@ -1,0 +1,18 @@
+[build.environment]
+  NODE_OPTIONS = "--max_old_space_size=4096"
+
+[dev]
+  targetPort = 3000
+
+[[redirects]]
+  from = "/api/*"
+  to = "http://www.amabot.xyz:3003/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+
