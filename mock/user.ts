@@ -167,8 +167,8 @@ export default {
     access = ''
     res.send({ data: {}, success: true })
   },
-  'POST /api/register': (req: Request, res: Response) => {
-    res.send({ status: 'ok', currentAuthority: 'user', success: true })
+  'POST /api/registerNew': (req: Request, res: Response) => {
+    res.send({ ActionType: 'OK' })
   },
   'GET /api/500': (req: Request, res: Response) => {
     res.status(500).send({
@@ -213,16 +213,8 @@ export default {
     if (password === '123456') {
       res.send({
         status: 'ok',
-        data: '',
-        currentAuthority: 'admin',
-      })
-      access = 'admin'
-      return
-    } else {
-      res.send({
-        status: 'ok',
-        data: '',
-        currentAuthority: 'user',
+        email: '8754654@qq.com',
+        level: 2,
       })
       access = 'user'
       return
