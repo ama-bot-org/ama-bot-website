@@ -78,18 +78,30 @@ const RegisterForm = (props: RegisterFormProps) => {
     if (value.length > 30 || value.length < 3) {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.domain.wrong-length', defaultMessage: '域名长度在 3~30 之间' })))
     }
-    const res = await checkAIDomainUnique(value)
-    if (res.ActionType === ActionType.OK) {
-      return Promise.resolve()
+    try {
+      const res = await checkAIDomainUnique(value)
+      if (res.ActionType === ActionType.OK) {
+        return Promise.resolve()
+      }
+      return Promise.reject(
+        new Error(
+          intl.formatMessage({
+            id: 'register.requireUnique',
+            defaultMessage: '域名已被注册',
+          }),
+        ),
+      )
+    } catch (error: any) {
+      if (error?.response?.status) {
+        return Promise.reject(
+          new Error(
+            intl.formatMessage({
+              id: `register.requireUnique.${error?.response?.status}`,
+            }),
+          ),
+        )
+      }
     }
-    return Promise.reject(
-      new Error(
-        intl.formatMessage({
-          id: 'register.requireUnique',
-          defaultMessage: '域名已被注册',
-        }),
-      ),
-    )
   }
 
   return (
@@ -112,7 +124,7 @@ const RegisterForm = (props: RegisterFormProps) => {
           label={intl.formatMessage({ id: 'register.domain', defaultMessage: '域名' })}
           rules={[{ required: true }, { validator: (rule, value) => validIsUnique(rule, value) }]}
         >
-          <Input placeholder="请输入域名" suffix={<span className='mx-2'>.AI</span>} />
+          <Input placeholder="请输入域名" suffix={<span className="mx-2">.AI</span>} />
         </Form.Item>
         <Form.Item
           name="logo"
