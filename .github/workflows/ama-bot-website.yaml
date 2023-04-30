@@ -1,51 +1,56 @@
-# ama-bot-website-ci.yml
-# 一个workflow，名字为CI
 name: ama-bot-website-ci
 
-# 触发 workflow 的事件，当有新push或者pr时执行
 on:
   push:
-    branches: 
+    branches:
       - dev
-# 一个workflow由执行的一项或多项job
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
-          persist-credentials: false
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
+
       - name: Install and Build
         run: |
           npm install -g pnpm
           pnpm install
           pnpm build
-      - name: Log in to Docker Hub #登陆docker
+
+      - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}  #docker的用户名
-          password: ${{ secrets.DOCKER_PASSWORD }}	#docker的密码
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Extract metadata (tags, labels) for Docker # 获取元数据包括tag和labels
+      - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: robinfc/ama-bot-website
 
-      - name: Build and push Docker image  #构建和发布 docker镜像
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
         with:
           context: .
+          file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}  #上一步所拿到的tags，默认是分支名字
-          labels: ${{ steps.meta.outputs.labels }} # 上一步所拿到的labels
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
-      # 使用appleboy/ssh-action@master登录服务器执行拉取镜像脚本，服务器ip、用户名、密码配置方式同容器镜像服务配置方式一样
-      - name: ssh docker login
+      - name: SSH deploy to production server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.TENCENT_CLOUD_IP }}
           username: ${{ secrets.TENCENT_CLOUD_NAME }}
-          password: ${{ secrets.TENCENT_CLOUD_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: cd ~ && cd ../home/ubuntu && sh deploy.sh
