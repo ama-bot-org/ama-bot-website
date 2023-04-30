@@ -45,11 +45,11 @@ const Login: React.FC = () => {
   // }
 
   const asyncUserInfo = async (data: API.User) => {
+    localStorage.setItem('user', JSON.stringify(data))
     flushSync(() => {
       setInitialState((s: any) => ({
         ...s,
         currentUser: { ...data },
-        ...data
       }))
     })
   }
@@ -65,8 +65,7 @@ const Login: React.FC = () => {
       }
       if (!isCheckBuyCaptcha) {
         Object.assign(params, { password: values.password })
-      }
-      else {
+      } else {
         Object.assign(params, { email_check: values.captcha })
       }
 
@@ -91,20 +90,19 @@ const Login: React.FC = () => {
       })
       console.log(error)
       message.error(defaultLoginFailureMessage)
-    }
-    finally {
+    } finally {
       setSubmitting(false)
     }
   }
 
   const handleDynamicFieldChange = (value: string, checkType: CheckType) => {
     if (checkType === CheckType.Password) {
-      console.log(value);
-      form.setFieldValue("password", value)
+      console.log(value)
+      form.setFieldValue('password', value)
     } else {
-      form.setFieldValue("captcha", value)
+      form.setFieldValue('captcha', value)
     }
-  };
+  }
 
   return (
     <div className={`${containerClassName} login-page`}>
@@ -139,7 +137,7 @@ const Login: React.FC = () => {
         >
           <span>{intl.formatMessage({ id: 'pages.login.emailLogin.tab' })}</span>
         </div>
-        <Form form={form} name="UserRegister" onFinish={onFinish} style={{ width: "100%", overflow: "hidden" }} scrollToFirstError>
+        <Form form={form} name="UserRegister" onFinish={onFinish} style={{ width: '100%', overflow: 'hidden' }} scrollToFirstError>
           <Form.Item
             name="email"
             rules={[
@@ -155,8 +153,10 @@ const Login: React.FC = () => {
           >
             <Input size="large" placeholder={intl.formatMessage({ id: 'register.email.placeholder' })} />
           </Form.Item>
-          {isCheckBuyCaptcha ? <CaptchaForm form={form} registerType={RegisterType.Login} onCaptchaChange={handleDynamicFieldChange} />
-            : <Form.Item
+          {isCheckBuyCaptcha ? (
+            <CaptchaForm form={form} registerType={RegisterType.Login} onCaptchaChange={handleDynamicFieldChange} />
+          ) : (
+            <Form.Item
               name="password"
               rules={[
                 {
@@ -165,19 +165,28 @@ const Login: React.FC = () => {
                 },
               ]}
             >
-              <Input.Password size="large" placeholder={intl.formatMessage({ id: 'register.password.required' })} onChange={(e) => handleDynamicFieldChange(e.target.value, CheckType.Password)} />
-            </Form.Item>}
-          <div className='w-full frc-between' style={{ marginBottom: "20px" }}>
+              <Input.Password
+                size="large"
+                placeholder={intl.formatMessage({ id: 'register.password.required' })}
+                onChange={e => handleDynamicFieldChange(e.target.value, CheckType.Password)}
+              />
+            </Form.Item>
+          )}
+          <div className="w-full frc-between" style={{ marginBottom: '20px' }}>
             <Link to={'/user/register?step=1'} style={{ textDecoration: 'none', fontFamily: 'AlibabaPuHuiTi-2-85-Bold' }}>
               <span style={{ color: '#e65c41', marginRight: '12px' }}>{intl.formatMessage({ id: 'register.register' })}</span>
               <ArrowRightOutlined color="#e65c41" style={{ color: '#e65c41' }} />
             </Link>
-            <Button type="text" style={{ display: "inline", width: 'min-content' }} onClick={() => {
-              setIsCheckBuyCaptcha(!isCheckBuyCaptcha)
-            }}>
-              {isCheckBuyCaptcha ?
-                intl.formatMessage({ id: 'pages.login.emailLogin.passwordLogin' }) :
-                intl.formatMessage({ id: 'pages.login.emailLogin.captchaLogin' })}
+            <Button
+              type="text"
+              style={{ display: 'inline', width: 'min-content' }}
+              onClick={() => {
+                setIsCheckBuyCaptcha(!isCheckBuyCaptcha)
+              }}
+            >
+              {isCheckBuyCaptcha
+                ? intl.formatMessage({ id: 'pages.login.emailLogin.passwordLogin' })
+                : intl.formatMessage({ id: 'pages.login.emailLogin.captchaLogin' })}
             </Button>
           </div>
           <Form.Item>

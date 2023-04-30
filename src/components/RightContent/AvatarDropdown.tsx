@@ -1,4 +1,4 @@
-import { outLogin } from '@/services/ant-design-pro/api'
+// import { outLogin } from '@/services/ant-design-pro/api'
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { history, useModel } from '@umijs/max'
@@ -25,7 +25,8 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
    * 退出登录，并且将当前的 url 保存
    */
   const loginOut = async () => {
-    await outLogin()
+    // 暂无退出接口
+    // await outLogin()
     const { search, pathname } = window.location
     const urlParams = new URL(window.location.href).searchParams
     /** 此方法会跳转到 redirect 参数所在的位置 */
@@ -61,13 +62,16 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
     (event: MenuInfo) => {
       const { key } = event
       if (key === 'logout') {
+        localStorage.removeItem('user')
+        localStorage.removeItem('token')
         flushSync(() => {
           setInitialState(s => ({ ...s, currentUser: undefined }))
         })
         loginOut()
         return
       }
-      history.push(`/account/${key}`)
+      // 如果点击的不是 "logout" 菜单项，则会根据菜单项的 key 值生成一个路由路径，然后使用 history.push() 方法来在路由之间导航到对应的路径
+      // history.push(`/account/${key}`)
     },
     [setInitialState],
   )
