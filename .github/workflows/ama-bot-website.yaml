@@ -18,6 +18,7 @@ jobs:
           persist-credentials: false
       - name: Install and Build
         run: |
+          npm install -g pnpm
           pnpm install
           pnpm build
       - name: Log in to Docker Hub #登陆docker
