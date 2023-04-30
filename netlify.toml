@@ -6,7 +6,7 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "http://www.amabot.xyz:3003/api/:splat"
+  to = "http://www.amabot.xyz:3003/:splat"
   status = 200
   force = true
 
