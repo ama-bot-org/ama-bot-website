@@ -5,7 +5,8 @@ name: ama-bot-website-ci
 # 触发 workflow 的事件，当有新push或者pr时执行
 on:
   push:
-    branches: [ dev ]
+    branches: 
+      - dev
 # 一个workflow由执行的一项或多项job
 jobs:
   build:
