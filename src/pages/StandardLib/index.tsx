@@ -104,6 +104,39 @@ const StandardLib: React.FC = () => {
     initQATable()
   }, [page])
 
+  const topClassName = useEmotionCss(() => {
+    return {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexDirection: 'row',
+      '@media screen and (max-width: 768px)': {
+        flexDirection: 'column',
+        alignItems: 'start',
+        marginBottom: '20px',
+      },
+    }
+  })
+
+  const searchWrapClassName = useEmotionCss(() => {
+    return {
+      flex: 1,
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      flexDirection: 'row',
+    }
+  })
+
+  const searchClassName = useEmotionCss(() => {
+    return {
+      width: '375px',
+      '@media screen and (max-width: 768px)': {
+        width: '100%',
+      },
+    }
+  })
+
   return (
     <div className={containerClassName}>
       <Helmet>
@@ -115,11 +148,11 @@ const StandardLib: React.FC = () => {
           - {Settings.title}
         </title>
       </Helmet>
-      <div style={{ flex: 1, padding: 24, overflow: 'auto' }}>
-        <div className="frc-between">
+      <div style={{ flex: 1, overflow: 'auto' }}>
+        <div className={topClassName}>
           <h3 className={headerTitleClassName}>标准问答库：自定义一对一标准问答</h3>
-          <div className="flex-1 frc-end">
-            <Input.Search style={{ width: '375px' }} />
+          <div className={searchWrapClassName}>
+            <Input.Search className={searchClassName} />
             <Button onClick={handleAddNew}>新增问答</Button>
           </div>
         </div>

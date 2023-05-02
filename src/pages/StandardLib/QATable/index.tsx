@@ -47,6 +47,7 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
       dataIndex: 'operation',
       key: 'operation',
       align: 'center',
+      width: '200px',
       render: (_: any, rowData: API.QAFormInfo) => (
         <>
           <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
