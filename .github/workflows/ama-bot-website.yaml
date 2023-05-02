@@ -52,5 +52,5 @@ jobs:
         with:
           host: ${{ secrets.TENCENT_CLOUD_IP }}
           username: ${{ secrets.TENCENT_CLOUD_NAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.TENCENT_CLOUD_PASSWORD }}
           script: cd ~ && cd ../home/ubuntu && sh deploy.sh
