@@ -51,6 +51,7 @@ export default [
     icon: 'smile',
     access: 'user',
     component: './AskMeAnything',
+    hideInMenu: true,
   },
   {
     path: '/database-config',
@@ -81,6 +82,7 @@ export default [
     name: 'robot-config',
     icon: 'robotOutlined',
     access: 'user',
+    hideInMenu: true,
     routes: [
       {
         path: '/robot-config',
@@ -106,6 +108,7 @@ export default [
     icon: 'hourglassOutlined',
     access: 'user',
     component: './Balance',
+    hideInMenu: true,
   },
   {
     path: '/',

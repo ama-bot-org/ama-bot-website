@@ -144,4 +144,48 @@ declare namespace API {
   type CaptchaResponse = {
     ActionType: ActionType
   }
+
+  type AddStandardInfosResponse = {
+    ActionType: ActionType
+  }
+
+  // 前端给后台
+  type QAFormInfo = {
+    id?: number
+    bot_id?: string
+    prompt: string //问题
+    completion: string //回答
+  }
+
+  type QATableGetProps = {
+    bot_id: string
+    page: number
+    pageNumber: number
+  }
+
+  // 后台给前端
+  type GetStandardTableInfoResponse = {
+    ActionType: ActionType
+    data: {
+      content: QAFormInfo[]
+      count: number
+    }
+  }
+
+  type QAResponse = {
+    ActionType: ActionType
+    data: QAFormInfo[]
+  }
+
+  type QAInfoDeleteProps = {
+    id: number //编号
+
+    bot_id: string //机器人id
+  }
+
+  type QAInfoAddProps = {
+    bot_id: string
+    prompt: string
+    completion: string
+  }
 }

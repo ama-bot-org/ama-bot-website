@@ -2,6 +2,8 @@ declare namespace API {
   type CurrentUser = {
     level: AuthorityLevel
     name?: string
+    bot_id?: string
+    org_id: string
     avatar?: string
     userid?: string
     email?: string
