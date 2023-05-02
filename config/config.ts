@@ -78,7 +78,7 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: '艾因智能',
+  title: '艾因AI',
   layout: {
     locale: true,
     ...defaultSettings,

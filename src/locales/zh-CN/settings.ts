@@ -1,5 +1,5 @@
 export default {
-  'app.title': '艾因智能',
+  'app.title': '艾因AI',
   'app.settings.menuMap.basic': '基本设置',
   'app.settings.menuMap.security': '安全设置',
   'app.settings.menuMap.binding': '账号绑定',

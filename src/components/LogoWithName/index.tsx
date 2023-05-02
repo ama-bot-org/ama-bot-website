@@ -53,7 +53,7 @@ const LogoWithName: React.FC<LogoWithNameProps> = props => {
         >
           {intl.formatMessage({
             id: 'app.title',
-            defaultMessage: '艾因智能',
+            defaultMessage: '艾因AI',
           })}
         </h1>
       </Link>
