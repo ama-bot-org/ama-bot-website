@@ -1,5 +1,5 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { Link } from '@umijs/max'
+import { Link, useIntl } from '@umijs/max'
 
 type LogoWithNameProps = {
   logoTheme?: 'dark' | 'light'
@@ -8,6 +8,8 @@ type LogoWithNameProps = {
 
 const LogoWithName: React.FC<LogoWithNameProps> = props => {
   const { logoTheme, notFixed } = props
+  const intl = useIntl()
+
   const logoClassName = useEmotionCss(({ token }) => {
     return {
       width: 'auto',
@@ -49,7 +51,10 @@ const LogoWithName: React.FC<LogoWithNameProps> = props => {
             color: logoTheme && logoTheme === 'light' ? 'white' : 'black',
           }}
         >
-          AMA
+          {intl.formatMessage({
+            id: 'app.title',
+            defaultMessage: '艾因智能',
+          })}
         </h1>
       </Link>
     </div>

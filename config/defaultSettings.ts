@@ -15,7 +15,7 @@ const Settings: ProLayoutProps & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'AMA',
+  title: '艾因智能',
   pwa: true,
   logo: '/logo.svg',
   iconfontUrl: '',
