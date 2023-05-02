@@ -19,6 +19,11 @@ const Settings: ProLayoutProps & {
   pwa: true,
   logo: '/logo.svg',
   iconfontUrl: '',
+  bgLayoutImgList: [
+    {
+      src: '/images/back_circle.svg',
+    },
+  ],
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式
     colorPrimary: '#e65c41',
