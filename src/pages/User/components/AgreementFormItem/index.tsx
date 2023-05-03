@@ -34,7 +34,7 @@ const AgreementFormItem = (props: AgreementFormItemProps) => {
           },
         ]}
       >
-        <Checkbox onChange={handleCheckboxChange} defaultChecked={true}>
+        <Checkbox onChange={handleCheckboxChange}>
           <span>
             {Inlt.formatMessage({
               id: 'agreement.agreement.one',

@@ -81,7 +81,7 @@ const Login: React.FC = () => {
         message.success(defaultLoginSuccessMessage)
         // await fetchUserInfo()
         const urlParams = new URL(window.location.href).searchParams
-        history.push(urlParams.get('redirect') || '/database-config/standard-lib')
+        history.push(urlParams.get('redirect') || '/database-config/corpus')
         return
       }
       console.log(msg)
