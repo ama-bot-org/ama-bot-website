@@ -5,8 +5,10 @@
 import * as api from './api'
 import * as login from './login'
 import * as register from './register'
+import * as corpus from './corpus'
 export default {
   api,
   login,
   register,
+  corpus,
 }
