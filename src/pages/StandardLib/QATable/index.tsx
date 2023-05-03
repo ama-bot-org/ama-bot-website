@@ -1,6 +1,6 @@
 import { API } from '@/services/ant-design-pro/typings'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { Table, Button } from 'antd'
+import { DeleteOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import { Table, Button, Popconfirm } from 'antd'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
@@ -52,9 +52,16 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
           <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
             编辑
           </Button>
-          <Button style={{ marginLeft: '4px' }} danger type="primary" onClick={() => handleDeleteRow(rowData)} icon={<DeleteOutlined />}>
-            删除
-          </Button>
+          <Popconfirm
+            title="删除这条语料"
+            description="删除后将无法找回，确认删除吗?"
+            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+            onConfirm={() => handleDeleteRow(rowData)}
+          >
+            <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
+              删除
+            </Button>
+          </Popconfirm>
         </>
       ),
     },

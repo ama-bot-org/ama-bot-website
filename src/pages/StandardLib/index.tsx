@@ -2,7 +2,7 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useIntl, Helmet, useModel } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
 import { useEffect, useState } from 'react'
-import { Button, message } from 'antd'
+import { Button, ConfigProvider, message } from 'antd'
 import Input from 'antd/es/input'
 import QAModal from './QAModal'
 import QATable from './QATable'
@@ -159,7 +159,17 @@ const StandardLib: React.FC = () => {
           <h3 className={headerTitleClassName}>标准问答库：自定义一对一标准问答</h3>
           <div className={searchWrapClassName}>
             <Input.Search className={searchClassName} onSearch={handleSearch} />
-            <Button onClick={handleAddNew}>新增问答</Button>
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: '#e65c41',
+                },
+              }}
+            >
+              <Button type="primary" style={{ marginLeft: '10px' }} onClick={handleAddNew}>
+                新增问答
+              </Button>
+            </ConfigProvider>
           </div>
         </div>
         <QATable
