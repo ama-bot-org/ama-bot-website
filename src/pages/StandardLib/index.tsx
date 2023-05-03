@@ -20,6 +20,7 @@ const StandardLib: React.FC = () => {
   const [page, setPage] = useState(1)
   const [pageSize] = useState(10)
   const [loading, setLoading] = useState(false)
+  const [searchValue, setSearchValue] = useState<string | undefined>()
 
   const [currentRow, setCurrentRow] = useState<API.QAFormInfo | undefined>()
   const [modalVisible, setModalVisible] = useState(false)
@@ -30,6 +31,7 @@ const StandardLib: React.FC = () => {
       try {
         const res = await getStandardTableInfo({
           bot_id: currentUser.bot_id,
+          searchWord: searchValue,
           page,
           pageNumber: pageSize,
         })
@@ -100,9 +102,13 @@ const StandardLib: React.FC = () => {
     initQATable()
   }
 
+  const handleSearch = (value: string) => {
+    setSearchValue(value)
+  }
+
   useEffect(() => {
     initQATable()
-  }, [page])
+  }, [page, searchValue])
 
   const topClassName = useEmotionCss(() => {
     return {
@@ -152,7 +158,7 @@ const StandardLib: React.FC = () => {
         <div className={topClassName}>
           <h3 className={headerTitleClassName}>标准问答库：自定义一对一标准问答</h3>
           <div className={searchWrapClassName}>
-            <Input.Search className={searchClassName} />
+            <Input.Search className={searchClassName} onSearch={handleSearch} />
             <Button onClick={handleAddNew}>新增问答</Button>
           </div>
         </div>

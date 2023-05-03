@@ -159,6 +159,7 @@ declare namespace API {
 
   type QATableGetProps = {
     bot_id: string
+    searchWord?: string
     page: number
     pageNumber: number
   }
