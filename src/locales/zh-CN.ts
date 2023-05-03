@@ -7,13 +7,14 @@ import settingDrawer from './zh-CN/settingDrawer'
 import settings from './zh-CN/settings'
 import landing from './zh-CN/landing'
 import register from './zh-CN/register'
+import agreement from './zh-CN/agreement'
 
 export default {
   'navBar.lang': '语言',
   'layout.user.link.help': '帮助',
   'layout.user.link.privacy': '隐私',
   'layout.user.link.terms': '条款',
-  'app.copyright.produced': 'FreeBe DAO 团队出品',
+  'app.copyright.produced': 'FreeBeDAO Aiyin AI 团队出品',
   'app.preview.down.block': '下载此页面到本地项目',
   'app.welcome.link.fetch-blocks': '获取全部区块',
   'app.welcome.link.block-list': '基于 block 开发，快速构建标准页面',
@@ -26,4 +27,5 @@ export default {
   ...component,
   ...landing,
   ...register,
+  ...agreement,
 }

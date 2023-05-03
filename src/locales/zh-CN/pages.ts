@@ -1,5 +1,5 @@
 export default {
-  'pages.layouts.userLayout.title': 'AMA 致力于为小微企业或组织的流程引导服务提供智能化解决方案',
+  'pages.layouts.userLayout.title': 'Aiyin AI 致力于为小微企业或组织的流程引导服务提供智能化解决方案',
   'pages.login.accountLogin.tab': '用户名密码登录',
   'pages.login.accountLogin.errorMessage': '错误的用户名和密码',
   'pages.login.failure': '登录失败，请重试！',

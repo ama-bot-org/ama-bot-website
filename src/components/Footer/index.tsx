@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
   const intl = useIntl()
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: 'FreeBeDAO AMA-BOT Team',
+    defaultMessage: 'FreeBeDAO Aiyin AI Team',
   })
 
   const currentYear = new Date().getFullYear()
@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
       copyright={`${currentYear} ${defaultMessage}`}
       links={[
         {
-          key: 'AMA-BOT',
+          key: 'Aiyin AI',
           title: <GlobalOutlined />,
           href: REACT_APP_OFFICIAL_SITE,
           blankTarget: true,

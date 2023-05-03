@@ -4,6 +4,7 @@ import { Form, Input, Button, ConfigProvider } from 'antd'
 import { useState } from 'react'
 import CaptchaForm from '../CaptchaForm'
 import { RegisterType } from '@/services/ant-design-pro/enums'
+import AgreementFormItem from '../../components/AgreementFormItem'
 
 type EmailPassFormProps = {
   onCompleteRegister: (email: string, password: string, captcha: string) => void
@@ -17,6 +18,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
   const intl = useIntl()
   const [form] = Form.useForm()
   const [confirmPassword] = useState('')
+  const [checked, setChecked] = useState(false)
 
   const compareToFirstPassword = (rule: any, value: any) => {
     if (value && value !== form.getFieldValue('password')) {
@@ -32,11 +34,13 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
     return Promise.resolve()
   }
 
-
-
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values)
     onCompleteRegister(values.email, values.password, values.captcha)
+  }
+
+  const handleCheckboxChange = (e: any) => {
+    setChecked(e.target.checked)
   }
 
   return (
@@ -93,7 +97,8 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
         >
           <Input.Password size="large" placeholder={intl.formatMessage({ id: 'register.password.required' })} />
         </Form.Item>
-        <CaptchaForm form={form} registerType={RegisterType.Register}/>
+        <CaptchaForm form={form} registerType={RegisterType.Register} />
+        <AgreementFormItem handleCheckboxChange={handleCheckboxChange} />
         <Form.Item>
           <ConfigProvider
             theme={{
@@ -102,7 +107,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
               },
             }}
           >
-            <Button type="primary" loading={submitting} style={{ width: '100%', height: '100%' }} htmlType="submit">
+            <Button type="primary" loading={submitting} disabled={!checked} style={{ width: '100%', height: '100%' }} htmlType="submit">
               {intl.formatMessage({ id: 'menu.login' })}
             </Button>
           </ConfigProvider>

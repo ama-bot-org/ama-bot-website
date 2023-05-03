@@ -11,11 +11,13 @@ import CaptchaForm from '../Register/CaptchaForm'
 import { useForm } from 'antd/es/form/Form'
 import { ActionType, CheckType, RegisterType } from '@/services/ant-design-pro/enums'
 import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
+import AgreementFormItem from '../components/AgreementFormItem'
 
 const Login: React.FC = () => {
   const { setInitialState } = useModel('@@initialState')
   const [submitting, setSubmitting] = useState(false)
   const [isCheckBuyCaptcha, setIsCheckBuyCaptcha] = useState(false)
+  const [checked, setChecked] = useState(false)
 
   const [form] = useForm()
 
@@ -104,6 +106,10 @@ const Login: React.FC = () => {
     }
   }
 
+  const handleCheckboxChange = (e: any) => {
+    setChecked(e.target.checked)
+  }
+
   return (
     <div className={`${containerClassName} login-page`}>
       <Helmet>
@@ -189,6 +195,7 @@ const Login: React.FC = () => {
                 : intl.formatMessage({ id: 'pages.login.emailLogin.captchaLogin' })}
             </Button>
           </div>
+          <AgreementFormItem handleCheckboxChange={handleCheckboxChange} />
           <Form.Item>
             <ConfigProvider
               theme={{
@@ -197,7 +204,7 @@ const Login: React.FC = () => {
                 },
               }}
             >
-              <Button type="primary" loading={submitting} style={{ width: '100%', height: '100%' }} htmlType="submit">
+              <Button type="primary" loading={submitting} disabled={!checked} style={{ width: '100%', height: '100%' }} htmlType="submit">
                 {intl.formatMessage({ id: 'menu.login' })}
               </Button>
             </ConfigProvider>

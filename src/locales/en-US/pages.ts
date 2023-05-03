@@ -1,6 +1,6 @@
 export default {
   'pages.layouts.userLayout.title':
-    'AMA is dedicated to providing intelligent solutions for process guidance services to small and micro enterprises or organizations.',
+    'Aiyin AI is dedicated to providing intelligent solutions for process guidance services to small and micro enterprises or organizations.',
   'pages.login.accountLogin.tab': 'Account Login',
   'pages.login.accountLogin.errorMessage': 'Incorrect email/username/password',
   'pages.login.failure': 'Login failed, please try again!',
