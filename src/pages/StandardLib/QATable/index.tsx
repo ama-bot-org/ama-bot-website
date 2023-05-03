@@ -46,7 +46,6 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
       title: '操作',
       dataIndex: 'operation',
       key: 'operation',
-      align: 'center',
       width: '200px',
       render: (_: any, rowData: API.QAFormInfo) => (
         <>
@@ -69,6 +68,8 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
         current: page,
         pageSize: pageSize,
         total: total,
+        showTotal: total => `共 ${total} 条`,
+        showQuickJumper: true,
       }}
       loading={loading}
       rowKey={rowData => rowData.id!.toString()}
