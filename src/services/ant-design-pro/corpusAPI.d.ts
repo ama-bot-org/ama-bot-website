@@ -12,6 +12,12 @@ declare namespace CorpusAPI {
     ActionType: ActionType
   }
 
+  type UpdateFileParamType = {
+    id: number
+    doc_name: string
+    content: string
+  }
+
   type GetFileListParamsType = {
     // 机器人id
     bot_id: string

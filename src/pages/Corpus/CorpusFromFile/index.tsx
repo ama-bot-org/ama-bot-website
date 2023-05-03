@@ -140,7 +140,7 @@ const CorpusFromFile = () => {
                   </h4>
                 </div>
                 <div>
-                  <h4>上传时间：{dayjs.utc(item.date).format('YYYY-MM-DD HH:mm:ss')}</h4>
+                  <h4>{dayjs.utc(item.date).format('YYYY-MM-DD HH:mm:ss')}</h4>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                   <Button

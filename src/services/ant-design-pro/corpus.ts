@@ -15,6 +15,18 @@ async function uploadCorpusFile(params: CorpusAPI.UploadFileParamType) {
   })
 }
 
+/** 更新语料内容 */
+async function updateCorpusFile(params: CorpusAPI.UpdateFileParamType) {
+  return request<CorpusAPI.UploadFileResponseType>('/api/app/file/update', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem('token') || '',
+    },
+    data: params,
+    timeout: 180000,
+  })
+}
+
 // 根据机器人id获取文件相关的语料数据
 async function getFileList(params: CorpusAPI.GetFileListParamsType) {
   return request<CorpusAPI.FileListResponse>('/api/app/file/fileInfo', {
@@ -37,4 +49,4 @@ async function deleteFile(params: CorpusAPI.FileDeleteParamsType) {
   })
 }
 
-export default { uploadCorpusFile, getFileList, deleteFile }
+export default { uploadCorpusFile, getFileList, deleteFile, updateCorpusFile }
