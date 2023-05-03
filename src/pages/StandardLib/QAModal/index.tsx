@@ -71,11 +71,25 @@ const QAModal = (props: QAModalProps) => {
             rules={[
               {
                 required: true,
-                message: '请输入问题关键词',
+                message: '设置问题的触发关键词，上限3个，以中文逗号隔开',
+              },
+              {
+                validator: (_, value) => {
+                  if(value.includes(",")){
+                    return Promise.reject('请以中文逗号隔开')
+                  }
+                  const keywords = value
+                    .split('，')
+                    .map((kw: string) => kw.trim())
+                  if (keywords.length > 3) {
+                    return Promise.reject('触发关键词不能超过三个，句末不要标点符号')
+                  }
+                  return Promise.resolve()
+                },
               },
             ]}
           >
-            <Input placeholder="请输入问题关键词" />
+            <Input placeholder="设置问题的触发关键词，上限3个，以逗号隔开" />
           </Form.Item>
           {/* 回答 */}
           <Form.Item
