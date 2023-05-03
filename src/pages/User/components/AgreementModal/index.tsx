@@ -1,6 +1,6 @@
 // import { useIntl } from '@umijs/max'
 import { useIntl } from '@umijs/max'
-import { Modal } from 'antd'
+import { Button, ConfigProvider, Modal } from 'antd'
 
 interface AgreementModalProps {
   type: string
@@ -282,7 +282,24 @@ const AgreementModal: React.FC<AgreementModalProps> = ({ type, visible, onClose 
   const content = type === 'service' ? <ServiceContent /> : <PrivacyContent />
 
   return (
-    <Modal title={title} open={visible} onCancel={onClose}>
+    <Modal
+      title={title}
+      open={visible}
+      footer={
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: '#e65c41',
+            },
+          }}
+        >
+          <Button type="primary" onClick={onClose}>
+            确定
+          </Button>
+        </ConfigProvider>
+      }
+      onCancel={onClose}
+    >
       {content}
     </Modal>
   )
