@@ -18,18 +18,18 @@ const Corpus: React.FC = () => {
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: `Notion`,
-      children: <CorpusFromNotion />,
-    },
-    {
-      key: '2',
       label: `文件上传`,
       children: <CorpusFromFile />,
     },
     {
-      key: '3',
+      key: '2',
       label: `手动更新`,
       children: <CorpusFromManual />,
+    },
+    {
+      key: '3',
+      label: `Notion`,
+      children: <CorpusFromNotion />,
     },
   ]
 
@@ -54,7 +54,7 @@ const Corpus: React.FC = () => {
         </title>
       </Helmet>
       <div style={{ flex: 1, padding: 0, overflow: 'auto' }}>
-        <Tabs defaultActiveKey="2" items={items} onChange={onChange} />
+        <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
       </div>
     </div>
   )

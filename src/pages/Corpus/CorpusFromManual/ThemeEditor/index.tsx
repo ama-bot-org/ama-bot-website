@@ -60,6 +60,8 @@ const ThemeEditor = (props: ThemeEditorProps) => {
   useEffect(() => {
     if (currentTheme) {
       form.setFieldValue('content', currentTheme.content)
+    } else {
+      form.setFieldValue('content', '')
     }
   }, [currentTheme])
 
