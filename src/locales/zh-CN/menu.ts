@@ -7,6 +7,7 @@ export default {
   'menu.robot-config': '机器人配置',
   'menu.robot-config.im-connect': 'IM对接',
   'menu.robot-config.visual-programming': '可视化编程',
+  'menu.robot-config.corpus': '语料库',
   'menu.balance': '账户余额',
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',

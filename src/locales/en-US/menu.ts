@@ -7,6 +7,7 @@ export default {
   'menu.robot-config': 'Robot Config',
   'menu.robot-config.im-connect': 'IM Connect',
   'menu.robot-config.visual-programming': 'Visual Programming',
+  'menu.robot-config.corpus': 'Corpus',
   'menu.balance': 'Balance',
   'menu.more-blocks': 'More Blocks',
   'menu.home': 'Home',

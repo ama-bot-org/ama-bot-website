@@ -33,7 +33,7 @@ const StandardLib: React.FC = () => {
           bot_id: currentUser.bot_id,
           searchWord: searchValue,
           page,
-          pageNumber: pageSize,
+          pageSize,
         })
         if (res.ActionType === ActionType.OK) {
           setData(res.data.content)

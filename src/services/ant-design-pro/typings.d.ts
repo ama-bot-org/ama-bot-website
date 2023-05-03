@@ -161,7 +161,7 @@ declare namespace API {
     bot_id: string
     searchWord?: string
     page: number
-    pageNumber: number
+    pageSize: number
   }
 
   // 后台给前端
