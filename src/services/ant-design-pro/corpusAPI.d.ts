@@ -60,6 +60,10 @@ declare namespace CorpusAPI {
     }
   }
 
+  type NotionDeleteParamsType = {
+    id: string
+  }
+
   type FileDeleteParamsType = {
     id: number //编号
     bot_id: string //机器人id
@@ -67,5 +71,45 @@ declare namespace CorpusAPI {
 
   type FileDeleteResponse = {
     ActionType: ActionType
+  }
+
+  type NotionInfoAddProps = {
+    bot_id: string
+    token: string
+    pagelink: string
+    doc_name: string
+    subPage: boolean
+  }
+
+  type NotionTableRow = {
+    bot_id: string
+    id: string
+    doc_name: string
+    type: number
+    content: string
+    page_id: string
+    doc_hash: string
+    token?: string
+    pagelink?: string
+    subPage?: boolean
+  }
+
+  type NotionInfoAddResponse = {
+    ActionType: ActionType
+    data: NotionTableRow
+  }
+
+  type GetNotionTableParamsType = {
+    bot_id: string
+    page: number
+    pageSize: number
+  }
+
+  type NotionTableResponse = {
+    ActionType: ActionType
+    data: {
+      count: number
+      content: NotionTableRow[]
+    }
   }
 }

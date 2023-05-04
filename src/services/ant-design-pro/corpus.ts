@@ -49,4 +49,37 @@ async function deleteFile(params: CorpusAPI.FileDeleteParamsType) {
   })
 }
 
-export default { uploadCorpusFile, getFileList, deleteFile, updateCorpusFile }
+async function getNotionTable(params: CorpusAPI.GetNotionTableParamsType) {
+  return request<CorpusAPI.NotionTableResponse>('/api/app/notion/notions', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem('token') || '',
+    },
+    data: {
+      ...params,
+    },
+  })
+}
+
+async function createNotion(params: CorpusAPI.NotionInfoAddProps) {
+  return request<CorpusAPI.NotionInfoAddResponse>('/api/app/notion/create', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem('token') || '',
+    },
+    data: params,
+  })
+}
+
+// 根据条件删除文件
+async function deleteNotion(params: CorpusAPI.NotionDeleteParamsType) {
+  return request<CorpusAPI.FileDeleteResponse>('/api/app/notion/deleteNotion', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem('token') || '',
+    },
+    data: params,
+  })
+}
+
+export default { uploadCorpusFile, getFileList, deleteFile, updateCorpusFile, getNotionTable, createNotion, deleteNotion }

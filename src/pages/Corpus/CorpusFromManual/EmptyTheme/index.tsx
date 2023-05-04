@@ -29,8 +29,8 @@ const EmptyTheme = (props: EmptyThemeProps) => {
     <div className="w-full frc-center">
       <Empty
         rootClassName="w-full fcc-center"
-        style={{ width: '100%', height: '400px' }}
-        imageStyle={{ width: 400, height: 300 }}
+        style={{ width: '100%', height: '550px' }}
+        imageStyle={{ width: 400, height: 210 }}
         description={
           <div>
             <h3>当前暂无主题</h3>
