@@ -1,6 +1,6 @@
 export default {
   'agreement.required': 'Please read carefully and click to check, continue after agreeing to the service agreement',
-  'agreement.agreement.one': 'Read and agree to',
+  'agreement.agreement.one': 'agree to',
   'agreement.agreement.service': '《Aiyin AI Service Agreement》',
   'agreement.agreement.and': 'and',
   'agreement.agreement.privacy': '《Aiyin AI Privacy Policy》',
