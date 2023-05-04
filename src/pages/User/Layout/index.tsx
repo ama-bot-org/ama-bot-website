@@ -21,7 +21,7 @@ const Layout: React.FC = () => {
       flex: 1,
       overflow: 'auto',
       padding: '0 16px',
-      backgroundImage: "url('/images/back_register.png')",
+      backgroundImage: "url('/images/back_register.webp')",
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'top center',

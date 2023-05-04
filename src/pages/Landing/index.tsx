@@ -78,7 +78,7 @@ const Landing: React.FC = () => {
       flexDirection: 'column',
       height: '100vh',
       overflow: 'auto',
-      backgroundImage: "url('/images/back_circle.svg')",
+      backgroundImage: "url('/images/back_circle.webp')",
       backgroundRepeat: 'no-repeat',
       '@media screen and (max-width: 1440px)': {
         backgroundSize: 'auto',
