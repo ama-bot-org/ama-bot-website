@@ -62,7 +62,7 @@ const ThemeTable = (props: ThemeTableProps) => {
       try {
         const res = await corpus.getFileList({
           bot_id: currentUser?.bot_id,
-          type: 2,
+          type: 3,
           page,
           pageSize,
         })

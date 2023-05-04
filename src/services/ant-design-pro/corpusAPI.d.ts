@@ -3,7 +3,7 @@ import { ActionType } from './enums'
 declare namespace CorpusAPI {
   type UploadFileParamType = {
     bot_id: string
-    type: 1 | 2 // 文件类型 1为pdf 2为txt
+    type: 1 | 2 | 3 // 文件类型 1为pdf 2为txt 3为手动
     doc_name: string
     content: string //文件内容
   }
@@ -14,6 +14,7 @@ declare namespace CorpusAPI {
 
   type UpdateFileParamType = {
     id: number
+    type: 1 | 2 | 3 // 文件类型 1为pdf 2为txt 3为手动
     doc_name: string
     content: string
   }
@@ -22,8 +23,8 @@ declare namespace CorpusAPI {
     // 机器人id
     bot_id: string
 
-    // 文件类型 1为pdf 2为txt
-    type: 1 | 2
+    // 文件类型 1为pdf 2为txt 3为手动更新
+    type: 1 | 2 | 3
 
     // 当前页面
     page: number

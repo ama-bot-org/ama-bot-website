@@ -30,7 +30,7 @@ const ThemeModal = (props: ThemeModalProps) => {
       try {
         const res = await corpus.uploadCorpusFile({
           bot_id: currentUser?.bot_id,
-          type: 2,
+          type: 3,
           doc_name: values.doc_name,
           content: values.content,
         })
