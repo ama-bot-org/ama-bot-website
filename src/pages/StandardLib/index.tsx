@@ -2,13 +2,14 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useIntl, Helmet, useModel } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
 import { useEffect, useState } from 'react'
-import { Button, ConfigProvider, message } from 'antd'
+import { Button, ConfigProvider, Form, message } from 'antd'
 import Input from 'antd/es/input'
 import QAModal from './QAModal'
 import QATable from './QATable'
 import { API } from '@/services/ant-design-pro/typings'
 import { deleteStandardInfo, getStandardTableInfo } from '@/services/ant-design-pro/standardLib'
 import { ActionType } from '@/services/ant-design-pro/enums'
+import { useForm } from 'antd/es/form/Form'
 
 const StandardLib: React.FC = () => {
   const intl = useIntl()
@@ -24,14 +25,15 @@ const StandardLib: React.FC = () => {
 
   const [currentRow, setCurrentRow] = useState<API.QAFormInfo | undefined>()
   const [modalVisible, setModalVisible] = useState(false)
+  const [form] = useForm()
 
-  const initQATable = async () => {
+  const initQATable = async (noSearch?: boolean) => {
     if (currentUser?.bot_id) {
       setLoading(true)
       try {
         const res = await getStandardTableInfo({
           bot_id: currentUser.bot_id,
-          searchWord: searchValue,
+          searchWord: noSearch ? '' : searchValue,
           page,
           pageSize,
         })
@@ -64,7 +66,6 @@ const StandardLib: React.FC = () => {
   })
 
   const handleAddNew = () => {
-    setCurrentRow(undefined)
     setModalVisible(true)
   }
 
@@ -98,8 +99,10 @@ const StandardLib: React.FC = () => {
     setPage(_page)
   }
 
-  const setTableReFresh = () => {
-    initQATable()
+  const setTableRefresh = () => {
+    setSearchValue(undefined)
+    form.resetFields()
+    initQATable(true)
   }
 
   const handleSearch = (value: string) => {
@@ -107,8 +110,21 @@ const StandardLib: React.FC = () => {
   }
 
   useEffect(() => {
+    if (searchValue !== undefined) {
+      initQATable()
+    }
+  }, [searchValue])
+
+  useEffect(() => {
+    setSearchValue(undefined)
     initQATable()
-  }, [page, searchValue])
+  }, [page])
+
+  useEffect(() => {
+    if (!modalVisible) {
+      setCurrentRow(undefined)
+    }
+  }, [modalVisible])
 
   const topClassName = useEmotionCss(() => {
     return {
@@ -158,7 +174,11 @@ const StandardLib: React.FC = () => {
         <div className={topClassName}>
           <h3 className={headerTitleClassName}>标准问答库：自定义一对一标准问答</h3>
           <div className={searchWrapClassName}>
-            <Input.Search className={searchClassName} onSearch={handleSearch} />
+            <Form form={form} layout="inline">
+              <Form.Item name="search">
+                <Input.Search className={searchClassName} onSearch={handleSearch} />
+              </Form.Item>
+            </Form>
             <ConfigProvider
               theme={{
                 token: {
@@ -186,8 +206,8 @@ const StandardLib: React.FC = () => {
           visible={modalVisible}
           setVisible={setModalVisible}
           QAInfo={currentRow}
-          setTableReFresh={setTableReFresh}
           modalType={currentRow ? 'edit' : 'add'}
+          setTableRefresh={setTableRefresh}
         />
       </div>
     </div>

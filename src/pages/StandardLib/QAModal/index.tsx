@@ -8,23 +8,25 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 type QAModalProps = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
-  setTableReFresh: () => void
+  setTableRefresh: () => void
   QAInfo?: API.QAFormInfo
   modalType?: 'add' | 'edit'
 }
 
 const QAModal = (props: QAModalProps) => {
-  const { visible, setVisible, QAInfo, modalType = 'add', setTableReFresh } = props
+  const { visible, setVisible, QAInfo, modalType = 'add', setTableRefresh } = props
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
 
   useEffect(() => {
-    if (QAInfo) {
+    if (QAInfo && visible) {
       form.setFieldsValue(QAInfo)
+    } else {
+      form.setFieldsValue([])
     }
-  }, [QAInfo])
+  }, [visible, QAInfo])
 
   const handleCancel = () => {
     form.setFieldsValue([])
@@ -32,7 +34,6 @@ const QAModal = (props: QAModalProps) => {
   }
 
   const handleFinished = async (values: API.QAFormInfo) => {
-    console.log('values', values)
     setLoading(true)
     try {
       let res: any
@@ -43,8 +44,8 @@ const QAModal = (props: QAModalProps) => {
         console.log('editStandardTableInfo', res)
       }
       if (res.ActionType === ActionType.OK) {
-        setTableReFresh()
-        form.setFieldsValue([])
+        form.resetFields()
+        setTableRefresh()
         setVisible(false)
       }
     } catch (error) {
@@ -60,62 +61,65 @@ const QAModal = (props: QAModalProps) => {
       open={visible}
       footer={null}
       destroyOnClose
-      onCancel={() => handleCancel()}
+      onCancel={() => {
+        handleCancel()
+      }}
     >
-      {visible ? (
-        <Form form={form} initialValues={QAInfo || undefined} layout="vertical" onFinish={handleFinished}>
-          {/* 问题关键词：设置问题的触发关键词，上限3个 ，以逗号隔开 */}
-          <Form.Item
-            label="问题关键词"
-            name="prompt"
-            rules={[
-              {
-                required: true,
-                message: '设置问题的触发关键词，上限3个，以中文逗号隔开',
+      <Form
+        form={modalType === 'add' ? undefined : form}
+        initialValues={modalType === 'edit' ? QAInfo : undefined}
+        layout="vertical"
+        onFinish={handleFinished}
+      >
+        {/* 问题关键词：设置问题的触发关键词，上限3个 ，以逗号隔开 */}
+        <Form.Item
+          label="问题关键词"
+          name="prompt"
+          rules={[
+            {
+              required: true,
+              message: '设置问题的触发关键词，上限3个，以中文逗号隔开',
+            },
+            {
+              validator: (_, value) => {
+                if (value.includes(',')) {
+                  return Promise.reject('请以中文逗号隔开')
+                }
+                const keywords = value.split('，').map((kw: string) => kw.trim())
+                if (keywords.length > 3) {
+                  return Promise.reject('触发关键词不能超过三个，句末不要标点符号')
+                }
+                return Promise.resolve()
               },
-              {
-                validator: (_, value) => {
-                  if(value.includes(",")){
-                    return Promise.reject('请以中文逗号隔开')
-                  }
-                  const keywords = value
-                    .split('，')
-                    .map((kw: string) => kw.trim())
-                  if (keywords.length > 3) {
-                    return Promise.reject('触发关键词不能超过三个，句末不要标点符号')
-                  }
-                  return Promise.resolve()
-                },
-              },
-            ]}
-          >
-            <Input placeholder="设置问题的触发关键词，上限3个，以逗号隔开" />
-          </Form.Item>
-          {/* 回答 */}
-          <Form.Item
-            label="回答"
-            name="completion"
-            rules={[
-              {
-                required: true,
-                message: '请输入回答',
-              },
-            ]}
-          >
-            <Input.TextArea rows={10} placeholder="请输入回答" />
-          </Form.Item>
-          <Form.Item>
-            <div className="frc-end">
-              <Button onClick={() => handleCancel()} style={{ marginRight: '20px' }}>
-                取消
-              </Button>
-              <Button type="primary" htmlType="submit" loading={loading}>
-                保存
-              </Button>
-            </div>
-          </Form.Item>
-        </Form>
-      ) : null}
+            },
+          ]}
+        >
+          <Input placeholder="设置问题的触发关键词，上限3个，以逗号隔开" />
+        </Form.Item>
+        {/* 回答 */}
+        <Form.Item
+          label="回答"
+          name="completion"
+          rules={[
+            {
+              required: true,
+              message: '请输入回答',
+            },
+          ]}
+        >
+          <Input.TextArea rows={10} placeholder="请输入回答" />
+        </Form.Item>
+        <Form.Item>
+          <div className="frc-end">
+            <Button onClick={() => handleCancel()} style={{ marginRight: '20px' }}>
+              取消
+            </Button>
+            <Button type="primary" htmlType="submit" loading={loading}>
+              保存
+            </Button>
+          </div>
+        </Form.Item>
+      </Form>
     </Modal>
   )
 }
