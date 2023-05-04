@@ -132,8 +132,10 @@ declare namespace API {
     type?: NoticeIconItemType
   }
 
-  type DomainUniqueResponse = {
+  type UniqueResponse = {
     ActionType: ActionType.OK
+    code?: number
+    message?: string
   }
 
   type UserRegisterResponse = {
@@ -143,6 +145,8 @@ declare namespace API {
 
   type CaptchaResponse = {
     ActionType: ActionType
+    status?: number
+    message?: string
   }
 
   type AddStandardInfosResponse = {

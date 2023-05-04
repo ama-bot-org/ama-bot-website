@@ -2,9 +2,21 @@ import { request } from '@umijs/max'
 import { API } from './typings'
 import { RegisterType } from './enums'
 
+/** 验证邮箱唯一性 POST /app/user/email */
+export async function checkEmailUnique(email: string) {
+  const res = await request<API.UniqueResponse>('/api/app/user/emailCheck', {
+    method: 'POST',
+    data: {
+      email,
+    },
+    getResponse: true,
+  })
+  return res.data
+}
+
 /** 验证AI域名唯一性 POST /app/user/ai */
 export async function checkAIDomainUnique(org_id: string) {
-  return request<API.DomainUniqueResponse>('/api/app/user/ai', {
+  return request<API.UniqueResponse>('/api/app/user/ai', {
     method: 'POST',
     data: {
       org_id,
