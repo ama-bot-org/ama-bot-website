@@ -41,6 +41,7 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
       dataIndex: 'date',
       key: 'date',
       render: (date: number) => dayjs.utc(date).format('YYYY-MM-DD HH:mm:ss'),
+      width: '200px',
     },
     {
       title: '操作',
