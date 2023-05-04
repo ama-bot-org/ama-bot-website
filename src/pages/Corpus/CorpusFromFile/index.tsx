@@ -73,6 +73,13 @@ const CorpusFromFile = () => {
     ':hover': {
       backgroundColor: '#ffffffcc',
     },
+    '@media screen and (max-width: 768px)': {
+      flexDirection: 'column',
+      minWidth: '280px',
+      marginBottom: '12px',
+      alignItems: 'flex-end',
+      height: 'auto',
+    },
   }))
 
   const handleDeleteRow = async (rowData: CorpusAPI.FileInfo) => {
@@ -99,7 +106,7 @@ const CorpusFromFile = () => {
   }
 
   return (
-    <div className="w-full frs-center">
+    <div className="w-full fcs-center md:flex-row md:items-start overflow-hidden">
       <CustomUploadComponent onSuccessUpload={handleUpdateList} />
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start', flex: 1 }}>
         {loading ? (
@@ -121,7 +128,7 @@ const CorpusFromFile = () => {
           >
             {list?.map(item => (
               <li className={fileItemClassname} key={item.id}>
-                <div className="frc-start">
+                <div className="frc-start w-full md:w-auto">
                   <FileFilled style={{ fontSize: 16, lineHeight: 18, marginRight: 4 }} />
                   <h4
                     style={{
@@ -140,7 +147,7 @@ const CorpusFromFile = () => {
                   </h4>
                 </div>
                 <div>
-                  <h4>{dayjs.utc(item.date).format('YYYY-MM-DD HH:mm:ss')}</h4>
+                  <h4 style={{ margin: 0 }}>{dayjs.utc(item.date).format('YYYY-MM-DD HH:mm:ss')}</h4>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                   <Button
