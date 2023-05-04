@@ -159,6 +159,20 @@ ol {
   justify-content: flex-end;
 }
 
+.fcs-start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fcs-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .fcc-center {
   display: flex;
   flex-direction: column;
@@ -182,6 +196,32 @@ ol {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+@media screen and (min-width: 768px) {
+  .md\:flex-row {
+    flex-direction: row;
+  }
+
+  .md\:flex-col {
+    flex-direction: column;
+  }
+
+  .md\:inline-block {
+    display: inline-block;
+  }
+
+  .md\:w-auto {
+    width: auto;
+  }
+
+  .md\:items-start {
+    align-items: flex-start;
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .flex-1 {
