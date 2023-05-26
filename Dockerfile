@@ -6,7 +6,6 @@ COPY ./dist /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY --chown=nginx:nginx ssl/ /etc/nginx/ssl/
 
-# 运行在80端口
+# 运行在443端口
 EXPOSE 443
