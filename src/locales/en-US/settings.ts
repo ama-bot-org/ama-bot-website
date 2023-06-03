@@ -1,5 +1,5 @@
 export default {
-  'app.title': 'Aiyin Intelligent',
+  'app.title': 'Askio',
   'app.settings.menuMap.basic': 'Basic Settings',
   'app.settings.menuMap.security': 'Security Settings',
   'app.settings.menuMap.binding': 'Account Binding',

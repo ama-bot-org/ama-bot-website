@@ -16,7 +16,7 @@ const ServiceContent = () => {
         {Inlt.formatMessage({
           id: 'agreement.service.welcome',
           defaultMessage:
-            '欢迎使用艾因AI服务！在您使用本服务前，请仔细阅读以下协议。一旦您使用本服务，则视为您已经同意本协议的全部内容。如有任何疑问，请联系我们。',
+            '欢迎使用悦问服务！在您使用本服务前，请仔细阅读以下协议。一旦您使用本服务，则视为您已经同意本协议的全部内容。如有任何疑问，请联系我们。',
         })}
       </p>
       <h3>
@@ -29,7 +29,7 @@ const ServiceContent = () => {
         {Inlt.formatMessage({
           id: 'agreement.service.p_1',
           defaultMessage:
-            '艾因AI注册服务是一款提供AI自动问答功能的在线服务。用户可以通过本服务获取信息、提出问题，并自动获得答案。此服务是由艾因 AI 团队提供并维护的，并且可能会不断更新和改进。',
+            '悦问注册服务是一款提供AI自动问答功能的在线服务。用户可以通过本服务获取信息、提出问题，并自动获得答案。此服务是由悦问团队提供并维护的，并且可能会不断更新和改进。',
         })}
       </p>
       <h3>
@@ -67,7 +67,7 @@ const ServiceContent = () => {
       <p>
         {Inlt.formatMessage({
           id: 'agreement.service.p_2_4',
-          defaultMessage: '若用户违反以上规定，艾因 AI 团队有权随时中止或终止其使用本服务的权利。',
+          defaultMessage: '若用户违反以上规定，悦问团队有权随时中止或终止其使用本服务的权利。',
         })}
       </p>
       <h3>
@@ -81,14 +81,14 @@ const ServiceContent = () => {
           {Inlt.formatMessage({
             id: 'agreement.service.p_3_1',
             defaultMessage:
-              '本服务可能会受到各种因素的影响，包括但不限于互联网连接质量、软件版本等。艾因 AI 团队不保证本服务能够一直正常运行，也不对因本服务中断、停止或无法使用而造成的任何损失承担责任。',
+              '本服务可能会受到各种因素的影响，包括但不限于互联网连接质量、软件版本等。悦问团队不保证本服务能够一直正常运行，也不对因本服务中断、停止或无法使用而造成的任何损失承担责任。',
           })}
         </li>
         <li>
           {Inlt.formatMessage({
             id: 'agreement.service.p_3_2',
             defaultMessage:
-              '用户在使用本服务时，应当对自己进行足够的辨别和判断，不得依赖本服务提供的信息作出决策。艾因 AI 团队不对用户因依赖本服务信息而造成的任何损失承担责任。',
+              '用户在使用本服务时，应当对自己进行足够的辨别和判断，不得依赖本服务提供的信息作出决策。悦问团队不对用户因依赖本服务信息而造成的任何损失承担责任。',
           })}
         </li>
         <li>
@@ -108,13 +108,13 @@ const ServiceContent = () => {
         {Inlt.formatMessage({
           id: 'agreement.service.p_4_1',
           defaultMessage:
-            '艾因 AI 团队有权修改本协议的任何内容，并在本网站公示。若您不同意修改后的协议内容，可以选择停止使用本服务。如您继续使用本服务，则视为您已经同意修改后的协议内容。',
+            '悦问团队有权修改本协议的任何内容，并在本网站公示。若您不同意修改后的协议内容，可以选择停止使用本服务。如您继续使用本服务，则视为您已经同意修改后的协议内容。',
         })}
       </p>
       <p>
         {Inlt.formatMessage({
           id: 'agreement.service.p_4_2',
-          defaultMessage: '感谢您选择艾因AI注册服务，祝您使用愉快！',
+          defaultMessage: '感谢您选择悦问注册服务，祝您使用愉快！',
         })}
       </p>
     </div>
@@ -129,7 +129,7 @@ const PrivacyContent = () => {
         {Inlt.formatMessage({
           id: 'agreement.privacy.welcome',
           defaultMessage:
-            '欢迎使用艾因AI。我们非常重视您的隐私。本文档将详细说明我们如何收集、使用和保护您的个人信息。请您仔细阅读以下内容。',
+            '欢迎使用悦问。我们非常重视您的隐私。本文档将详细说明我们如何收集、使用和保护您的个人信息。请您仔细阅读以下内容。',
         })}
       </p>
       <h3>
@@ -264,7 +264,7 @@ const PrivacyContent = () => {
       <p>
         {Inlt.formatMessage({
           id: 'agreement.privacy.p_8',
-          defaultMessage: '感谢您选择艾因AI，祝您使用愉快！',
+          defaultMessage: '感谢您选择悦问，祝您使用愉快！',
         })}
       </p>
     </div>
