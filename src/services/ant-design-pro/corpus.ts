@@ -20,12 +20,18 @@ async function getDocsList(params: CorpusAPI.GetDocsListParamsType) {
 
 /** 以文件形式上传语料 */
 async function uploadCorpusDoc(params: CorpusAPI.UploadDocParamType) {
+  const formData = new FormData()
+  // 将文件添加到 FormData
+  formData.append('bot_id', params.bot_id)
+  formData.append('file_name', params.file_name)
+  formData.append('file', params.file)
   return request<CorpusAPI.UploadFileResponseType>('/api/app/file/docCreate', {
     method: 'POST',
     headers: {
       Authorization: localStorage.getItem('token') || '',
+      'Content-Type': 'multipart/form-data',
     },
-    data: params,
+    data: formData,
     timeout: 180000,
   })
 }
@@ -52,7 +58,7 @@ async function downloadDoc(params: CorpusAPI.DocDownloadParamsType) {
   })
 }
 
-// 下载文件
+// 搜索文件
 async function searchDoc(params: CorpusAPI.FileDeleteParamsType) {
   return request<CorpusAPI.FileDeleteResponse>('/api/app/file/searchDocsInfo', {
     method: 'POST',

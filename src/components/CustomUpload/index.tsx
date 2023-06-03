@@ -20,6 +20,8 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
     const { fileContent, filename, onError, onSuccess } = options
     if (currentUser?.bot_id) {
       try {
+        // eslint-disable-next-line no-debugger
+        debugger
         const res = await corpus.uploadCorpusDoc({
           bot_id: currentUser?.bot_id,
           file_name: filename,
@@ -40,28 +42,23 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
   }
 
   const handleCustomRequest = async ({ file, onSuccess, onError }: any) => {
-    const reader = new FileReader()
-    reader.onload = async (event: any) => {
-      const fileContent = event.target.result
-      await handleUpload({ fileContent: fileContent, filename: file.name, onSuccess, onError })
-    }
-    reader.readAsText(file)
+    await handleUpload({ fileContent: file, filename: file.name, onError, onSuccess })
   }
 
   const beforeUpload = (file: RcFile) => {
-    const isTxt = file.type === 'text/plain'
-    if (!isTxt) {
-      message.error('只能上传 txt 文件！')
+    const isDoc = file.type === 'application/msword' || file.name.endsWith('.doc') || file.name.endsWith('.docx') // 后缀名检查
+    if (!isDoc) {
+      message.error('只能上传 doc 文件！')
     }
     const isLt10M = file.size < MAX_UPLOAD_SIZE
     if (!isLt10M) {
       message.error('上传文件不能超过 5MB！')
     }
-    return isTxt && isLt10M
+    return isDoc && isLt10M
   }
 
   return (
-    <Upload customRequest={handleCustomRequest} beforeUpload={beforeUpload}>
+    <Upload beforeUpload={beforeUpload} customRequest={handleCustomRequest}>
       <Button
         style={{
           width: '360px',
@@ -78,7 +75,7 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
       >
         <CloudUploadOutlined style={{ fontSize: 100 }} />
         <h3>上传语料文件</h3>
-        <p>支持 txt 格式，文件大小不超过 5MB</p>
+        <p>支持 doc 格式，文件大小不超过 5MB</p>
       </Button>
     </Upload>
   )

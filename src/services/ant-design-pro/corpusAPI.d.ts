@@ -83,7 +83,7 @@ declare namespace CorpusAPI {
   type UploadDocParamType = {
     bot_id: string
     file_name: string
-    file: string
+    file: any
   }
 
   type DocDownloadParamsType = {
