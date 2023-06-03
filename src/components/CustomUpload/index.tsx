@@ -20,11 +20,10 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
     const { fileContent, filename, onError, onSuccess } = options
     if (currentUser?.bot_id) {
       try {
-        const res = await corpus.uploadCorpusFile({
+        const res = await corpus.uploadCorpusDoc({
           bot_id: currentUser?.bot_id,
-          type: 2,
-          doc_name: filename,
-          content: fileContent,
+          file_name: filename,
+          file: fileContent,
         })
         if (res.ActionType === ActionType.OK) {
           onSuccess('上传成功')

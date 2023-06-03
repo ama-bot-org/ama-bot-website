@@ -28,7 +28,7 @@ const ThemeModal = (props: ThemeModalProps) => {
     setLoading(true)
     if (currentUser?.bot_id) {
       try {
-        const res = await corpus.uploadCorpusFile({
+        const res = await corpus.uploadCorpusByManual({
           bot_id: currentUser?.bot_id,
           type: 2,
           doc_name: values.doc_name,

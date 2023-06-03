@@ -10,7 +10,6 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { DeleteOutlined, EyeOutlined, FileFilled, QuestionCircleOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import PreviewModal from '../PreviewModal'
 dayjs.extend(utc)
 
 const CorpusFromFile = () => {
@@ -21,16 +20,13 @@ const CorpusFromFile = () => {
   const [pageSize, setPageSize] = useState<number>(10)
   const [list, setList] = useState<CorpusAPI.FileInfo[]>([])
   const [total, setTotal] = useState<number>(0)
-  const [previewContent, setPreviewContent] = useState<string>('')
-  const [previewVisible, setPreviewVisible] = useState<boolean>(false)
 
   const init = async () => {
     if (currentUser?.bot_id) {
       setLoading(true)
       try {
-        const res = await corpus.getFileList({
+        const res = await corpus.getDocsList({
           bot_id: currentUser?.bot_id,
-          type: 2,
           page,
           pageSize,
         })
@@ -81,7 +77,7 @@ const CorpusFromFile = () => {
       return
     }
     try {
-      const res = await corpus.deleteFile({
+      const res = await corpus.deleteDoc({
         bot_id: currentUser?.bot_id,
         id: rowData.id,
       })
@@ -93,9 +89,21 @@ const CorpusFromFile = () => {
     }
   }
 
-  const handlePreview = (content: string) => {
-    setPreviewContent(content)
-    setPreviewVisible(true)
+  const handleDownload = async (id: number, filename: string) => {
+    if (!currentUser?.bot_id) {
+      message.error('请重新登录后再试')
+      return
+    }
+    try {
+      const res = await corpus.downloadDoc({
+        bot_id: currentUser.bot_id,
+        id,
+        file_name: filename,
+      })
+      console.log('res', res)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -147,10 +155,10 @@ const CorpusFromFile = () => {
                     type="text"
                     icon={<EyeOutlined />}
                     onClick={() => {
-                      handlePreview(item.content)
+                      handleDownload(item.id, item.doc_name)
                     }}
                   >
-                    预览
+                    下载
                   </Button>
                   <Popconfirm
                     title="删除这个文件"
@@ -175,7 +183,6 @@ const CorpusFromFile = () => {
           showTotal={(total: number) => `共 ${total} 条`}
           onChange={handlePaginationChange}
         />
-        <PreviewModal content={previewContent} visible={previewVisible} setVisible={setPreviewVisible} />
       </div>
     </div>
   )

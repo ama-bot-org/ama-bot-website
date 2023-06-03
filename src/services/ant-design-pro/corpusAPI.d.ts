@@ -68,4 +68,27 @@ declare namespace CorpusAPI {
   type FileDeleteResponse = {
     ActionType: ActionType
   }
+
+  type GetDocsListParamsType = {
+    // 机器人id
+    bot_id: string
+
+    // 当前页面
+    page: number
+
+    // 每页显示的条数
+    pageSize: number
+  }
+
+  type UploadDocParamType = {
+    bot_id: string
+    file_name: string
+    file: string
+  }
+
+  type DocDownloadParamsType = {
+    bot_id: string
+    id: number
+    file_name: string
+  }
 }
