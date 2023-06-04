@@ -1,10 +1,9 @@
 import { Button, ConfigProvider, Empty } from 'antd'
 import { Dispatch, SetStateAction, useState } from 'react'
 import ThemeModal from '../ThemeModal'
-import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
 
 type EmptyThemeProps = {
-  setCurrentTheme: Dispatch<SetStateAction<CorpusAPI.FileInfo | undefined>>
+  setCurrentTheme: Dispatch<SetStateAction<number>>
 }
 const EmptyTheme = (props: EmptyThemeProps) => {
   const { setCurrentTheme } = props
@@ -15,14 +14,7 @@ const EmptyTheme = (props: EmptyThemeProps) => {
   }
 
   const setTableReFresh = () => {
-    setCurrentTheme({
-      id: 1,
-      bot_id: '1',
-      doc_name: '11',
-      type: 2,
-      content: '11',
-      date: 2,
-    })
+    setCurrentTheme(new Date().getTime())
   }
 
   return (

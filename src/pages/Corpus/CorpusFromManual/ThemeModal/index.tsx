@@ -3,16 +3,18 @@ import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
 import { ActionType } from '@/services/ant-design-pro/enums'
 import { useModel } from '@umijs/max'
 import { Input, Modal, Form, Button, message } from 'antd'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type ThemeModalProps = {
   visible: boolean
+  fileInfo?: CorpusAPI.FileInfo
+  modalType?: 'add' | 'edit' | 'preview' | undefined
   setVisible: Dispatch<SetStateAction<boolean>>
   setTableReFresh: Dispatch<React.SetStateAction<number>>
 }
 
 const ThemeModal = (props: ThemeModalProps) => {
-  const { visible, setVisible, setTableReFresh } = props
+  const { fileInfo, modalType, visible, setVisible, setTableReFresh } = props
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const { initialState } = useModel('@@initialState')
@@ -28,12 +30,23 @@ const ThemeModal = (props: ThemeModalProps) => {
     setLoading(true)
     if (currentUser?.bot_id) {
       try {
-        const res = await corpus.uploadCorpusByManual({
-          bot_id: currentUser?.bot_id,
-          type: 3,
-          doc_name: values.doc_name,
-          content: values.content,
-        })
+        let res: any
+        if (modalType === 'add') {
+          res = await corpus.uploadCorpusByManual({
+            bot_id: currentUser?.bot_id,
+            type: 3,
+            doc_name: values.doc_name,
+            content: values.content,
+          })
+        } else if (modalType === 'edit' && fileInfo) {
+          res = await corpus.updateCorpusFile({
+            id: fileInfo.id,
+            type: 3,
+            doc_name: values.doc_name,
+            content: values.content,
+          })
+        }
+
         if (res.ActionType === ActionType.OK) {
           setTableReFresh(new Date().getTime())
           form.setFieldsValue([])
@@ -50,10 +63,26 @@ const ThemeModal = (props: ThemeModalProps) => {
     }
   }
 
+  useEffect(() => {
+    if (visible) {
+      if (fileInfo) {
+        form.setFieldsValue(fileInfo)
+      } else {
+        form.setFieldsValue([])
+      }
+    }
+  }, [visible])
+
   return (
-    <Modal title="新增主题" open={visible} footer={null} destroyOnClose onCancel={() => handleCancel()}>
+    <Modal
+      title={modalType === 'add' ? '新增主题' : '编辑主题'}
+      open={visible}
+      footer={null}
+      destroyOnClose
+      onCancel={() => handleCancel()}
+    >
       {visible ? (
-        <Form form={form} layout="vertical" onFinish={handleFinished}>
+        <Form form={form} layout="vertical" onFinish={handleFinished} initialValues={fileInfo}>
           <Form.Item
             label="主题名称"
             name="doc_name"
@@ -93,7 +122,7 @@ const ThemeModal = (props: ThemeModalProps) => {
                 取消
               </Button>
               <Button type="primary" htmlType="submit" loading={loading}>
-                创建
+                {modalType === 'add' ? '新增' : '更新'}
               </Button>
             </div>
           </Form.Item>
