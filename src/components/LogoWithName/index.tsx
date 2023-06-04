@@ -38,15 +38,15 @@ const LogoWithName: React.FC<LogoWithNameProps> = props => {
         to={'/landing'}
       >
         <img
-          src={logoTheme && logoTheme === 'light' ? '/logo_white.svg' : '/logo.svg'}
+          // src={logoTheme && logoTheme === 'light' ? '/logo.svg' : '/logo.svg'}
+          src={'/logo.svg'}
           alt="logo"
-          style={{ width: '24px', height: '24px' }}
+          style={{ width: '80px', height: '42px' }}
         />
         <h1
           style={{
             margin: 0,
             fontFamily: 'AlibabaPuHuiTi-2-85-Bold',
-            marginLeft: '8px',
             fontSize: '18px',
             color: logoTheme && logoTheme === 'light' ? 'white' : 'black',
           }}

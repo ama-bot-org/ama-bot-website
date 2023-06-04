@@ -37,7 +37,7 @@ const Corpus: React.FC = () => {
     return {
       display: 'flex',
       flexDirection: 'column',
-      height: '100vh',
+      height: 'auto',
       overflow: 'auto',
     }
   })
@@ -54,7 +54,7 @@ const Corpus: React.FC = () => {
         </title>
       </Helmet>
       <div style={{ flex: 1, padding: 0, overflow: 'auto' }}>
-        <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+        <Tabs defaultActiveKey="1" items={items} onChange={onChange} destroyInactiveTabPane />
       </div>
     </div>
   )

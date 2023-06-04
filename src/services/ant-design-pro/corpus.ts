@@ -4,12 +4,11 @@ import { request } from '@umijs/max'
 import { CorpusAPI } from './corpusAPI'
 
 /**
- * 文件上传
+ * 文件类-start
  */
-
 // 根据机器人id获取相关的语料文件数据
 async function getDocsList(params: CorpusAPI.GetDocsListParamsType) {
-  return request<CorpusAPI.FileListResponse>('/api/app/file/docsInfo', {
+  return request<CorpusAPI.DocListResponse>('/api/app/file/docsInfo', {
     method: 'POST',
     headers: {
       Authorization: localStorage.getItem('token') || '',
@@ -68,9 +67,12 @@ async function searchDoc(params: CorpusAPI.FileDeleteParamsType) {
     data: params,
   })
 }
+/**
+ * 文件类-end
+ */
 
 /**
- * 手动更新
+ * 手动类-start
  */
 /** 手动上传语料文件，根据文件内容创建文件 */
 async function uploadCorpusByManual(params: CorpusAPI.UploadFileParamType) {
@@ -117,7 +119,49 @@ async function deleteFile(params: CorpusAPI.FileDeleteParamsType) {
     data: params,
   })
 }
+/**
+ * 手动类-end
+ */
 
+/**
+ * notion类-start
+ */
+// 获取notion表格数据
+async function getNotionTable(params: CorpusAPI.GetNotionTableParamsType) {
+  return request<CorpusAPI.GetNotionTableResponseType>('/api/app/notion/notions', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem('token') || '',
+    },
+    data: params,
+  })
+}
+
+// 创建notion表格数据
+async function createNotion(params: CorpusAPI.CreateNotionParamsType) {
+  return request<CorpusAPI.CreateNotionResponseType>('/api/app/notion/create', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem('token') || '',
+    },
+    data: params,
+  })
+}
+
+// 删除notion表格数据
+async function deleteNotion(params: CorpusAPI.DeleteNotionParamsType) {
+  return request<CorpusAPI.DeleteNotionResponseType>('/api/app/file/deleteNotion', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem('token') || '',
+    },
+    data: params,
+  })
+}
+
+/**
+ * notion类-end
+ */
 export default {
   // 文件自动
   uploadCorpusDoc,
@@ -130,4 +174,8 @@ export default {
   getFileList,
   deleteFile,
   updateCorpusFile,
+  // notion
+  getNotionTable,
+  createNotion,
+  deleteNotion,
 }

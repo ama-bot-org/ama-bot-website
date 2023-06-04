@@ -99,7 +99,6 @@ const Login: React.FC = () => {
 
   const handleDynamicFieldChange = (value: string, checkType: CheckType) => {
     if (checkType === CheckType.Password) {
-      console.log(value)
       form.setFieldValue('password', value)
     } else {
       form.setFieldValue('captcha', value)

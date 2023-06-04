@@ -1,15 +1,17 @@
 import Skeleton from 'antd/es/skeleton'
 import { useEffect, useState } from 'react'
+import { useModel } from '@umijs/max'
 import { Button, Pagination, Popconfirm, message } from 'antd'
 import corpus from '@/services/ant-design-pro/corpus'
-import { useModel } from '@umijs/max'
 import { ActionType } from '@/services/ant-design-pro/enums'
 import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
 import CustomUploadComponent from '@/components/CustomUpload'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { DeleteOutlined, EyeOutlined, FileFilled, QuestionCircleOutlined } from '@ant-design/icons'
+import { DeleteOutlined, DownloadOutlined, EyeOutlined, FileFilled, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import Input from 'antd/lib/input'
+import PreviewModal from '../PreviewModal'
 dayjs.extend(utc)
 
 const CorpusFromFile = () => {
@@ -18,18 +20,25 @@ const CorpusFromFile = () => {
   const { currentUser } = initialState || {}
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(10)
-  const [list, setList] = useState<CorpusAPI.FileInfo[]>([])
+  const [list, setList] = useState<CorpusAPI.DocInfo[]>([])
   const [total, setTotal] = useState<number>(0)
+  const [searchValue, setSearchValue] = useState('')
+  const [previewContent, setPreviewContent] = useState<string>('')
+  const [previewVisible, setPreviewVisible] = useState<boolean>(false)
 
   const init = async () => {
     if (currentUser?.bot_id) {
       setLoading(true)
       try {
-        const res = await corpus.getDocsList({
+        let params = {
           bot_id: currentUser?.bot_id,
           page,
           pageSize,
-        })
+        }
+        if (searchValue) {
+          Object.assign(params, { searchWord: searchValue })
+        }
+        const res = await corpus.getDocsList(params)
         if (res.ActionType === ActionType.OK) {
           setList(res.data.content)
           setTotal(res.data.count)
@@ -69,9 +78,16 @@ const CorpusFromFile = () => {
     ':hover': {
       backgroundColor: '#ffffffcc',
     },
+    '@media screen and (max-width: 768px)': {
+      flexDirection: 'column',
+      minWidth: '280px',
+      marginBottom: '12px',
+      alignItems: 'flex-end',
+      height: 'auto',
+    },
   }))
 
-  const handleDeleteRow = async (rowData: CorpusAPI.FileInfo) => {
+  const handleDeleteRow = async (rowData: CorpusAPI.DocInfo) => {
     if (!currentUser?.bot_id) {
       message.error('请重新登录后再试')
       return
@@ -95,21 +111,52 @@ const CorpusFromFile = () => {
       return
     }
     try {
-      const res = await corpus.downloadDoc({
+      await corpus.downloadDoc({
         bot_id: currentUser.bot_id,
         id,
         file_name: filename,
       })
-      console.log('res', res)
     } catch (error) {
       console.log(error)
     }
   }
 
+  const handleKeyUp = (e: any) => {
+    if (e.keyCode === 13) {
+      init()
+    }
+  }
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    if (value === '') {
+      setSearchValue('')
+    } else {
+      setSearchValue(value)
+    }
+  }
+
+  const handlePreview = (content: string) => {
+    setPreviewContent(content)
+    setPreviewVisible(true)
+  }
+
   return (
-    <div className="w-full frs-center">
+    <div className="w-full fcs-center md:flex-row md:items-start overflow-hidden">
       <CustomUploadComponent onSuccessUpload={handleUpdateList} />
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start', flex: 1 }}>
+        <Input
+          onKeyUp={handleKeyUp}
+          onChange={handleSearchChange}
+          style={{ width: '80%', marginBottom: '10px' }}
+          suffix={
+            <SearchOutlined
+              onClick={() => {
+                init()
+              }}
+            />
+          }
+        />
         {loading ? (
           <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => (
@@ -129,7 +176,7 @@ const CorpusFromFile = () => {
           >
             {list?.map(item => (
               <li className={fileItemClassname} key={item.id}>
-                <div className="frc-start">
+                <div className="frc-start w-full md:w-auto">
                   <FileFilled style={{ fontSize: 16, lineHeight: 18, marginRight: 4 }} />
                   <h4
                     style={{
@@ -142,20 +189,30 @@ const CorpusFromFile = () => {
                       textOverflow: 'ellipsis',
                       cursor: 'default',
                     }}
-                    title={item.doc_name}
+                    title={item.file_name}
                   >
-                    {item.doc_name}
+                    {item.file_name}
                   </h4>
                 </div>
                 <div>
-                  <h4>{dayjs.utc(item.date).format('YYYY-MM-DD HH:mm:ss')}</h4>
+                  <h4 style={{ margin: 0 }}>{dayjs.utc(item.date).format('YYYY-MM-DD HH:mm:ss')}</h4>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                   <Button
                     type="text"
                     icon={<EyeOutlined />}
                     onClick={() => {
-                      handleDownload(item.id, item.doc_name)
+                      handlePreview(item.file_content)
+                    }}
+                  >
+                    预览
+                  </Button>
+                  <Button
+                    type="text"
+                    disabled
+                    icon={<DownloadOutlined />}
+                    onClick={() => {
+                      handleDownload(item.id, item.file_name)
                     }}
                   >
                     下载
@@ -184,6 +241,7 @@ const CorpusFromFile = () => {
           onChange={handlePaginationChange}
         />
       </div>
+      <PreviewModal content={previewContent} visible={previewVisible} setVisible={setPreviewVisible} />
     </div>
   )
 }

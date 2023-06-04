@@ -5,6 +5,7 @@ import { ActionType } from '@/services/ant-design-pro/enums'
 import { useModel } from '@umijs/max'
 import { RcFile } from 'antd/es/upload'
 import { CloudUploadOutlined } from '@ant-design/icons'
+import { useEmotionCss } from '@ant-design/use-emotion-css'
 
 const MAX_UPLOAD_SIZE = 5 * 1024 * 1024 // 5MB
 
@@ -20,8 +21,6 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
     const { fileContent, filename, onError, onSuccess } = options
     if (currentUser?.bot_id) {
       try {
-        // eslint-disable-next-line no-debugger
-        debugger
         const res = await corpus.uploadCorpusDoc({
           bot_id: currentUser?.bot_id,
           file_name: filename,
@@ -57,22 +56,26 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
     return isDoc && isLt10M
   }
 
+  const uploadBtnClassname = useEmotionCss(() => ({
+    width: '320px',
+    height: '435px',
+    background: '#ffffff55',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderStyle: 'dashed',
+    borderWidth: '1px',
+    borderColor: '#000000aa',
+    '@media screen and (max-width: 768px)': {
+      width: '280px',
+      height: '360px',
+    },
+  }))
+
   return (
-    <Upload beforeUpload={beforeUpload} customRequest={handleCustomRequest}>
-      <Button
-        style={{
-          width: '360px',
-          height: '435px',
-          background: '#ffffff55',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderStyle: 'dashed',
-          borderWidth: '1px',
-          borderColor: '#000000aa',
-        }}
-      >
+    <Upload customRequest={handleCustomRequest} beforeUpload={beforeUpload}>
+      <Button className={uploadBtnClassname}>
         <CloudUploadOutlined style={{ fontSize: 100 }} />
         <h3>上传语料文件</h3>
         <p>支持 doc 格式，文件大小不超过 5MB</p>

@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
   const intl = useIntl()
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: 'FreeBeDAO Askio Team',
+    defaultMessage: 'FreeBe DAO Askio Team',
   })
 
   const currentYear = new Date().getFullYear()

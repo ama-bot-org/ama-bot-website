@@ -45,6 +45,7 @@ const ThemeEditor = (props: ThemeEditorProps) => {
     if (currentTheme) {
       const res = await corpus.updateCorpusFile({
         id: currentTheme.id,
+        type: 3,
         doc_name: currentTheme.doc_name,
         content: values.content,
       })
@@ -69,19 +70,30 @@ const ThemeEditor = (props: ThemeEditorProps) => {
     setModalVisible(true)
   }
 
+  const editorRootClassname = useEmotionCss(() => ({
+    flex: 1,
+    '@media screen and (max-width: 768px)': {
+      width: '100%',
+    },
+  }))
+
+  const editorClassname = useEmotionCss(() => ({
+    width: '90%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    marginLeft: '10%',
+    flex: 1,
+    paddingInlineStart: 0,
+    '@media screen and (max-width: 768px)': {
+      width: '100%',
+      marginLeft: '0%',
+    },
+  }))
+
   return (
-    <div style={{ flex: 1 }}>
-      <div
-        style={{
-          width: '90%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'start',
-          marginLeft: '10%',
-          flex: 1,
-          paddingInlineStart: 0,
-        }}
-      >
+    <div className={editorRootClassname}>
+      <div className={editorClassname}>
         <div className={topClassName}>
           <h2 style={{ width: 'max-content' }}>当前主题：{currentTheme?.doc_name || '待选择'}</h2>
           <div className={searchWrapClassName}>
