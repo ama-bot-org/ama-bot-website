@@ -57,7 +57,7 @@ export async function getInitialState(): Promise<{
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
-export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
+export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }: { initialState: any; setInitialState: any }) => {
   return {
     logo: 'public/logo.svg',
     // <Question key="doc" />,
@@ -65,7 +65,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     avatarProps: {
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,
-      render: (_, avatarChildren) => {
+      render: (_: any, avatarChildren: any) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>
       },
     },
@@ -117,7 +117,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
-    childrenRender: children => {
+    childrenRender: (children: any) => {
       // if (initialState?.loading) return <PageLoading />;
       return (
         <>
@@ -127,7 +127,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             enableDarkTheme
             settings={initialState?.settings}
             onSettingChange={settings => {
-              setInitialState(preInitialState => ({
+              setInitialState((preInitialState: any) => ({
                 ...preInitialState,
                 settings,
               }))

@@ -51,7 +51,6 @@ export default [
     icon: 'smile',
     access: 'user',
     component: './AskMeAnything',
-    hideInMenu: true,
   },
   {
     path: '/database-config',
