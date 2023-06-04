@@ -76,29 +76,6 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDel
         </>
       ),
     },
-    // {
-    //   title: '操作',
-    //   dataIndex: 'operation',
-    //   key: 'operation',
-    //   width: '200px',
-    //   render: (_: any, rowData: CorpusAPI.NotionTableRow) => (
-    //     <>
-    //       <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
-    //         编辑
-    //       </Button>
-    //       <Popconfirm
-    //         title="删除这条语料"
-    //         description="删除后将无法找回，确认删除吗?"
-    //         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-    //         onConfirm={() => handleDeleteRow(rowData)}
-    //       >
-    //         <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
-    //           删除
-    //         </Button>
-    //       </Popconfirm>
-    //     </>
-    //   ),
-    // },
   ]
 
   return (

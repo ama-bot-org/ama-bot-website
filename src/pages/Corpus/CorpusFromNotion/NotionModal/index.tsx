@@ -20,19 +20,12 @@ const NotionModal = (props: NotionModalProps) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
 
-  useEffect(() => {
-    if (notionInfo) {
-      form.setFieldsValue(notionInfo)
-    }
-  }, [notionInfo])
-
   const handleCancel = () => {
-    form.setFieldsValue([])
+    form.resetFields()
     setVisible(false)
   }
 
   const handleFinished = async (values: CorpusAPI.NotionTableRow) => {
-    console.log('values', values)
     setLoading(true)
     if (currentUser?.bot_id && values.token && values.pagelink && values.doc_name) {
       try {
@@ -63,15 +56,21 @@ const NotionModal = (props: NotionModalProps) => {
   }
 
   const modalTitle = {
-    add: '新增Notion语料源',
-    edit: '编辑Notion语料源',
-    preview: 'Notion语料源预览',
+    add: '新增 Notion 语料源',
+    edit: '编辑 Notion 语料源',
+    preview: 'Notion 语料源预览',
   }
+
+  useEffect(() => {
+    if (modalType === 'add') {
+      form.resetFields()
+    }
+  }, [modalType])
 
   return (
     <Modal title={modalTitle[modalType]} open={visible} footer={null} destroyOnClose onCancel={() => handleCancel()}>
-      {visible && modalType !== 'preview' ? (
-        <Form form={form} initialValues={notionInfo || undefined} layout="vertical" onFinish={handleFinished}>
+      <div style={visible && modalType === 'add' ? {} : { display: 'none' }}>
+        <Form form={form} layout="vertical" onFinish={handleFinished}>
           {/* 问题关键词：设置问题的触发关键词，上限3个 ，以逗号隔开 */}
           <Form.Item
             label={
@@ -83,7 +82,7 @@ const NotionModal = (props: NotionModalProps) => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  如何获取Notion token？
+                  如何获取 Notion token？
                 </a>
               </div>
             }
@@ -145,7 +144,7 @@ const NotionModal = (props: NotionModalProps) => {
             </div>
           </Form.Item>
         </Form>
-      ) : null}
+      </div>
       {visible && modalType === 'preview' ? <p style={{ whiteSpace: 'pre-wrap' }}>{notionInfo?.content}</p> : null}
     </Modal>
   )
