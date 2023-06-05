@@ -150,7 +150,7 @@ async function createNotion(params: CorpusAPI.CreateNotionParamsType) {
 
 // 删除notion表格数据
 async function deleteNotion(params: CorpusAPI.DeleteNotionParamsType) {
-  return request<CorpusAPI.DeleteNotionResponseType>('/api/app/file/deleteNotion', {
+  return request<CorpusAPI.DeleteNotionResponseType>('/api/app/notion/deleteNotion', {
     method: 'POST',
     headers: {
       Authorization: localStorage.getItem('token') || '',
