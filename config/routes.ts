@@ -46,13 +46,6 @@ export default [
     ],
   },
   {
-    path: '/ama',
-    name: 'ama',
-    icon: 'smile',
-    access: 'user',
-    component: './AskMeAnything',
-  },
-  {
     path: '/database-config',
     name: 'database-config',
     icon: 'databaseOutlined',
@@ -75,6 +68,20 @@ export default [
         component: './StandardLib',
       },
     ],
+  },
+  {
+    path: '/ama',
+    name: 'ama',
+    icon: 'smile',
+    access: 'user',
+    component: './AskMeAnything',
+  },
+  {
+    path: '/dialog-history',
+    name: 'dialog-history',
+    icon: 'history',
+    access: 'user',
+    component: './DialogHistory',
   },
   {
     path: '/robot-config',
