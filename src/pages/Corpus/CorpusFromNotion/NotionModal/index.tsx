@@ -18,6 +18,7 @@ const NotionModal = (props: NotionModalProps) => {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const { initialState } = useModel('@@initialState')
+  const [subPage, setSubPage] = useState(false) // 是否允许子页面，默认为false
   const { currentUser } = initialState || {}
 
   const handleCancel = () => {
@@ -35,11 +36,10 @@ const NotionModal = (props: NotionModalProps) => {
           token: values.token,
           pagelink: values.pagelink,
           doc_name: values.doc_name,
-          subPage: false,
+          subPage: subPage || false,
         }
-        if (typeof values.subPage === 'boolean') {
-          Object.assign(params, { subPage: values.subPage })
-        }
+        // eslint-disable-next-line no-debugger
+        debugger
         res = await corpus.createNotion(params)
 
         if (res.ActionType === ActionType.OK) {
@@ -66,6 +66,10 @@ const NotionModal = (props: NotionModalProps) => {
       form.resetFields()
     }
   }, [modalType])
+
+  const handleChange = (e: any) => {
+    setSubPage(e.target.checked)
+  }
 
   return (
     <Modal title={modalTitle[modalType]} open={visible} footer={null} destroyOnClose onCancel={() => handleCancel()}>
@@ -129,7 +133,7 @@ const NotionModal = (props: NotionModalProps) => {
               },
             ]}
           >
-            <Checkbox>
+            <Checkbox onChange={handleChange}>
               <span style={{ marginLeft: 10 }}>勾选代表同意获取子链接内容</span>
             </Checkbox>
           </Form.Item>
