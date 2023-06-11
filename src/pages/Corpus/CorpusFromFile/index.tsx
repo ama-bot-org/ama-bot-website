@@ -12,6 +12,7 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import Input from 'antd/lib/input'
 import PreviewModal from '../PreviewModal'
+import CorpusUpdateButton from '@/components/CorpusUpdateButton'
 dayjs.extend(utc)
 
 const CorpusFromFile = () => {
@@ -141,22 +142,42 @@ const CorpusFromFile = () => {
     setPreviewVisible(true)
   }
 
+  const topClassName = useEmotionCss(() => {
+    return {
+      display: 'flex',
+      alignItems: 'space-between',
+      flexDirection: 'row',
+      width: '80%',
+      '@media screen and (max-width: 768px)': {
+        flexDirection: 'column',
+        alignItems: 'start',
+        marginBottom: '20px',
+      },
+    }
+  })
+
   return (
     <div className="w-full fcs-center md:flex-row md:items-start overflow-hidden">
       <CustomUploadComponent onSuccessUpload={handleUpdateList} />
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start', flex: 1 }}>
-        <Input
-          onKeyUp={handleKeyUp}
-          onChange={handleSearchChange}
-          style={{ width: '80%', marginBottom: '10px' }}
-          suffix={
-            <SearchOutlined
-              onClick={() => {
-                init()
-              }}
-            />
-          }
-        />
+        <div className={topClassName}>
+          <Input
+            onKeyUp={handleKeyUp}
+            onChange={handleSearchChange}
+            style={{ width: '80%', height: 32, marginBottom: '10px' }}
+            suffix={
+              <SearchOutlined
+                style={{ fontSize: 18 }}
+                onClick={() => {
+                  init()
+                }}
+              />
+            }
+          />
+          <div style={{ marginBottom: 10, marginLeft: 10 }}>
+            <CorpusUpdateButton />
+          </div>
+        </div>
         {loading ? (
           <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => (

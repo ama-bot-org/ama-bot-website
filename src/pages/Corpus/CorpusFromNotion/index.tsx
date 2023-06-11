@@ -8,6 +8,7 @@ import NotionTable from './NotionTable'
 import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
 import { ActionType } from '@/services/ant-design-pro/enums'
 import corpus from '@/services/ant-design-pro/corpus'
+import CorpusUpdateButton from '@/components/CorpusUpdateButton'
 
 const CorpusFromNotion: React.FC = () => {
   const { initialState } = useModel('@@initialState')
@@ -113,7 +114,7 @@ const CorpusFromNotion: React.FC = () => {
     return {
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'space-between',
       flexDirection: 'row',
       '@media screen and (max-width: 768px)': {
         flexDirection: 'column',
@@ -127,8 +128,7 @@ const CorpusFromNotion: React.FC = () => {
     return {
       flex: 1,
       display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
+      alignItems: 'start',
       flexDirection: 'row',
       marginBottom: '20px',
     }
@@ -156,11 +156,12 @@ const CorpusFromNotion: React.FC = () => {
                 },
               }}
             >
-              <Button type="primary" style={{ marginLeft: '10px' }} onClick={handleAddNew}>
+              <Button type="primary" style={{ marginRight: '10px' }} onClick={handleAddNew}>
                 新增Notion语料源
               </Button>
             </ConfigProvider>
           </div>
+          <CorpusUpdateButton />
         </div>
         <NotionTable
           pageSize={pageSize}

@@ -36,7 +36,7 @@ const CorpusUpdateButton = ({ onLoading }: CorpusUpdateButtonProps) => {
 
   return (
     <Button onClick={handleUpdateCorpus} type="primary" disabled={loading} loading={loading}>
-      更新语料库
+      更新数据到机器人
     </Button>
   )
 }

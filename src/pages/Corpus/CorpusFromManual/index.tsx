@@ -108,7 +108,7 @@ const CorpusFromManual: React.FC = () => {
     return {
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'space-between',
       flexDirection: 'row',
       '@media screen and (max-width: 768px)': {
         flexDirection: 'column',
@@ -122,7 +122,7 @@ const CorpusFromManual: React.FC = () => {
     return {
       flex: 1,
       display: 'flex',
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
       alignItems: 'center',
       flexDirection: 'row',
       marginBottom: '20px',
@@ -151,12 +151,12 @@ const CorpusFromManual: React.FC = () => {
                 },
               }}
             >
-              <CorpusUpdateButton />
-              <Button type="primary" style={{ marginLeft: '10px' }} onClick={handleAddNew}>
+              <Button type="primary" style={{ marginRight: '10px' }} onClick={handleAddNew}>
                 新增语料源
               </Button>
             </ConfigProvider>
           </div>
+          <CorpusUpdateButton />
         </div>
         <ThemeTable
           pageSize={pageSize}
