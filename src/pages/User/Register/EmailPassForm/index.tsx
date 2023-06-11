@@ -65,7 +65,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
             },
             {
               validator: async (rule, value) => {
-                // 避免还在创建域名阶段的不必要的验证
+                // 避免还在创建名称阶段的不必要的验证
                 if (!visible) {
                   return
                 }

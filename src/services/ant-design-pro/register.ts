@@ -14,7 +14,7 @@ export async function checkEmailUnique(email: string) {
   return res.data
 }
 
-/** 验证AI域名唯一性 POST /app/user/ai */
+/** 验证AI名称唯一性 POST /app/user/ai */
 export async function checkAIDomainUnique(org_id: string) {
   return request<API.UniqueResponse>('/api/app/user/ai', {
     method: 'POST',

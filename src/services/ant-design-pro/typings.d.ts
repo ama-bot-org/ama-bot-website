@@ -25,7 +25,7 @@ declare namespace API {
   type User = {
     name: string
     email: string
-    org_id: string // 域名
+    org_id: string // 名称
     bot_id: string
     level: AuthorityLevel
   }
@@ -72,7 +72,7 @@ declare namespace API {
 
     level?: AuthorityLevel //用户的权限，默认为2
 
-    org_id: string //用户头注册的ai域名
+    org_id: string //用户头注册的ai名称
 
     name: string //用户名
 
