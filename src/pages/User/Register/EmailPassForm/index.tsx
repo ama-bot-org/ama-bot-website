@@ -65,6 +65,10 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
             },
             {
               validator: async (rule, value) => {
+                // 避免还在创建域名阶段的不必要的验证
+                if (!visible) {
+                  return
+                }
                 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                 if (!value || EMAIL_REGEX.test(value) === false) {
                   return Promise.reject()
