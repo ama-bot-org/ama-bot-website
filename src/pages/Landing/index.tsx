@@ -1,12 +1,14 @@
 import Footer from '@/components/Footer'
 import Button from 'antd/es/button'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { SelectLang, useIntl, Helmet, Link } from '@umijs/max'
+import { SelectLang, useIntl, Helmet, Link, useModel } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
-import React from 'react'
+import React, { useEffect } from 'react'
 import LogoWithName from '@/components/LogoWithName'
 import { ConfigProvider } from 'antd'
 import CreateAISteps from '@/components/CreateAISteps'
+import { AvatarDropdown } from '@/components/RightContent/AvatarDropdown'
+import { getInitialState } from '@/app'
 
 const Lang = () => {
   const langClassName = useEmotionCss(({ token }) => {
@@ -14,8 +16,6 @@ const Lang = () => {
       width: 42,
       height: 42,
       lineHeight: '42px',
-      position: 'fixed',
-      right: 120,
       borderRadius: token.borderRadius,
       ':hover': {
         backgroundColor: token.colorBgTextHover,
@@ -38,8 +38,6 @@ const LoginButton = () => {
       width: 80,
       height: 40,
       lineHeight: '42px',
-      position: 'fixed',
-      right: 16,
       borderRadius: token.borderRadius,
       ':hover': {
         backgroundColor: token.colorBgTextHover,
@@ -71,6 +69,24 @@ const LoginButton = () => {
 
 const Landing: React.FC = () => {
   const intl = useIntl()
+  const { initialState, setInitialState } = useModel('@@initialState')
+  const { currentUser } = initialState || {}
+
+  const initUser = async () => {
+    const { fetchUserInfo } = await getInitialState()
+    if (fetchUserInfo) {
+      setInitialState({
+        ...initialState,
+        currentUser: await fetchUserInfo(),
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (!currentUser?.bot_id) {
+      initUser()
+    }
+  }, [])
 
   const containerClassName = useEmotionCss(() => {
     return {
@@ -106,8 +122,26 @@ const Landing: React.FC = () => {
         }}
       >
         <LogoWithName />
-        <Lang />
-        <LoginButton />
+
+        <div
+          style={{
+            width: 'auto',
+            height: 40,
+            lineHeight: '42px',
+            position: 'fixed',
+            right: 16,
+            display: 'flex',
+          }}
+        >
+          <Lang />
+          {currentUser?.org_id ? (
+            <AvatarDropdown menu>
+              <span>{currentUser?.org_id}</span>
+            </AvatarDropdown>
+          ) : (
+            <LoginButton />
+          )}
+        </div>
         <CreateAISteps isShowCreate />
       </div>
       <Footer />

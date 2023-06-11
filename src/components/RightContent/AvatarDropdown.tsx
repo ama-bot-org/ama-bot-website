@@ -1,5 +1,5 @@
 // import { outLogin } from '@/services/ant-design-pro/api'
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { history, useModel } from '@umijs/max'
 import { Spin } from 'antd'
@@ -72,6 +72,9 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
       }
       // 如果点击的不是 "logout" 菜单项，则会根据菜单项的 key 值生成一个路由路径，然后使用 history.push() 方法来在路由之间导航到对应的路径
       // history.push(`/account/${key}`)
+      else if (key === 'center') {
+        history.push(`/database-config/corpus`)
+      }
     },
     [setInitialState],
   )
@@ -106,11 +109,11 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
             icon: <UserOutlined />,
             label: '个人中心',
           },
-          {
-            key: 'settings',
-            icon: <SettingOutlined />,
-            label: '个人设置',
-          },
+          // {
+          //   key: 'settings',
+          //   icon: <SettingOutlined />,
+          //   label: '个人设置',
+          // },
           {
             type: 'divider' as const,
           },
