@@ -49,6 +49,7 @@ const QA = ({ corpusLoading }: { corpusLoading: boolean }) => {
       console.log(error)
       temp[temp.length - 1].content = '抱歉，我还不知道怎么回答这个问题'
       setDialogs(temp)
+      setQuestion('')
     }
   }
 
@@ -77,7 +78,7 @@ const QA = ({ corpusLoading }: { corpusLoading: boolean }) => {
         {dialogs.map((dialog, index) => {
           return (
             <li key={index} className="my-4">
-              <p className={`p-10 m-0 bg-white rounded-lg ${dialog.type === 'question' ? 'float-left' : 'float-right'}`}>
+              <p className={`p-10 m-0 bg-white rounded-lg ${dialog.type === 'question' ? 'float-right' : 'float-left'}`}>
                 {dialog.content}
               </p>
             </li>
@@ -93,7 +94,7 @@ const QA = ({ corpusLoading }: { corpusLoading: boolean }) => {
         }
         value={question}
         onKeyUp={e => {
-          if (e.key === '13') {
+          if (e.key === 'Enter') {
             handleTestQuery()
           }
         }}
