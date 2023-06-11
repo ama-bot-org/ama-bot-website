@@ -61,13 +61,18 @@ const QA = ({ corpusLoading }: { corpusLoading: boolean }) => {
   ) : (
     <div>
       <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0 }}>
-        <li>
-          <p className="p-10 my-4 bg-white rounded-lg float-left">欢迎来到悦问</p>
-        </li>
-        <li>
+        <li className="mb-4">
           <p className="p-10 my-4 bg-white rounded-lg float-left">
-            为你量身定制AI，24小时在线提供问答服务。组织客服AI：以文本形式上传你的组织数据库，8小时后完成AI训练，为你量身定制一个组织客服系统。个人数字孪生：将你的个人知识系统，如notion文档数据库，授权给艾因智能，便可创造一个数字孪生专家，24小时在线为你回答用户提出的现有知识系统内的任何已知问题。
+            你好，我是Askio！一个24小时极速响应的AI。能够为您优化80%以上的客服成本，且回复满意率高达98%。Askio将扮演专业的企业客服专家，为您的顾客带来极好的问答咨询体验。
           </p>
+        </li>
+        <li className="my-4">
+          <div className="p-10 bg-white rounded-lg float-left">
+            <p className="my-4 mb-16">立即接入Askio，精准定制属于你的企业AI客服，共创AI新纪元！</p>
+            <p className="my-4">企业邮箱：askiocontact@gmail.com</p>
+            <p className="my-4 mb-8">微信咨询商务负责人Leon：</p>
+            <img src={'/images/leon.svg'} alt="leon" />
+          </div>
         </li>
         {dialogs.map((dialog, index) => {
           return (
