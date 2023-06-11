@@ -73,7 +73,7 @@ const Register = () => {
         to={registerStep === 1 ? '/landing' : '/user/register?step=1'}
         style={{
           fontFamily: 'AlibabaPuHuiTi-2-65-Medium',
-          fontSize: '20px',
+          fontSize: '24px',
           fontWeight: 500,
           color: '#131415',
           textDecoration: 'none',
@@ -87,7 +87,7 @@ const Register = () => {
         <EmailPassForm onCompleteRegister={onCompleteRegister} submitting={submitting} visible={registerStep === 2} />
         {registerStep === 1 ? (
           <div className="w-full text-center">
-            <Link to={'/user/login'} style={{ textDecoration: 'none', fontFamily: 'AlibabaPuHuiTi-2-85-Bold' }}>
+            <Link to={'/user/login'} style={{ textDecoration: 'none', fontFamily: 'AlibabaPuHuiTi-2-85-Bold', fontSize: '18px' }}>
               <span style={{ color: '#e65c41', marginRight: '12px' }}>{intl.formatMessage({ id: 'register.skip' })}</span>
               <ArrowRightOutlined color="#e65c41" style={{ color: '#e65c41' }} />
             </Link>

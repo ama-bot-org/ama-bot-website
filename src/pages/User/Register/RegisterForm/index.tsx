@@ -67,6 +67,7 @@ const RegisterForm = (props: RegisterFormProps) => {
         new Error(
           intl.formatMessage({
             id: 'register.domain.required',
+            defaultMessage: '请输入 AI 名称',
           }),
         ),
       )
@@ -118,11 +119,11 @@ const RegisterForm = (props: RegisterFormProps) => {
         alignItems: 'center',
       }}
     >
-      <div className="w-full flex-1 fcc-start">
+      <div className="w-full flex-1 fcc-start register-step-one">
         <Form.Item
           name="domain"
           label={intl.formatMessage({ id: 'register.domain.register', defaultMessage: '注册你的 AI 名称' })}
-          rules={[{ required: true }, { validator: (rule, value) => validIsUnique(rule, value) }]}
+          rules={[{ validator: (rule, value) => validIsUnique(rule, value) }]}
         >
           <Input placeholder="请输入名称" suffix={<span className="mx-2">.AI</span>} />
         </Form.Item>
@@ -154,7 +155,7 @@ const RegisterForm = (props: RegisterFormProps) => {
             },
           }}
         >
-          <Button type="primary" style={{ width: '100%', height: '100%' }} htmlType="submit">
+          <Button type="primary" style={{ width: '100%', height: '48px', fontSize: 18 }} htmlType="submit">
             {intl.formatMessage({
               id: 'landing.createmyai',
               defaultMessage: '创建我的 AI',
