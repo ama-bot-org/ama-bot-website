@@ -86,7 +86,7 @@ const QA = ({ corpusLoading }: { corpusLoading: boolean }) => {
         })}
       </ul>
       <Input
-        prefix={<img style={{ marginRight: '4px' }} width={32} height={32} src="favicon.ico" />}
+        prefix={<img style={{ marginRight: '4px' }} width={20} height={20} src="favicon.ico" />}
         suffix={
           <Button type="primary" icon={<SendOutlined />} onClick={handleTestQuery}>
             发送
