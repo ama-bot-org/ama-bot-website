@@ -20,29 +20,37 @@ const CaptchaForm = (props: CaptFormProps) => {
   const { form, validFields, registerType, onCaptchaChange = () => {} } = props
   const intl = useIntl()
   const [count, setCount] = useState(0)
+  const [sendloading, setSendLoading] = useState(false)
 
   const onGetCaptcha = async () => {
-    await form.validateFields(validFields || ['email', 'password', 'confirm'])
+    setSendLoading(true)
+    try {
+      await form.validateFields(validFields || ['email', 'password', 'confirm'])
 
-    // 获取验证码
-    const email = form.getFieldValue('email')
-    if (email) {
-      const res = await requestCaptcha(email, registerType)
-      if (res.ActionType === ActionType.OK) {
-        // 倒计时
-        let count = 59
-        setCount(count)
-        const timer = setInterval(() => {
-          count -= 1
+      // 获取验证码
+      const email = form.getFieldValue('email')
+      if (email) {
+        const res = await requestCaptcha(email, registerType)
+        if (res.ActionType === ActionType.OK) {
+          // 倒计时
+          let count = 59
           setCount(count)
-          if (count === 0) {
-            clearInterval(timer)
-          }
-        }, 1000)
-        message.success(intl.formatMessage({ id: 'register.code.available' }))
+          const timer = setInterval(() => {
+            count -= 1
+            setCount(count)
+            if (count === 0) {
+              clearInterval(timer)
+            }
+          }, 1000)
+          message.success(intl.formatMessage({ id: 'register.code.available' }))
+        }
+      } else {
+        form.validateFields(['email'])
       }
-    } else {
-      form.validateFields(['email'])
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setSendLoading(false)
     }
   }
 
@@ -65,7 +73,7 @@ const CaptchaForm = (props: CaptFormProps) => {
           />
         </Col>
         <Col span={10}>
-          <Button size="large" disabled={count > 0} className="w-full" onClick={onGetCaptcha}>
+          <Button size="large" disabled={count > 0} className="w-full" onClick={onGetCaptcha} loading={sendloading}>
             {count ? `${count} s` : intl.formatMessage({ id: 'register.code.get' })}
           </Button>
         </Col>
