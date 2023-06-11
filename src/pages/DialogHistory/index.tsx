@@ -22,13 +22,12 @@ const DialogHistory: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<LogInfoAPI.LogInfoTableRow | undefined>()
   const [modalVisible, setModalVisible] = useState(false)
 
-  const initNotionTable = async () => {
+  const initDialogHistoryTable = async () => {
     if (currentUser?.bot_id) {
       setLoading(true)
       try {
         const res = await logInfo.getHistoryTable({
           bot_id: currentUser.bot_id,
-          // searchWord: searchValue,
           page,
           pageSize,
         })
@@ -87,8 +86,8 @@ const DialogHistory: React.FC = () => {
   // }
 
   useEffect(() => {
-    initNotionTable()
-  }, [page, searchValue])
+    initDialogHistoryTable()
+  }, [page])
 
   return (
     <div className={containerClassName}>
