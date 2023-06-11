@@ -1,9 +1,9 @@
 export default {
   'agreement.required': '请仔细阅读后点击勾选，同意服务协议后继续',
-  'agreement.agreement.one': '阅读并同意',
-  'agreement.agreement.service': '《悦问服务协议》',
+  'agreement.agreement.one': '阅读并同意悦问',
+  'agreement.agreement.service': '《服务协议》',
   'agreement.agreement.and': '和',
-  'agreement.agreement.privacy': '《悦问隐私政策》',
+  'agreement.agreement.privacy': '《隐私政策》',
   'agreement.service.welcome':
     '欢迎使用悦问服务！在您使用本服务前，请仔细阅读以下协议。一旦您使用本服务，则视为您已经同意本协议的全部内容。如有任何疑问，请联系我们。',
   'agreement.service.h3_1': '服务说明',

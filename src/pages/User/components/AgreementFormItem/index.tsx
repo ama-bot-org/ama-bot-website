@@ -34,7 +34,7 @@ const AgreementFormItem = (props: AgreementFormItemProps) => {
           },
         ]}
       >
-        <Checkbox onChange={handleCheckboxChange}>
+        <Checkbox onChange={handleCheckboxChange} style={{ fontSize: 16 }}>
           <span>
             {Inlt.formatMessage({
               id: 'agreement.agreement.one',
@@ -47,6 +47,9 @@ const AgreementFormItem = (props: AgreementFormItemProps) => {
               color: '#e65c41',
               paddingLeft: '0px',
               paddingRight: '0px',
+              fontSize: 16,
+              marginRight: '4px',
+              marginLeft: '4px',
             }}
             onClick={() => {
               setModalVisible(true)
@@ -69,6 +72,7 @@ const AgreementFormItem = (props: AgreementFormItemProps) => {
               color: '#e65c41',
               paddingLeft: '0px',
               paddingRight: '0px',
+              fontSize: 16,
             }}
             onClick={() => {
               setModalVisible(true)

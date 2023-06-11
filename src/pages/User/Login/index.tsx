@@ -12,6 +12,7 @@ import { useForm } from 'antd/es/form/Form'
 import { ActionType, CheckType, RegisterType } from '@/services/ant-design-pro/enums'
 import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
 import AgreementFormItem from '../components/AgreementFormItem'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 
 const Login: React.FC = () => {
   const { setInitialState } = useModel('@@initialState')
@@ -123,21 +124,40 @@ const Login: React.FC = () => {
       <div
         style={{
           flex: '1',
-          width: '375px',
+          width: '365px',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           padding: '32px 0',
+          position: 'relative',
         }}
       >
+        <Link
+          to={'/landing'}
+          style={{
+            position: 'absolute',
+            top: '32px',
+            left: '0px',
+            fontFamily: 'AlibabaPuHuiTi-2-65-Medium',
+            fontSize: '24px',
+            fontWeight: 500,
+            color: '#131415',
+            textDecoration: 'none',
+          }}
+        >
+          <ArrowLeftOutlined style={{ marginRight: '12px' }} />
+          <span>{intl.formatMessage({ id: 'register.backHome' })}</span>
+        </Link>
         <div
           style={{
-            fontSize: '20px',
+            fontSize: '24px',
             fontWeight: 500,
             color: '#333',
             marginBottom: '20px',
+            textAlign: 'left',
+            width: '100%',
           }}
         >
           <span>{intl.formatMessage({ id: 'pages.login.emailLogin.tab' })}</span>
@@ -156,7 +176,7 @@ const Login: React.FC = () => {
               },
             ]}
           >
-            <Input size="large" placeholder={intl.formatMessage({ id: 'register.email.placeholder' })} />
+            <Input size="large" style={{ height: '48px' }} placeholder={intl.formatMessage({ id: 'register.email.placeholder' })} />
           </Form.Item>
           {isCheckBuyCaptcha ? (
             <CaptchaForm form={form} registerType={RegisterType.Login} onCaptchaChange={handleDynamicFieldChange} />
@@ -172,19 +192,20 @@ const Login: React.FC = () => {
             >
               <Input.Password
                 size="large"
+                style={{ height: '48px' }}
                 placeholder={intl.formatMessage({ id: 'register.password.required' })}
                 onChange={e => handleDynamicFieldChange(e.target.value, CheckType.Password)}
               />
             </Form.Item>
           )}
-          <div className="w-full frc-between" style={{ marginBottom: '20px' }}>
+          <div className="w-full frc-between" style={{ marginBottom: '20px', fontSize: 16 }}>
             <Link to={'/user/register?step=1'} style={{ textDecoration: 'none', fontFamily: 'AlibabaPuHuiTi-2-85-Bold' }}>
               <span style={{ color: '#e65c41', marginRight: '12px' }}>{intl.formatMessage({ id: 'register.register' })}</span>
               <ArrowRightOutlined color="#e65c41" style={{ color: '#e65c41' }} />
             </Link>
             <Button
               type="text"
-              style={{ display: 'inline', width: 'min-content' }}
+              style={{ display: 'inline', width: 'min-content', fontSize: 16 }}
               onClick={() => {
                 setIsCheckBuyCaptcha(!isCheckBuyCaptcha)
               }}
@@ -203,7 +224,13 @@ const Login: React.FC = () => {
                 },
               }}
             >
-              <Button type="primary" loading={submitting} disabled={!checked} style={{ width: '100%', height: '100%' }} htmlType="submit">
+              <Button
+                type="primary"
+                loading={submitting}
+                disabled={!checked}
+                style={{ width: '100%', height: '48px', fontSize: 18 }}
+                htmlType="submit"
+              >
                 {intl.formatMessage({ id: 'menu.login' })}
               </Button>
             </ConfigProvider>

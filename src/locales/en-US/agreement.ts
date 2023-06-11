@@ -1,9 +1,9 @@
 export default {
   'agreement.required': 'Please read carefully and click to check, continue after agreeing to the service agreement',
-  'agreement.agreement.one': 'Read and agree to',
-  'agreement.agreement.service': '《Askio Service Agreement》',
+  'agreement.agreement.one': 'I have read and agree to',
+  'agreement.agreement.service': 'Service Agreement',
   'agreement.agreement.and': 'and',
-  'agreement.agreement.privacy': '《Askio Privacy Policy》',
+  'agreement.agreement.privacy': 'Privacy Policy',
   'agreement.service.welcome':
     'Welcome to use Askio service! Please read the following agreement carefully before using this service. Once you use this service, it will be deemed that you have agreed to all the contents of this agreement. If you have any questions, please contact us.',
   'agreement.service.h3_1': 'Service Description',
