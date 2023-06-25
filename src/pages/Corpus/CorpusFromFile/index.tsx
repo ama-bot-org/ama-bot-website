@@ -112,11 +112,14 @@ const CorpusFromFile = () => {
       return
     }
     try {
-      await corpus.downloadDoc({
+      const res = await corpus.downloadDoc({
         bot_id: currentUser.bot_id,
         id,
         file_name: filename,
       })
+      if (res.ActionType === ActionType.OK && res.downloadUrl) {
+        window.open(res.downloadUrl, '_blank')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -230,7 +233,6 @@ const CorpusFromFile = () => {
                   </Button>
                   <Button
                     type="text"
-                    disabled
                     icon={<DownloadOutlined />}
                     onClick={() => {
                       handleDownload(item.id, item.file_name)

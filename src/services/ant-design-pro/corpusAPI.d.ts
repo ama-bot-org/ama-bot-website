@@ -95,6 +95,11 @@ declare namespace CorpusAPI {
     ActionType: ActionType
   }
 
+  type FileDownloadResponse = {
+    ActionType: ActionType
+    downloadUrl: string
+  }
+
   type NotionInfoAddProps = {
     bot_id: string
     token: string

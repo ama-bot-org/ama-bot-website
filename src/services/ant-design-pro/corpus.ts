@@ -49,7 +49,7 @@ async function deleteDoc(params: CorpusAPI.FileDeleteParamsType) {
 
 // 下载文件
 async function downloadDoc(params: CorpusAPI.DocDownloadParamsType) {
-  return request<CorpusAPI.FileDeleteResponse>('/api/app/file/docDownload', {
+  return request<CorpusAPI.FileDownloadResponse>('/api/app/file/docDownload', {
     method: 'POST',
     headers: {
       Authorization: localStorage.getItem('token') || '',
