@@ -152,6 +152,7 @@ declare namespace CorpusAPI {
     bot_id: string
     file_name: string
     file: any
+    file_type: 'docx' | 'pdf'
   }
 
   type DocDownloadParamsType = {

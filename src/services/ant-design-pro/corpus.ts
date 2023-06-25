@@ -24,6 +24,7 @@ async function uploadCorpusDoc(params: CorpusAPI.UploadDocParamType) {
   formData.append('bot_id', params.bot_id)
   formData.append('file_name', params.file_name)
   formData.append('file', params.file)
+  formData.append('file_type', params.file_type)
   return request<CorpusAPI.UploadFileResponseType>('/api/app/file/docCreate', {
     method: 'POST',
     headers: {

@@ -19,12 +19,15 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
 
   const handleUpload = async (options: any) => {
     const { fileContent, filename, onError, onSuccess } = options
+    let fileType = filename.split('.').pop().toLowerCase()
+    if (fileType === 'doc') fileType = 'docx'
     if (currentUser?.bot_id) {
       try {
         const res = await corpus.uploadCorpusDoc({
           bot_id: currentUser?.bot_id,
           file_name: filename,
           file: fileContent,
+          file_type: fileType,
         })
         if (res.ActionType === ActionType.OK) {
           onSuccess('上传成功')
@@ -45,15 +48,16 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
   }
 
   const beforeUpload = (file: RcFile) => {
-    const isDoc = file.type === 'application/msword' || file.name.endsWith('.doc') || file.name.endsWith('.docx') // 后缀名检查
+    const isDoc =
+      file.type === 'application/msword' || file.name.endsWith('.doc') || file.name.endsWith('.docx') || file.name.endsWith('.pdf') // 后缀名检查
     if (!isDoc) {
-      message.error('只能上传 doc 文件！')
+      message.error('只能上传 doc, docx 或者 pdf 文件！')
     }
-    const isLt10M = file.size < MAX_UPLOAD_SIZE
-    if (!isLt10M) {
+    const isLt5M = file.size < MAX_UPLOAD_SIZE
+    if (!isLt5M) {
       message.error('上传文件不能超过 5MB！')
     }
-    return isDoc && isLt10M
+    return isDoc && isLt5M
   }
 
   const uploadBtnClassname = useEmotionCss(() => ({
@@ -78,7 +82,7 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
       <Button className={uploadBtnClassname}>
         <CloudUploadOutlined style={{ fontSize: 100 }} />
         <h3>上传语料文件</h3>
-        <p>支持 doc 格式，文件大小不超过 5MB</p>
+        <p>支持 doc/docx/pdf 格式，文件大小不超过 5MB</p>
       </Button>
     </Upload>
   )
