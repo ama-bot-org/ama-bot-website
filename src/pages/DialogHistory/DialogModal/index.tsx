@@ -60,8 +60,35 @@ const NotionModal = (props: DialogModalProps) => {
 
   return (
     <Modal title={modalTitle['preview']} open={visible} footer={null} destroyOnClose onCancel={() => handleCancel()}>
-      <p className="p-10 my-4 bg-white rounded-lg float-left">{dialogInfo?.question}</p>
-      <p className="p-10 my-4 bg-white rounded-lg float-right">{dialogInfo?.answer}</p>
+      <div className="w-full relative overflow-hidden" style={{ height: 'auto', maxHeight: '600px' }}>
+        <img
+          src="/images/back_circle.svg"
+          alt="back_circle"
+          style={{
+            position: 'absolute',
+            zIndex: 0,
+            objectFit: 'cover',
+            width: '100%',
+            height: '100%',
+            opacity: 0.2,
+          }}
+        />
+        <div
+          style={{
+            maxHeight: '600px',
+            overflowY: 'auto',
+            zIndex: 2,
+            position: 'relative',
+          }}
+        >
+          <p className="p-10 m-4 bg-white rounded-lg float-left relative" style={{ zIndex: 1, width: '60%' }}>
+            {dialogInfo?.question}
+          </p>
+          <p className="p-10 m-4 bg-white rounded-lg float-right relative" style={{ zIndex: 1, width: '60%' }}>
+            {dialogInfo?.answer}
+          </p>
+        </div>
+      </div>
     </Modal>
   )
 }

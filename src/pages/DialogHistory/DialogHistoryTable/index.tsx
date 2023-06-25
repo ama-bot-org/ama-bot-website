@@ -30,12 +30,12 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
   const columns = [
     {
       title: '问题',
-      dataIndex: 'history_question',
+      dataIndex: 'question',
       key: 'history_question',
     },
     {
       title: '回答',
-      dataIndex: 'history_answer',
+      dataIndex: 'answer',
       key: 'history_answer',
     },
     {
