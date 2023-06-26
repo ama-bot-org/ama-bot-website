@@ -102,31 +102,32 @@ const Landing: React.FC = () => {
       flexDirection: 'column',
       height: '100vh',
       overflow: 'auto',
+      backgroundColor: '#bfbfbf25',
     }
   })
 
-  const backimageClassName = useEmotionCss(() => {
-    return {
-      backgroundImage: "url('/images/back_circle.webp')",
-      backgroundRepeat: 'no-repeat',
-      '@media screen and (max-width: 1440px)': {
-        backgroundSize: 'auto',
-      },
-      backgroundSize: 'cover',
-      backgroundPosition: 'top center',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      opacity: 0.2,
-      zIndex: 0,
-    }
-  })
+  // const backimageClassName = useEmotionCss(() => {
+  //   return {
+  //     backgroundImage: "url('/images/back_circle.webp')",
+  //     backgroundRepeat: 'no-repeat',
+  //     '@media screen and (max-width: 1440px)': {
+  //       backgroundSize: 'auto',
+  //     },
+  //     backgroundSize: 'cover',
+  //     backgroundPosition: 'top center',
+  //     position: 'absolute',
+  //     top: 0,
+  //     left: 0,
+  //     width: '100%',
+  //     height: '100%',
+  //     opacity: 0.2,
+  //     zIndex: 0,
+  //   }
+  // })
 
   return (
     <div className={containerClassName}>
-      <div className={backimageClassName}> </div>
+      {/* <div className={backimageClassName}> </div> */}
       <Helmet>
         <title>
           {intl.formatMessage({

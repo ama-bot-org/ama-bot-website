@@ -15,7 +15,6 @@ declare module 'numeral'
 declare module '@antv/data-set'
 declare module 'mockjs'
 declare module 'ahooks'
-declare module '@umijs/max'
 declare module 'react-fittext'
 declare module 'bizcharts-plugin-slider'
 

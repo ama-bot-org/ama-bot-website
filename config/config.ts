@@ -42,6 +42,9 @@ export default defineConfig({
     'root-entry-name': 'variable',
     colorPrimary: '#e65c41',
     primaryColor: '#e65c41',
+    token: {
+      colorPrimary: '#e65c41',
+    },
   },
   /**
    * @name moment 的国际化配置
