@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="171px" height="168px" viewBox="0 0 171 168" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组</title>
+    <g id="landing-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.1">
+        <g id="编组" transform="translate(85.500000, 84.000000) rotate(29.000000) translate(-85.500000, -84.000000) translate(21.000000, 24.000000)" fill="#030404" fill-rule="nonzero">
+            <path d="M64.5,4.54747351e-13 L129,120 L0,120 L64.5,4.54747351e-13 Z M66.65,42.8571429 C53.5884657,42.8571429 43,53.4104309 43,66.4285714 C43,79.446712 53.5884657,90 66.65,90 C79.7115343,90 90.3,79.446712 90.3,66.4285714 C90.3,53.4104309 79.7115343,42.8571429 66.65,42.8571429 Z" id="形状结合"></path>
+            <circle id="椭圆形" cx="76.4875532" cy="68.2187937" r="8"></circle>
+        </g>
+    </g>
+</svg>
