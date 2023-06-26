@@ -1,14 +1,21 @@
+import React, { useEffect } from 'react'
 import Footer from '@/components/Footer'
 import Button from 'antd/es/button'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { SelectLang, useIntl, Helmet, Link, useModel } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
-import React, { useEffect } from 'react'
 import LogoWithName from '@/components/LogoWithName'
 import { ConfigProvider } from 'antd'
-import CreateAISteps from '@/components/CreateAISteps'
 import { AvatarDropdown } from '@/components/RightContent/AvatarDropdown'
 import { getInitialState } from '@/app'
+import SectionCompare from './components/SectionCompare'
+import SectionCorevalue from './components/SectionCorevalue'
+import SectionFeedback from './components/SectionFeedback'
+import SectionIntro from './components/SectionIntro'
+import SectionPlugin from './components/SectionPlugin'
+import SectionSafe from './components/SectionSafe'
+import SectionScene from './components/SectionScene'
+import SectionTryFree from './components/SectionTryFree'
 
 const Lang = () => {
   const langClassName = useEmotionCss(({ token }) => {
@@ -90,10 +97,16 @@ const Landing: React.FC = () => {
 
   const containerClassName = useEmotionCss(() => {
     return {
+      position: 'relative',
       display: 'flex',
       flexDirection: 'column',
       height: '100vh',
       overflow: 'auto',
+    }
+  })
+
+  const backimageClassName = useEmotionCss(() => {
+    return {
       backgroundImage: "url('/images/back_circle.webp')",
       backgroundRepeat: 'no-repeat',
       '@media screen and (max-width: 1440px)': {
@@ -101,11 +114,19 @@ const Landing: React.FC = () => {
       },
       backgroundSize: 'cover',
       backgroundPosition: 'top center',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      opacity: 0.2,
+      zIndex: 0,
     }
   })
 
   return (
     <div className={containerClassName}>
+      <div className={backimageClassName}> </div>
       <Helmet>
         <title>
           {intl.formatMessage({
@@ -117,6 +138,8 @@ const Landing: React.FC = () => {
       </Helmet>
       <div
         style={{
+          position: 'relative',
+          zIndex: 1,
           flex: '1',
           padding: '16px 0',
         }}
@@ -142,9 +165,39 @@ const Landing: React.FC = () => {
             <LoginButton />
           )}
         </div>
-        <CreateAISteps isShowCreate />
+        <div
+          style={{
+            height: 'auto',
+            marginTop: '50px',
+            width: '100%',
+          }}
+        >
+          {/* 第一栏：介绍产品本身 */}
+          <SectionIntro />
+
+          {/* 第二栏：与传统客服比较 */}
+          <SectionCompare />
+
+          {/* 第三栏：阐述核心价值 */}
+          <SectionCorevalue />
+
+          {/* 第四栏：描述应用场景 */}
+          <SectionScene />
+
+          {/* 第五栏：支持插件式嵌用 */}
+          <SectionPlugin />
+
+          {/* 第六栏：客户反馈意见 */}
+          <SectionFeedback />
+
+          {/* 第七栏：全面安全防护 */}
+          <SectionSafe />
+
+          {/* 第八栏：鼓励免费试用 */}
+          <SectionTryFree />
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   )
 }
