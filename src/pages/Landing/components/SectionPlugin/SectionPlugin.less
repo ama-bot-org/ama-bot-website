@@ -1,0 +1,23 @@
+.image {
+  width: 70%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .image {
+    width: 90%;
+  }
+}
+
+.image-wrap {
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.5s ease-in-out;
+}
+
+.image-wrap-zoom {
+  opacity: 1;
+  transform: scale(1);
+}

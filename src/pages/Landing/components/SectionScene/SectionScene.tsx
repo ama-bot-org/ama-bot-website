@@ -1,6 +1,5 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import React from 'react'
-import { isMobile } from 'react-device-detect'
 import { useInView } from 'react-intersection-observer'
 import styles from './SectionScene.less'
 
@@ -30,22 +29,8 @@ export default function SectionScene() {
         backgroundColor: '#fbfbfb',
       }}
     >
-      <p
-        style={{
-          fontSize: isMobile ? '32px' : '36px',
-          fontFamily: 'AlibabaPuHuiTi-2-85-Bold',
-        }}
-      >
-        对接即时沟通工具
-      </p>
-      <p
-        style={{
-          fontSize: '20px',
-          fontFamily: 'AlibabaPuHuiTi-2-55-Regular',
-        }}
-      >
-        支持对接微信公众号、企业微信、抖音等丰富的第三方应用
-      </p>
+      <p className="landing-main-header">对接即时沟通工具</p>
+      <p className="landing-secondary-header">支持对接微信公众号、企业微信、抖音等丰富的第三方应用</p>
       <div
         className="relative"
         style={{

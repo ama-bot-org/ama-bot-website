@@ -42,21 +42,8 @@ export default function SectionIntro() {
             }}
           />
         </div>
-        <h1
-          className="text-#e65c41"
-          style={{
-            fontSize: isMobile ? '32px' : '36px',
-            fontFamily: 'AlibabaPuHuiTi-2-85-Bold',
-          }}
-        >
-          问一下，都解决！
-        </h1>
-        <h1
-          style={{
-            fontSize: isMobile ? '32px' : '36px',
-            fontFamily: 'AlibabaPuHuiTi-2-85-Bold',
-          }}
-        >
+        <h1 className="text-#e65c41 landing-main-header">问一下，都解决！</h1>
+        <h1 className="landing-main-header">
           {isMobile ? (
             <div>
               <div>悦问 AI</div>
@@ -73,7 +60,9 @@ export default function SectionIntro() {
             },
           }}
         >
-          <Button type="primary">立即体验</Button>
+          <Button type="primary" size="large">
+            立即体验
+          </Button>
         </ConfigProvider>
       </div>
       <div className="relative text-center w-full">

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { isMobile } from 'react-device-detect'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -35,18 +34,11 @@ export default function SectionCorevalue() {
           marginBottom: '40px',
         }}
       >
-        <h1
-          style={{
-            fontSize: isMobile ? '32px' : '36px',
-            fontFamily: 'AlibabaPuHuiTi-2-85-Bold',
-          }}
-        >
-          核心价值
-        </h1>
+        <h1 className="landing-main-header">核心价值</h1>
         <p
           style={{
             fontSize: '20px',
-            fontFamily: 'AlibabaPuHuiTi-2-55-Regular',
+            fontFamily: 'AlibabaPuHuiTi_2_75_SemiBold',
             marginBottom: '4px',
           }}
         >
@@ -55,7 +47,7 @@ export default function SectionCorevalue() {
         <p
           style={{
             fontSize: '20px',
-            fontFamily: 'AlibabaPuHuiTi-2-55-Regular',
+            fontFamily: 'AlibabaPuHuiTi_2_75_SemiBold',
           }}
         >
           24小时客服在线，做到快速、准确、场景全覆盖的问答响应
