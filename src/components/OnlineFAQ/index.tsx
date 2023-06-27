@@ -48,6 +48,7 @@ const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
           justifyContent: 'center',
           position: 'relative',
           paddingLeft: 20,
+          cursor: 'pointer',
         }}
       >
         <span
@@ -67,7 +68,6 @@ const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
             width: '52px',
             height: '52px',
             margin: '0 0 0 97px',
-            padding: '16px 11.2px 15.6px 12px',
             borderRadius: '26px',
             backgroundColor: '#e65b42',
           }}
