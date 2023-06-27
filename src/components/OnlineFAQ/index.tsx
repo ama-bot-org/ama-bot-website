@@ -21,6 +21,7 @@ const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
         bottom: bottom,
         right: right,
         overflow: 'hidden',
+        zIndex: 9999,
       }}
     >
       <iframe
