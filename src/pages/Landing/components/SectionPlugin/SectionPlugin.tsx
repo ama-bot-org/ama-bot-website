@@ -7,6 +7,7 @@ export default function SectionPlugin() {
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.4,
+    triggerOnce: true,
   })
 
   const sectionClassName = useEmotionCss(() => {

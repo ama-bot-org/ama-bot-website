@@ -26,6 +26,7 @@ export default function SectionCorevalue() {
       style={{
         overflow: 'hidden',
         backgroundColor: 'aliceblue',
+        zIndex: 0,
       }}
     >
       <div

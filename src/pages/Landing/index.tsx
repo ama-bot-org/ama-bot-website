@@ -174,9 +174,11 @@ const Landing: React.FC = () => {
         <div
           style={{
             position: 'relative',
-            zIndex: 1,
+            zIndex: 2,
             flex: '1',
             padding: '16px 0',
+            height: '80px',
+            backgroundColor: 'aliceblue',
           }}
         >
           <LogoWithName />
@@ -226,12 +228,22 @@ const Landing: React.FC = () => {
 
         {/* 第六栏：客户反馈意见 */}
         <SectionFeedback />
+        <div className="relative">
+          <img
+            src="/images/Landing/s7-illustration-background.png"
+            style={{
+              position: 'absolute',
+              width: '75%',
+              top: 0,
+              left: '12%',
+            }}
+          />
+          {/* 第七栏：全面安全防护 */}
+          <SectionSafe />
 
-        {/* 第七栏：全面安全防护 */}
-        <SectionSafe />
-
-        {/* 第八栏：鼓励免费试用 */}
-        <SectionTryFree />
+          {/* 第八栏：鼓励免费试用 */}
+          <SectionTryFree />
+        </div>
       </div>
       <Footer />
     </div>
