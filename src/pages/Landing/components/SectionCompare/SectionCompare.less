@@ -1,0 +1,66 @@
+.dialog-gray {
+  width: auto;
+  height: auto;
+  min-height: 52px;
+  margin: 16px 0px;
+  padding: 0px 16px;
+  border-radius: 100px;
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+  background-color: #e7e7e8;
+  border: solid 3px #e7e7e8;
+  width: max-content;
+  display: flex;
+  align-items: center;
+}
+
+.dialog-white {
+  width: max-content;
+  height: auto;
+  min-height: 52px;
+  margin: 16px 0px;
+  padding: 16px;
+  border-radius: 100px;
+  box-shadow: 0 8px 24px 0 rgba(0; 0; 0; 0.1);
+  background-color: #fff;
+  text-align: left;
+}
+
+.dialog-orange {
+  width: auto;
+  height: auto;
+  min-height: 52px;
+  margin: 40px 0 0 40px;
+  padding: 30px 10px 30px 30px;
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+  background-color: #e65b42;
+  border-radius: 30px;
+  border: solid 3px #e7e7e8;
+  color: #fff;
+}
+
+.description {
+  font-size: 16px;
+  font-family: AlibabaPuHuiTi_2_55_Regular;
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.dialog-traditional {
+  opacity: 0;
+  transform: translateX(-800px);
+  transition: all 0.5s ease-in-out;
+}
+.dialog-traditional-zoom {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.dialog-ai {
+  opacity: 0;
+  transform: translateX(800px);
+  transition: all 0.5s ease-in-out;
+}
+.dialog-ai-zoom {
+  opacity: 1;
+  transform: translateX(0px);
+}

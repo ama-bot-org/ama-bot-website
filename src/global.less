@@ -120,6 +120,9 @@ ol {
 }
 
 // 自定义快捷样式
+.fixed {
+  position: fixed;
+}
 .absolute {
   position: absolute;
 }
@@ -202,10 +205,15 @@ ol {
 .fcs-center {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
-
+.fce-center {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
 .fcc-center {
   display: flex;
   flex-direction: column;
@@ -215,14 +223,14 @@ ol {
 .fcc-end {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-end;
 }
 .fcc-start {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
 }
 .frc-between {
   display: flex;

@@ -1,10 +1,17 @@
+import React from 'react'
+import styles from './SectionIntro.less'
 import OnlineFAQ from '@/components/OnlineFAQ'
 import { Button, ConfigProvider } from 'antd'
-import React from 'react'
+import { useInView } from 'react-intersection-observer'
 
 export default function SectionIntro() {
+  const { ref, inView } = useInView({
+    /* Optional options */
+    threshold: 0.4,
+  })
   return (
     <section
+      ref={ref}
       style={{
         marginTop: 100,
         overflow: 'hidden',
@@ -49,6 +56,7 @@ export default function SectionIntro() {
       </div>
       <div className="relative text-center w-full" style={{ maxHeight: 420 }}>
         <img
+          className={`${styles['landing-animate']} ${inView ? styles['landing-animate-scale'] : ''}`}
           src="/images/Landing/s1-ui.png"
           style={{
             width: '85%',

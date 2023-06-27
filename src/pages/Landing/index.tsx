@@ -138,67 +138,90 @@ const Landing: React.FC = () => {
         </title>
       </Helmet>
       <div
+        className="fixed w-full"
         style={{
-          position: 'relative',
           zIndex: 1,
-          flex: '1',
-          padding: '16px 0',
         }}
       >
-        <LogoWithName />
-
-        <div
+        <p
           style={{
-            width: 'auto',
-            height: 40,
-            lineHeight: '42px',
-            position: 'fixed',
-            right: 16,
-            display: 'flex',
-          }}
-        >
-          <Lang />
-          {currentUser?.org_id ? (
-            <AvatarDropdown menu>
-              <span>{currentUser?.org_id}</span>
-            </AvatarDropdown>
-          ) : (
-            <LoginButton />
-          )}
-        </div>
-        <div
-          style={{
-            height: 'auto',
-            marginTop: '50px',
             width: '100%',
+            height: 48,
+            backgroundColor: '#000000',
+            color: '#ffffff',
+            margin: 0,
+            padding: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontFamily: 'AlibabaPuHuiTi_2_55_Regular',
           }}
         >
-          {/* 第一栏：介绍产品本身 */}
-          <SectionIntro />
+          🔥共建者招募中，加入悦问AI，一起迎接AI生产力新时代🔥
+        </p>
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 1,
+            flex: '1',
+            padding: '16px 0',
+          }}
+        >
+          <LogoWithName />
 
-          {/* 第二栏：与传统客服比较 */}
-          <SectionCompare />
-
-          {/* 第三栏：阐述核心价值 */}
-          <SectionCorevalue />
-
-          {/* 第四栏：描述应用场景 */}
-          <SectionScene />
-
-          {/* 第五栏：支持插件式嵌用 */}
-          <SectionPlugin />
-
-          {/* 第六栏：客户反馈意见 */}
-          <SectionFeedback />
-
-          {/* 第七栏：全面安全防护 */}
-          <SectionSafe />
-
-          {/* 第八栏：鼓励免费试用 */}
-          <SectionTryFree />
+          <div
+            style={{
+              width: 'auto',
+              height: 40,
+              lineHeight: '42px',
+              position: 'fixed',
+              right: 16,
+              display: 'flex',
+            }}
+          >
+            <Lang />
+            {currentUser?.org_id ? (
+              <AvatarDropdown menu>
+                <span>{currentUser?.org_id}</span>
+              </AvatarDropdown>
+            ) : (
+              <LoginButton />
+            )}
+          </div>
         </div>
-        <Footer />
       </div>
+      <div
+        style={{
+          height: 'auto',
+          marginTop: '50px',
+          width: '100%',
+        }}
+      >
+        {/* 第一栏：介绍产品本身 */}
+        <SectionIntro />
+
+        {/* 第二栏：与传统客服比较 */}
+        <SectionCompare />
+
+        {/* 第三栏：阐述核心价值 */}
+        <SectionCorevalue />
+
+        {/* 第四栏：描述应用场景 */}
+        <SectionScene />
+
+        {/* 第五栏：支持插件式嵌用 */}
+        <SectionPlugin />
+
+        {/* 第六栏：客户反馈意见 */}
+        <SectionFeedback />
+
+        {/* 第七栏：全面安全防护 */}
+        <SectionSafe />
+
+        {/* 第八栏：鼓励免费试用 */}
+        <SectionTryFree />
+      </div>
+      <Footer />
     </div>
   )
 }
