@@ -117,7 +117,14 @@ export default function SectionCompare() {
   })
 
   return (
-    <div ref={ref} className="relative text-center fcc-center">
+    <section
+      ref={ref}
+      className="relative text-center fcc-center"
+      style={{
+        height: '100vh',
+        overflow: 'hidden',
+      }}
+    >
       <p
         style={{
           fontSize: '40px',
@@ -208,6 +215,6 @@ export default function SectionCompare() {
           <AIService />
         </div>
       </div>
-    </div>
+    </section>
   )
 }

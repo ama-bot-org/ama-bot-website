@@ -8,12 +8,15 @@ export default function SectionIntro() {
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.4,
+    triggerOnce: true,
   })
   return (
     <section
       ref={ref}
       style={{
-        marginTop: 100,
+        paddingTop: 100,
+        backgroundColor: 'aliceblue',
+        height: 'calc(100vh - 100px)',
         overflow: 'hidden',
       }}
     >
@@ -54,12 +57,12 @@ export default function SectionIntro() {
           <Button type="primary">立即体验</Button>
         </ConfigProvider>
       </div>
-      <div className="relative text-center w-full" style={{ maxHeight: 420 }}>
+      <div className="relative text-center w-full">
         <img
           className={`${styles['landing-animate']} ${inView ? styles['landing-animate-scale'] : ''}`}
           src="/images/Landing/s1-ui.png"
           style={{
-            width: '85%',
+            width: '100%',
             marginTop: '-4.2%',
           }}
         />
