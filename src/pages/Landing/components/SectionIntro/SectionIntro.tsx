@@ -4,6 +4,7 @@ import OnlineFAQ from '@/components/OnlineFAQ'
 import { Button, ConfigProvider } from 'antd'
 import { useInView } from 'react-intersection-observer'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
+import { isMobile } from 'react-device-detect'
 
 export default function SectionIntro() {
   const { ref, inView } = useInView({
@@ -44,7 +45,7 @@ export default function SectionIntro() {
         <h1
           className="text-#e65c41"
           style={{
-            fontSize: '40px',
+            fontSize: isMobile ? '32px' : '36px',
             fontFamily: 'AlibabaPuHuiTi-2-85-Bold',
           }}
         >
@@ -52,11 +53,18 @@ export default function SectionIntro() {
         </h1>
         <h1
           style={{
-            fontSize: '40px',
+            fontSize: isMobile ? '32px' : '36px',
             fontFamily: 'AlibabaPuHuiTi-2-85-Bold',
           }}
         >
-          悦问 AI, 行业领先的 AI 客服专家
+          {isMobile ? (
+            <div>
+              <div>悦问 AI</div>
+              <div>行业领先的 AI 客服专家</div>
+            </div>
+          ) : (
+            '悦问 AI, 行业领先的 AI 客服专家'
+          )}
         </h1>
         <ConfigProvider
           theme={{

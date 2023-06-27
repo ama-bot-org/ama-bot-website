@@ -26,7 +26,7 @@ const CreateAISteps = (props: CreateAIStepsProps) => {
       '@media screen and (max-width: 1024px)': {
         fontSize: '30px',
       },
-      fontSize: '40px',
+      fontSize: '36px',
       marginBottom: '40px',
       fontWeight: 'bold',
       textAlign: 'center',

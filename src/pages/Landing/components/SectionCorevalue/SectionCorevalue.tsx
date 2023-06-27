@@ -1,5 +1,6 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { isMobile } from 'react-device-detect'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -36,7 +37,7 @@ export default function SectionCorevalue() {
       >
         <h1
           style={{
-            fontSize: '40px',
+            fontSize: isMobile ? '32px' : '36px',
             fontFamily: 'AlibabaPuHuiTi-2-85-Bold',
           }}
         >
@@ -90,6 +91,7 @@ export default function SectionCorevalue() {
               className="fcc-center bg-white"
               style={{
                 width: '100%',
+                padding: '0px 20px',
                 height: '100%',
                 border: '3px solid #000000',
                 borderRadius: '10px',

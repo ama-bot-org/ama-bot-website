@@ -16,6 +16,7 @@ import SectionPlugin from './components/SectionPlugin'
 import SectionSafe from './components/SectionSafe'
 import SectionScene from './components/SectionScene'
 import SectionTryFree from './components/SectionTryFree'
+import { isMobile } from 'react-device-detect'
 
 const Lang = () => {
   const langClassName = useEmotionCss(({ token }) => {
@@ -146,18 +147,28 @@ const Landing: React.FC = () => {
         <p
           style={{
             width: '100%',
-            height: 48,
+            minHeight: 48,
+            height: 'auto',
             backgroundColor: '#000000',
             color: '#ffffff',
             margin: 0,
             padding: 0,
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
+            textAlign: 'center',
             fontFamily: 'AlibabaPuHuiTi_2_55_Regular',
           }}
         >
-          🔥共建者招募中，加入悦问AI，一起迎接AI生产力新时代🔥
+          {isMobile ? (
+            <>
+              <div>🔥共建者招募中，加入悦问AI🔥</div>
+              <div>🔥一起迎接AI生产力新时代🔥</div>
+            </>
+          ) : (
+            <span>🔥共建者招募中，加入悦问AI，一起迎接AI生产力新时代🔥</span>
+          )}
         </p>
         <div
           style={{

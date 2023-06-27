@@ -3,6 +3,7 @@ import { Divider } from 'antd'
 import React from 'react'
 import styles from './SectionCompare.less'
 import { useInView } from 'react-intersection-observer'
+import { isMobile } from 'react-device-detect'
 
 // 传统对话
 const TraditionalService = () => {
@@ -157,7 +158,7 @@ export default function SectionCompare() {
     >
       <p
         style={{
-          fontSize: '40px',
+          fontSize: isMobile ? '32px' : '36px',
           fontFamily: 'AlibabaPuHuiTi-2-85-Bold',
         }}
       >
