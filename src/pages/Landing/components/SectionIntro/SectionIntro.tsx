@@ -3,6 +3,7 @@ import styles from './SectionIntro.less'
 import OnlineFAQ from '@/components/OnlineFAQ'
 import { Button, ConfigProvider } from 'antd'
 import { useInView } from 'react-intersection-observer'
+import { useEmotionCss } from '@ant-design/use-emotion-css'
 
 export default function SectionIntro() {
   const { ref, inView } = useInView({
@@ -10,13 +11,23 @@ export default function SectionIntro() {
     threshold: 0.4,
     triggerOnce: true,
   })
+
+  const sectionClassName = useEmotionCss(() => {
+    return {
+      height: 'calc(100vh - 100px)',
+      '@media screen and (max-width: 768px)': {
+        height: 'auto',
+      },
+    }
+  })
+
   return (
     <section
       ref={ref}
+      className={`relative ${sectionClassName}`}
       style={{
         paddingTop: 100,
         backgroundColor: 'aliceblue',
-        height: 'calc(100vh - 100px)',
         overflow: 'hidden',
       }}
     >

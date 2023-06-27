@@ -61,7 +61,10 @@ const TraditionalService = () => {
         </div>
       </div>
       <div className={styles['dialog-white']}>请回复1，继续排队</div>
-      <div className={styles['dialog-white']}>非常抱歉给您带来了不好的体验，我们会努力提供更好的服务，感谢您的理解和支持。</div>
+      <div className={styles['dialog-white']}>
+        <div>非常抱歉给您带来了不好的体验，我们会努力提供更好的服务，</div>
+        <div>感谢您的理解和支持。</div>
+      </div>
     </div>
   )
 }
@@ -110,8 +113,35 @@ export default function SectionCompare() {
       overflow: 'hidden',
       width: '80%',
       padding: '0 40px',
+      '@media screen and (max-width: 1440px)': {
+        width: '90%',
+      },
       '@media screen and (max-width: 768px)': {
+        width: '100%',
         flexDirection: 'column',
+      },
+    }
+  })
+
+  const dialogTraditionClassName = useEmotionCss(() => {
+    return {
+      flex: '1',
+      overflow: 'auto',
+      border: 'dashed 3px #e65c4130',
+      borderRadius: '20px',
+      padding: '20px',
+      marginRight: '5%',
+      '@media screen and (max-width: 768px)': {
+        marginRight: '0%',
+      },
+    }
+  })
+
+  const sectionClassName = useEmotionCss(() => {
+    return {
+      height: '100vh',
+      '@media screen and (max-width: 768px)': {
+        height: 'auto',
       },
     }
   })
@@ -119,10 +149,10 @@ export default function SectionCompare() {
   return (
     <section
       ref={ref}
-      className="relative text-center fcc-center"
+      className={`relative text-center fcc-center ${sectionClassName}`}
       style={{
-        height: '100vh',
         overflow: 'hidden',
+        backgroundColor: '#fbfbfb',
       }}
     >
       <p
@@ -143,14 +173,9 @@ export default function SectionCompare() {
       </p>
       <div className={dialogWrapClassName}>
         <div
-          className={`fcc-center ${styles['dialog-traditional']} ${inView ? styles['dialog-traditional-zoom'] : ''}`}
-          style={{
-            flex: '1',
-            marginRight: '5%',
-            border: 'dashed 3px #e65c4130',
-            borderRadius: '20px',
-            padding: '20px',
-          }}
+          className={`fcc-center ${dialogTraditionClassName} ${styles['dialog-traditional']} ${
+            inView ? styles['dialog-traditional-zoom'] : ''
+          }`}
         >
           <div
             style={{
@@ -183,6 +208,7 @@ export default function SectionCompare() {
           className={`fcc-center ${styles['dialog-ai']} ${inView ? styles['dialog-ai-zoom'] : ''}`}
           style={{
             flex: '1',
+            overflow: 'auto',
             border: 'dashed 3px #e65c4130',
             borderRadius: '20px',
             padding: '20px',

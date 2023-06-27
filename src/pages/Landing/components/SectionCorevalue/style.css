@@ -1,0 +1,28 @@
+.swiper {
+  width: 960px;
+  height: 500px;
+}
+
+@media (max-width: 768px) {
+  .swiper {
+    width: 96%;
+    margin: 0 2%;
+    height: 500px;
+  }
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+.section-corevalue-pagination {
+  text-align: center;
+  padding: 10px 0;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 10;
+}
