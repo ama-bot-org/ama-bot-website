@@ -200,7 +200,7 @@ export default function SectionFeedback() {
               fontFamily: 'AlibabaPuHuiTi_2_55_Regular',
               background: '#ffffff',
               padding: '20px',
-              width: '100%',
+              width: 'calc(100% - 40px)',
               borderRadius: '20px',
               display: 'flex',
               flexDirection: 'column',
