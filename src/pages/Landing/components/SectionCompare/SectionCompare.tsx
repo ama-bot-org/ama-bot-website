@@ -8,7 +8,7 @@ import { useInView } from 'react-intersection-observer'
 const TraditionalService = () => {
   return (
     <div
-      className="flex-1 w-full"
+      className="flex-1"
       style={{
         fontSize: '16px',
         fontFamily: 'AlibabaPuHuiTi_2_55_Regular',
@@ -16,6 +16,7 @@ const TraditionalService = () => {
         marginTop: '20px',
         padding: '20px',
         borderRadius: '20px',
+        width: 'calc(100% - 40px)',
       }}
     >
       <div className="fce-center">

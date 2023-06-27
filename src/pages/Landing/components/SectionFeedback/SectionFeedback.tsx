@@ -185,7 +185,7 @@ export default function SectionFeedback() {
           </div>
         </div>
         {/* DNA */}
-        <div className={`relative flex-1 fcs-between overflow-auto pb-0! ${styles.card}`}>
+        <div className={`relative flex-1 fcs-between overflow-auto ${styles.card}`}>
           <div className="absolute" style={{ right: '20px', top: '-20px' }}>
             <img src="/images/Landing/s6-illustraion-comma grey.svg" alt="comma" width="120px" />
           </div>
@@ -194,12 +194,13 @@ export default function SectionFeedback() {
           </div>
           <p className="mt-10 mb-0">{users[2].username}</p>
           <div
-            className="flex-1 overflow-auto w-full"
+            className="flex-1 overflow-auto"
             style={{
               fontSize: '16px',
               fontFamily: 'AlibabaPuHuiTi_2_55_Regular',
               background: '#ffffff',
               padding: '20px',
+              width: '100%',
               borderRadius: '20px',
               display: 'flex',
               flexDirection: 'column',
