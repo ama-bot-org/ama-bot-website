@@ -35,7 +35,7 @@ export default function SectionIntro() {
       <div className="relative text-center" style={{ height: 240 }}>
         <div className="absolute text-center w-full" style={{ bottom: 0, left: 0 }}>
           <img
-            src="/images/Landing/s1-logo-Askio.svg"
+            src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s1-logo-Askio.svg"
             style={{
               width: '50%',
               objectFit: 'cover',
@@ -68,7 +68,7 @@ export default function SectionIntro() {
       <div className="relative text-center w-full">
         <img
           className={`${styles['landing-animate']} ${inView ? styles['landing-animate-scale'] : ''}`}
-          src="/images/Landing/s1-ui.png"
+          src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s1-ui.png"
           style={{
             width: '100%',
             marginTop: '-4.2%',

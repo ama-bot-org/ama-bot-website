@@ -34,7 +34,11 @@ export default function SectionPlugin() {
       <p className="landing-main-header">以插件形式嵌入网站</p>
       <h1 className="landing-secondary-header">简单复制代码，即可将Askio以插件形式嵌入企业官网</h1>
       <div className={`${styles['image-wrap']} ${inView ? styles['image-wrap-zoom'] : ''}`}>
-        <img src="/images/Landing/s5-web.png" alt="plugin" className={styles['image']} />
+        <img
+          src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s5-web.png"
+          alt="plugin"
+          className={styles['image']}
+        />
       </div>
     </section>
   )

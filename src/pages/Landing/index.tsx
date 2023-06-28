@@ -230,7 +230,7 @@ const Landing: React.FC = () => {
         <SectionFeedback />
         <div className="relative">
           <img
-            src="/images/Landing/s7-illustration-background.png"
+            src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s7-illustration-background.png"
             style={{
               position: 'absolute',
               width: '75%',

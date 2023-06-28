@@ -36,7 +36,7 @@ export default function SectionTryFree() {
         }}
       >
         <img
-          src="/images/Landing/s8-rocket.png"
+          src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s8-rocket.png"
           alt="try-free"
           style={{
             position: 'absolute',

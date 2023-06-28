@@ -37,13 +37,13 @@ export default function SectionFeedback() {
   ]
   const users = [
     {
-      image: '/images/Landing/s6-logo-comma auroa.png',
+      image: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s6-logo-comma auroa.png',
       username: '何铭城',
       userTitle: '极光智能科技CEO',
       description: ['Askio的使用体验很棒，', '问题回复准确及时，', '每年预计', '可降低极光10万的客服人工投入。'],
     },
     {
-      image: '/images/Landing/s6-logo-seedao.png',
+      image: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s6-logo-seedao.png',
       username: 'Anders',
       userTitle: 'SeeDAO核心贡献者',
       description: [
@@ -51,7 +51,7 @@ export default function SectionFeedback() {
       ],
     },
     {
-      image: '/images/Landing/s6-logo-dna.png',
+      image: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s6-logo-dna.png',
       username: 'DNA 安吉数字游民社区',
       userTitle: '',
       description: [
@@ -174,7 +174,7 @@ export default function SectionFeedback() {
           </p>
           <div className="relative flex-1 w-full overflow-hidden">
             <img
-              src="/images/Landing/s6-illustraion-comma red.svg"
+              src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s6-illustraion-comma red.svg"
               width={140}
               style={{
                 position: 'absolute',
@@ -187,7 +187,11 @@ export default function SectionFeedback() {
         {/* DNA */}
         <div className={`relative flex-1 fcs-between overflow-auto ${styles.card}`}>
           <div className="absolute" style={{ right: '20px', top: '-20px' }}>
-            <img src="/images/Landing/s6-illustraion-comma grey.svg" alt="comma" width="120px" />
+            <img
+              src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s6-illustraion-comma grey.svg"
+              alt="comma"
+              width="120px"
+            />
           </div>
           <div>
             <img src={users[2].image} width={120} />

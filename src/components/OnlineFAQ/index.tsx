@@ -55,6 +55,7 @@ const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
       {/* <iframe
         // src="https://www.aiyin.chat/ama"
         src="http://localhost:8000/landing"
+        frameborder="no" border="0" marginwidth="0" marginheight="0"
         style={{
           width: width,
           height: iframeVisible ? height : 0,
@@ -86,7 +87,7 @@ const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
             backgroundColor: '#e65b42',
           }}
         >
-          <img src="/images/Landing/s1-icon-chat.svg" alt="chat icon" />
+          <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s1-icon-chat.svg" alt="chat icon" />
         </div>
       </div>
     </div>

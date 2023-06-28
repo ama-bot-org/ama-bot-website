@@ -38,25 +38,34 @@ export default function SectionScene() {
           height: 'auto',
         }}
       >
-        <img src="/images/Landing/s4-mobile.png" width="100%" height="100%" alt="scene" className={styles.mobile} />
+        <img
+          src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-mobile.png"
+          width="100%"
+          height="100%"
+          alt="scene"
+          className={styles.mobile}
+        />
         <div className={`${styles['scene-wrap']} ${styles.bwechat} ${inView ? styles['bwechat-zoom'] : ''}`}>
-          <img src="/images/Landing/s4-icon-business wechat.svg" alt="business wechat" />
+          <img
+            src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-icon-business wechat.svg"
+            alt="business wechat"
+          />
           <span style={{ marginLeft: '10px' }}>企业微信</span>
         </div>
         <div className={`${styles['scene-wrap']} ${styles.dingding} ${inView ? styles['dingding-zoom'] : ''}`}>
-          <img src="/images/Landing/s4-icon-dingding.svg" alt="dingding" />
+          <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-icon-dingding.svg" alt="dingding" />
           <span style={{ marginLeft: '10px' }}>钉钉</span>
         </div>
         <div className={`${styles['scene-wrap']} ${styles.discord} ${inView ? styles['discord-zoom'] : ''}`}>
-          <img src="/images/Landing/s4-icon-discord.svg" alt="discord" />
+          <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-icon-discord.svg" alt="discord" />
           <span style={{ marginLeft: '10px' }}>Discord</span>
         </div>
         <div className={`${styles['scene-wrap']} ${styles.douyin} ${inView ? styles['douyin-zoom'] : ''}`}>
-          <img src="/images/Landing/s4-icon-douyin.svg" alt="douyin" />
+          <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-icon-douyin.svg" alt="douyin" />
           <span style={{ marginLeft: '10px' }}>抖音</span>
         </div>
         <div className={`${styles['scene-wrap']} ${styles.wechat} ${inView ? styles['wechat-zoom'] : ''}`}>
-          <img src="/images/Landing/s4-icon-wechat.svg" alt="wechat" />
+          <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-icon-wechat.svg" alt="wechat" />
           <span style={{ marginLeft: '10px' }}>微信公众号</span>
         </div>
       </div>

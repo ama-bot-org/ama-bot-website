@@ -23,20 +23,20 @@ export default function SectionSafe() {
       title: '安全的基础设施供应商',
       description:
         '我们将所有数据托管在物理上安全的云设施中，包括24/7的现场安保、摄像监控等。所有客户的数据都托管在符合ISO 27001的数据存储中心。',
-      image: '/images/Landing/s7-icon-data.svg',
+      image: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s7-icon-data.svg',
     },
     {
       index: 2,
       title: '数据加密',
       description:
         'Askio对不同企业帐号数据进行了隔离，并采用TLS加密和AES-256加密。数据数据只在单个账户会话被查看时发送，并在之后及时保存，实现数据自行进化。',
-      image: '/images/Landing/s7-icon-facility.svg',
+      image: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s7-icon-facility.svg',
     },
     {
       index: 3,
       title: '数据冗余和弹性',
       description: 'Askio的基础设施具有容错性。所有数据库都在集群配置中运行，应用层使用动态满足需求的负载平衡技术进行扩展。',
-      image: '/images/Landing/s7-icon-scale.svg',
+      image: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s7-icon-scale.svg',
     },
   ]
 
