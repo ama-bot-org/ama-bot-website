@@ -25,6 +25,12 @@ export default [
         name: 'landing',
         component: './Landing',
       },
+      {
+        path: 'dna',
+        layout: false,
+        name: 'dna',
+        component: './DNA',
+      },
     ],
   },
   {
