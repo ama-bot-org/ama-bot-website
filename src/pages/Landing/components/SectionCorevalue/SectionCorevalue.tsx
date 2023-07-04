@@ -77,6 +77,7 @@ export default function SectionCorevalue() {
           <SwiperSlide
             key={item}
             style={{
+              width: '100%',
               borderRadius: '10px',
             }}
           >
