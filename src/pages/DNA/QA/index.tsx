@@ -170,7 +170,7 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
   }, [dialogs])
 
   return (
-    <div style={style} className="fcc-between mb-8 flex-1 overflow-auto">
+    <div style={style} className="fcc-between mb-8">
       <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} id="dna-dialog">
         <li className="mb-4">
           <Dialog position={'left-bottom'}>Hi 小伙伴，欢迎来到 DNA-安吉数字游民社区。</Dialog>
@@ -220,9 +220,9 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
           <Input
             prefix={
               <img
-                style={{ marginRight: '4px' }}
-                width={20}
-                height={20}
+                style={{ marginRight: '4px', borderRadius: 20 }}
+                width={30}
+                height={30}
                 src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/User-chat%20icon.svg"
               />
             }
