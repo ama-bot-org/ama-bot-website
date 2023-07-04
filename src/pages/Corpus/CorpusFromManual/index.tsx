@@ -8,7 +8,6 @@ import ThemeTable from './ThemeTable'
 import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
 import { ActionType } from '@/services/ant-design-pro/enums'
 import corpus from '@/services/ant-design-pro/corpus'
-import CorpusUpdateButton from '@/components/CorpusUpdateButton'
 
 const CorpusFromManual: React.FC = () => {
   const { initialState } = useModel('@@initialState')
@@ -122,7 +121,7 @@ const CorpusFromManual: React.FC = () => {
     return {
       flex: 1,
       display: 'flex',
-      justifyContent: 'flex-start',
+      justifyContent: 'flex-end',
       alignItems: 'center',
       flexDirection: 'row',
       marginBottom: '20px',
@@ -156,7 +155,6 @@ const CorpusFromManual: React.FC = () => {
               </Button>
             </ConfigProvider>
           </div>
-          <CorpusUpdateButton />
         </div>
         <ThemeTable
           pageSize={pageSize}

@@ -3,11 +3,9 @@ import { useIntl, Helmet } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
 import React from 'react'
 import QA from './QA'
-import CorpusUpdateButton from '@/components/CorpusUpdateButton'
 
 const AskMeAnything: React.FC = () => {
   const intl = useIntl()
-  const [loading, setLoading] = React.useState(false)
 
   const containerClassName = useEmotionCss(() => {
     return {
@@ -17,10 +15,6 @@ const AskMeAnything: React.FC = () => {
       overflow: 'auto',
     }
   })
-
-  const handleLoading = (loading: boolean) => {
-    setLoading(loading)
-  }
 
   return (
     <div className={containerClassName}>
@@ -34,8 +28,7 @@ const AskMeAnything: React.FC = () => {
         </title>
       </Helmet>
       <div style={{ flex: 1, padding: 24, overflow: 'auto' }}>
-        <CorpusUpdateButton onLoading={handleLoading} />
-        <QA corpusLoading={loading} />
+        <QA />
       </div>
     </div>
   )

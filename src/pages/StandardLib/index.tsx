@@ -132,10 +132,10 @@ const StandardLib: React.FC = () => {
       justifyContent: 'space-between',
       alignItems: 'center',
       flexDirection: 'row',
+      marginBottom: '20px',
       '@media screen and (max-width: 768px)': {
         flexDirection: 'column',
         alignItems: 'start',
-        marginBottom: '20px',
       },
     }
   })

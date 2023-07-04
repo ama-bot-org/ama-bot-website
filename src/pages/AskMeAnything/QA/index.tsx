@@ -6,7 +6,7 @@ import Button from 'antd/es/button'
 import Input from 'antd/es/input'
 import React from 'react'
 
-const QA = ({ corpusLoading }: { corpusLoading: boolean }) => {
+const QA = () => {
   //   const intl = useIntl()
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
@@ -57,9 +57,7 @@ const QA = ({ corpusLoading }: { corpusLoading: boolean }) => {
     setQuestion(e.target.value)
   }
 
-  return corpusLoading ? (
-    <div>语料库更新中...</div>
-  ) : (
+  return (
     <div>
       <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0 }}>
         <li className="mb-4">

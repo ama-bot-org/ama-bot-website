@@ -8,7 +8,6 @@ import NotionTable from './NotionTable'
 import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
 import { ActionType } from '@/services/ant-design-pro/enums'
 import corpus from '@/services/ant-design-pro/corpus'
-import CorpusUpdateButton from '@/components/CorpusUpdateButton'
 
 const CorpusFromNotion: React.FC = () => {
   const { initialState } = useModel('@@initialState')
@@ -128,7 +127,8 @@ const CorpusFromNotion: React.FC = () => {
     return {
       flex: 1,
       display: 'flex',
-      alignItems: 'start',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
       flexDirection: 'row',
       marginBottom: '20px',
     }
@@ -161,7 +161,6 @@ const CorpusFromNotion: React.FC = () => {
               </Button>
             </ConfigProvider>
           </div>
-          <CorpusUpdateButton />
         </div>
         <NotionTable
           pageSize={pageSize}

@@ -12,7 +12,6 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import Input from 'antd/lib/input'
 import PreviewModal from '../PreviewModal'
-import CorpusUpdateButton from '@/components/CorpusUpdateButton'
 dayjs.extend(utc)
 
 const CorpusFromFile = () => {
@@ -177,9 +176,6 @@ const CorpusFromFile = () => {
               />
             }
           />
-          <div style={{ marginBottom: 10, marginLeft: 10 }}>
-            <CorpusUpdateButton />
-          </div>
         </div>
         {loading ? (
           <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
