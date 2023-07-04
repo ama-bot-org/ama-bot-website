@@ -1,6 +1,7 @@
 import React from 'react'
+import { history } from '@umijs/max'
 import styles from './SectionIntro.less'
-import OnlineFAQ from '@/components/OnlineFAQ'
+// import OnlineFAQ from '@/components/OnlineFAQ'
 import { Button, ConfigProvider } from 'antd'
 import { useInView } from 'react-intersection-observer'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
@@ -21,6 +22,11 @@ export default function SectionIntro() {
       },
     }
   })
+
+  // 跳转注册页
+  const handleTryNow = () => {
+    history.push('/user/register')
+  }
 
   return (
     <section
@@ -60,7 +66,7 @@ export default function SectionIntro() {
             },
           }}
         >
-          <Button type="primary" size="large">
+          <Button type="primary" size="large" onClick={handleTryNow}>
             立即体验
           </Button>
         </ConfigProvider>
@@ -75,7 +81,7 @@ export default function SectionIntro() {
           }}
         />
       </div>
-      <OnlineFAQ />
+      {/* <OnlineFAQ /> */}
     </section>
   )
 }

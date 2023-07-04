@@ -3,6 +3,7 @@ import { Divider } from 'antd'
 import React from 'react'
 import styles from './SectionCompare.less'
 import { useInView } from 'react-intersection-observer'
+import { isMobile } from 'react-device-detect'
 
 // 传统对话
 const TraditionalService = () => {
@@ -170,7 +171,7 @@ export default function SectionCompare() {
       <div className={dialogWrapClassName}>
         <div
           className={`fcc-center ${dialogTraditionClassName} ${styles['dialog-traditional']} ${
-            inView ? styles['dialog-traditional-zoom'] : ''
+            inView || isMobile ? styles['dialog-traditional-zoom'] : ''
           }`}
         >
           <div
@@ -201,7 +202,7 @@ export default function SectionCompare() {
         </div>
 
         <div
-          className={`fcc-center ${styles['dialog-ai']} ${inView ? styles['dialog-ai-zoom'] : ''}`}
+          className={`fcc-center ${styles['dialog-ai']} ${inView || isMobile ? styles['dialog-ai-zoom'] : ''}`}
           style={{
             flex: '1',
             overflow: 'auto',
