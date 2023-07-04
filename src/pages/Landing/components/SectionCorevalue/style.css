@@ -5,8 +5,8 @@
 
 @media (max-width: 768px) {
   .swiper {
-    width: 96%;
-    margin: 0 2%;
+    width: 360px;
+    margin: auto;
     height: 500px;
   }
 }

@@ -198,7 +198,7 @@ export default function SectionFeedback() {
           </div>
           <p className="mt-10 mb-0">{users[2].username}</p>
           <div
-            className="flex-1 overflow-auto"
+            className="flex-1"
             style={{
               fontSize: '16px',
               fontFamily: 'AlibabaPuHuiTi_2_55_Regular',
@@ -211,7 +211,7 @@ export default function SectionFeedback() {
               justifyContent: 'end',
             }}
           >
-            <div className="fce-center">
+            <div className="fce-center relative">
               <div className={styles['dialog-gray']}>{users[2].description[0]}</div>
             </div>
             <div className={styles['dialog-white']}>{users[2].description[1]}</div>
