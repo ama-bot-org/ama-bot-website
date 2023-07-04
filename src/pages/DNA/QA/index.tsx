@@ -173,22 +173,22 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
   return (
     <div style={style} className="fcc-between mb-8">
       <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} id="dna-dialog">
-        <li className="mb-4">
+        <li className="mb-2">
           <Dialog position={'left-bottom'}>Hi 小伙伴，欢迎来到 DNA-安吉数字游民社区。</Dialog>
         </li>
-        <li className="my-4">
+        <li className="my-2">
           <Dialog position={'left-bottom'}>
-            <p className="my-4 mb-16">
+            <p className="my-2 mb-16">
               我是 Askio，是由游民社区孵化出来的 AI 客服。有关于 DNA 的问题，你可以先问问我看，我对 DNA 的入住价格，班车时刻表，Wi-Fi
               密码等问题很在行的!
             </p>
-            <p className="my-4">欢迎在线调戏，但若发现我张口胡说，还请多多担待🥰</p>
+            <p className="my-2">欢迎在线调戏，但若发现我张口胡说，还请多多担待🥰</p>
             {/* <img src={'/images/leon.svg'} alt="leon" /> */}
           </Dialog>
         </li>
         {dialogs.map((dialog, index) => {
           return (
-            <li key={index} className="my-4">
+            <li key={index} className="my-2">
               <Dialog position={dialog.type === 'question' ? 'right-bottom' : 'left-bottom'}>{dialog.content}</Dialog>
             </li>
           )
@@ -201,13 +201,25 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
         }}
       >
         <div className="mb-8 frc-between">
-          <Tag color="#ffffff" style={{ fontSize: 14, padding: 6, color: 'black' }} onClick={showFAQ}>
+          <Tag
+            color="#ffffff"
+            style={{ fontSize: 14, padding: 3, flex: 1, color: 'black', textAlign: 'center', cursor: 'pointer' }}
+            onClick={showFAQ}
+          >
             ❓常见问题
           </Tag>
-          <Tag color="#ffffff" style={{ fontSize: 14, padding: 6, color: 'black' }} onClick={showCode}>
+          <Tag
+            color="#ffffff"
+            style={{ fontSize: 14, padding: 3, flex: 1, color: 'black', textAlign: 'center', cursor: 'pointer' }}
+            onClick={showCode}
+          >
             🔍人类小伙伴
           </Tag>
-          <Tag color="#ffffff" style={{ fontSize: 14, padding: 6, color: 'black' }} onClick={showAskio}>
+          <Tag
+            color="#ffffff"
+            style={{ fontSize: 14, padding: 3, marginRight: 0, flex: 1, color: 'black', textAlign: 'center', cursor: 'pointer' }}
+            onClick={showAskio}
+          >
             👉了解Askio
           </Tag>
         </div>
