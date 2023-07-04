@@ -1,7 +1,5 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useIntl, Helmet, history } from '@umijs/max'
-import Settings from '../../../config/defaultSettings'
-import React from 'react'
 import QA from './QA'
 import { Divider } from 'antd'
 import styles from './index.less'
@@ -32,10 +30,10 @@ const DNA: React.FC = () => {
         <Helmet>
           <title>
             {intl.formatMessage({
-              id: 'menu.ama',
+              id: 'menu.dnastaff',
               defaultMessage: 'DNA的AI小客服',
             })}
-            - {Settings.title}
+            - Askio
           </title>
         </Helmet>
         <div style={{ flex: 1, padding: '12px 24px 10px 24px', overflow: 'auto', background: '#ffffff33' }} className="fcc-between">

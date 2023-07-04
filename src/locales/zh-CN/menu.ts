@@ -1,6 +1,7 @@
 export default {
   'menu.welcome': '欢迎',
   'menu.ama': 'AI问答',
+  'menu.dnastaff': 'DNA的AI小客服',
   'menu.dialog-history': '对话历史',
   'menu.database-config': '数据库配置',
   'menu.database-config.corpus': '语料库',

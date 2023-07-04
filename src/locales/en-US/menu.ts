@@ -1,6 +1,7 @@
 export default {
   'menu.welcome': 'Welcome',
   'menu.ama': 'AMA',
+  'menu.dnastaff': 'DNA AI Service',
   'menu.dialog-history': 'Dialog History',
   'menu.database-config': 'Database Config',
   'menu.database-config.corpus': 'Corpus',
