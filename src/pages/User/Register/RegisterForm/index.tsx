@@ -81,7 +81,7 @@ const RegisterForm = (props: RegisterFormProps) => {
     }
     try {
       const res = await checkAIDomainUnique(value)
-      if (res.ActionType === ActionType.OK) {
+      if (res.ActionType === ActionType.OK && res.message === 'true') {
         return Promise.resolve()
       }
       return Promise.reject(
@@ -119,7 +119,12 @@ const RegisterForm = (props: RegisterFormProps) => {
         alignItems: 'center',
       }}
     >
-      <div className="w-full flex-1 fcc-start register-step-one">
+      <div
+        className="w-full flex-1 fcc-start register-step-one"
+        style={{
+          marginTop: 20,
+        }}
+      >
         <Form.Item
           name="domain"
           label={intl.formatMessage({ id: 'register.domain.register', defaultMessage: '注册你的 AI 名称' })}
