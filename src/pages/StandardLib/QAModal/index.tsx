@@ -73,12 +73,12 @@ const QAModal = (props: QAModalProps) => {
       >
         {/* 问题关键词：设置问题的触发关键词，上限3个 ，以逗号隔开 */}
         <Form.Item
-          label="问题关键词"
+          label="问题"
           name="prompt"
           rules={[
             {
               required: true,
-              message: '设置问题的触发关键词，上限3个，以中文逗号隔开',
+              message: '请输入问题',
             },
             {
               validator: (_, value) => {
