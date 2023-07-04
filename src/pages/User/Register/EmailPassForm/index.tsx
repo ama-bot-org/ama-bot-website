@@ -73,20 +73,11 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
                 if (!value || EMAIL_REGEX.test(value) === false) {
                   return Promise.reject()
                 }
-                try {
-                  const msg = await checkEmailUnique(value)
-                  if (msg.ActionType === ActionType.OK) {
-                    return Promise.resolve()
-                  }
-                } catch (error: any) {
-                  if (error.response.status === 401) {
-                    return Promise.reject('邮箱已存在')
-                  } else if (error.response.status === 400) {
-                    return Promise.reject('请求参数错误')
-                  } else if (error.response.status === 500) {
-                    return Promise.reject('后台服务出错')
-                  }
+                const msg = await checkEmailUnique(value)
+                if (msg.ActionType === ActionType.OK && msg.message === 'success') {
+                  return Promise.resolve()
                 }
+                return Promise.reject(msg.message)
               },
             },
           ]}

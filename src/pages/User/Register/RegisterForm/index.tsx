@@ -79,30 +79,18 @@ const RegisterForm = (props: RegisterFormProps) => {
     if (value.length > 30 || value.length < 3) {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.domain.wrong-length', defaultMessage: '名称长度在 3~30 之间' })))
     }
-    try {
-      const res = await checkAIDomainUnique(value)
-      if (res.ActionType === ActionType.OK && res.message === 'true') {
-        return Promise.resolve()
-      }
-      return Promise.reject(
-        new Error(
-          intl.formatMessage({
-            id: 'register.requireUnique',
-            defaultMessage: '名称已被注册',
-          }),
-        ),
-      )
-    } catch (error: any) {
-      if (error?.response?.status) {
-        return Promise.reject(
-          new Error(
-            intl.formatMessage({
-              id: `register.requireUnique.${error?.response?.status}`,
-            }),
-          ),
-        )
-      }
+    const res = await checkAIDomainUnique(value)
+    if (res.ActionType === ActionType.OK && res.message === 'true') {
+      return Promise.resolve()
     }
+    return Promise.reject(
+      new Error(
+        intl.formatMessage({
+          id: 'register.requireUnique',
+          defaultMessage: '名称已被注册',
+        }),
+      ),
+    )
   }
 
   return (
