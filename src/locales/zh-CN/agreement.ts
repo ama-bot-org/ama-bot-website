@@ -1,6 +1,6 @@
 export default {
   'agreement.required': '请仔细阅读后点击勾选，同意服务协议后继续',
-  'agreement.agreement.one': '阅读并同意悦问',
+  'agreement.agreement.one': '同意悦问',
   'agreement.agreement.service': '《服务协议》',
   'agreement.agreement.and': '和',
   'agreement.agreement.privacy': '《隐私政策》',

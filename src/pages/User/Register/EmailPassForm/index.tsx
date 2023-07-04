@@ -46,6 +46,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
 
   return (
     <div
+      className="login-page login-page-email-pass"
       style={{
         display: visible ? 'block' : 'none',
       }}
@@ -125,7 +126,13 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
               },
             }}
           >
-            <Button type="primary" loading={submitting} disabled={!checked} style={{ width: '100%', height: '100%' }} htmlType="submit">
+            <Button
+              type="primary"
+              loading={submitting}
+              disabled={!checked}
+              style={{ display: 'inline', width: '100%', height: '48px', fontSize: 16 }}
+              htmlType="submit"
+            >
               {intl.formatMessage({ id: 'menu.login' })}
             </Button>
           </ConfigProvider>

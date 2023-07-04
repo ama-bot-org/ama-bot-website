@@ -80,7 +80,7 @@ const RegisterForm = (props: RegisterFormProps) => {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.domain.wrong-length', defaultMessage: '名称长度在 3~30 之间' })))
     }
     const res = await checkAIDomainUnique(value)
-    if (res.ActionType === ActionType.OK && res.message === 'true') {
+    if (res.ActionType === ActionType.OK && res.message === 'success') {
       return Promise.resolve()
     }
     return Promise.reject(
@@ -108,7 +108,7 @@ const RegisterForm = (props: RegisterFormProps) => {
       }}
     >
       <div
-        className="w-full flex-1 fcc-start register-step-one"
+        className="w-full flex-1 fcc-center register-step-one"
         style={{
           marginTop: 20,
         }}

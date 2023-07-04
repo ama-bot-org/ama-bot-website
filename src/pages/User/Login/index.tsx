@@ -130,7 +130,7 @@ const Login: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '32px 0',
+          padding: '32px 16px',
           position: 'relative',
         }}
       >
