@@ -118,7 +118,7 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
         style={{
           aspectRatio: '220/303',
         }}
-        src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/code.jpg?q-sign-algorithm=sha1&q-ak=AKIDkUdYQosw3g5T7IfGF8vSut2-Vqmi_ioKisqW-s5ujlHbHFQvHJn9u10MVuv8KbsS&q-sign-time=1688438538;1688442138&q-key-time=1688438538;1688442138&q-header-list=host&q-url-param-list=ci-process&q-signature=a0df1a83782372da757be55a60c24f7aab8dd596&x-cos-security-token=2YaeJxLfCQcQmhKSUma2rio40esLEvgae0e8a51f1adfaae2e2607543749915fbLYLKbN2PsJQUPhafiwSGsnPLV7JCgMOd7_WHrQrgHYC7ooDRXtPXxVTeD6EF29rs26217lgD0uD4mW2G3csvHl91xunJFlaFSh4JyBO2URseTHTgKNCkcclhUjrpGvoDlSMb270j4IROHhuIXIipsz1xmEMqt4hDrfMGj4rHBPzYbmsAUP2GtHrSvVu14-Ov&ci-process=originImage"
+        src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/code.jpg"
         width="100%"
         height="auto"
       />
