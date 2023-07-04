@@ -34,25 +34,11 @@ const DNA: React.FC = () => {
             - {Settings.title}
           </title>
         </Helmet>
-        <div style={{ flex: 1, padding: '24px 24px 10px 24px', overflow: 'auto', background: '#f0f8ff87' }} className="fcc-between">
-          <h2 className="text-center mb-0">DNA 的 AI 小客服</h2>
-          <Divider />
+        <div style={{ flex: 1, padding: '12px 24px 10px 24px', overflow: 'auto', background: '#ffffff33' }} className="fcc-between">
+          <h2 className="text-center mb-0 text-white">DNA 的 AI 小客服</h2>
+          <Divider style={{ margin: '12px 0 12px 0' }} />
           <QA style={{ flex: 1, overflow: 'auto' }} />
-          <div style={{ textAlign: 'center', padding: 2 }}>
-            <div>
-              ©2023
-              <span
-                style={{
-                  color: '#e65c41',
-                  marginRight: 8,
-                  marginLeft: 8,
-                }}
-              >
-                Askio - 悦问AI
-              </span>
-              提供技术支持
-            </div>
-          </div>
+          <div style={{ textAlign: 'center', padding: 2, color: '#ffffff', fontSize: 12 }}>©2023 Askio （ 悦问AI ） 提供技术支持</div>
         </div>
       </div>
     </div>

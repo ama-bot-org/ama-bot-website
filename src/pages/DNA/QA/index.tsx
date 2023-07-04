@@ -8,7 +8,16 @@ import React, { useEffect } from 'react'
 import Dialog from '../Dialog'
 import { ConfigProvider, Tag } from 'antd'
 
-const FAQContents = ['DNA 在哪儿？', 'DNA 的入住价格是多少？ ', 'DNA 的班车时刻表是什么？', 'DNA 有食堂吗？', 'DNA 可以养宠物吗？']
+const FAQContents = [
+  '如何预定？',
+  'DNA的WiFi密码是多少？',
+  'DNA的班车信息？',
+  'DNA周边好玩的有哪些？',
+  '如何解决吃饭问题？',
+  'DNA可以带宠物吗？',
+  'DNA的床位价格是多少？',
+  'ACDC是什么？',
+]
 
 const QA = ({ style }: { style: React.CSSProperties }) => {
   //   const intl = useIntl()
@@ -74,17 +83,18 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
         {FAQContents.map((item, index) => {
           return (
             <div key={index}>
-              <span
+              <p
                 style={{
                   textDecoration: 'underline',
                   marginBottom: 8,
+                  color: '#e65c41',
                 }}
                 onClick={() => {
                   handleAsk(item)
                 }}
               >
-                {item}
-              </span>
+                {index + 1}.{item}
+              </p>
             </div>
           )
         })}
@@ -103,7 +113,16 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
 
   const showCode = () => {
     const temp = dialogs.slice()
-    const content = <img src="/images/dna.jpg" width={236} height={346} />
+    const content = (
+      <img
+        style={{
+          aspectRatio: '220/303',
+        }}
+        src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/code.jpg?q-sign-algorithm=sha1&q-ak=AKIDkUdYQosw3g5T7IfGF8vSut2-Vqmi_ioKisqW-s5ujlHbHFQvHJn9u10MVuv8KbsS&q-sign-time=1688438538;1688442138&q-key-time=1688438538;1688442138&q-header-list=host&q-url-param-list=ci-process&q-signature=a0df1a83782372da757be55a60c24f7aab8dd596&x-cos-security-token=2YaeJxLfCQcQmhKSUma2rio40esLEvgae0e8a51f1adfaae2e2607543749915fbLYLKbN2PsJQUPhafiwSGsnPLV7JCgMOd7_WHrQrgHYC7ooDRXtPXxVTeD6EF29rs26217lgD0uD4mW2G3csvHl91xunJFlaFSh4JyBO2URseTHTgKNCkcclhUjrpGvoDlSMb270j4IROHhuIXIipsz1xmEMqt4hDrfMGj4rHBPzYbmsAUP2GtHrSvVu14-Ov&ci-process=originImage"
+        width="100%"
+        height="auto"
+      />
+    )
     temp.push({
       type: 'question',
       content: '召唤人类小伙伴',
@@ -119,7 +138,13 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
     const temp = dialogs.slice()
     const content = (
       <Link to="/landing" target="_blank" rel="noreferrer">
-        Askio官网介绍
+        <span
+          style={{
+            color: '#e65c41',
+          }}
+        >
+          Askio官网介绍
+        </span>
       </Link>
     )
     temp.push({
@@ -171,17 +196,17 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
       <div
         style={{
           width: '100%',
-          height: '80px',
+          height: '90px',
         }}
       >
         <div className="mb-8 frc-between">
-          <Tag color="#2db7f5" style={{ fontSize: 16, padding: 4 }} onClick={showFAQ}>
+          <Tag color="#ffffff" style={{ fontSize: 14, padding: 6, color: 'black' }} onClick={showFAQ}>
             ❓常见问题
           </Tag>
-          <Tag color="#87d068" style={{ fontSize: 16, padding: 4 }} onClick={showCode}>
+          <Tag color="#ffffff" style={{ fontSize: 14, padding: 6, color: 'black' }} onClick={showCode}>
             🔍人类小伙伴
           </Tag>
-          <Tag color="#108ee9" style={{ fontSize: 16, padding: 4 }} onClick={showAskio}>
+          <Tag color="#ffffff" style={{ fontSize: 14, padding: 6, color: 'black' }} onClick={showAskio}>
             👉了解Askio
           </Tag>
         </div>
@@ -193,12 +218,15 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
           }}
         >
           <Input
-            prefix={<img style={{ marginRight: '4px' }} width={20} height={20} src="favicon.ico" />}
-            suffix={
-              <Button type="primary" icon={<SendOutlined />} onClick={handleTestQuery}>
-                发送
-              </Button>
+            prefix={
+              <img
+                style={{ marginRight: '4px' }}
+                width={20}
+                height={20}
+                src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/User-chat%20icon.svg"
+              />
             }
+            suffix={<Button type="primary" shape="circle" icon={<SendOutlined />} onClick={handleTestQuery}></Button>}
             value={question}
             onKeyUp={e => {
               if (e.key === 'Enter') {
@@ -207,6 +235,10 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
             }}
             onChange={handleChange}
             placeholder="请输入问题"
+            style={{
+              height: 48,
+              lineHeight: '48px',
+            }}
           />
         </ConfigProvider>
       </div>
