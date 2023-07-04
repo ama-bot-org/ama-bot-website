@@ -1,7 +1,11 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import React from 'react'
+import { history, useModel } from '@umijs/max'
 
 export default function SectionTryFree() {
+  const { initialState } = useModel('@@initialState')
+  const { currentUser } = initialState || {}
+
   const sectionClassName = useEmotionCss(() => {
     return {
       height: '640px',
@@ -10,6 +14,15 @@ export default function SectionTryFree() {
       },
     }
   })
+
+  // 没登录就跳转注册页
+  const handleTryNow = () => {
+    if (currentUser && currentUser.bot_id) {
+      history.push(`/database-config/corpus`)
+    } else {
+      history.push('/user/register')
+    }
+  }
 
   return (
     <section
@@ -60,6 +73,9 @@ export default function SectionTryFree() {
             padding: '13px 32.5px 13px 33px',
             borderRadius: '8px',
             backgroundColor: '#fff',
+          }}
+          onClick={() => {
+            handleTryNow()
           }}
         >
           立即免费试用

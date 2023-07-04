@@ -1,5 +1,5 @@
 import React from 'react'
-import { history } from '@umijs/max'
+import { history, useModel } from '@umijs/max'
 import styles from './SectionIntro.less'
 // import OnlineFAQ from '@/components/OnlineFAQ'
 import { Button, ConfigProvider } from 'antd'
@@ -8,6 +8,9 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { isMobile } from 'react-device-detect'
 
 export default function SectionIntro() {
+  const { initialState } = useModel('@@initialState')
+  const { currentUser } = initialState || {}
+
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.4,
@@ -23,9 +26,13 @@ export default function SectionIntro() {
     }
   })
 
-  // 跳转注册页
+  // 没登录就跳转注册页
   const handleTryNow = () => {
-    history.push('/user/register')
+    if (currentUser && currentUser.bot_id) {
+      history.push(`/database-config/corpus`)
+    } else {
+      history.push('/user/register')
+    }
   }
 
   return (
@@ -66,7 +73,14 @@ export default function SectionIntro() {
             },
           }}
         >
-          <Button type="primary" size="large" onClick={handleTryNow}>
+          <Button
+            type="primary"
+            size="large"
+            style={{
+              zIndex: 99,
+            }}
+            onClick={handleTryNow}
+          >
             立即体验
           </Button>
         </ConfigProvider>
