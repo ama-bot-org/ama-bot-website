@@ -29,7 +29,7 @@ export default function SectionSafe() {
       index: 2,
       title: '数据加密',
       description:
-        'Askio对不同企业帐号数据进行了隔离，并采用TLS加密和AES-256加密。数据数据只在单个账户会话被查看时发送，并在之后及时保存，实现数据自行进化。',
+        'Askio对不同企业帐号数据进行了隔离，并采用TLS加密和AES-256加密。数据只在单个账户会话被查看时发送，并在之后及时保存，实现数据自行进化。',
       image: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s7-icon-facility.svg',
     },
     {
