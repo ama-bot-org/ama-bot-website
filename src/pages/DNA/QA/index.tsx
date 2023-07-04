@@ -35,6 +35,7 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
       content: <LoadingOutlined />,
     })
     setDialogs(temp)
+    setQuestion('')
     return Promise.resolve(temp)
   }
 
