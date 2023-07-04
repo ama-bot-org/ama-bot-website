@@ -1,5 +1,5 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { useIntl, Helmet } from '@umijs/max'
+import { useIntl, Helmet, history } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
 import React from 'react'
 import QA from './QA'
@@ -22,6 +22,10 @@ const DNA: React.FC = () => {
     }
   })
 
+  const handleJump = () => {
+    history.push('/landing')
+  }
+
   return (
     <div className={`${styles.bg} w-full`}>
       <div className={containerClassName}>
@@ -38,7 +42,9 @@ const DNA: React.FC = () => {
           <h2 className="text-center mb-0 text-white">DNA 的 AI 小客服</h2>
           <Divider style={{ margin: '12px 0 12px 0' }} />
           <QA style={{ flex: 1, overflow: 'hidden' }} />
-          <div style={{ textAlign: 'center', padding: 2, color: '#ffffff', fontSize: 12 }}>©2023 Askio （ 悦问AI ） 提供技术支持</div>
+          <div style={{ textAlign: 'center', padding: 2, color: '#ffffff', fontSize: 12 }}>
+            ©2023 <span onClick={handleJump}>Askio （ 悦问AI ）</span> 提供技术支持
+          </div>
         </div>
       </div>
     </div>
