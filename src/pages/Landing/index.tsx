@@ -163,10 +163,15 @@ const Landing: React.FC = () => {
           }}
         >
           {isMobile ? (
-            <>
-              <div>🔥共建者招募中，加入悦问AI🔥</div>
-              <div>🔥一起迎接AI生产力新时代🔥</div>
-            </>
+            <div className="w-full flex overflow-hidden">
+              <div className="flex-1 flex flex-row overflow-hidden mx-2 py-2">
+                {[1, 2, 3].map(num => (
+                  <div key={num} className="whitespace-pre scroll-clock">
+                    🔥共建者招募中，加入悦问AI，一起迎接AI生产力新时代🔥
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : (
             <span>🔥共建者招募中，加入悦问AI，一起迎接AI生产力新时代🔥</span>
           )}

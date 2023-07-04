@@ -254,6 +254,12 @@ ol {
   align-items: flex-start;
   justify-content: space-between;
 }
+.flex {
+  display: flex;
+}
+.flex-row {
+  flex-direction: row;
+}
 
 @media screen and (min-width: 768px) {
   .md\:flex-row {
@@ -297,6 +303,15 @@ ol {
 
 .m-4 {
   margin: 4px;
+}
+
+.mx-2 {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.py-2 {
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .my-4 {
@@ -402,5 +417,23 @@ ol {
 .mobile-hidden {
   @media (max-width: 768px) {
     display: none;
+  }
+}
+
+.whitespace-pre {
+  white-space: pre;
+}
+
+.scroll-clock {
+  animation: Clockwise 30s linear infinite;
+}
+
+@keyframes Clockwise {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
   }
 }

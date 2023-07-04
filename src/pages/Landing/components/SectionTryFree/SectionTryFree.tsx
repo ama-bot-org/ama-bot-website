@@ -70,7 +70,7 @@ export default function SectionTryFree() {
         <button
           type="button"
           style={{
-            padding: '13px 32.5px 13px 33px',
+            padding: '13px 22px 13px 22px',
             borderRadius: '8px',
             backgroundColor: '#fff',
           }}

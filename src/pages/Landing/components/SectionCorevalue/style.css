@@ -6,7 +6,6 @@
 @media (max-width: 768px) {
   .swiper {
     width: 96%;
-    max-width: 360px;
     margin: 0 2%;
     height: 500px;
   }
