@@ -21,12 +21,14 @@ const ThemeModal = (props: ThemeModalProps) => {
   const { currentUser } = initialState || {}
 
   const handleCancel = () => {
-    form.setFieldsValue([])
+    form.setFieldsValue({
+      doc_name: '',
+      content: '',
+    })
     setVisible(false)
   }
 
   const handleFinished = async (values: CorpusAPI.FileInfo) => {
-    console.log('values', values)
     setLoading(true)
     if (currentUser?.bot_id) {
       try {
@@ -64,12 +66,13 @@ const ThemeModal = (props: ThemeModalProps) => {
   }
 
   useEffect(() => {
-    if (visible) {
-      if (fileInfo) {
-        form.setFieldsValue(fileInfo)
-      } else {
-        form.setFieldsValue([])
-      }
+    if (fileInfo && form) {
+      form.setFieldsValue(fileInfo)
+    } else {
+      form.setFieldsValue({
+        doc_name: '',
+        content: '',
+      })
     }
   }, [visible])
 
@@ -77,57 +80,55 @@ const ThemeModal = (props: ThemeModalProps) => {
     <Modal
       title={modalType === 'add' ? '新增主题' : '编辑主题'}
       open={visible}
-      footer={null}
       destroyOnClose
+      footer={null}
       onCancel={() => handleCancel()}
     >
-      {visible ? (
-        <Form form={form} layout="vertical" onFinish={handleFinished} initialValues={fileInfo}>
-          <Form.Item
-            label="主题名称"
-            name="doc_name"
-            rules={[
-              {
-                required: true,
-                message: '请输入主题名称',
+      <Form form={form} layout="vertical" onFinish={handleFinished} initialValues={fileInfo}>
+        <Form.Item
+          label="主题名称"
+          name="doc_name"
+          rules={[
+            {
+              required: true,
+              message: '请输入主题名称',
+            },
+            {
+              validator: (_, value) => {
+                if (/[`~!#$%^&*()_\-+=<>?:"{}|,，。？“”./;'\\[\]]/im.test(value)) {
+                  return Promise.reject('不可以输入特殊字符')
+                }
+                return Promise.resolve()
               },
-              {
-                validator: (_, value) => {
-                  if (/[`~!#$%^&*()_\-+=<>?:"{}|,，。？“”./;'\\[\]]/im.test(value)) {
-                    return Promise.reject('不可以输入特殊字符')
-                  }
-                  return Promise.resolve()
-                },
-              },
-            ]}
-          >
-            <Input placeholder="请输入主题名称" />
-          </Form.Item>
-          {/* 回答 */}
-          <Form.Item
-            label="语料内容"
-            name="content"
-            rules={[
-              {
-                required: true,
-                message: '请输入语料内容',
-              },
-            ]}
-          >
-            <Input.TextArea rows={10} placeholder="请输入语料内容" />
-          </Form.Item>
-          <Form.Item>
-            <div className="frc-end">
-              <Button onClick={() => handleCancel()} style={{ marginRight: '20px' }}>
-                取消
-              </Button>
-              <Button type="primary" htmlType="submit" loading={loading}>
-                {modalType === 'add' ? '新增' : '更新'}
-              </Button>
-            </div>
-          </Form.Item>
-        </Form>
-      ) : null}
+            },
+          ]}
+        >
+          <Input placeholder="请输入主题名称" />
+        </Form.Item>
+        {/* 回答 */}
+        <Form.Item
+          label="语料内容"
+          name="content"
+          rules={[
+            {
+              required: true,
+              message: '请输入语料内容',
+            },
+          ]}
+        >
+          <Input.TextArea rows={10} placeholder="请输入语料内容" />
+        </Form.Item>
+        <Form.Item>
+          <div className="frc-end">
+            <Button onClick={() => handleCancel()} style={{ marginRight: '20px' }}>
+              取消
+            </Button>
+            <Button type="primary" htmlType="submit" loading={loading}>
+              {modalType === 'add' ? '新增' : '更新'}
+            </Button>
+          </div>
+        </Form.Item>
+      </Form>
     </Modal>
   )
 }

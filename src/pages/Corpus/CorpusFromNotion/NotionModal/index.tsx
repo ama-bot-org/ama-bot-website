@@ -75,7 +75,6 @@ const NotionModal = (props: NotionModalProps) => {
     <Modal title={modalTitle[modalType]} open={visible} footer={null} destroyOnClose onCancel={() => handleCancel()}>
       <div style={visible && modalType === 'add' ? {} : { display: 'none' }}>
         <Form form={form} layout="vertical" onFinish={handleFinished}>
-          {/* 问题关键词：设置问题的触发关键词，上限3个 ，以逗号隔开 */}
           <Form.Item
             label={
               <div>

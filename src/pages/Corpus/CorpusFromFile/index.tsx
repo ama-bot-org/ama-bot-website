@@ -154,6 +154,7 @@ const CorpusFromFile = () => {
         flexDirection: 'column',
         alignItems: 'start',
         marginBottom: '20px',
+        width: '280px',
       },
     }
   })
@@ -161,12 +162,12 @@ const CorpusFromFile = () => {
   return (
     <div className="w-full fcs-center md:flex-row md:items-start overflow-hidden">
       <CustomUploadComponent onSuccessUpload={handleUpdateList} />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start', flex: 1 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start', flex: 1, width: '100%' }}>
         <div className={topClassName}>
           <Input
             onKeyUp={handleKeyUp}
             onChange={handleSearchChange}
-            style={{ width: '80%', height: 32, marginBottom: '10px' }}
+            style={{ width: '100%', height: 32, marginBottom: '10px' }}
             suffix={
               <SearchOutlined
                 style={{ fontSize: 18 }}
@@ -177,7 +178,7 @@ const CorpusFromFile = () => {
             }
           />
         </div>
-        {loading ? (
+        {loading && list.length === 0 ? (
           <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => (
               <Skeleton.Button key={item} rootClassName="w-full!" style={{ width: '100%', height: '60px', marginBottom: '6px' }} />

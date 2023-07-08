@@ -3,7 +3,7 @@ import './index.less'
 import Footer from '@/components/Footer'
 import Button from 'antd/es/button'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { SelectLang, useIntl, Helmet, Link, useModel } from '@umijs/max'
+import { useIntl, Helmet, Link, useModel } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
 import LogoWithName from '@/components/LogoWithName'
 import { ConfigProvider } from 'antd'
@@ -19,25 +19,25 @@ import SectionScene from './components/SectionScene'
 import SectionTryFree from './components/SectionTryFree'
 import { isMobile } from 'react-device-detect'
 
-const Lang = () => {
-  const langClassName = useEmotionCss(({ token }) => {
-    return {
-      width: 42,
-      height: 42,
-      lineHeight: '42px',
-      borderRadius: token.borderRadius,
-      ':hover': {
-        backgroundColor: token.colorBgTextHover,
-      },
-    }
-  })
+// const Lang = () => {
+//   const langClassName = useEmotionCss(({ token }) => {
+//     return {
+//       width: 42,
+//       height: 42,
+//       lineHeight: '42px',
+//       borderRadius: token.borderRadius,
+//       ':hover': {
+//         backgroundColor: token.colorBgTextHover,
+//       },
+//     }
+//   })
 
-  return (
-    <div className={langClassName} data-lang>
-      {SelectLang && <SelectLang />}
-    </div>
-  )
-}
+//   return (
+//     <div className={langClassName} data-lang>
+//       {SelectLang && <SelectLang />}
+//     </div>
+//   )
+// }
 
 const LoginButton = () => {
   const intl = useIntl()
@@ -198,7 +198,7 @@ const Landing: React.FC = () => {
               display: 'flex',
             }}
           >
-            <Lang />
+            {/* <Lang /> */}
             {currentUser?.org_id ? (
               <AvatarDropdown menu>
                 <span>{currentUser?.org_id}</span>

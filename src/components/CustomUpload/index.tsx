@@ -60,8 +60,13 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
     return isDoc && isLt5M
   }
 
+  const uploadWrapClassname = useEmotionCss(() => ({
+    width: '310px',
+    textAlign: 'center',
+  }))
+
   const uploadBtnClassname = useEmotionCss(() => ({
-    width: '320px',
+    width: '310px',
     height: '435px',
     background: '#ffffff55',
     display: 'flex',
@@ -78,11 +83,12 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
   }))
 
   return (
-    <Upload customRequest={handleCustomRequest} beforeUpload={beforeUpload}>
+    <Upload customRequest={handleCustomRequest} beforeUpload={beforeUpload} className={uploadWrapClassname}>
       <Button className={uploadBtnClassname}>
         <CloudUploadOutlined style={{ fontSize: 100 }} />
         <h3>上传语料文件</h3>
-        <p>支持 doc/docx/pdf 格式，文件大小不超过 5MB</p>
+        <p className="mb-0">支持 doc/docx/pdf 格式</p>
+        <p>文件大小不超过 5MB</p>
       </Button>
     </Upload>
   )

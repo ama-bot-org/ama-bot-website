@@ -71,7 +71,7 @@ const QAModal = (props: QAModalProps) => {
         layout="vertical"
         onFinish={handleFinished}
       >
-        {/* 问题关键词：设置问题的触发关键词，上限3个 ，以逗号隔开 */}
+        {/* 问题输入已经从关键词升级成句子：请输入问题 */}
         <Form.Item
           label="问题"
           name="prompt"
@@ -80,21 +80,9 @@ const QAModal = (props: QAModalProps) => {
               required: true,
               message: '请输入问题',
             },
-            {
-              validator: (_, value) => {
-                if (value.includes(',')) {
-                  return Promise.reject('请以中文逗号隔开')
-                }
-                const keywords = value.split('，').map((kw: string) => kw.trim())
-                if (keywords.length > 3) {
-                  return Promise.reject('触发关键词不能超过三个，句末不要标点符号')
-                }
-                return Promise.resolve()
-              },
-            },
           ]}
         >
-          <Input placeholder="设置问题的触发关键词，上限3个，以逗号隔开" />
+          <Input placeholder="请输入问题" />
         </Form.Item>
         {/* 回答 */}
         <Form.Item

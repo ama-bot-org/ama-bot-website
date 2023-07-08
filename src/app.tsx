@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer'
-import { SelectLang } from '@/components/RightContent'
+// import { SelectLang } from '@/components/RightContent'
 import type { Settings as LayoutSettings } from '@ant-design/pro-components'
 import { SettingDrawer } from '@ant-design/pro-components'
 import type { RunTimeLayoutConfig } from '@umijs/max'
@@ -61,7 +61,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }: {
   return {
     logo: 'public/logo.svg',
     // <Question key="doc" />,
-    actionsRender: () => [<SelectLang key="SelectLang" />],
+    // actionsRender: () => [<SelectLang key="SelectLang" />],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,
