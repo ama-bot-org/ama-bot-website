@@ -3,7 +3,7 @@ name: ama-bot-website-ci
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build:
