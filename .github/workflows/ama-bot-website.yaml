@@ -51,6 +51,6 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.TEST_IP }}
-          username: ${{ secrets.TEST_PASSWORD }}
-          password: ${{ secrets.TEST_USER }}
+          username: ${{ secrets.TEST_USER }}
+          password: ${{ secrets.TEST_PASSWORD }}
           script: cd ~ && cd ../home/ubuntu && sh deploy.sh
