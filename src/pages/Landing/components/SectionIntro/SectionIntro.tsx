@@ -77,7 +77,7 @@ export default function SectionIntro() {
             type="primary"
             size="large"
             style={{
-              zIndex: 99,
+              zIndex: 0,
             }}
             onClick={handleTryNow}
           >

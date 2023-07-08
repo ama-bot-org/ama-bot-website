@@ -24,12 +24,14 @@ export default [
         layout: false,
         name: 'landing',
         component: './Landing',
+        lazy: true,
       },
       {
         path: 'dna',
         layout: false,
         name: 'dna',
         component: './DNA',
+        lazy: true,
       },
     ],
   },
@@ -37,17 +39,20 @@ export default [
     path: '/user',
     name: 'user',
     component: './User/Layout',
+    lazy: true,
     layout: false,
     routes: [
       {
         name: 'register',
         path: 'register',
         component: './User/Register',
+        lazy: true,
       },
       {
         name: 'login',
         path: 'login',
         component: './User/Login',
+        lazy: true,
       },
     ],
   },
@@ -66,12 +71,14 @@ export default [
         name: 'corpus',
         icon: 'dashOutlined',
         component: './Corpus',
+        lazy: true,
       },
       {
         path: '/database-config/standard-lib',
         name: 'standard-lib',
         icon: 'smallDashOutlined',
         component: './StandardLib',
+        lazy: true,
       },
     ],
   },
@@ -81,6 +88,7 @@ export default [
     icon: 'smile',
     access: 'user',
     component: './AskMeAnything',
+    lazy: true,
   },
   {
     path: '/dialog-history',
@@ -88,6 +96,7 @@ export default [
     icon: 'history',
     access: 'user',
     component: './DialogHistory',
+    lazy: true,
   },
   {
     path: '/robot-config',
@@ -105,12 +114,14 @@ export default [
         name: 'im-connect',
         icon: 'apiOutlined',
         component: './IMConnect',
+        lazy: true,
       },
       {
         path: '/robot-config/visual-programming',
         name: 'visual-programming',
         icon: 'blockOutlined',
         component: './VisualProgramming',
+        lazy: true,
       },
     ],
   },
@@ -121,6 +132,7 @@ export default [
     access: 'user',
     component: './Balance',
     hideInMenu: true,
+    lazy: true,
   },
   {
     path: '/',
@@ -129,6 +141,7 @@ export default [
   {
     path: '*',
     layout: false,
+    lazy: true,
     component: './404',
   },
 ]
