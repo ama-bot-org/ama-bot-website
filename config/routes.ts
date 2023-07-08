@@ -123,6 +123,13 @@ export default [
     hideInMenu: true,
   },
   {
+    path: '/bot/:id',
+    name: 'bot',
+    layout: false,
+    component: './Bot/$id',
+    hideInMenu: true,
+  },
+  {
     path: '/404',
     name: '404',
     layout: false,

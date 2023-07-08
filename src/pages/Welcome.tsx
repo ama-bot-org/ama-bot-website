@@ -1,6 +1,7 @@
 import { PageContainer } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
-import { Card, theme } from 'antd'
+import Card from 'antd/es/card'
+import theme from 'antd/es/theme'
 import React from 'react'
 
 /**

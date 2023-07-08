@@ -2,7 +2,7 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useIntl, useLocation } from '@umijs/max'
 import styles from './steps.less'
 import { history } from '@umijs/max'
-import { ArrowDownOutlined } from '@ant-design/icons'
+import ArrowDownOutlined from '@ant-design/icons/ArrowDownOutlined'
 import { useMemo } from 'react'
 
 type CreateAIStepsProps = {

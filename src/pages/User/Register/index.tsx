@@ -6,7 +6,7 @@
 import styles from './register.less'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { useIntl, Link, useLocation } from '@umijs/max'
-import { message } from 'antd'
+import message from 'antd/es/message'
 import { useEffect, useState } from 'react'
 import { history } from '@umijs/max'
 import RegisterForm from './RegisterForm'

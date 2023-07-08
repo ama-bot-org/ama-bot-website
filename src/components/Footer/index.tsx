@@ -1,4 +1,5 @@
-import { GithubOutlined, GlobalOutlined } from '@ant-design/icons'
+import GithubOutlined from '@ant-design/icons/GithubOutlined'
+import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import { DefaultFooter } from '@ant-design/pro-components'
 import { useIntl } from '@umijs/max'
 import React from 'react'

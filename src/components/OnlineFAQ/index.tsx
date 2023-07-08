@@ -12,7 +12,7 @@ type OnlineFAQProps = {
 
 // 定制悬浮实时客服组件
 const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
-  const { bottom = 60, right = 60 } = props
+  const { width = 300, height = 500, bottom = 60, right = 60 } = props
   const [iframeVisible, setIframeVisible] = useState(false)
 
   const btnWrapClassName = useEmotionCss(() => {
@@ -52,10 +52,9 @@ const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
 
   return (
     <div className={btnWrapClassName}>
-      {/* <iframe
+      <iframe
         // src="https://www.aiyin.chat/ama"
-        src="http://localhost:8000/landing"
-        frameborder="no" border="0" marginwidth="0" marginheight="0"
+        src="http://localhost:8000/bot/askio"
         style={{
           width: width,
           height: iframeVisible ? height : 0,
@@ -64,7 +63,7 @@ const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
           transition: 'height 0.3s',
           overflow: 'hidden',
         }}
-      ></iframe> */}
+      ></iframe>
       <div className={btnClassName}>
         <span
           style={{

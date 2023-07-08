@@ -1,10 +1,12 @@
 import React from 'react'
-import { Button, Upload, message } from 'antd'
+import Button from 'antd/es/button'
+import Upload from 'antd/es/upload'
+import message from 'antd/es/message'
+import CloudUploadOutlined from '@ant-design/icons/CloudUploadOutlined'
 import corpus from '@/services/ant-design-pro/corpus'
 import { ActionType } from '@/services/ant-design-pro/enums'
 import { useModel } from '@umijs/max'
 import { RcFile } from 'antd/es/upload'
-import { CloudUploadOutlined } from '@ant-design/icons'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 
 const MAX_UPLOAD_SIZE = 5 * 1024 * 1024 // 5MB

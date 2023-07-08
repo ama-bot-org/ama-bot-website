@@ -1,5 +1,6 @@
 import api from '@/services/bot-api/api'
-import { LoadingOutlined, SendOutlined } from '@ant-design/icons'
+import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
+import SendOutlined from '@ant-design/icons/SendOutlined'
 // import { useIntl } from '@ant-design/pro-components'
 import { useModel } from '@umijs/max'
 import Button from 'antd/es/button'

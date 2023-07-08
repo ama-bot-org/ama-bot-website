@@ -1,7 +1,7 @@
 import React from 'react'
 import { history, useModel } from '@umijs/max'
 import styles from './SectionIntro.less'
-// import OnlineFAQ from '@/components/OnlineFAQ'
+import OnlineFAQ from '@/components/OnlineFAQ'
 import { Button, ConfigProvider } from 'antd'
 import { useInView } from 'react-intersection-observer'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
@@ -95,7 +95,7 @@ export default function SectionIntro() {
           }}
         />
       </div>
-      {/* <OnlineFAQ /> */}
+      <OnlineFAQ />
     </section>
   )
 }

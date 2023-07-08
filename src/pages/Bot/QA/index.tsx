@@ -7,21 +7,18 @@ import Button from 'antd/es/button'
 import Input from 'antd/es/input'
 import React, { useEffect } from 'react'
 import Dialog from '../Dialog'
-import { ConfigProvider, Tag } from 'antd'
+import ConfigProvider from 'antd/es/config-provider'
+import Tag from 'antd/es/Tag'
 
-const FAQContents = [
-  '如何预定？',
-  'DNA的WiFi密码是多少？',
-  'DNA的班车信息？',
-  'DNA周边好玩的有哪些？',
-  '如何解决吃饭问题？',
-  'DNA可以带宠物吗？',
-  'DNA的床位价格是多少？',
-  'ACDC是什么？',
-]
+type QAProps = {
+  style: React.CSSProperties
+  id: string
+  bgImgUrl: string
+  FAQContents: string[]
+  welcomes: string[]
+}
 
-const QA = ({ style }: { style: React.CSSProperties }) => {
-  //   const intl = useIntl()
+const QA = ({ style, id, FAQContents, bgImgUrl, welcomes }: QAProps) => {
   const [question, setQuestion] = React.useState('')
   const [dialogs, setDialogs] = React.useState<{ type: string; content: any }[]>([])
 
@@ -44,7 +41,7 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
     const temp = _temp.slice()
     try {
       const result = await api.testQuery({
-        bot_id: 'suosuo1221@126.com',
+        bot_id: id,
         content: text || question,
       })
       if (result.ActionType === 'OK' && result.ans) {
@@ -120,7 +117,7 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
         style={{
           aspectRatio: '220/303',
         }}
-        src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/code.jpg"
+        src={bgImgUrl}
         width="100%"
         height="auto"
       />
@@ -175,15 +172,12 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
     <div style={style} className="fcc-between mb-8">
       <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} id="dna-dialog">
         <li className="mb-2">
-          <Dialog position={'left-bottom'}>Hi 小伙伴，欢迎来到 DNA-安吉数字游民社区。</Dialog>
+          <Dialog position={'left-bottom'}>{welcomes && welcomes[0]}</Dialog>
         </li>
         <li className="my-2">
           <Dialog position={'left-bottom'}>
-            <p className="my-2 mb-16">
-              我是 Askio，是由游民社区孵化出来的 AI 客服。有关于 DNA 的问题，你可以先问问我看，我对 DNA 的入住价格，班车时刻表，Wi-Fi
-              密码等问题很在行的!
-            </p>
-            <p className="my-2">欢迎在线调戏，但若发现我张口胡说，还请多多担待🥰</p>
+            <p className="my-2 mb-16">{welcomes && welcomes[1]}</p>
+            <p className="my-2">{welcomes && welcomes[2]}</p>
             {/* <img src={'/images/leon.svg'} alt="leon" /> */}
           </Dialog>
         </li>

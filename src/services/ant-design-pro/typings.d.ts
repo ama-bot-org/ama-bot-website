@@ -35,6 +35,24 @@ declare namespace API {
     data: User
   }
 
+  type BotValid = {
+    ActionType: ActionType
+    message: string
+  }
+
+  type Bot = {
+    id: string
+    bgImgUrl: string
+    FAQContents: string[]
+    welcomes: string[]
+    contact: string
+  }
+
+  type BotResult = {
+    ActionType: ActionType
+    data: Bot
+  }
+
   type PageParams = {
     current?: number
     pageSize?: number

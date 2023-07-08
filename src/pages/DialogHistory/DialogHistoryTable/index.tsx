@@ -1,6 +1,6 @@
 import { LogInfoAPI } from '@/services/ant-design-pro/logInfoAPI'
-import { EyeOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
+import EyeOutlined from '@ant-design/icons/EyeOutlined'
+import Button from 'antd/es/button'
 import Table from 'antd/lib/table'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'

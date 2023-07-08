@@ -1,6 +1,10 @@
 import { API } from '@/services/ant-design-pro/typings'
-import { DeleteOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons'
-import { Table, Button, Popconfirm } from 'antd'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import EditOutlined from '@ant-design/icons/EditOutlined'
+import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
+import Table from 'antd/es/table'
+import Button from 'antd/lib/button'
+import Popconfirm from 'antd/lib/popconfirm'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
