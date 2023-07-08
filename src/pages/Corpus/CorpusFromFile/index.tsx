@@ -167,7 +167,7 @@ const CorpusFromFile = () => {
           <Input
             onKeyUp={handleKeyUp}
             onChange={handleSearchChange}
-            style={{ width: '100%', height: 32, marginBottom: '10px' }}
+            style={{ width: '100%', height: 32, margin: '10px 0px' }}
             suffix={
               <SearchOutlined
                 style={{ fontSize: 18 }}
