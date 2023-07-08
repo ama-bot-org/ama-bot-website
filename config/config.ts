@@ -1,5 +1,6 @@
 // https://umijs.org/config/
 import { defineConfig } from '@umijs/max'
+import webpackPlugin from './plugin'
 // import { join } from 'path'
 import defaultSettings from './defaultSettings'
 import proxy from './proxy'
@@ -38,7 +39,8 @@ export default defineConfig({
   theme: {
     // 如果不想要 configProvide 动态设置主题需要把这个设置为 default
     // 只有设置为 variable， 才能使用 configProvide 动态设置主色调
-    'root-entry-name': 'variable',
+    // 'root-entry-name': 'variable',
+    'primary-color': defaultSettings.colorPrimary,
   },
   /**
    * @name moment 的国际化配置
@@ -158,4 +160,5 @@ export default defineConfig({
     REACT_APP_OFFICIAL_SITE: REACT_APP_OFFICIAL_SITE || false,
     REACT_APP_GITHUB_SITE: REACT_APP_GITHUB_SITE || false,
   },
+  chainWebpack: REACT_APP_ENV === 'local' ? undefined : webpackPlugin,
 })
