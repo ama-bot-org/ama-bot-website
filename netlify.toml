@@ -11,6 +11,12 @@
   force = true
 
 [[redirects]]
+  from = "/botapi/*"
+  to = "http://www.aiyin.fun:8000/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
