@@ -25,7 +25,7 @@ const Bot: React.FC = () => {
       window.open('https://aiyin.chat/user/register')
     } else {
       setBotInfo({
-        id: '1',
+        id: 'askio',
         bgImgUrl: '', // 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/ajsq.webp',
         FAQContents: ['你能回答什么问题', '你是谁', '你好'],
         welcomes: ['你好，我是AI小客服', '很高兴为您服务'],
