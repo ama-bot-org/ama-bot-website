@@ -53,8 +53,8 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
   return (
     <div className={btnWrapClassName}>
       <iframe
-        // src="https://www.aiyin.chat/ama"
-        src="http://localhost:8000/bot/askio"
+        src="https://aiyin.fun/bot/askio"
+        // src="http://localhost:8000/bot/askio"
         style={{
           width: width,
           height: iframeVisible ? height : 0,

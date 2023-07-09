@@ -1,5 +1,5 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { useIntl, Helmet, history, useParams } from '@umijs/max'
+import { history, useParams } from '@umijs/max'
 import QA from './QA'
 import Divider from 'antd/es/divider'
 import styles from './index.less'
@@ -9,7 +9,6 @@ import { API } from '@/services/ant-design-pro/typings'
 import { ActionType } from '@/services/ant-design-pro/enums'
 
 const Bot: React.FC = () => {
-  const intl = useIntl()
   const { id } = useParams()
   const [botInfo, setBotInfo] = useState<API.Bot>({} as API.Bot)
 
@@ -65,15 +64,6 @@ const Bot: React.FC = () => {
   return (
     <div className={`${styles.bg} w-full`}>
       <div className={containerClassName}>
-        <Helmet>
-          <title>
-            {intl.formatMessage({
-              id: 'menu.dnastaff',
-              defaultMessage: 'DNA的AI小客服',
-            })}
-            - Askio
-          </title>
-        </Helmet>
         <div style={{ flex: 1, padding: '12px 18px 10px 18px', overflow: 'hidden' }} className="fcc-between">
           <h2 className="text-center mb-0 text-black">Askio 的 AI 小客服</h2>
           <Divider style={{ margin: '12px 0 12px 0' }} />

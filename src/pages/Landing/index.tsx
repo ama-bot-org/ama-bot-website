@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import './index.less'
+import OnlineFAQ from '@/components/OnlineFAQ'
 import Footer from '@/components/Footer'
 import Button from 'antd/es/button'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
@@ -250,6 +251,7 @@ const Landing: React.FC = () => {
           <SectionTryFree />
         </div>
       </div>
+      <OnlineFAQ width={320} />
       <Footer />
     </div>
   )

@@ -172,7 +172,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes }: QAProps) => {
 
   return (
     <div style={style} className="w-full flex flex-column overflow-hidden mb-8">
-      <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} id="bot-dialog">
+      <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} className="flex-1" id="bot-dialog">
         <li className="mb-2">
           <Dialog position={'left-bottom'}>{welcomes && welcomes[0]}</Dialog>
         </li>
