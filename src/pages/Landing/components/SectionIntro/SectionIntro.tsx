@@ -95,7 +95,7 @@ export default function SectionIntro() {
           }}
         />
       </div>
-      <OnlineFAQ />
+      <OnlineFAQ width={320} />
     </section>
   )
 }

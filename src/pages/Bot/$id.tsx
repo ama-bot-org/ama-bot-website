@@ -27,11 +27,15 @@ const Bot: React.FC = () => {
     } else {
       setBotInfo({
         id: '1',
-        bgImgUrl: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/ajsq.webp',
+        bgImgUrl: '', // 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/ajsq.webp',
         FAQContents: ['你能回答什么问题', '你是谁', '你好'],
-        welcomes: ['你好，我是AI小客服，很高兴为您服务'],
+        welcomes: ['你好，我是AI小客服', '很高兴为您服务'],
         contact: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/code.jpg',
       })
+      if (botInfo.bgImgUrl) {
+        document.getElementsByTagName('body')[0].style.backgroundImage =
+          "url('https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/ajsq.webp')"
+      }
     }
   }
 
@@ -70,17 +74,17 @@ const Bot: React.FC = () => {
             - Askio
           </title>
         </Helmet>
-        <div style={{ flex: 1, padding: '12px 24px 10px 24px', overflow: 'auto', background: '#ffffff33' }} className="fcc-between">
-          <h2 className="text-center mb-0 text-white">Askio 的 AI 小客服</h2>
+        <div style={{ flex: 1, padding: '12px 18px 10px 18px', overflow: 'hidden' }} className="fcc-between">
+          <h2 className="text-center mb-0 text-black">Askio 的 AI 小客服</h2>
           <Divider style={{ margin: '12px 0 12px 0' }} />
           <QA
-            style={{ flex: 1, overflow: 'hidden' }}
+            style={{ flex: 1, overflow: 'auto' }}
             id={botInfo.id}
-            bgImgUrl={botInfo.bgImgUrl}
+            contactCode={botInfo.contact}
             FAQContents={botInfo.FAQContents}
             welcomes={botInfo.welcomes}
           />
-          <div style={{ textAlign: 'center', padding: 2, color: '#ffffff', fontSize: 12 }}>
+          <div style={{ textAlign: 'center', padding: 2, color: '#000000', fontSize: 12 }}>
             ©2023 <span onClick={handleJump}>Askio （ 悦问AI ）</span> 提供技术支持
           </div>
         </div>

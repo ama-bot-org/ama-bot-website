@@ -30,11 +30,11 @@ export async function fetchBotInfo(id: string): Promise<API.Bot> {
 }
 
 export async function checkBotValid(id: string): Promise<API.BotValid> {
-  const res: any = await request('/api/app/user/idcheck', {
+  const res: any = await request('/api/app/user/idCheck', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: localStorage.getItem('askio_token') || '',
+      // Authorization: localStorage.getItem('askio_token') || '',
     },
     data: { id },
     getResponse: true,

@@ -260,6 +260,9 @@ ol {
 .flex-row {
   flex-direction: row;
 }
+.flex-column {
+  flex-direction: column;
+}
 
 @media screen and (min-width: 768px) {
   .md\:flex-row {
@@ -442,4 +445,21 @@ ol {
   100% {
     transform: translateX(-50%);
   }
+}
+
+::-webkit-scrollbar-track {
+  // box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+  // background-color: #fafafa;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  // background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 6px;
+  background-color: #b5b5b5;
 }

@@ -38,8 +38,6 @@ const NotionModal = (props: NotionModalProps) => {
           doc_name: values.doc_name,
           subPage: subPage || false,
         }
-        // eslint-disable-next-line no-debugger
-        debugger
         res = await corpus.createNotion(params)
 
         if (res.ActionType === ActionType.OK) {

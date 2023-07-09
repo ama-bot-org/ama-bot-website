@@ -36,7 +36,7 @@ const DNA: React.FC = () => {
             - Askio
           </title>
         </Helmet>
-        <div style={{ flex: 1, padding: '12px 24px 10px 24px', overflow: 'auto', background: '#ffffff33' }} className="fcc-between">
+        <div style={{ flex: 1, padding: '12px 18px 10px 18px', overflow: 'auto', background: '#ffffff33' }} className="fcc-between">
           <h2 className="text-center mb-0 text-white">DNA 的 AI 小客服</h2>
           <Divider style={{ margin: '12px 0 12px 0' }} />
           <QA style={{ flex: 1, overflow: 'hidden' }} />

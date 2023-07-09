@@ -11,7 +11,7 @@ type OnlineFAQProps = {
 }
 
 // 定制悬浮实时客服组件
-const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
+const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
   const { width = 300, height = 500, bottom = 60, right = 60 } = props
   const [iframeVisible, setIframeVisible] = useState(false)
 
@@ -33,7 +33,7 @@ const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
     return {
       width: '144px',
       height: '48px',
-      margin: '60px',
+      margin: '60px 60px 60px 100px',
       borderRadius: '24px',
       boxShadow: 'rgba(0, 0, 0, 0.07) 0px 10px 50px 10px, rgba(0, 0, 0, 0.15) 0px 10px 10px -10px',
       backgroundColor: '#fff',
@@ -62,6 +62,7 @@ const OnlineFAQ: React.FC = (props: OnlineFAQProps) => {
           marginBottom: -60,
           transition: 'height 0.3s',
           overflow: 'hidden',
+          borderRadius: '10px',
         }}
       ></iframe>
       <div className={btnClassName}>

@@ -13,12 +13,12 @@ import Tag from 'antd/es/Tag'
 type QAProps = {
   style: React.CSSProperties
   id: string
-  bgImgUrl: string
   FAQContents: string[]
   welcomes: string[]
+  contactCode: string
 }
 
-const QA = ({ style, id, FAQContents, bgImgUrl, welcomes }: QAProps) => {
+const QA = ({ style, id, FAQContents, contactCode, welcomes }: QAProps) => {
   const [question, setQuestion] = React.useState('')
   const [dialogs, setDialogs] = React.useState<{ type: string; content: any }[]>([])
 
@@ -117,7 +117,7 @@ const QA = ({ style, id, FAQContents, bgImgUrl, welcomes }: QAProps) => {
         style={{
           aspectRatio: '220/303',
         }}
-        src={bgImgUrl}
+        src={contactCode}
         width="100%"
         height="auto"
       />
@@ -158,9 +158,11 @@ const QA = ({ style, id, FAQContents, bgImgUrl, welcomes }: QAProps) => {
   }
 
   const updateScroll = () => {
-    const element = document.getElementById('dna-dialog')
+    const element = document.getElementById('bot-dialog')
     if (element) {
-      element.scrollTop = element.scrollHeight
+      setTimeout(() => {
+        element.scrollTop = element.scrollHeight
+      }, 300)
     }
   }
 
@@ -169,8 +171,8 @@ const QA = ({ style, id, FAQContents, bgImgUrl, welcomes }: QAProps) => {
   }, [dialogs])
 
   return (
-    <div style={style} className="fcc-between mb-8">
-      <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} id="dna-dialog">
+    <div style={style} className="w-full flex flex-column overflow-hidden mb-8">
+      <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} id="bot-dialog">
         <li className="mb-2">
           <Dialog position={'left-bottom'}>{welcomes && welcomes[0]}</Dialog>
         </li>
@@ -183,7 +185,7 @@ const QA = ({ style, id, FAQContents, bgImgUrl, welcomes }: QAProps) => {
         </li>
         {dialogs.map((dialog, index) => {
           return (
-            <li key={index} className="my-2">
+            <li key={index} className="my-2 h-auto">
               <Dialog position={dialog.type === 'question' ? 'right-bottom' : 'left-bottom'}>{dialog.content}</Dialog>
             </li>
           )
