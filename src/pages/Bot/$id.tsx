@@ -1,7 +1,7 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useIntl, Helmet, history, useParams } from '@umijs/max'
 import QA from './QA'
-import Divider from 'antd/es/Divider'
+import Divider from 'antd/es/divider'
 import styles from './index.less'
 import { useEffect, useState } from 'react'
 import { checkBotValid } from '@/services/ant-design-pro/api'

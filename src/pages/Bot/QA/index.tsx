@@ -8,7 +8,7 @@ import Input from 'antd/es/input'
 import React, { useEffect } from 'react'
 import Dialog from '../Dialog'
 import ConfigProvider from 'antd/es/config-provider'
-import Tag from 'antd/es/Tag'
+import Tag from 'antd/es/tag'
 
 type QAProps = {
   style: React.CSSProperties
