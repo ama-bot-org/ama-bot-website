@@ -25,7 +25,7 @@ const EmptyTheme = (props: EmptyThemeProps) => {
         imageStyle={{ width: 400, height: 210 }}
         description={
           <div>
-            <h3>当前暂无主题</h3>
+            <h3>当前暂无文本</h3>
             <ConfigProvider
               theme={{
                 token: {
@@ -34,7 +34,7 @@ const EmptyTheme = (props: EmptyThemeProps) => {
               }}
             >
               <Button type="primary" style={{ marginLeft: '10px' }} onClick={handleAddNew}>
-                新增主题
+                新增文本
               </Button>
             </ConfigProvider>
           </div>

@@ -54,9 +54,9 @@ const NotionModal = (props: NotionModalProps) => {
   }
 
   const modalTitle = {
-    add: '新增 Notion 语料源',
-    edit: '编辑 Notion 语料源',
-    preview: 'Notion 语料源预览',
+    add: '新增 Notion 文档',
+    edit: '编辑 Notion 文档',
+    preview: 'Notion 文档预览',
   }
 
   useEffect(() => {

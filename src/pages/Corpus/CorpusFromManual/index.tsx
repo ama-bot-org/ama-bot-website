@@ -151,7 +151,7 @@ const CorpusFromManual: React.FC = () => {
               }}
             >
               <Button type="primary" style={{ marginRight: '10px' }} onClick={handleAddNew}>
-                新增语料源
+                新增文本
               </Button>
             </ConfigProvider>
           </div>

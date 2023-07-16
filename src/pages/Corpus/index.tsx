@@ -23,7 +23,7 @@ const Corpus: React.FC = () => {
     },
     {
       key: '2',
-      label: `手动更新`,
+      label: `文本输入`,
       children: <CorpusFromManual />,
     },
     {

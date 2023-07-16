@@ -23,7 +23,7 @@ declare namespace CorpusAPI {
     // 机器人id
     bot_id: string
 
-    // 文件类型 1为pdf 2为txt 3为手动更新
+    // 文件类型 1为pdf 2为txt 3为文本输入
     type: 1 | 2 | 3
 
     // 当前页面

@@ -78,7 +78,7 @@ const ThemeModal = (props: ThemeModalProps) => {
 
   return (
     <Modal
-      title={modalType === 'add' ? '新增主题' : '编辑主题'}
+      title={modalType === 'add' ? '新增文本' : '编辑文本'}
       open={visible}
       destroyOnClose
       footer={null}
@@ -86,12 +86,12 @@ const ThemeModal = (props: ThemeModalProps) => {
     >
       <Form form={form} layout="vertical" onFinish={handleFinished} initialValues={fileInfo}>
         <Form.Item
-          label="主题名称"
+          label="文本标题"
           name="doc_name"
           rules={[
             {
               required: true,
-              message: '请输入主题名称',
+              message: '请输入标题名称',
             },
             {
               validator: (_, value) => {
@@ -103,20 +103,20 @@ const ThemeModal = (props: ThemeModalProps) => {
             },
           ]}
         >
-          <Input placeholder="请输入主题名称" />
+          <Input placeholder="请输入标题名称" />
         </Form.Item>
         {/* 回答 */}
         <Form.Item
-          label="语料内容"
+          label="文本内容"
           name="content"
           rules={[
             {
               required: true,
-              message: '请输入语料内容',
+              message: '请输入文本内容',
             },
           ]}
         >
-          <Input.TextArea rows={10} placeholder="请输入语料内容" />
+          <Input.TextArea rows={10} placeholder="请输入文本内容" />
         </Form.Item>
         <Form.Item>
           <div className="frc-end">
@@ -124,7 +124,7 @@ const ThemeModal = (props: ThemeModalProps) => {
               取消
             </Button>
             <Button type="primary" htmlType="submit" loading={loading}>
-              {modalType === 'add' ? '新增' : '更新'}
+              {modalType === 'add' ? '保存' : '更新'}
             </Button>
           </div>
         </Form.Item>

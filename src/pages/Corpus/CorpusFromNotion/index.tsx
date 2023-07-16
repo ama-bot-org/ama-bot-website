@@ -157,7 +157,7 @@ const CorpusFromNotion: React.FC = () => {
               }}
             >
               <Button type="primary" style={{ marginRight: '10px' }} onClick={handleAddNew}>
-                新增Notion语料源
+                新增 Notion 文档
               </Button>
             </ConfigProvider>
           </div>
