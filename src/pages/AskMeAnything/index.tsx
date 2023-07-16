@@ -22,7 +22,7 @@ const AskMeAnything: React.FC = () => {
         <title>
           {intl.formatMessage({
             id: 'menu.ama',
-            defaultMessage: 'AI问答',
+            defaultMessage: 'AI问答预览',
           })}
           - {Settings.title}
         </title>

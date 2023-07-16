@@ -1,6 +1,6 @@
 export default {
   'menu.welcome': '欢迎',
-  'menu.ama': 'AI问答',
+  'menu.ama': 'AI问答预览',
   'menu.dnastaff': 'DNA的AI小客服',
   'menu.dialog-history': '对话历史',
   'menu.database-config': 'AI 训练资料',
