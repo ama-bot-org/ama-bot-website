@@ -83,36 +83,37 @@ export default [
     component: './AskMeAnything',
   },
   {
+    path: '/robot-config',
+    name: 'robot-config',
+    icon: 'robotOutlined',
+    access: 'user',
+    component: './BotConfig',
+    // hideInMenu: true,
+    // routes: [
+    //   {
+    //     path: '/robot-config',
+    //     redirect: '/robot-config/im-connect',
+    //   },
+    //   {
+    //     path: '/robot-config/im-connect',
+    //     name: 'im-connect',
+    //     icon: 'apiOutlined',
+    //     component: './IMConnect',
+    //   },
+    //   {
+    //     path: '/robot-config/visual-programming',
+    //     name: 'visual-programming',
+    //     icon: 'blockOutlined',
+    //     component: './VisualProgramming',
+    //   },
+    // ],
+  },
+  {
     path: '/dialog-history',
     name: 'dialog-history',
     icon: 'history',
     access: 'user',
     component: './DialogHistory',
-  },
-  {
-    path: '/robot-config',
-    name: 'robot-config',
-    icon: 'robotOutlined',
-    access: 'user',
-    hideInMenu: true,
-    routes: [
-      {
-        path: '/robot-config',
-        redirect: '/robot-config/im-connect',
-      },
-      {
-        path: '/robot-config/im-connect',
-        name: 'im-connect',
-        icon: 'apiOutlined',
-        component: './IMConnect',
-      },
-      {
-        path: '/robot-config/visual-programming',
-        name: 'visual-programming',
-        icon: 'blockOutlined',
-        component: './VisualProgramming',
-      },
-    ],
   },
   {
     path: '/balance',

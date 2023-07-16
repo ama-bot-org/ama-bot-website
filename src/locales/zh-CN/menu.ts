@@ -6,7 +6,7 @@ export default {
   'menu.database-config': 'AI 训练资料',
   'menu.database-config.corpus': '语料库',
   'menu.database-config.standard-lib': '标准问答库',
-  'menu.robot-config': '机器人配置',
+  'menu.robot-config': 'AI 客服配置',
   'menu.robot-config.im-connect': 'IM对接',
   'menu.robot-config.visual-programming': '可视化编程',
   'menu.robot-config.corpus': '语料库',
