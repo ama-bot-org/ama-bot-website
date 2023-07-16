@@ -1,7 +1,8 @@
-import { checkAIDomainUnique } from '@/services/ant-design-pro/register'
+// import { checkAIDomainUnique } from '@/services/ant-design-pro/register'
+import { ActionType } from '@/services/ant-design-pro/enums'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
-import CloudUploadOutlined from '@ant-design/icons/CloudUploadOutlined'
 import { useIntl } from '@umijs/max'
+import userAPI from '@/services/ant-design-pro/register'
 import Form, { RuleObject } from 'antd/es/form'
 import Input from 'antd/es/input'
 import Upload, { UploadFile, UploadChangeParam, RcFile } from 'antd/es/upload'
@@ -10,10 +11,11 @@ import ConfigProvider from 'antd/es/config-provider'
 import type { UploadProps } from 'antd/es/upload'
 import message from 'antd/es/message'
 import { useState } from 'react'
-import { ActionType } from '@/services/ant-design-pro/enums'
+import { useForm } from 'antd/es/form/Form'
+import { v4 as uuidv4 } from 'uuid'
 
 type RegisterFormProps = {
-  onCreateSuccess: (domain: string, logo: string) => void
+  onCreateSuccess: (name: string, image_url: string) => void
   visible: boolean
 }
 
@@ -21,34 +23,47 @@ const RegisterForm = (props: RegisterFormProps) => {
   const { onCreateSuccess, visible } = props
 
   const intl = useIntl()
+  const [form] = useForm()
   const [imageUrl, setImageUrl] = useState<string>('')
   const [postImageUrl, setPostImageUrl] = useState<string>('')
 
   const [loading, setLoading] = useState<boolean>(false)
 
   const onFinish = (values: any) => {
-    console.log(values)
-    onCreateSuccess(values.domain, postImageUrl)
+    onCreateSuccess(values.name, postImageUrl)
   }
 
-  const uploadButton = <div>{loading ? <LoadingOutlined /> : <CloudUploadOutlined style={{ fontSize: '50px' }} />}</div>
-
-  const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-    const reader = new FileReader()
-    reader.addEventListener('load', () => callback(reader.result as string))
-    reader.readAsDataURL(img)
-  }
+  const uploadButton = (
+    <div
+      style={{
+        width: 64,
+        height: 64,
+        borderRadius: '8px',
+        border: '1px dashed #d9d9d9',
+      }}
+      className="frc-center"
+    >
+      {loading ? (
+        <LoadingOutlined />
+      ) : (
+        <img
+          src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/upload.png"
+          style={{ width: '40px', height: '40px', cursor: 'pointer' }}
+        />
+      )}
+    </div>
+  )
 
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!')
+      message.error('You can only upload JPEG/PNG file!')
     }
-    const isLt2M = file.size / 1024 / 1024 < 2
-    if (!isLt2M) {
+    const isLt1M = file.size / 1024 / 1024 < 1
+    if (!isLt1M) {
       message.error('Image must smaller than 2MB!')
     }
-    return isJpgOrPng && isLt2M
+    return isJpgOrPng && isLt1M
   }
 
   const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
@@ -57,12 +72,7 @@ const RegisterForm = (props: RegisterFormProps) => {
       return
     }
     if (info.file.status === 'done') {
-      setPostImageUrl(info.file.response.data.display_url)
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj as RcFile, url => {
-        setLoading(false)
-        setImageUrl(url)
-      })
+      setLoading(false)
     }
   }
 
@@ -71,36 +81,50 @@ const RegisterForm = (props: RegisterFormProps) => {
       return Promise.reject(
         new Error(
           intl.formatMessage({
-            id: 'register.domain.required',
-            defaultMessage: '请输入 AI 名称',
+            id: 'register.name.required',
+            defaultMessage: '请输入 AI 客服名称',
           }),
         ),
       )
     }
-    const reg = /^[A-Za-z0-9][A-Za-z0-9-_]*$/
-    if (!reg.test(value)) {
-      return Promise.reject(new Error(intl.formatMessage({ id: 'register.domain.wrong-format', defaultMessage: '请输入正确的名称' })))
+    const reg = /[^\u4E00-\u9FA5A-Za-z0-9_]/
+    if (reg.test(value)) {
+      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format', defaultMessage: '请输入正确的名称' })))
     }
     if (value.length > 30 || value.length < 3) {
-      return Promise.reject(new Error(intl.formatMessage({ id: 'register.domain.wrong-length', defaultMessage: '名称长度在 3~30 之间' })))
+      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length', defaultMessage: '名称长度在 3~30 之间' })))
     }
-    const res = await checkAIDomainUnique(value)
-    if (res.ActionType === ActionType.OK && res.message === 'success') {
-      return Promise.resolve()
+    return Promise.resolve()
+  }
+
+  const handleUpload = async (options: any) => {
+    const { fileContent, filename, onError, onSuccess } = options
+
+    try {
+      const res = await userAPI.uploadImage({
+        file_name: `${form.getFieldValue('name') || uuidv4()}-${filename}`,
+        file: fileContent,
+      })
+      if (res.ActionType === ActionType.OK) {
+        setPostImageUrl(res.image_url)
+        setImageUrl(res.image_url)
+        onSuccess('上传成功')
+      } else {
+        onError(new Error('上传失败'))
+      }
+    } catch (error) {
+      onError(new Error('上传失败'))
     }
-    return Promise.reject(
-      new Error(
-        intl.formatMessage({
-          id: 'register.requireUnique',
-          defaultMessage: '名称已被注册',
-        }),
-      ),
-    )
+  }
+
+  const handleCustomRequest = async ({ file, onSuccess, onError }: any) => {
+    await handleUpload({ fileContent: file, filename: file.name, onError, onSuccess })
   }
 
   return (
     <Form
       onFinish={onFinish}
+      form={form}
       layout="vertical"
       style={{
         flex: 1,
@@ -113,37 +137,51 @@ const RegisterForm = (props: RegisterFormProps) => {
       }}
     >
       <div
-        className="w-full flex-1 fcc-center register-step-one"
+        className="w-full flex-1 fcs-center register-step-one"
         style={{
           marginTop: 20,
         }}
       >
         <Form.Item
-          name="domain"
-          label={intl.formatMessage({ id: 'register.domain.register', defaultMessage: '注册你的 AI 名称' })}
+          name="name"
+          label={intl.formatMessage({ id: 'register.name.register', defaultMessage: 'AI 客服昵称' })}
           rules={[{ validator: (rule, value) => validIsUnique(rule, value) }]}
         >
-          <Input placeholder="请输入名称" suffix={<span className="mx-2">.AI</span>} />
+          <Input placeholder="请输入 AI 客服昵称" />
         </Form.Item>
-        <Form.Item
-          name="logo"
-          label={intl.formatMessage({ id: 'register.logo', defaultMessage: '上传你的 AI Logo' })}
-          valuePropName="fileList"
-          getValueFromEvent={event => event.fileList}
-          rules={[{ required: true, message: '请上传logo' }]}
-        >
-          <Upload
-            name="image"
-            listType="picture-circle"
-            className="avatar-uploader"
-            showUploadList={false}
-            action="https://api.imgbb.com/1/upload?key=b5a35711fc74b069ae11302366d23b48"
-            beforeUpload={beforeUpload}
-            onChange={handleChange}
+        <div className="flex flex-wrap">
+          <Form.Item
+            name="logo"
+            label={intl.formatMessage({ id: 'register.logo', defaultMessage: '头像' })}
+            valuePropName="fileList"
+            getValueFromEvent={event => event.fileList}
+            rules={[{ required: true, message: '请上传客服头像' }]}
           >
-            {imageUrl ? <img src={imageUrl} alt="avatar" className="rounded-full" style={{ width: '100%' }} /> : uploadButton}
-          </Upload>
-        </Form.Item>
+            <Upload
+              name="image"
+              listType="picture"
+              className="avatar-uploader"
+              showUploadList={false}
+              action="/api/app/user/image"
+              customRequest={handleCustomRequest}
+              beforeUpload={beforeUpload}
+              onChange={handleChange}
+            >
+              {imageUrl ? <img src={imageUrl} alt="avatar" className="rounded-full" style={{ width: '64px' }} /> : uploadButton}
+            </Upload>
+          </Form.Item>
+          <div
+            style={{
+              marginTop: '45px',
+              marginLeft: '16px',
+            }}
+          >
+            <div className="text-left" style={{ color: '#e65c41' }}>
+              上传头像
+            </div>
+            <div className="text-left">支持.png .jpeg，不超过1M</div>
+          </div>
+        </div>
       </div>
       <Form.Item style={{ width: '100%' }}>
         <ConfigProvider

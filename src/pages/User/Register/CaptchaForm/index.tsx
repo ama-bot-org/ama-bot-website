@@ -1,4 +1,4 @@
-import { requestCaptcha } from '@/services/ant-design-pro/register'
+import userAPI from '@/services/ant-design-pro/register'
 import { useState } from 'react'
 import { useIntl } from '@umijs/max'
 import Form from 'antd/es/form'
@@ -30,7 +30,7 @@ const CaptchaForm = (props: CaptFormProps) => {
       // 获取验证码
       const email = form.getFieldValue('email')
       if (email) {
-        const res = await requestCaptcha(email, registerType)
+        const res = await userAPI.requestCaptcha(email, registerType)
         if (res.ActionType === ActionType.OK) {
           // 倒计时
           let count = 59

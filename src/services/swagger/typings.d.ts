@@ -4,7 +4,7 @@ declare namespace API {
     name?: string
     bot_id?: string
     org_id: string
-    avatar?: string
+    image_url?: string
     userid?: string
     email?: string
     signature?: string

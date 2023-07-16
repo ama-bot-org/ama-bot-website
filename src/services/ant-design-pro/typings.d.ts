@@ -28,6 +28,7 @@ declare namespace API {
     org_id: string // 名称
     bot_id: string
     level: AuthorityLevel
+    image_url: string
   }
 
   type LoginResult = {
@@ -94,7 +95,7 @@ declare namespace API {
 
     name: string //用户名
 
-    logo: string //用户头像地址
+    image_url: string //用户头像地址
 
     email: string //用户邮箱地址
 

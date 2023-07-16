@@ -61,12 +61,14 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }: {
   return {
     logo: 'public/logo.svg',
     // <Question key="doc" />,
-    // actionsRender: () => [<SelectLang key="SelectLang" />],
+    actionsRender: () => [
+      // <SelectLang key="lang" />,
+    ],
     avatarProps: {
-      src: initialState?.currentUser?.avatar,
+      src: initialState?.currentUser?.image_url,
       title: <AvatarName />,
-      render: (_: any, avatarChildren: any) => {
-        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>
+      render: (_, avatarChildren) => {
+        return <AvatarDropdown menu>{avatarChildren}</AvatarDropdown>
       },
     },
     waterMarkProps: {

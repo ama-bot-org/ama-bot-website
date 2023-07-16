@@ -12,8 +12,9 @@ import { history } from '@umijs/max'
 import RegisterForm from './RegisterForm'
 import EmailPassForm from './EmailPassForm'
 import { API } from '@/services/ant-design-pro/typings'
-import { registerNewUser } from '@/services/ant-design-pro/register'
+import userAPI from '@/services/ant-design-pro/register'
 import { ActionType } from '@/services/ant-design-pro/enums'
+import { v4 as uuidv4 } from 'uuid'
 
 const Register = () => {
   const query = new URLSearchParams(history.location.search)
@@ -36,9 +37,9 @@ const Register = () => {
     setSubmitting(true)
     try {
       // 注册成功后跳转到登录页
-      const registerResult: API.UserRegisterResponse = await registerNewUser(values)
-      console.log('registerResult', registerResult)
-      console.log('values', values)
+      // eslint-disable-next-line no-debugger
+      debugger
+      const registerResult: API.UserRegisterResponse = await userAPI.registerNewUser(values)
       if (registerResult.ActionType === ActionType.OK) {
         history.push('/user/login')
       } else {
@@ -56,14 +57,18 @@ const Register = () => {
     }
   }
 
-  const onCreateSuccess = (domain: string, logo: string) => {
-    setRegisterParams({ ...registerParams, org_id: domain, logo })
+  const onCreateSuccess = (name: string, image_url: string) => {
+    setRegisterParams({ ...registerParams, name, org_id: uuidv4(), image_url })
+    // eslint-disable-next-line no-debugger
+    debugger
     setRegisterStep(2)
   }
 
   const onCompleteRegister = (email: string, password: string, captcha: string) => {
-    const allParams = { ...registerParams, email, name: email, password, email_check: captcha }
+    const allParams = { ...registerParams, email, password, email_check: captcha }
     setRegisterParams(allParams)
+    // eslint-disable-next-line no-debugger
+    debugger
     handleSubmit(allParams)
   }
 

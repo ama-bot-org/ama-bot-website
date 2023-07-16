@@ -8,7 +8,7 @@ import { useIntl, Helmet, Link, useModel } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
 import LogoWithName from '@/components/LogoWithName'
 import { ConfigProvider } from 'antd'
-import { AvatarDropdown } from '@/components/RightContent/AvatarDropdown'
+import { AvatarDropdown, AvatarName } from '@/components/RightContent/AvatarDropdown'
 import { getInitialState } from '@/app'
 import SectionCompare from './components/SectionCompare'
 import SectionCorevalue from './components/SectionCorevalue'
@@ -200,9 +200,9 @@ const Landing: React.FC = () => {
             }}
           >
             {/* <Lang /> */}
-            {currentUser?.org_id ? (
+            {currentUser?.name ? (
               <AvatarDropdown menu>
-                <span>{currentUser?.org_id}</span>
+                <AvatarName />
               </AvatarDropdown>
             ) : (
               <LoginButton />

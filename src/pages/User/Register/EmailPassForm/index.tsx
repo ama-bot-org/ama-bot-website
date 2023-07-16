@@ -8,7 +8,7 @@ import { useState } from 'react'
 import CaptchaForm from '../CaptchaForm'
 import { ActionType, RegisterType } from '@/services/ant-design-pro/enums'
 import AgreementFormItem from '../../components/AgreementFormItem'
-import { checkEmailUnique } from '@/services/ant-design-pro/register'
+import userAPI from '@/services/ant-design-pro/register'
 
 type EmailPassFormProps = {
   onCompleteRegister: (email: string, password: string, captcha: string) => void
@@ -77,7 +77,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
                 if (!value || EMAIL_REGEX.test(value) === false) {
                   return Promise.reject()
                 }
-                const msg = await checkEmailUnique(value)
+                const msg = await userAPI.checkEmailUnique(value)
                 if (msg.ActionType === ActionType.OK && msg.message === 'success') {
                   return Promise.resolve()
                 }
