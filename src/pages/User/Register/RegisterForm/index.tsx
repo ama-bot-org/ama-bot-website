@@ -1,5 +1,6 @@
 // import { checkAIDomainUnique } from '@/services/ant-design-pro/register'
 import { ActionType } from '@/services/ant-design-pro/enums'
+import ImgCrop from 'antd-img-crop'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import { useIntl } from '@umijs/max'
 import userAPI from '@/services/ant-design-pro/register'
@@ -10,7 +11,7 @@ import Button from 'antd/es/button'
 import ConfigProvider from 'antd/es/config-provider'
 import type { UploadProps } from 'antd/es/upload'
 import message from 'antd/es/message'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'antd/es/form/Form'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -108,6 +109,7 @@ const RegisterForm = (props: RegisterFormProps) => {
       if (res.ActionType === ActionType.OK) {
         setPostImageUrl(res.image_url)
         setImageUrl(res.image_url)
+        form.setFieldValue('image_url', res.image_url)
         onSuccess('上传成功')
       } else {
         onError(new Error('上传失败'))
@@ -117,9 +119,23 @@ const RegisterForm = (props: RegisterFormProps) => {
     }
   }
 
+  const validateImage = () => {
+    if (!postImageUrl || postImageUrl.length === 0) {
+      return Promise.reject(new Error('请上传客服头像'))
+    }
+    return Promise.resolve()
+  }
+
   const handleCustomRequest = async ({ file, onSuccess, onError }: any) => {
     await handleUpload({ fileContent: file, filename: file.name, onError, onSuccess })
   }
+
+  useEffect(() => {
+    if (postImageUrl) {
+      const button = document.getElementById('myButton')
+      button?.click()
+    }
+  }, [postImageUrl])
 
   return (
     <Form
@@ -151,24 +167,27 @@ const RegisterForm = (props: RegisterFormProps) => {
         </Form.Item>
         <div className="flex flex-wrap">
           <Form.Item
-            name="logo"
+            name="image_url"
             label={intl.formatMessage({ id: 'register.logo', defaultMessage: '头像' })}
             valuePropName="fileList"
             getValueFromEvent={event => event.fileList}
-            rules={[{ required: true, message: '请上传客服头像' }]}
+            rules={[{ validator: validateImage }]}
+            style={{ width: 98 }}
           >
-            <Upload
-              name="image"
-              listType="picture"
-              className="avatar-uploader"
-              showUploadList={false}
-              action="/api/app/user/image"
-              customRequest={handleCustomRequest}
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {imageUrl ? <img src={imageUrl} alt="avatar" className="rounded-full" style={{ width: '64px' }} /> : uploadButton}
-            </Upload>
+            <ImgCrop modalClassName="cursor-pointer" fillColor="rgba(0, 0, 0, 0)" aspect={1} cropShape="round">
+              <Upload
+                name="image"
+                listType="picture"
+                className="avatar-uploader"
+                showUploadList={false}
+                action="/api/app/user/image"
+                customRequest={handleCustomRequest}
+                beforeUpload={beforeUpload}
+                onChange={handleChange}
+              >
+                {imageUrl ? <img src={imageUrl} alt="avatar" className="rounded-full" style={{ width: '64px' }} /> : uploadButton}
+              </Upload>
+            </ImgCrop>
           </Form.Item>
           <div
             style={{
@@ -191,7 +210,7 @@ const RegisterForm = (props: RegisterFormProps) => {
             },
           }}
         >
-          <Button type="primary" style={{ width: '100%', height: '48px', fontSize: 18 }} htmlType="submit">
+          <Button type="primary" style={{ width: '100%', height: '48px', fontSize: 18 }} htmlType="submit" id="myButton">
             {intl.formatMessage({
               id: 'landing.createmyai',
               defaultMessage: '创建我的 AI',

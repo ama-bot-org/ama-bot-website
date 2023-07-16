@@ -143,7 +143,7 @@ const Landing: React.FC = () => {
       <div
         className="fixed w-full"
         style={{
-          zIndex: 1,
+          zIndex: 2,
         }}
       >
         <p
@@ -183,7 +183,7 @@ const Landing: React.FC = () => {
             zIndex: 2,
             flex: '1',
             padding: '16px 0',
-            height: '80px',
+            height: '40px',
             backgroundColor: 'aliceblue',
           }}
         >

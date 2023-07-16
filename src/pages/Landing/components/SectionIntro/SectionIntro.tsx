@@ -44,7 +44,7 @@ export default function SectionIntro() {
         overflow: 'hidden',
       }}
     >
-      <div className="relative text-center" style={{ height: 240 }}>
+      <div className="relative text-center" style={{ height: 240, zIndex: 1 }}>
         <div className="absolute text-center w-full" style={{ bottom: 0, left: 0 }}>
           <img
             src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s1-logo-Askio.svg"

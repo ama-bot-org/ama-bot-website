@@ -37,8 +37,6 @@ const Register = () => {
     setSubmitting(true)
     try {
       // 注册成功后跳转到登录页
-      // eslint-disable-next-line no-debugger
-      debugger
       const registerResult: API.UserRegisterResponse = await userAPI.registerNewUser(values)
       if (registerResult.ActionType === ActionType.OK) {
         history.push('/user/login')
@@ -59,16 +57,12 @@ const Register = () => {
 
   const onCreateSuccess = (name: string, image_url: string) => {
     setRegisterParams({ ...registerParams, name, org_id: uuidv4(), image_url })
-    // eslint-disable-next-line no-debugger
-    debugger
     setRegisterStep(2)
   }
 
   const onCompleteRegister = (email: string, password: string, captcha: string) => {
     const allParams = { ...registerParams, email, password, email_check: captcha }
     setRegisterParams(allParams)
-    // eslint-disable-next-line no-debugger
-    debugger
     handleSubmit(allParams)
   }
 
