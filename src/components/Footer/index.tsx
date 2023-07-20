@@ -13,7 +13,12 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <div className="fcc-center">
+    <div
+      className="fcc-center"
+      style={{
+        marginBottom: '48px',
+      }}
+    >
       <DefaultFooter
         style={{
           background: 'none',
@@ -35,9 +40,26 @@ const Footer: React.FC = () => {
         ]}
       />
 
-      <a className="frc-center" href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
+      <a
+        className="frc-center"
+        href="https://beian.miit.gov.cn/"
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          textDecoration: 'none',
+        }}
+      >
         <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/ba.png" alt="" />
-        <span className="ml-4"> 苏ICP备2022035073号-3 </span>
+        <span
+          className="ml-4"
+          style={{
+            color: '#1677ff',
+            cursor: 'pointer',
+            fontSize: '14px',
+          }}
+        >
+          苏ICP备2022035073号-3
+        </span>
       </a>
     </div>
   )

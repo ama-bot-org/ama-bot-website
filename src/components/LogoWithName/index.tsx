@@ -13,6 +13,7 @@ const LogoWithName: React.FC<LogoWithNameProps> = props => {
   const logoClassName = useEmotionCss(({ token }) => {
     return {
       width: 'auto',
+      overflow: 'hidden',
       padding: '0 8px',
       height: 42,
       lineHeight: '42px',

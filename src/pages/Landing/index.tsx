@@ -44,9 +44,10 @@ const LoginButton = () => {
 
   const loginClassName = useEmotionCss(({ token }) => {
     return {
-      width: 80,
+      width: 'auto',
       height: 40,
       lineHeight: '42px',
+      overflow: 'hidden',
       borderRadius: token.borderRadius,
       ':hover': {
         backgroundColor: token.colorBgTextHover,
@@ -142,7 +143,7 @@ const Landing: React.FC = () => {
       <div
         className="fixed w-full"
         style={{
-          zIndex: 1,
+          zIndex: 2,
         }}
       >
         <p
@@ -192,6 +193,7 @@ const Landing: React.FC = () => {
             style={{
               width: 'auto',
               height: 40,
+              overflow: 'hidden',
               lineHeight: '42px',
               position: 'fixed',
               right: 16,
@@ -199,9 +201,9 @@ const Landing: React.FC = () => {
             }}
           >
             <Lang />
-            {currentUser?.org_id ? (
+            {currentUser?.name ? (
               <AvatarDropdown menu>
-                <span>{currentUser?.org_id}</span>
+                <span>{currentUser?.name}</span>
               </AvatarDropdown>
             ) : (
               <LoginButton />
