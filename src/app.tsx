@@ -65,14 +65,14 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }: {
       // <SelectLang key="lang" />,
     ],
     avatarProps: {
-      src: initialState?.currentUser?.image_url,
+      // src: initialState?.currentUser?.image_url,
       title: <AvatarName />,
       render: (_, avatarChildren) => {
         return <AvatarDropdown menu>{avatarChildren}</AvatarDropdown>
       },
     },
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser?.email,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {

@@ -200,11 +200,11 @@ const Landing: React.FC = () => {
             }}
           >
             {/* <Lang /> */}
-            {currentUser?.name ? (
+            {currentUser?.email ? (
               <AvatarDropdown menu>
                 <span className="anticon frc-center cursor-pointer">
-                  <img src={currentUser?.image_url} alt="avatar" style={{ width: 22, height: 22, borderRadius: 10, marginRight: 6 }} />
-                  <span>{currentUser?.name}</span>
+                  {/* <img src={currentUser?.image_url} alt="avatar" style={{ width: 22, height: 22, borderRadius: 10, marginRight: 6 }} /> */}
+                  <span>{currentUser?.email}</span>
                 </span>
               </AvatarDropdown>
             ) : (
