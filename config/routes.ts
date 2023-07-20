@@ -52,9 +52,16 @@ export default [
     ],
   },
   {
+    path: '/config-group',
+    name: 'config-group',
+    redirect: '/database-config',
+    access: 'user',
+    disabled: true,
+  },
+  {
     path: '/database-config',
     name: 'database-config',
-    icon: 'databaseOutlined',
+    icon: 'smile',
     access: 'user',
     routes: [
       {
@@ -78,14 +85,14 @@ export default [
   {
     path: '/ama',
     name: 'ama',
-    icon: 'smile',
+    icon: 'message',
     access: 'user',
     component: './AskMeAnything',
   },
   {
     path: '/robot-config',
     name: 'robot-config',
-    icon: 'robotOutlined',
+    icon: 'setting',
     access: 'user',
     component: './BotConfig',
     // hideInMenu: true,
@@ -107,6 +114,13 @@ export default [
     //     component: './VisualProgramming',
     //   },
     // ],
+  },
+  {
+    path: '/services-group',
+    name: 'services-group',
+    redirect: '/dialog-history',
+    access: 'user',
+    disabled: true,
   },
   {
     path: '/dialog-history',
