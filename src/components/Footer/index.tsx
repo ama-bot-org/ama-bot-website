@@ -13,26 +13,33 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <DefaultFooter
-      style={{
-        background: 'none',
-      }}
-      copyright={`${currentYear} ${defaultMessage}`}
-      links={[
-        {
-          key: 'Askio',
-          title: <GlobalOutlined />,
-          href: REACT_APP_OFFICIAL_SITE,
-          blankTarget: true,
-        },
-        {
-          key: 'github',
-          title: <GithubOutlined />,
-          href: REACT_APP_GITHUB_SITE,
-          blankTarget: true,
-        },
-      ]}
-    />
+    <div className="fcc-center">
+      <DefaultFooter
+        style={{
+          background: 'none',
+        }}
+        copyright={`${currentYear} ${defaultMessage}`}
+        links={[
+          {
+            key: 'Askio',
+            title: <GlobalOutlined />,
+            href: REACT_APP_OFFICIAL_SITE,
+            blankTarget: true,
+          },
+          {
+            key: 'github',
+            title: <GithubOutlined />,
+            href: REACT_APP_GITHUB_SITE,
+            blankTarget: true,
+          },
+        ]}
+      />
+
+      <a className="frc-center" href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
+        <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/ba.png" alt="" />
+        <span className="ml-4"> 苏ICP备2022035073号-3 </span>
+      </a>
+    </div>
   )
 }
 
