@@ -1,13 +1,13 @@
-import corpus from '@/services/ant-design-pro/corpus'
-import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
-import { ActionType } from '@/services/ant-design-pro/enums'
+import corpus from '@/services/web-api/corpus'
+import { FileInfo } from '@/services/web-api/models/corpus'
+import { ActionType } from '@/constants/enums'
 import { useModel } from '@umijs/max'
 import { Input, Modal, Form, Button, message } from 'antd'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type ThemeModalProps = {
   visible: boolean
-  fileInfo?: CorpusAPI.FileInfo
+  fileInfo?: FileInfo
   modalType?: 'add' | 'edit' | 'preview' | undefined
   setVisible: Dispatch<SetStateAction<boolean>>
   setTableReFresh: Dispatch<React.SetStateAction<number>>
@@ -28,7 +28,7 @@ const ThemeModal = (props: ThemeModalProps) => {
     setVisible(false)
   }
 
-  const handleFinished = async (values: CorpusAPI.FileInfo) => {
+  const handleFinished = async (values: FileInfo) => {
     setLoading(true)
     if (currentUser?.bot_id) {
       try {

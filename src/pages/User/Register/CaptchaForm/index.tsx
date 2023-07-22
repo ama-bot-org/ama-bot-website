@@ -1,4 +1,4 @@
-import userAPI from '@/services/ant-design-pro/register'
+import userAPI from '@/services/web-api/register'
 import { useState } from 'react'
 import { useIntl } from '@umijs/max'
 import Form from 'antd/es/form'
@@ -6,7 +6,7 @@ import Row from 'antd/es/row'
 import Col from 'antd/es/col'
 import Input from 'antd/es/input'
 import Button from 'antd/es/button'
-import { ActionType, CheckType, RegisterType } from '@/services/ant-design-pro/enums'
+import { ActionType, CheckType, RegisterType } from '@/constants/enums'
 import message from 'antd/es/message'
 
 type CaptFormProps = {

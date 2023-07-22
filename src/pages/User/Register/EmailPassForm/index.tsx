@@ -6,9 +6,9 @@ import Button from 'antd/es/button'
 import ConfigProvider from 'antd/es/config-provider'
 import { useState } from 'react'
 import CaptchaForm from '../CaptchaForm'
-import { ActionType, RegisterType } from '@/services/ant-design-pro/enums'
+import { ActionType, RegisterType } from '@/constants/enums'
 import AgreementFormItem from '../../components/AgreementFormItem'
-import userAPI from '@/services/ant-design-pro/register'
+import userAPI from '@/services/web-api/register'
 
 type EmailPassFormProps = {
   onCompleteRegister: (email: string, password: string, captcha: string) => void

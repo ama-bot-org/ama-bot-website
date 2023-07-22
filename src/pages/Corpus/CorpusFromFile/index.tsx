@@ -2,9 +2,9 @@ import Skeleton from 'antd/es/skeleton'
 import { useEffect, useState } from 'react'
 import { useModel } from '@umijs/max'
 import { Button, Pagination, Popconfirm, message } from 'antd'
-import corpus from '@/services/ant-design-pro/corpus'
-import { ActionType } from '@/services/ant-design-pro/enums'
-import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
+import corpus from '@/services/web-api/corpus'
+import { DocInfo } from '@/services/web-api/models/corpus'
+import { ActionType } from '@/constants/enums'
 import CustomUploadComponent from '@/components/CustomUpload'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
@@ -25,7 +25,7 @@ const CorpusFromFile = () => {
   const { currentUser } = initialState || {}
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(10)
-  const [list, setList] = useState<CorpusAPI.DocInfo[]>([])
+  const [list, setList] = useState<DocInfo[]>([])
   const [total, setTotal] = useState<number>(0)
   const [searchValue, setSearchValue] = useState('')
   const [previewContent, setPreviewContent] = useState<string>('')
@@ -92,7 +92,7 @@ const CorpusFromFile = () => {
     },
   }))
 
-  const handleDeleteRow = async (rowData: CorpusAPI.DocInfo) => {
+  const handleDeleteRow = async (rowData: DocInfo) => {
     if (!currentUser?.bot_id) {
       message.error('请重新登录后再试')
       return

@@ -2,28 +2,28 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useIntl, Helmet, useModel } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
 import { useEffect, useState } from 'react'
+import { useForm } from 'antd/es/form/Form'
 import { Button, ConfigProvider, Form, message } from 'antd'
 import Input from 'antd/es/input'
 import QAModal from './QAModal'
 import QATable from './QATable'
-import { API } from '@/services/ant-design-pro/typings'
-import { deleteStandardInfo, getStandardTableInfo } from '@/services/ant-design-pro/standardLib'
-import { ActionType } from '@/services/ant-design-pro/enums'
-import { useForm } from 'antd/es/form/Form'
+import { deleteStandardInfo, getStandardTableInfo } from '@/services/web-api/standardLib'
+import { QAFormInfo } from '@/services/web-api/models/standardLib'
+import { ActionType } from '@/constants/enums'
 
 const StandardLib: React.FC = () => {
   const intl = useIntl()
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
 
-  const [data, setData] = useState<API.QAFormInfo[]>([])
+  const [data, setData] = useState<QAFormInfo[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
   const [pageSize] = useState(10)
   const [loading, setLoading] = useState(false)
   const [searchValue, setSearchValue] = useState<string | undefined>()
 
-  const [currentRow, setCurrentRow] = useState<API.QAFormInfo | undefined>()
+  const [currentRow, setCurrentRow] = useState<QAFormInfo | undefined>()
   const [modalVisible, setModalVisible] = useState(false)
   const [form] = useForm()
 
@@ -69,12 +69,12 @@ const StandardLib: React.FC = () => {
     setModalVisible(true)
   }
 
-  const handleEditRow = (record: API.QAFormInfo) => {
+  const handleEditRow = (record: QAFormInfo) => {
     setCurrentRow(record)
     setModalVisible(true)
   }
 
-  const handleDeleteRow = async (record: API.QAFormInfo) => {
+  const handleDeleteRow = async (record: QAFormInfo) => {
     if (currentUser?.bot_id) {
       setLoading(true)
       try {

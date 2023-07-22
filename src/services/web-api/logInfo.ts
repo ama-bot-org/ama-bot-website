@@ -1,11 +1,11 @@
 // @ts-ignore
 /* eslint-disable */
 import { request } from '@umijs/max'
-import { LogInfoAPI } from './logInfoAPI'
+import { GetLogInfoTableParamsType, LogInfoTableResponseType } from './models/logInfo'
 
 // 根据机器人id获取对话的历史记录
-async function getHistoryTable(params: LogInfoAPI.GetLogInfoTableParamsType) {
-  return request<LogInfoAPI.LogInfoTableResponseType>('/api/app/log/logInfo', {
+async function getHistoryTable(params: GetLogInfoTableParamsType) {
+  return request<LogInfoTableResponseType>('/api/app/log/logInfo', {
     method: 'POST',
     headers: {
       Authorization: localStorage.getItem('token') || '',

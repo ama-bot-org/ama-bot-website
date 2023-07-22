@@ -1,4 +1,4 @@
-import { LogInfoAPI } from '@/services/ant-design-pro/logInfoAPI'
+import { LogInfoTableRow } from '@/services/web-api/models/logInfo'
 import { Modal, Form } from 'antd'
 import { Dispatch, SetStateAction } from 'react'
 
@@ -6,7 +6,7 @@ type DialogModalProps = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
   // setTableReFresh: () => void
-  dialogInfo?: LogInfoAPI.LogInfoTableRow
+  dialogInfo?: LogInfoTableRow
   // modalType?: 'add' | 'edit' | 'preview'
 }
 
@@ -22,7 +22,7 @@ const NotionModal = (props: DialogModalProps) => {
     setVisible(false)
   }
 
-  // const handleFinished = async (values: LogInfoAPI.LogInfoTableRow) => {
+  // const handleFinished = async (values: LogInfoTableRow) => {
   //   setLoading(true)
   //   if (currentUser?.bot_id && values.token && values.pagelink && values.doc_name) {
   //     try {

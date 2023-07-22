@@ -1,4 +1,3 @@
-import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
@@ -9,30 +8,31 @@ import Popconfirm from 'antd/es/popconfirm'
 import Table from 'antd/lib/table'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import { NotionTableRow } from '@/services/web-api/models/corpus'
 dayjs.extend(utc)
 
 type NotionTableProps = {
-  data: CorpusAPI.NotionTableRow[]
+  data: NotionTableRow[]
   pageSize: number
   total: number
   page: number
   loading: boolean
   onPageChange: (page: number) => void
-  // onEditRow: (rowData: CorpusAPI.NotionTableRow) => void
-  onPreviewRow: (rowData: CorpusAPI.NotionTableRow) => void
-  onDeleteRow: (rowData: CorpusAPI.NotionTableRow) => void
+  // onEditRow: (rowData: NotionTableRow) => void
+  onPreviewRow: (rowData: NotionTableRow) => void
+  onDeleteRow: (rowData: NotionTableRow) => void
 }
 
 const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDeleteRow, onPageChange }: NotionTableProps) => {
-  const handlePreviewRow = (rowData: CorpusAPI.NotionTableRow) => {
+  const handlePreviewRow = (rowData: NotionTableRow) => {
     onPreviewRow(rowData)
   }
 
-  // const handleEditRow = (rowData: CorpusAPI.NotionTableRow) => {
+  // const handleEditRow = (rowData: NotionTableRow) => {
   //   onEditRow(rowData)
   // }
 
-  const handleDeleteRow = (rowData: CorpusAPI.NotionTableRow) => {
+  const handleDeleteRow = (rowData: NotionTableRow) => {
     onDeleteRow(rowData)
   }
 
@@ -58,7 +58,7 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDel
       dataIndex: 'operation',
       key: 'operation',
       width: '200px',
-      render: (_: any, rowData: CorpusAPI.NotionTableRow) => (
+      render: (_: any, rowData: NotionTableRow) => (
         <>
           {/* <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
             编辑

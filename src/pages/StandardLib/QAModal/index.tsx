@@ -1,15 +1,15 @@
-import { ActionType } from '@/services/ant-design-pro/enums'
-import { addStandardInfos, updateStandardInfo } from '@/services/ant-design-pro/standardLib'
-import { API } from '@/services/ant-design-pro/typings'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { ActionType } from '@/constants/enums'
+import { QAFormInfo } from '@/services/web-api/models/standardLib'
+import { addStandardInfos, updateStandardInfo } from '@/services/web-api/standardLib'
 import { useModel } from '@umijs/max'
 import { Input, Modal, Form, Button } from 'antd'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type QAModalProps = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
   setTableRefresh: () => void
-  QAInfo?: API.QAFormInfo
+  QAInfo?: QAFormInfo
   modalType?: 'add' | 'edit'
 }
 
@@ -33,7 +33,7 @@ const QAModal = (props: QAModalProps) => {
     setVisible(false)
   }
 
-  const handleFinished = async (values: API.QAFormInfo) => {
+  const handleFinished = async (values: QAFormInfo) => {
     setLoading(true)
     try {
       let res: any

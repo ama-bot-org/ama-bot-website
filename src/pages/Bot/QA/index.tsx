@@ -13,12 +13,14 @@ import Tag from 'antd/es/tag'
 type QAProps = {
   style: React.CSSProperties
   id: string
-  FAQContents: string[]
+  FAQContents?: string[]
   welcomes: string[]
-  contactCode: string
+  contactCode?: string
+  notShowFastEntrance?: boolean // 默认 undefined 显示快捷入口
+  disabledAd?: boolean // 默认 undefined 不显示 Askio 广告
 }
 
-const QA = ({ style, id, FAQContents, contactCode, welcomes }: QAProps) => {
+const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance, disabledAd }: QAProps) => {
   const [question, setQuestion] = React.useState('')
   const [dialogs, setDialogs] = React.useState<{ type: string; content: any }[]>([])
 
@@ -79,7 +81,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes }: QAProps) => {
     const temp = dialogs.slice()
     const content = (
       <div>
-        {FAQContents.map((item, index) => {
+        {FAQContents!.map((item, index) => {
           return (
             <div key={index}>
               <p
@@ -173,16 +175,15 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes }: QAProps) => {
   return (
     <div style={style} className="w-full flex flex-column overflow-hidden mb-8">
       <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} className="flex-1" id="bot-dialog">
-        <li className="mb-2">
-          <Dialog position={'left-bottom'}>{welcomes && welcomes[0]}</Dialog>
-        </li>
-        <li className="my-2">
-          <Dialog position={'left-bottom'}>
-            <p className="my-2 mb-16">{welcomes && welcomes[1]}</p>
-            <p className="my-2">{welcomes && welcomes[2]}</p>
-            {/* <img src={'/images/leon.svg'} alt="leon" /> */}
-          </Dialog>
-        </li>
+        {welcomes && welcomes.length > 0
+          ? welcomes.map((welcome, index) => {
+              return (
+                <li key={index} className="my-2 h-auto">
+                  <Dialog position="left-bottom">{welcome}</Dialog>
+                </li>
+              )
+            })
+          : null}
         {dialogs.map((dialog, index) => {
           return (
             <li key={index} className="my-2 h-auto">
@@ -194,24 +195,33 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes }: QAProps) => {
       <div
         style={{
           width: '100%',
-          height: '90px',
+          height: disabledAd ? '60px' : '90px',
         }}
       >
-        <div className="mb-8 frc-between">
-          <Tag
-            color="#ffffff"
-            style={{ fontSize: 14, padding: 3, flex: 1, color: 'black', textAlign: 'center', cursor: 'pointer' }}
-            onClick={showFAQ}
-          >
-            ❓常见问题
-          </Tag>
-          <Tag
-            color="#ffffff"
-            style={{ fontSize: 14, padding: 3, flex: 1, color: 'black', textAlign: 'center', cursor: 'pointer' }}
-            onClick={showCode}
-          >
-            🔍人类小伙伴
-          </Tag>
+        <div
+          className="mb-8 frc-between"
+          style={{
+            display: notShowFastEntrance || disabledAd ? 'none' : 'inherit',
+          }}
+        >
+          {FAQContents && FAQContents.length > 0 ? (
+            <Tag
+              color="#ffffff"
+              style={{ fontSize: 14, padding: 3, flex: 1, color: 'black', textAlign: 'center', cursor: 'pointer' }}
+              onClick={showFAQ}
+            >
+              ❓常见问题
+            </Tag>
+          ) : null}
+          {contactCode ? (
+            <Tag
+              color="#ffffff"
+              style={{ fontSize: 14, padding: 3, flex: 1, color: 'black', textAlign: 'center', cursor: 'pointer' }}
+              onClick={showCode}
+            >
+              🔍人类小伙伴
+            </Tag>
+          ) : null}
           <Tag
             color="#ffffff"
             style={{ fontSize: 14, padding: 3, marginRight: 0, flex: 1, color: 'black', textAlign: 'center', cursor: 'pointer' }}
@@ -244,7 +254,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes }: QAProps) => {
               }
             }}
             onChange={handleChange}
-            placeholder="请输入问题"
+            placeholder={'请输入问题'}
             style={{
               height: 48,
               lineHeight: '48px',

@@ -4,36 +4,41 @@ import QA from './QA'
 import Divider from 'antd/es/divider'
 import styles from './index.less'
 import { useEffect, useState } from 'react'
-import { checkBotValid } from '@/services/ant-design-pro/api'
-import { API } from '@/services/ant-design-pro/typings'
-import { ActionType } from '@/services/ant-design-pro/enums'
+import BotAPI from '@/services/web-api/bot'
+import { ActionType } from '@/constants/enums'
+import { BotDataType } from '@/models/bot'
 
 const Bot: React.FC = () => {
   const { id } = useParams()
-  const [botInfo, setBotInfo] = useState<API.Bot>({} as API.Bot)
+  const [botInfo, setBotInfo] = useState<BotDataType>({} as BotDataType)
 
-  // const initBotInfo = async (id: string) => {
-  //   const res: API.Bot = await fetchBotInfo(id)
-  //   if (res?.id) {
-  //     setBotInfo(res)
-  //   }
-  // }
+  const initBotInfo = async (email: string, bot_id: string) => {
+    const res = await BotAPI.fetchBotInfo(email, bot_id)
+    if (res?.ActionType === ActionType.OK) {
+      const { name, image_url, welcomes, bgImg_url, contact, faq_contents } = res
+      const botInfo = {
+        id: bot_id,
+        name,
+        image_url,
+        bgImg_url,
+        welcomes: JSON.parse(welcomes),
+        contact: JSON.parse(contact),
+        faq_contents: JSON.parse(faq_contents),
+      }
+      setBotInfo(botInfo)
+    }
+  }
+
   const checkBot = async (id: string) => {
-    const res = await checkBotValid(id)
+    const res = await BotAPI.checkBotValid(id)
 
     if (res?.ActionType === ActionType.False) {
-      window.open('https://aiyin.chat/user/register')
+      history.push('/user/register')
     } else {
-      setBotInfo({
-        id: 'askio',
-        bgImgUrl: '', // 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/ajsq.webp',
-        FAQContents: ['你能回答什么问题', '你是谁', '你好'],
-        welcomes: ['你好，我是AI小客服', '很高兴为您服务'],
-        contact: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/code.jpg',
-      })
-      if (botInfo.bgImgUrl) {
-        document.getElementsByTagName('body')[0].style.backgroundImage =
-          "url('https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/ajsq.webp')"
+      // todo
+      await initBotInfo('', '')
+      if (botInfo.bgImg_url) {
+        document.getElementsByTagName('body')[0].style.backgroundImage = `url('${botInfo.bgImg_url}')`
       }
     }
   }
@@ -71,7 +76,7 @@ const Bot: React.FC = () => {
             style={{ flex: 1, overflow: 'auto' }}
             id={botInfo.id}
             contactCode={botInfo.contact}
-            FAQContents={botInfo.FAQContents}
+            FAQContents={botInfo.faq_contents}
             welcomes={botInfo.welcomes}
           />
           <div style={{ textAlign: 'center', padding: 2, color: '#000000', fontSize: 12 }}>

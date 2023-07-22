@@ -1,18 +1,18 @@
 import Footer from '@/components/Footer'
-import { login } from '@/services/ant-design-pro/api'
+import loginAPI from '@/services/web-api/login'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { history, useIntl, useModel, Helmet, Link } from '@umijs/max'
 import { Button, ConfigProvider, Form, Input, message } from 'antd'
 import Settings from '../../../../config/defaultSettings'
 import React, { useState } from 'react'
 import { flushSync } from 'react-dom'
-import { API } from '@/services/ant-design-pro/typings'
 import CaptchaForm from '../Register/CaptchaForm'
 import { useForm } from 'antd/es/form/Form'
-import { ActionType, CheckType, RegisterType } from '@/services/ant-design-pro/enums'
+import { ActionType, CheckType, RegisterType } from '@/constants/enums'
 import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
 import AgreementFormItem from '../components/AgreementFormItem'
 import { ArrowLeftOutlined } from '@ant-design/icons'
+import { User, LoginFormParams, LoginParams } from '@/services/web-api/models/user'
 
 const Login: React.FC = () => {
   const { setInitialState } = useModel('@@initialState')
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
   //   }
   // }
 
-  const asyncUserInfo = async (data: API.User) => {
+  const asyncUserInfo = async (data: User) => {
     localStorage.setItem('user', JSON.stringify(data))
     flushSync(() => {
       setInitialState((s: any) => ({
@@ -57,12 +57,12 @@ const Login: React.FC = () => {
     })
   }
 
-  const onFinish = async (values: API.LoginFormParams) => {
+  const onFinish = async (values: LoginFormParams) => {
     try {
       // 登录
       setSubmitting(true)
 
-      const params: API.LoginParams = {
+      const params: LoginParams = {
         email: values.email,
         checkType: isCheckBuyCaptcha ? CheckType.Captcha : CheckType.Password,
       }
@@ -72,7 +72,7 @@ const Login: React.FC = () => {
         Object.assign(params, { email_check: values.captcha })
       }
 
-      const msg = await login(params)
+      const msg = await loginAPI.login(params)
       if (msg.ActionType === ActionType.OK) {
         asyncUserInfo(msg.data)
         const defaultLoginSuccessMessage = intl.formatMessage({

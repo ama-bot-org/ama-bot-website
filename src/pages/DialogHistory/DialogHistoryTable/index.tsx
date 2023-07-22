@@ -1,4 +1,4 @@
-import { LogInfoAPI } from '@/services/ant-design-pro/logInfoAPI'
+import { LogInfoTableRow } from '@/services/web-api/models/logInfo'
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import Button from 'antd/es/button'
 import Table from 'antd/lib/table'
@@ -7,23 +7,23 @@ import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
 
 type NotionTableProps = {
-  data: LogInfoAPI.LogInfoTableRow[]
+  data: LogInfoTableRow[]
   pageSize: number
   total: number
   page: number
   loading: boolean
   onPageChange: (page: number) => void
-  // onEditRow: (rowData: CorpusAPI.LogInfoTableRow) => void
-  onPreviewRow: (rowData: LogInfoAPI.LogInfoTableRow) => void
-  // onDeleteRow: (rowData: LogInfoAPI.LogInfoTableRow) => void
+  // onEditRow: (rowData: LogInfoTableRow) => void
+  onPreviewRow: (rowData: LogInfoTableRow) => void
+  // onDeleteRow: (rowData: LogInfoTableRow) => void
 }
 
 const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPageChange }: NotionTableProps) => {
-  const handlePreviewRow = (rowData: LogInfoAPI.LogInfoTableRow) => {
+  const handlePreviewRow = (rowData: LogInfoTableRow) => {
     onPreviewRow(rowData)
   }
 
-  // const handleDeleteRow = (rowData: LogInfoAPI.LogInfoTableRow) => {
+  // const handleDeleteRow = (rowData: LogInfoTableRow) => {
   //   onDeleteRow(rowData)
   // }
 
@@ -49,7 +49,7 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
       dataIndex: 'operation',
       key: 'operation',
       width: '200px',
-      render: (_: any, rowData: LogInfoAPI.LogInfoTableRow) => (
+      render: (_: any, rowData: LogInfoTableRow) => (
         <>
           {/* <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
             编辑

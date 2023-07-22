@@ -23,3 +23,9 @@ export enum CheckType {
   Password = 'Password',
   Captcha = 'Captcha',
 }
+
+export enum NoticeIconItemType {
+  notification = 'notification',
+  message = 'message',
+  event = 'event',
+}

@@ -1,4 +1,4 @@
-import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
+import { FileInfo } from '@/services/web-api/models/corpus'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
@@ -12,22 +12,22 @@ import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
 
 type ThemeTableProps = {
-  data: CorpusAPI.FileInfo[]
+  data: FileInfo[]
   pageSize: number
   total: number
   page: number
   loading: boolean
   onPageChange: (page: number) => void
-  onEditRow: (rowData: CorpusAPI.FileInfo) => void
-  onDeleteRow: (rowData: CorpusAPI.FileInfo) => void
+  onEditRow: (rowData: FileInfo) => void
+  onDeleteRow: (rowData: FileInfo) => void
 }
 
 const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow, onPageChange }: ThemeTableProps) => {
-  const handleEditRow = (rowData: CorpusAPI.FileInfo) => {
+  const handleEditRow = (rowData: FileInfo) => {
     onEditRow(rowData)
   }
 
-  const handleDeleteRow = (rowData: CorpusAPI.FileInfo) => {
+  const handleDeleteRow = (rowData: FileInfo) => {
     onDeleteRow(rowData)
   }
 
@@ -48,7 +48,7 @@ const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteR
       dataIndex: 'operation',
       key: 'operation',
       width: '200px',
-      render: (_: any, rowData: CorpusAPI.FileInfo) => (
+      render: (_: any, rowData: FileInfo) => (
         <>
           <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
             编辑

@@ -5,22 +5,22 @@ import { Button, ConfigProvider, message } from 'antd'
 // import Input from 'antd/es/input'
 import NotionModal from './NotionModal'
 import NotionTable from './NotionTable'
-import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
-import { ActionType } from '@/services/ant-design-pro/enums'
-import corpus from '@/services/ant-design-pro/corpus'
+import { ActionType } from '@/constants/enums'
+import corpus from '@/services/web-api/corpus'
+import { NotionTableRow } from '@/services/web-api/models/corpus'
 
 const CorpusFromNotion: React.FC = () => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
 
-  const [data, setData] = useState<CorpusAPI.NotionTableRow[]>([])
+  const [data, setData] = useState<NotionTableRow[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
   const [pageSize] = useState(10)
   const [loading, setLoading] = useState(false)
   const [searchValue] = useState<string | undefined>()
 
-  const [currentRow, setCurrentRow] = useState<CorpusAPI.NotionTableRow | undefined>()
+  const [currentRow, setCurrentRow] = useState<NotionTableRow | undefined>()
   const [modalVisible, setModalVisible] = useState(false)
   const [modalType, setModalType] = useState<'add' | 'edit' | 'preview' | undefined>('add')
 
@@ -62,19 +62,19 @@ const CorpusFromNotion: React.FC = () => {
     setModalVisible(true)
   }
 
-  const handlePreviewRow = (record: CorpusAPI.NotionTableRow) => {
+  const handlePreviewRow = (record: NotionTableRow) => {
     setCurrentRow(record)
     setModalType('preview')
     setModalVisible(true)
   }
 
-  // const handleEditRow = (record: CorpusAPI.NotionTableRow) => {
+  // const handleEditRow = (record: NotionTableRow) => {
   //   setCurrentRow(record)
   //   setModalType('edit')
   //   setModalVisible(true)
   // }
 
-  const handleDeleteRow = async (record: CorpusAPI.NotionTableRow) => {
+  const handleDeleteRow = async (record: NotionTableRow) => {
     if (currentUser?.bot_id) {
       setLoading(true)
       try {

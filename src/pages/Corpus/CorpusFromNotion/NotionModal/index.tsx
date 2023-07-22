@@ -1,15 +1,16 @@
-import corpus from '@/services/ant-design-pro/corpus'
-import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
-import { ActionType } from '@/services/ant-design-pro/enums'
+import corpus from '@/services/web-api/corpus'
+
+import { ActionType } from '@/constants/enums'
 import { useModel } from '@umijs/max'
 import { Input, Modal, Form, Button, Checkbox } from 'antd'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { NotionTableRow } from '@/services/web-api/models/corpus'
 
 type NotionModalProps = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
   setTableReFresh: () => void
-  notionInfo?: CorpusAPI.NotionTableRow
+  notionInfo?: NotionTableRow
   modalType?: 'add' | 'edit' | 'preview'
 }
 
@@ -26,7 +27,7 @@ const NotionModal = (props: NotionModalProps) => {
     setVisible(false)
   }
 
-  const handleFinished = async (values: CorpusAPI.NotionTableRow) => {
+  const handleFinished = async (values: NotionTableRow) => {
     setLoading(true)
     if (currentUser?.bot_id && values.token && values.pagelink && values.doc_name) {
       try {

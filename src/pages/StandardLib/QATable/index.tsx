@@ -1,4 +1,4 @@
-import { API } from '@/services/ant-design-pro/typings'
+import { QAFormInfo } from '@/services/web-api/models/standardLib'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
@@ -10,22 +10,22 @@ import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
 
 type QATableProps = {
-  data: API.QAFormInfo[]
+  data: QAFormInfo[]
   pageSize: number
   total: number
   page: number
   loading: boolean
   onPageChange: (page: number) => void
-  onEditRow: (rowData: API.QAFormInfo) => void
-  onDeleteRow: (rowData: API.QAFormInfo) => void
+  onEditRow: (rowData: QAFormInfo) => void
+  onDeleteRow: (rowData: QAFormInfo) => void
 }
 
 const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow, onPageChange }: QATableProps) => {
-  const handleEditRow = (rowData: API.QAFormInfo) => {
+  const handleEditRow = (rowData: QAFormInfo) => {
     onEditRow(rowData)
   }
 
-  const handleDeleteRow = (rowData: API.QAFormInfo) => {
+  const handleDeleteRow = (rowData: QAFormInfo) => {
     onDeleteRow(rowData)
   }
 
@@ -52,7 +52,7 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
       dataIndex: 'operation',
       key: 'operation',
       width: '200px',
-      render: (_: any, rowData: API.QAFormInfo) => (
+      render: (_: any, rowData: QAFormInfo) => (
         <>
           <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
             编辑

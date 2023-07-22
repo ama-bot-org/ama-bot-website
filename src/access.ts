@@ -1,4 +1,4 @@
-import { AuthorityLevel } from './services/ant-design-pro/enums'
+import { AuthorityLevel } from './constants/enums'
 
 /**
  * @see https://umijs.org/zh-CN/plugins/plugin-access

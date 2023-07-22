@@ -11,9 +11,9 @@ import { useEffect, useState } from 'react'
 import { history } from '@umijs/max'
 import RegisterForm from './RegisterForm'
 import EmailPassForm from './EmailPassForm'
-import { API } from '@/services/ant-design-pro/typings'
-import userAPI from '@/services/ant-design-pro/register'
-import { ActionType } from '@/services/ant-design-pro/enums'
+import registerAPI from '@/services/web-api/register'
+import { RegisterParams, UserRegisterResponse } from '@/services/web-api/models/user'
+import { ActionType } from '@/constants/enums'
 import { v4 as uuidv4 } from 'uuid'
 
 const Register = () => {
@@ -25,7 +25,7 @@ const Register = () => {
 
   const [submitting, setSubmitting] = useState(false)
   const [registerStep, setRegisterStep] = useState(step ? Number(step) : 1)
-  const [registerParams, setRegisterParams] = useState<API.RegisterParams>({} as API.RegisterParams)
+  const [registerParams, setRegisterParams] = useState<RegisterParams>({} as RegisterParams)
 
   useEffect(() => {
     const query = new URLSearchParams(history.location.search)
@@ -33,11 +33,11 @@ const Register = () => {
     setRegisterStep(step ? Number(step) : 1)
   }, [location])
 
-  const handleSubmit = async (values: API.RegisterParams) => {
+  const handleSubmit = async (values: RegisterParams) => {
     setSubmitting(true)
     try {
       // 注册成功后跳转到登录页
-      const registerResult: API.UserRegisterResponse = await userAPI.registerNewUser(values)
+      const registerResult: UserRegisterResponse = await registerAPI.registerNewUser(values)
       if (registerResult.ActionType === ActionType.OK) {
         history.push('/user/login')
       } else {

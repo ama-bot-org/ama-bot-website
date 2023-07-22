@@ -1,20 +1,24 @@
-// import { Form, Input } from 'antd'
-
-import Empty from 'antd/es/empty'
+import { useState } from 'react'
+import BaseInfoForm from './BaseInfoForm'
+import BaseInfoPreview from './BaseInfoPreview'
+import { BotDataType } from '@/models/bot'
 
 const BaseInfo = () => {
-  // const [form] = Form.useForm()
+  const [baseInfo, setBaseInfo] = useState<BotDataType>({} as BotDataType)
+
+  const handleBaseInfoChange = (baseInfo: BotDataType) => {
+    setBaseInfo(baseInfo)
+  }
 
   return (
-    // <Form form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 14 }} layout="horizontal">
-    //   <Form.Item label="机器人名称" name="name">
-    //     <Input />
-    //   </Form.Item>
-    //   <Form.Item label="机器人头像" name="image_url">
-    //     <Input />
-    //   </Form.Item>
-    // </Form>
-    <Empty description="开发中，敬请期待" />
+    <div className="frs-between flex-wrap">
+      <div className="flex-1 overflow-auto p-10">
+        <BaseInfoForm onChange={handleBaseInfoChange} />
+      </div>
+      <div className="flex-1 overflow-auto  p-10">
+        <BaseInfoPreview botInfo={baseInfo} />
+      </div>
+    </div>
   )
 }
 

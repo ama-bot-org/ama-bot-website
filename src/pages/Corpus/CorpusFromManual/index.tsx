@@ -5,22 +5,22 @@ import { Button, ConfigProvider, message } from 'antd'
 // import Input from 'antd/es/input'
 import ThemeModal from './ThemeModal'
 import ThemeTable from './ThemeTable'
-import { CorpusAPI } from '@/services/ant-design-pro/corpusAPI'
-import { ActionType } from '@/services/ant-design-pro/enums'
-import corpus from '@/services/ant-design-pro/corpus'
+import { ActionType } from '@/constants/enums'
+import corpus from '@/services/web-api/corpus'
+import { FileInfo } from '@/services/web-api/models/corpus'
 
 const CorpusFromManual: React.FC = () => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
 
-  const [data, setData] = useState<CorpusAPI.FileInfo[]>([])
+  const [data, setData] = useState<FileInfo[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
   const [pageSize] = useState(10)
   const [loading, setLoading] = useState(false)
   const [searchValue] = useState<string | undefined>()
 
-  const [currentRow, setCurrentRow] = useState<CorpusAPI.FileInfo | undefined>()
+  const [currentRow, setCurrentRow] = useState<FileInfo | undefined>()
   const [modalVisible, setModalVisible] = useState(false)
   const [modalType, setModalType] = useState<'add' | 'edit' | 'preview' | undefined>('add')
 
@@ -62,13 +62,13 @@ const CorpusFromManual: React.FC = () => {
     setModalVisible(true)
   }
 
-  const handleEditRow = (record: CorpusAPI.FileInfo) => {
+  const handleEditRow = (record: FileInfo) => {
     setCurrentRow(record)
     setModalType('edit')
     setModalVisible(true)
   }
 
-  const handleDeleteRow = async (record: CorpusAPI.FileInfo) => {
+  const handleDeleteRow = async (record: FileInfo) => {
     if (currentUser?.bot_id) {
       setLoading(true)
       try {
