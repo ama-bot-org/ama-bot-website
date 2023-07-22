@@ -45,9 +45,10 @@ const LoginButton = () => {
 
   const loginClassName = useEmotionCss(({ token }) => {
     return {
-      width: 80,
+      width: 'auto',
       height: 40,
       lineHeight: '42px',
+      overflow: 'hidden',
       borderRadius: token.borderRadius,
       ':hover': {
         backgroundColor: token.colorBgTextHover,
@@ -193,6 +194,7 @@ const Landing: React.FC = () => {
             style={{
               width: 'auto',
               height: 40,
+              overflow: 'hidden',
               lineHeight: '42px',
               position: 'fixed',
               right: 16,

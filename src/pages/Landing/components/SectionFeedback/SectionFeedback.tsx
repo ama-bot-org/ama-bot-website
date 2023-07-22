@@ -185,7 +185,7 @@ export default function SectionFeedback() {
           </div>
         </div>
         {/* DNA */}
-        <div className={`relative flex-1 fcs-between overflow-auto ${styles.card}`}>
+        <div className={`relative flex-1 fcs-between overflow-hidden ${styles.card}`}>
           <div className="absolute" style={{ right: '20px', top: '-20px' }}>
             <img
               src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s6-illustraion-comma grey.svg"

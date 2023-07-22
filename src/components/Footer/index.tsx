@@ -8,26 +8,55 @@ const Footer: React.FC = () => {
   const intl = useIntl()
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: 'FreeBe DAO Askio Team',
+    defaultMessage: 'FreeBe DAO 悦问团队',
   })
 
   const currentYear = new Date().getFullYear()
 
   return (
-    <DefaultFooter
+    <div
+      className="fcc-center"
       style={{
-        background: 'none',
+        marginBottom: '48px',
       }}
-      copyright={`${currentYear} ${defaultMessage}`}
-      // links={[
-      //   {
-      //     key: 'Askio',
-      //     title: <GlobalOutlined />,
-      //     href: REACT_APP_OFFICIAL_SITE,
-      //     blankTarget: true,
-      //   },
-      // ]}
-    />
+    >
+      <DefaultFooter
+        style={{
+          background: 'none',
+        }}
+        copyright={`${currentYear} ${defaultMessage}`}
+        // links={[
+        //   {
+        //     key: 'Askio',
+        //     title: <GlobalOutlined />,
+        //     href: REACT_APP_OFFICIAL_SITE,
+        //     blankTarget: true,
+        //   },
+        // ]}
+      />
+
+      <a
+        className="frc-center"
+        href="https://beian.miit.gov.cn/"
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          textDecoration: 'none',
+        }}
+      >
+        <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/ba.png" alt="" />
+        <span
+          className="ml-4"
+          style={{
+            color: '#1677ff',
+            cursor: 'pointer',
+            fontSize: '14px',
+          }}
+        >
+          苏ICP备2022035073号-3
+        </span>
+      </a>
+    </div>
   )
 }
 
