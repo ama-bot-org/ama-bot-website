@@ -47,10 +47,10 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
     setImageUrl(botInfo.image_url)
   }
 
-  const initBotInfo = async (email: string, bot_id: string) => {
+  const initBotInfo = async (bot_id: string) => {
     setFormLoading(true)
     try {
-      const res = await BotAPI.fetchBotInfo(email, bot_id)
+      const res = await BotAPI.fetchBotInfo(bot_id)
       if (res?.ActionType === ActionType.OK) {
         const { name, image_url, welcomes, bgImg_url, contact, faq_contents } = res
         const botInfo = {
@@ -71,8 +71,8 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
   }
 
   useEffect(() => {
-    if (currentUser?.email && currentUser?.bot_id) {
-      initBotInfo(currentUser?.email, currentUser?.bot_id)
+    if (currentUser?.bot_id) {
+      initBotInfo(currentUser?.bot_id)
     }
     return () => {
       form.resetFields()

@@ -15,13 +15,13 @@ async function checkBotValid(id: string): Promise<BotValid> {
   return res
 }
 
-async function fetchBotInfo(email: string, bot_id: string): Promise<BotResult> {
+async function fetchBotInfo(bot_id: string): Promise<BotResult> {
   const res = await request('/api/app/user/botInfo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    data: { email, bot_id },
+    data: { bot_id },
     getResponse: true,
   })
   return res.data

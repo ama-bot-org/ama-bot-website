@@ -27,7 +27,7 @@ const BaseInfoPreview = ({ botInfo }: { botInfo: BotDataType }) => {
   return (
     <div className={containerClassName}>
       <div style={{ flex: 1, padding: '12px 18px 10px 18px', overflow: 'hidden' }} className="fcc-between">
-        <h2 className="text-center mb-0 text-black">{botInfo?.name}</h2>
+        <h2 className="text-center my-0 text-black">{botInfo?.name}</h2>
         <Divider style={{ margin: '12px 0 12px 0' }} />
         <QA
           disabledAd

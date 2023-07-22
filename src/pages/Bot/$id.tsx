@@ -12,8 +12,8 @@ const Bot: React.FC = () => {
   const { id } = useParams()
   const [botInfo, setBotInfo] = useState<BotDataType>({} as BotDataType)
 
-  const initBotInfo = async (email: string, bot_id: string) => {
-    const res = await BotAPI.fetchBotInfo(email, bot_id)
+  const initBotInfo = async (bot_id: string) => {
+    const res = await BotAPI.fetchBotInfo(bot_id)
     if (res?.ActionType === ActionType.OK) {
       const { name, image_url, welcomes, bgImg_url, contact, faq_contents } = res
       const botInfo = {
@@ -35,8 +35,7 @@ const Bot: React.FC = () => {
     if (res?.ActionType === ActionType.False) {
       history.push('/user/register')
     } else {
-      // todo
-      await initBotInfo('', '')
+      await initBotInfo(id)
       if (botInfo.bgImg_url) {
         document.getElementsByTagName('body')[0].style.backgroundImage = `url('${botInfo.bgImg_url}')`
       }
@@ -70,7 +69,7 @@ const Bot: React.FC = () => {
     <div className={`${styles.bg} w-full`}>
       <div className={containerClassName}>
         <div style={{ flex: 1, padding: '12px 18px 10px 18px', overflow: 'hidden' }} className="fcc-between">
-          <h2 className="text-center mb-0 text-black">Askio 的 AI 小客服</h2>
+          <h2 className="text-center my-0 text-black">{botInfo?.name}</h2>
           <Divider style={{ margin: '12px 0 12px 0' }} />
           <QA
             style={{ flex: 1, overflow: 'auto' }}
