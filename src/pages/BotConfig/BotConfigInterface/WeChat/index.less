@@ -1,0 +1,40 @@
+.wechat-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+@media screen and (max-width: 768px) {
+  .wechat-container {
+    flex-direction: column;
+  }
+}
+
+.wechat-left,
+.wechat-right {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: #ffffffbb;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.left-img-wrap,
+.right-img-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+.orange-a {
+  color: #e65c41;
+}
+.orange-a:hover {
+  color: #f7937f;
+}

@@ -1,5 +1,5 @@
-import GithubOutlined from '@ant-design/icons/GithubOutlined'
-import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
+// import GithubOutlined from '@ant-design/icons/GithubOutlined'
+// import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import { DefaultFooter } from '@ant-design/pro-components'
 import { useIntl } from '@umijs/max'
 import React from 'react'
@@ -19,20 +19,14 @@ const Footer: React.FC = () => {
         background: 'none',
       }}
       copyright={`${currentYear} ${defaultMessage}`}
-      links={[
-        {
-          key: 'Askio',
-          title: <GlobalOutlined />,
-          href: REACT_APP_OFFICIAL_SITE,
-          blankTarget: true,
-        },
-        {
-          key: 'github',
-          title: <GithubOutlined />,
-          href: REACT_APP_GITHUB_SITE,
-          blankTarget: true,
-        },
-      ]}
+      // links={[
+      //   {
+      //     key: 'Askio',
+      //     title: <GlobalOutlined />,
+      //     href: REACT_APP_OFFICIAL_SITE,
+      //     blankTarget: true,
+      //   },
+      // ]}
     />
   )
 }
