@@ -1,5 +1,5 @@
 import LogoWithName from '@/components/LogoWithName'
-import { SelectLang, useIntl, Helmet, Outlet } from '@umijs/max'
+import { useIntl, Helmet, Outlet } from '@umijs/max'
 import Settings from '../../../../config/defaultSettings'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import CreateAISteps from '@/components/CreateAISteps'
@@ -72,7 +72,7 @@ const Layout: React.FC = () => {
       <div className={bannerClassName}>
         <div className={headerClassName}>
           <LogoWithName logoTheme="light" notFixed />
-          <SelectLang className="text-white" />
+          {/* <SelectLang className="text-white" /> */}
         </div>
         <CreateAISteps marginTop="0px" layoutChangeMedia={1080} />
       </div>
