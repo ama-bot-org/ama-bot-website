@@ -29,6 +29,8 @@ export default function SectionPlugin() {
         backgroundColor: 'aliceblue',
         overflow: 'hidden',
         textAlign: 'center',
+        paddingLeft: '20px',
+        paddingRight: '20px',
       }}
     >
       <p className="landing-main-header">以插件形式嵌入网站</p>

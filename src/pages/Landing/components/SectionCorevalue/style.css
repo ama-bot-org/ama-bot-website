@@ -1,13 +1,13 @@
 .swiper {
   width: 960px;
-  height: 500px;
+  height: 600px;
 }
 
 @media (max-width: 768px) {
   .swiper {
     width: 360px;
     margin: auto;
-    height: 500px;
+    height: 300px;
   }
 }
 
