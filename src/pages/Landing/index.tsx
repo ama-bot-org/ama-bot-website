@@ -184,7 +184,7 @@ const Landing: React.FC = () => {
             zIndex: 2,
             flex: '1',
             padding: '16px 0',
-            height: '40px',
+            height: '50px',
             backgroundColor: 'aliceblue',
           }}
         >

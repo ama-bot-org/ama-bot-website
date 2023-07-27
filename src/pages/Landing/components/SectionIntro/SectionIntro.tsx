@@ -90,7 +90,6 @@ export default function SectionIntro() {
           src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s1-ui.png"
           style={{
             width: '100%',
-            marginTop: '-4.2%',
           }}
         />
       </div>

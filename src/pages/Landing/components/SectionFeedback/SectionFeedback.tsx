@@ -146,10 +146,10 @@ export default function SectionFeedback() {
             <p className="text-16 font-bold mb-4">{users[0].username}</p>
             <p className="text-16">{users[0].userTitle}</p>
           </div>
-          <div className="mt-32">
-            <p className="text-left mb-4"> {users[0].description[0]}</p>
-            <p className="text-left mb-4"> {users[0].description[1]}</p>
-            <p className="text-left mb-4">
+          <div className="mt-56">
+            <p className="text-left mb-4 mt-0"> {users[0].description[0]}</p>
+            <p className="text-left mb-4 mt-0"> {users[0].description[1]}</p>
+            <p className="text-left mb-4 mt-0">
               {users[0].description[2]}
               <b>{users[0].description[3]}</b>
             </p>
@@ -168,6 +168,7 @@ export default function SectionFeedback() {
             className="mt-32"
             style={{
               textIndent: '1em',
+              lineHeight: '24px',
             }}
           >
             {users[1].description[0]}
@@ -196,7 +197,14 @@ export default function SectionFeedback() {
           <div>
             <img src={users[2].image} width={120} />
           </div>
-          <p className="mt-10 mb-0">{users[2].username}</p>
+          <p
+            className="mt-10 mb-0"
+            style={{
+              lineHeight: '24px',
+            }}
+          >
+            {users[2].username}
+          </p>
           <div
             className="flex-1"
             style={{

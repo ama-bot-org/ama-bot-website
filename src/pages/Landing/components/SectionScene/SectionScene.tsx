@@ -52,18 +52,18 @@ export default function SectionScene() {
           />
           <span style={{ marginLeft: '10px' }}>企业微信</span>
         </div>
-        <div className={`${styles['scene-wrap']} ${styles.dingding} ${inView ? styles['dingding-zoom'] : ''}`}>
+        {/* <div className={`${styles['scene-wrap']} ${styles.dingding} ${inView ? styles['dingding-zoom'] : ''}`}>
           <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-icon-dingding.svg" alt="dingding" />
           <span style={{ marginLeft: '10px' }}>钉钉</span>
-        </div>
+        </div> */}
         <div className={`${styles['scene-wrap']} ${styles.discord} ${inView ? styles['discord-zoom'] : ''}`}>
           <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-icon-discord.svg" alt="discord" />
           <span style={{ marginLeft: '10px' }}>Discord</span>
         </div>
-        <div className={`${styles['scene-wrap']} ${styles.douyin} ${inView ? styles['douyin-zoom'] : ''}`}>
+        {/* <div className={`${styles['scene-wrap']} ${styles.douyin} ${inView ? styles['douyin-zoom'] : ''}`}>
           <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-icon-douyin.svg" alt="douyin" />
           <span style={{ marginLeft: '10px' }}>抖音</span>
-        </div>
+        </div> */}
         <div className={`${styles['scene-wrap']} ${styles.wechat} ${inView ? styles['wechat-zoom'] : ''}`}>
           <img src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s4-icon-wechat.svg" alt="wechat" />
           <span style={{ marginLeft: '10px' }}>微信公众号</span>

@@ -88,7 +88,9 @@ export default function SectionSafe() {
               <div
                 className="text-16 mt-16"
                 style={{
-                  fontFamily: 'AlibabaPuHuiTi_2_85_Bold',
+                  height: 100,
+                  lineHeight: '24px',
+                  fontFamily: 'AlibabaPuHuiTi_2_55_Regular',
                 }}
               >
                 {item.description}
