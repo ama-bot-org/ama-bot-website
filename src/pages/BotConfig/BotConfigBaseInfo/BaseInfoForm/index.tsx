@@ -156,7 +156,7 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
         new Error(
           intl.formatMessage({
             id: 'register.name.required',
-            defaultMessage: '请输入 AI 客服名称',
+            defaultMessage: '请输入 AI 客服昵称',
           }),
         ),
       )

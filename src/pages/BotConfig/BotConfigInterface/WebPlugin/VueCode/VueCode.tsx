@@ -81,7 +81,7 @@ export default function VueCode() {
   };
   </script>
   
-  <style lang="scss">
+  <style>
   .askio-iframe-class { 
     border: none;
     margin-bottom: -60px;

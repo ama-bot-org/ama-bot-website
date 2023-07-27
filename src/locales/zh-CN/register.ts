@@ -9,7 +9,7 @@ export default {
   'register.failure': '注册失败，请重试！',
   'register.skip': '已有帐号，直接登录',
   'register.create': '创建 AI',
-  'register.name.required': '请输入 AI 客服名称',
+  'register.name.required': '请输入 AI 客服昵称',
   'register.name.wrong-format': '请输入正确的名称',
   'register.name.wrong-length': '名称长度在 3~30 之间',
   'register.account.complete': '完善账户信息',
