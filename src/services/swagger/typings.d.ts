@@ -7,6 +7,7 @@ declare namespace API {
     image_url?: string
     userid?: string
     email?: string
+    html_url?: string
     signature?: string
     title?: string
     group?: string

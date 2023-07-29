@@ -21,4 +21,10 @@ export interface BotRequestType extends Bot {
 
 export interface BotResult extends Bot {
   ActionType: ActionType
+  message?: string
+}
+
+export interface BotSubDomainRequestType {
+  bot_id: string
+  html_url: string
 }
