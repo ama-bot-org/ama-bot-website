@@ -194,7 +194,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
       </ul>
       <div
         style={{
-          width: '100%',
+          width: 'auto',
           height: disabledAd ? '60px' : '90px',
         }}
       >
@@ -238,7 +238,19 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
           }}
         >
           <Input
-            suffix={<Button type="primary" shape="circle" icon={<SendOutlined />} onClick={handleTestQuery}></Button>}
+            suffix={
+              <Button
+                style={{
+                  width: 48,
+                  height: 48,
+                  transform: 'translateX(12px)',
+                }}
+                type="primary"
+                shape="circle"
+                icon={<SendOutlined />}
+                onClick={handleTestQuery}
+              ></Button>
+            }
             value={question}
             onKeyUp={e => {
               if (e.key === 'Enter') {
