@@ -2,7 +2,7 @@ import React from 'react'
 import Button from 'antd/es/button'
 import Upload from 'antd/es/upload'
 import message from 'antd/es/message'
-import CloudUploadOutlined from '@ant-design/icons/CloudUploadOutlined'
+import Image from 'antd/es/image'
 import { useModel } from '@umijs/max'
 import { RcFile } from 'antd/es/upload'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
@@ -70,7 +70,7 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
   const uploadBtnClassname = useEmotionCss(() => ({
     width: '310px',
     height: '435px',
-    background: '#ffffff55',
+    background: '#ffffff',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -87,10 +87,36 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
   return (
     <Upload customRequest={handleCustomRequest} beforeUpload={beforeUpload} className={uploadWrapClassname}>
       <Button className={uploadBtnClassname}>
-        <CloudUploadOutlined style={{ fontSize: 100 }} />
-        <h3>上传语料文件</h3>
-        <p className="mb-0">支持 doc/docx/pdf 格式</p>
-        <p>文件大小不超过 5MB</p>
+        <Image
+          preview={false}
+          src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/corpus/upload.svg"
+          style={{ fontSize: 100 }}
+        />
+        <h3
+          className="mb-0"
+          style={{
+            fontSize: 18,
+            marginTop: '72px',
+          }}
+        >
+          上传训练资料
+        </h3>
+        <p
+          className="mb-0"
+          style={{
+            fontSize: 16,
+          }}
+        >
+          支持 doc/docx/pdf 格式
+        </p>
+        <p
+          style={{
+            fontSize: 16,
+            marginTop: '0px',
+          }}
+        >
+          文件大小不超过 5MB
+        </p>
       </Button>
     </Upload>
   )

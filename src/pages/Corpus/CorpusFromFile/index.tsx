@@ -1,4 +1,3 @@
-import Skeleton from 'antd/es/skeleton'
 import { useEffect, useState } from 'react'
 import { useModel } from '@umijs/max'
 import { Button, Pagination, Popconfirm, message } from 'antd'
@@ -12,11 +11,13 @@ import DownloadOutlined from '@ant-design/icons/DownloadOutlined'
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import FileFilled from '@ant-design/icons/FileFilled'
 import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
+import Loading3QuartersOutlined from '@ant-design/icons/Loading3QuartersOutlined'
 import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import Input from 'antd/lib/input'
 import PreviewModal from '../PreviewModal'
+import CorpusDescription from '../CorpusDescription'
 dayjs.extend(utc)
 
 const CorpusFromFile = () => {
@@ -167,104 +168,117 @@ const CorpusFromFile = () => {
   return (
     <div className="w-full fcs-center md:flex-row md:items-start overflow-hidden">
       <CustomUploadComponent onSuccessUpload={handleUpdateList} />
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start', flex: 1, width: '100%' }}>
-        <div className={topClassName}>
-          <Input
-            onKeyUp={handleKeyUp}
-            onChange={handleSearchChange}
-            style={{ width: '100%', height: 32, margin: '10px 0px' }}
-            suffix={
-              <SearchOutlined
-                style={{ fontSize: 18 }}
-                onClick={() => {
-                  init()
-                }}
-              />
-            }
-          />
-        </div>
-        {loading && list.length === 0 ? (
-          <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => (
-              <Skeleton.Button key={item} rootClassName="w-full!" style={{ width: '100%', height: '60px', marginBottom: '6px' }} />
-            ))}
-          </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'start',
+          flex: 1,
+          width: '100%',
+          background: '#ffffffa1',
+          minHeight: '435px',
+        }}
+      >
+        {list.length === 0 ? (
+          loading ? (
+            <Loading3QuartersOutlined />
+          ) : (
+            <CorpusDescription />
+          )
         ) : (
-          <ul
-            style={{
-              width: '80%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              flex: 1,
-              paddingInlineStart: 0,
-            }}
-          >
-            {list?.map(item => (
-              <li className={fileItemClassname} key={item.id}>
-                <div className="frc-start w-full md:w-auto">
-                  <FileFilled style={{ fontSize: 16, lineHeight: 18, marginRight: 4 }} />
-                  <h4
-                    style={{
-                      display: 'inline-block',
-                      margin: 0,
-                      fontSize: 18,
-                      width: 180,
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      cursor: 'default',
-                    }}
-                    title={item.file_name}
-                  >
-                    {item.file_name}
-                  </h4>
-                </div>
-                <div>
-                  <h4 style={{ margin: 0 }}>{dayjs.utc(item.date).format('YYYY-MM-DD HH:mm:ss')}</h4>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <Button
-                    type="text"
-                    icon={<EyeOutlined />}
+          <>
+            <div className={topClassName}>
+              <Input
+                onKeyUp={handleKeyUp}
+                onChange={handleSearchChange}
+                style={{ width: '100%', height: 32, margin: '10px 0px' }}
+                suffix={
+                  <SearchOutlined
+                    style={{ fontSize: 18 }}
                     onClick={() => {
-                      handlePreview(item.file_content)
+                      init()
                     }}
-                  >
-                    预览
-                  </Button>
-                  <Button
-                    type="text"
-                    icon={<DownloadOutlined />}
-                    onClick={() => {
-                      handleDownload(item.id, item.file_name)
-                    }}
-                  >
-                    下载
-                  </Button>
-                  <Popconfirm
-                    title="删除这个文件"
-                    description="删除后将无法找回，确认删除吗?"
-                    icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                    onConfirm={() => handleDeleteRow(item)}
-                  >
-                    <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
-                      删除
+                  />
+                }
+              />
+            </div>
+            <ul
+              style={{
+                width: '80%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                flex: 1,
+                paddingInlineStart: 0,
+              }}
+            >
+              {list?.map(item => (
+                <li className={fileItemClassname} key={item.id}>
+                  <div className="frc-start w-full md:w-auto">
+                    <FileFilled style={{ fontSize: 16, lineHeight: 18, marginRight: 4 }} />
+                    <h4
+                      style={{
+                        display: 'inline-block',
+                        margin: 0,
+                        fontSize: 18,
+                        width: 180,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        cursor: 'default',
+                      }}
+                      title={item.file_name}
+                    >
+                      {item.file_name}
+                    </h4>
+                  </div>
+                  <div>
+                    <h4 style={{ margin: 0 }}>{dayjs.utc(item.date).format('YYYY-MM-DD HH:mm:ss')}</h4>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button
+                      type="text"
+                      icon={<EyeOutlined />}
+                      onClick={() => {
+                        handlePreview(item.file_content)
+                      }}
+                    >
+                      预览
                     </Button>
-                  </Popconfirm>
-                </div>
-              </li>
-            ))}
-          </ul>
+                    <Button
+                      type="text"
+                      icon={<DownloadOutlined />}
+                      onClick={() => {
+                        handleDownload(item.id, item.file_name)
+                      }}
+                    >
+                      下载
+                    </Button>
+                    <Popconfirm
+                      title="删除这个文件"
+                      description="删除后将无法找回，确认删除吗?"
+                      icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                      onConfirm={() => handleDeleteRow(item)}
+                    >
+                      <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
+                        删除
+                      </Button>
+                    </Popconfirm>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <Pagination
+              current={page}
+              pageSize={pageSize}
+              total={total}
+              showQuickJumper
+              showTotal={(total: number) => `共 ${total} 条`}
+              onChange={handlePaginationChange}
+            />
+          </>
         )}
-        <Pagination
-          current={page}
-          pageSize={pageSize}
-          total={total}
-          showQuickJumper
-          showTotal={(total: number) => `共 ${total} 条`}
-          onChange={handlePaginationChange}
-        />
       </div>
       <PreviewModal content={previewContent} visible={previewVisible} setVisible={setPreviewVisible} />
     </div>
