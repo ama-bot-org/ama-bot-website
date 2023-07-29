@@ -2,6 +2,9 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { Helmet } from '@umijs/max'
 import React from 'react'
 import Tabs from 'antd/es/tabs'
+import BasicSvg from './Icons/BasicSvg'
+import CustomSvg from './Icons/CustomSvg'
+import InterfaceSvg from './Icons/InterfaceSvg'
 import type { TabsProps } from 'antd/es/tabs'
 import BaseInfo from './BotConfigBaseInfo'
 import Custom from './BotConfigCustom'
@@ -15,17 +18,47 @@ const BotConfig: React.FC = () => {
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: `基本信息`,
+      label: (
+        <span
+          className="frc-center"
+          style={{
+            fontSize: 16,
+          }}
+        >
+          <BasicSvg />
+          <span className="ml-4">基本信息</span>
+        </span>
+      ),
       children: <BaseInfo />,
     },
     {
       key: '2',
-      label: `品牌定制`,
+      label: (
+        <span
+          className="frc-center"
+          style={{
+            fontSize: 16,
+          }}
+        >
+          <CustomSvg />
+          <span className="ml-4">品牌定制</span>
+        </span>
+      ),
       children: <Custom />,
     },
     {
       key: '3',
-      label: `平台接入`,
+      label: (
+        <span
+          className="frc-center"
+          style={{
+            fontSize: 16,
+          }}
+        >
+          <InterfaceSvg />
+          <span className="ml-4">平台接入</span>
+        </span>
+      ),
       children: <Interface />,
     },
   ]

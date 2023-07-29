@@ -238,14 +238,6 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
           }}
         >
           <Input
-            prefix={
-              <img
-                style={{ marginRight: '4px', borderRadius: 20 }}
-                width={30}
-                height={30}
-                src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/DNA/User-chat%20icon.svg"
-              />
-            }
             suffix={<Button type="primary" shape="circle" icon={<SendOutlined />} onClick={handleTestQuery}></Button>}
             value={question}
             onKeyUp={e => {
@@ -258,6 +250,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
             style={{
               height: 48,
               lineHeight: '48px',
+              borderRadius: 24,
             }}
           />
         </ConfigProvider>

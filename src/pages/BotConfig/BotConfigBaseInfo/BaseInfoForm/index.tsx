@@ -215,7 +215,7 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
       style={{
         flex: 1,
         overflow: 'auto',
-        background: '#ffffff66',
+        background: '#ffffff96',
         padding: '24px',
       }}
     />
@@ -229,7 +229,7 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
       style={{
         flex: 1,
         overflow: 'auto',
-        background: '#ffffff66',
+        background: '#ffffff96',
         padding: '24px',
       }}
     >

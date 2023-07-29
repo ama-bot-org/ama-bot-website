@@ -18,7 +18,7 @@ const BaseInfo = () => {
         <BaseInfoForm onChange={handleBaseInfoChange} />
       </div>
       <Divider type={isMobile ? 'horizontal' : 'vertical'} />
-      <div className="flex-1 overflow-auto  p-10">
+      <div className="flex-1 overflow-auto p-10">
         <BaseInfoPreview botInfo={baseInfo} />
       </div>
     </div>
