@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useModel } from '@umijs/max'
 import { Input, message } from 'antd'
-import CopyLink from './components/CopyLink'
+import CopyLink from '../components/CopyLink'
 
 const H5 = () => {
   const { initialState } = useModel('@@initialState')

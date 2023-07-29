@@ -1,6 +1,7 @@
 import { Editor } from '@monaco-editor/react'
 import { useModel } from '@umijs/max'
 import React, { useMemo } from 'react'
+import CopyLink from '../../components/CopyLink'
 
 export default function VueCode() {
   const { initialState } = useModel('@@initialState')
@@ -150,6 +151,20 @@ export default function VueCode() {
 
   return (
     <div>
+      <div>
+        <span
+          style={{
+            color: '#131415',
+            fontSize: '14px',
+            fontFamily: 'AlibabaPuHuiTi-2-55-Regular',
+            marginBottom: '8px',
+            marginRight: '16px',
+          }}
+        >
+          请在您的 Vue 项目中新建一个组件，将以下代码复制进去
+        </span>
+        <CopyLink linkUrl={code} copyText="复制代码" />
+      </div>
       <Editor height={'60vh'} value={code} language={'typescript'} options={options} />
     </div>
   )

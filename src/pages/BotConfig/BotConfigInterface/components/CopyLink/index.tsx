@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import ShareAltOutlined from '@ant-design/icons/ShareAltOutlined'
+import CheckOutlined from '@ant-design/icons/CheckOutlined'
 import CopyOutlined from '@ant-design/icons/CopyOutlined'
 import CopyToClipboard from 'react-copy-to-clipboard'
 
-const CopyLink = (props: { linkUrl: string }) => {
-  const { linkUrl } = props
+const CopyLink = (props: { linkUrl: string; copyText?: string }) => {
+  const { linkUrl, copyText } = props
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopy = () => {
@@ -34,7 +34,7 @@ const CopyLink = (props: { linkUrl: string }) => {
         }}
       >
         {isCopied ? (
-          <ShareAltOutlined
+          <CheckOutlined
             width={22}
             height={22}
             style={{
@@ -42,15 +42,15 @@ const CopyLink = (props: { linkUrl: string }) => {
             }}
           />
         ) : (
-          <CopyOutlined style={{ fontSize: 14 }} />
+          <CopyOutlined style={{ fontSize: 14, color: '#e65c41' }} />
         )}
         <span
           style={{
-            color: isCopied ? '#03c03c' : 'black',
+            color: isCopied ? '#03c03c' : '#e65c41',
             marginLeft: '4px',
           }}
         >
-          {isCopied ? '复制成功' : '点击复制'}
+          {isCopied ? '复制成功' : copyText || '复制链接'}
         </span>
       </button>
     </CopyToClipboard>

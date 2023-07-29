@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import MonacoEditor from '@monaco-editor/react'
 import { useModel } from '@umijs/max'
+import CopyLink from '../../components/CopyLink'
 
 export default function ReactCode() {
   const { initialState } = useModel('@@initialState')
@@ -131,7 +132,10 @@ export default OnlineFAQ
         }}
       >
         <div>请在您的 React 项目中新建一个组件，将下面的代码复制进去，在需要的地方引用即可。</div>
-        <div>详情请查看代码以及注释，自由调整位置、样式、图片。</div>
+        <div>
+          <span>详情请查看代码以及注释，自由调整位置、样式、图片。 </span>
+          <CopyLink linkUrl={code} copyText="复制代码" />
+        </div>
       </div>
 
       <MonacoEditor height={'50vh'} language={'typescript'} value={code} options={options} />
@@ -145,7 +149,8 @@ export default OnlineFAQ
           color: '#131415',
         }}
       >
-        样式部分请自己建css文件, 并在上面的组件中引用
+        <span>样式部分请自己建css文件, 并在上面的组件中引用</span>
+        <CopyLink linkUrl={code2} copyText="复制代码" />
       </div>
 
       <MonacoEditor height={'50vh'} language={'css'} value={code2} options={options} />

@@ -2,10 +2,24 @@ import { Editor } from '@monaco-editor/react'
 import { useModel } from '@umijs/max'
 import { Input } from 'antd'
 import React from 'react'
+import CopyLink from '../../components/CopyLink'
 
 export default function HTMLCode() {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
+
+  const htmlValue = `<!-- HTML file -->
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <!-- Add your other head elements here -->
+  </head>
+  <body>
+    <!-- Your HTML content -->
+    <script src="online-faq-plugin.js"></script>
+  </body>
+  </html>
+  `
 
   const code = `// online-faq-plugin.js
     (function () {
@@ -146,22 +160,9 @@ export default function HTMLCode() {
         }}
       >
         复制网页插件代码内容并添加到 index.html 的body，即可把AI客服作为聊天插件嵌入到你的网站中，示例如下：
+        <CopyLink linkUrl={htmlValue} copyText="复制代码" />
       </div>
-      <Input.TextArea
-        rows={10}
-        value={`<!-- HTML file -->
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <!-- Add your other head elements here -->
-        </head>
-        <body>
-          <!-- Your HTML content -->
-          <script src="online-faq-plugin.js"></script>
-        </body>
-        </html>
-        `}
-      />
+      <Input.TextArea rows={10} value={htmlValue} />
       <div
         style={{
           fontSize: '14px',
@@ -172,6 +173,7 @@ export default function HTMLCode() {
         }}
       >
         online-faq-plugin.js 代码如下：
+        <CopyLink linkUrl={code} copyText="复制代码" />
       </div>
       <div
         style={{

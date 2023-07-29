@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Image from 'antd/es/image'
-import CopyLink from '../H5/components/CopyLink'
+import CopyLink from '../components/CopyLink'
 import TimeLineStep from './TimeLineStep'
 import { useModel } from '@umijs/max'
 import Divider from 'antd/es/divider'
