@@ -28,7 +28,7 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
   return (
     <div className="askio-btn-wrap">
       <iframe 
-        src="${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.bot_id}"
+        src="${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.html_url}"
         style={{
           width: \`\${width}px\`,
           height: \`\${iframeVisible ? height : 0}px\`,
@@ -74,7 +74,7 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
 
 export default OnlineFAQ
     `
-  }, [currentUser?.bot_id])
+  }, [currentUser?.html_url, currentUser?.image_url])
 
   const code2 = `/* styles.css */
 

@@ -1,7 +1,7 @@
 import { Editor } from '@monaco-editor/react'
 import { useModel } from '@umijs/max'
 import { Input } from 'antd'
-import React from 'react'
+import React, { useMemo } from 'react'
 import CopyLink from '../../components/CopyLink'
 
 export default function HTMLCode() {
@@ -21,7 +21,8 @@ export default function HTMLCode() {
   </html>
   `
 
-  const code = `// online-faq-plugin.js
+  const code = useMemo(() => {
+    return `// online-faq-plugin.js
     (function () {
       // Utility function to create DOM elements with attributes and styles
       function createElement(tag, attributes, styles) {
@@ -51,7 +52,7 @@ export default function HTMLCode() {
     
         // Iframe
         const iframe = createElement('iframe', {
-          src: '${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.bot_id}',
+          src: '${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.html_url}',
           style:\`
             width: \${width}px;
             height: \${iframeVisible ? height : 0}px;
@@ -148,6 +149,7 @@ export default function HTMLCode() {
       });
     })();
     `
+  }, [currentUser?.html_url, currentUser?.image_url])
 
   return (
     <div>

@@ -12,7 +12,7 @@ export default function VueCode() {
     <div class="askio-btn-wrap">
       <iframe
         v-show="iframeVisible"
-        src="${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.bot_id}"
+        src="${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.html_url}"
         class="askio-iframe-class"
         :style="{
           width: \`\${width}px\`,
@@ -142,7 +142,7 @@ export default function VueCode() {
   </style>
   
 `
-  }, [currentUser?.bot_id])
+  }, [currentUser?.html_url, currentUser?.image_url])
 
   const options = {
     readOnly: true, //只读
