@@ -96,7 +96,7 @@ const QA = () => {
                 {
                   disabled: true,
                   title: 'AI 训练资料',
-                  description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>配置 AI 训练资料，定制问答库</span>,
+                  description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>定制问答库</span>,
                   status: 'process',
                 },
                 {
@@ -109,7 +109,7 @@ const QA = () => {
                   disabled: true,
                   status: 'process',
                   title: 'AI客服配置',
-                  description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>配置基本信息，接入企业客服渠道</span>,
+                  description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>接入企业客服渠道</span>,
                 },
               ]}
             />
