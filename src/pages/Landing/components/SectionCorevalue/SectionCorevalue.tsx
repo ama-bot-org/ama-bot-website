@@ -6,7 +6,7 @@ import 'swiper/css'
 import 'swiper/css/effect-cube'
 import 'swiper/css/pagination'
 import './style.css'
-import { EffectCube, Pagination } from 'swiper'
+import { EffectCube, Pagination, Autoplay } from 'swiper'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 
 const slideData = [
@@ -96,6 +96,15 @@ export default function SectionCorevalue() {
             marginBottom: '4px',
           }}
         >
+          秒级响应，数据沉淀，降本增效，多语言支持
+        </p>
+        {/* <p
+          style={{
+            fontSize: '20px',
+            fontFamily: 'AlibabaPuHuiTi_2_75_SemiBold',
+            marginBottom: '4px',
+          }}
+        >
           秒级响应，专家级咨询体验
         </p>
         <p
@@ -105,10 +114,14 @@ export default function SectionCorevalue() {
           }}
         >
           24小时客服在线，做到快速、准确、场景全覆盖的问答响应
-        </p>
+        </p> */}
       </div>
       <div className="section-corevalue-pagination"> </div>
       <Swiper
+        autoplay={{
+          delay: 5000,
+        }}
+        modules={[Autoplay, EffectCube, Pagination]}
         effect={'cube'}
         grabCursor={true}
         loop={true}
@@ -123,7 +136,6 @@ export default function SectionCorevalue() {
           el: '.section-corevalue-pagination',
           clickable: true,
         }}
-        modules={[EffectCube, Pagination]}
         className="relative mySwiper"
       >
         {slideData.map(item => (

@@ -18,7 +18,7 @@ export default function SectionIntro() {
 
   const sectionClassName = useEmotionCss(() => {
     return {
-      height: 'calc(100vh - 100px)',
+      height: 'calc(100vh - 50px)',
       '@media screen and (max-width: 768px)': {
         height: 'auto',
       },
@@ -39,7 +39,7 @@ export default function SectionIntro() {
       ref={ref}
       className={`relative ${sectionClassName}`}
       style={{
-        paddingTop: 100,
+        paddingTop: 80,
         backgroundColor: 'aliceblue',
         overflow: 'hidden',
       }}
@@ -90,6 +90,7 @@ export default function SectionIntro() {
           src="https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/images/Landing/s1-ui.png"
           style={{
             width: '100%',
+            marginTop: '60px',
           }}
         />
       </div>
