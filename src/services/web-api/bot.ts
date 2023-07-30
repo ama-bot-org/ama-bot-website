@@ -54,7 +54,7 @@ async function updateBotSubDomain(params: BotSubDomainRequestType): Promise<BotR
 }
 
 async function getBotIdBySubDomain(subDomain: string): Promise<BotResult> {
-  const res = await request('/api/app/user/getBotIdBySubDomain', {
+  const res = await request('/api/app/user/botIdByUrl', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
