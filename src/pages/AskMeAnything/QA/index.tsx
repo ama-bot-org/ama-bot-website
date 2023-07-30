@@ -5,7 +5,7 @@ import SendOutlined from '@ant-design/icons/SendOutlined'
 import Steps from 'antd/es/steps'
 import { useModel } from '@umijs/max'
 import Divider from 'antd/es/divider'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Tooltip from 'antd/es/tooltip'
 import Button from 'antd/es/button'
 
@@ -48,7 +48,7 @@ const QA = () => {
         temp[temp.length - 1].content = '抱歉，我还不知道怎么回答这个问题'
         console.log(result?.err)
       }
-      setDialogs(temp)
+      setDialogs(temp.slice())
     } catch (error) {
       console.log(error)
       temp[temp.length - 1].content = '抱歉，我还不知道怎么回答这个问题'
@@ -61,9 +61,23 @@ const QA = () => {
     setQuestion(e.target.value)
   }
 
+  const updateScroll = () => {
+    const element = document.getElementById('ama-dialog')
+    if (element) {
+      setTimeout(() => {
+        element.scrollTop = element.scrollHeight
+      }, 300)
+    }
+  }
+
+  useEffect(() => {
+    updateScroll()
+  }, [dialogs])
+
   return (
     <div className="ama-qa-container h-full fcc-start">
       <ul
+        id="ama-dialog"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -178,6 +192,7 @@ const QA = () => {
             type="primary"
             shape="circle"
             icon={<SendOutlined />}
+            onClick={handleTestQuery}
           />
         </Tooltip>
       </div>
