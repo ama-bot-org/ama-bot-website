@@ -1,62 +1,13 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { history, useParams } from '@umijs/max'
+import { history } from '@umijs/max'
+import useBotModel from '@/models/botModel'
 import QA from './QA'
 import Divider from 'antd/es/divider'
 import styles from './index.less'
-import { useEffect, useState } from 'react'
-import BotAPI from '@/services/web-api/bot'
-import { ActionType } from '@/constants/enums'
-import { BotDataType } from '@/models/bot'
-import { message } from 'antd'
+import Loading from '@/components/Loading'
 
 const Bot: React.FC = () => {
-  const { id } = useParams()
-  const [botInfo, setBotInfo] = useState<BotDataType>({} as BotDataType)
-
-  const initBotInfo = async (bot_id: string) => {
-    const res = await BotAPI.fetchBotInfo(bot_id)
-    if (res?.ActionType === ActionType.OK) {
-      const { name, image_url, html_url, welcomes, bgImg_url, contact, faq_contents } = res
-      const botInfo = {
-        id: bot_id,
-        name,
-        image_url,
-        html_url,
-        bgImg_url,
-        welcomes: JSON.parse(welcomes),
-        contact: JSON.parse(contact),
-        faq_contents: JSON.parse(faq_contents),
-      }
-      setBotInfo(botInfo)
-    }
-  }
-
-  const checkBot = async (id: string) => {
-    // 假设是html_url, 请求bot_id
-    const botIdResult = await BotAPI.getBotIdBySubDomain(id)
-    if (botIdResult && botIdResult.ActionType === ActionType.OK) {
-      const res = await BotAPI.checkBotValid(botIdResult.bot_id)
-
-      if (res?.ActionType === ActionType.False) {
-        message.error(res.message)
-        history.push('/user/register')
-      } else {
-        await initBotInfo(botIdResult.bot_id)
-        if (botInfo.bgImg_url) {
-          document.getElementsByTagName('body')[0].style.backgroundImage = `url('${botInfo.bgImg_url}')`
-        }
-      }
-    } else if (botIdResult.message) {
-      message.error(botIdResult.message)
-    }
-  }
-
-  useEffect(() => {
-    // 此处 id 可能是 html_url,也就是 subdomain，也可能是 bot_id 的前半段
-    if (id) {
-      checkBot(id)
-    }
-  }, [])
+  const { loading, botInfo } = useBotModel()
 
   const containerClassName = useEmotionCss(() => {
     return {
@@ -77,6 +28,10 @@ const Bot: React.FC = () => {
 
   const handleJump = () => {
     history.push('/landing')
+  }
+
+  if (loading) {
+    return <Loading />
   }
 
   return (

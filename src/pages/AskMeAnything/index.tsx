@@ -1,11 +1,14 @@
+import useBotModel from '@/models/botModel'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useIntl, Helmet } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
 import React from 'react'
 import QA from './QA'
+import Loading from '@/components/Loading'
 
 const AskMeAnything: React.FC = () => {
   const intl = useIntl()
+  const { loading, botInfo } = useBotModel()
 
   const containerClassName = useEmotionCss(() => {
     return {
@@ -15,6 +18,10 @@ const AskMeAnything: React.FC = () => {
       overflow: 'auto',
     }
   })
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <div className={containerClassName}>
@@ -28,7 +35,7 @@ const AskMeAnything: React.FC = () => {
         </title>
       </Helmet>
       <div style={{ flex: 1, padding: 24, overflow: 'auto' }}>
-        <QA />
+        <QA welcomes={botInfo.welcomes} />
       </div>
     </div>
   )

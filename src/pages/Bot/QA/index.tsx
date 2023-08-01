@@ -261,7 +261,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
             onChange={handleChange}
             placeholder={'请输入问题'}
             style={{
-              width: '90%',
+              width: '94%',
               height: 48,
               lineHeight: '48px',
               borderRadius: 24,

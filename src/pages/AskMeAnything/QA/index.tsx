@@ -8,8 +8,9 @@ import Divider from 'antd/es/divider'
 import React, { useEffect } from 'react'
 import Tooltip from 'antd/es/tooltip'
 import Button from 'antd/es/button'
+import Dialog from '@/pages/Bot/Dialog'
 
-const QA = () => {
+const QA = ({ welcomes }: { welcomes: string[] }) => {
   //   const intl = useIntl()
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
@@ -87,7 +88,7 @@ const QA = () => {
           overflow: 'auto',
         }}
       >
-        <li className="mb-4">
+        <li className="mb-4 mx-18 ">
           <p
             className="p-16 my-4 bg-white rounded-lg float-left"
             style={{
@@ -129,6 +130,15 @@ const QA = () => {
             />
           </p>
         </li>
+        {welcomes && welcomes.length > 0
+          ? welcomes.map((welcome, index) => {
+              return (
+                <li key={index} className="my-2 mx-18 h-auto">
+                  <Dialog position="left-bottom">{welcome}</Dialog>
+                </li>
+              )
+            })
+          : null}
         {/* <li className="my-4">
           <div className="p-10 bg-white rounded-lg float-left">
             <p className="my-4 mb-16">立即接入Askio，精准定制属于你的企业AI客服，共创AI新纪元！</p>
@@ -155,11 +165,12 @@ const QA = () => {
         })}
       </ul>
       <div
-        className="w-full frc-between relative"
+        className="frc-between relative"
         style={{
           borderRadius: 20,
           backgroundColor: '#ffffffa6',
           padding: '8px',
+          width: 'calc(100% - 36px)',
         }}
       >
         <input
