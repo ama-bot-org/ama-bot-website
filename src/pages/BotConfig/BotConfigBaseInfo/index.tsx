@@ -15,7 +15,7 @@ const BaseInfo = () => {
   return (
     <div className={`${isMobile ? 'fcs-between' : 'frs-between'}`}>
       <div className="flex-1 overflow-auto p-10">
-        <BaseInfoForm onChange={handleBaseInfoChange} />
+        <BaseInfoForm onSaved={handleBaseInfoChange} />
       </div>
       <Divider type={isMobile ? 'horizontal' : 'vertical'} />
       <div className="flex-1 overflow-auto p-10">

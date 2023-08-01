@@ -29,7 +29,7 @@ const formItemLayout = {
   },
 }
 
-const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }) => {
+const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const intl = useIntl()
@@ -64,7 +64,7 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
           faq_contents: faq_contents ? JSON.parse(faq_contents) : [],
         }
         initForm(botInfo)
-        onChange(botInfo)
+        onSaved(botInfo)
       }
     } finally {
       setFormLoading(false)
@@ -97,15 +97,12 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
       const result = await BotAPI.updateBotInfo(updateParams)
       if (result.ActionType === ActionType.OK) {
         message.success('保存成功')
+        onSaved(values)
       }
     } else {
       message.error('请先登录')
       history.push('/login')
     }
-  }
-
-  const handleFormChange = (changedValues: any, allValues: any) => {
-    onChange(allValues)
   }
 
   const uploadButton = (
@@ -166,8 +163,8 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
     if (reg.test(value)) {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format', defaultMessage: '请输入正确的名称' })))
     }
-    if (value.length > 30 || value.length < 3) {
-      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length', defaultMessage: '名称长度在 3~30 之间' })))
+    if (value.length > 30 || value.length < 2) {
+      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length', defaultMessage: '名称长度在 2~30 之间' })))
     }
     return Promise.resolve()
   }
@@ -223,7 +220,6 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
   ) : (
     <Form
       onFinish={onFinish}
-      onValuesChange={handleFormChange}
       initialValues={botInfo}
       form={form}
       layout="vertical"
@@ -237,14 +233,14 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
       <Form.Item
         name="name"
         label={intl.formatMessage({ id: 'register.name.register', defaultMessage: 'AI 客服昵称' })}
-        rules={[{ validator: (rule, value) => validIsUnique(rule, value) }, { required: true }]}
+        rules={[{ validator: (rule, value) => validIsUnique(rule, value) }]}
       >
         <Input placeholder="请输入 AI 客服昵称" />
       </Form.Item>
       <div className="flex flex-wrap">
         <Form.Item
           name="image_url"
-          label={intl.formatMessage({ id: 'register.logo', defaultMessage: '头像' })}
+          label={intl.formatMessage({ id: 'register.logo', defaultMessage: '上传头像' })}
           valuePropName="fileList"
           getValueFromEvent={event => event.fileList}
           rules={[{ validator: validateImage }, { required: true }]}
@@ -268,13 +264,11 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
         <div
           style={{
             marginTop: '45px',
-            marginLeft: '16px',
+            marginLeft: '0px',
           }}
         >
-          <div className="text-left" style={{ color: '#e65c41' }}>
-            上传头像
-          </div>
-          <div className="text-left">支持.png .jpeg，不超过1M</div>
+          <div className="text-left">支持.png .jpeg，</div>
+          <div className="text-left">不超过1M</div>
         </div>
       </div>
       <Form.List name="welcomes">
@@ -287,7 +281,7 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
                   validateTrigger={['onChange', 'onBlur']}
                   rules={[
                     {
-                      required: true,
+                      required: false,
                       whitespace: true,
                       message: '请输入欢迎语',
                     },
@@ -296,7 +290,7 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
                 >
                   <Input.TextArea rows={3} placeholder="Hi 你好，请问有什么可以帮您？" />
                 </Form.Item>
-                {fields.length > 1 ? <MinusCircleOutlined className="dynamic-delete-button" onClick={() => remove(field.name)} /> : null}
+                {fields.length > 0 ? <MinusCircleOutlined className="dynamic-delete-button" onClick={() => remove(field.name)} /> : null}
               </Form.Item>
             ))}
             <Form.Item>

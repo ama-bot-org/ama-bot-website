@@ -23,9 +23,9 @@ export default function BotModel() {
         image_url,
         html_url,
         bgImg_url,
-        welcomes: JSON.parse(welcomes),
-        contact: JSON.parse(contact),
-        faq_contents: JSON.parse(faq_contents),
+        welcomes: welcomes && welcomes.length > 0 ? JSON.parse(welcomes) : [],
+        contact: contact && welcomes.length > 0 ? JSON.parse(contact) : [],
+        faq_contents: faq_contents && welcomes.length > 0 ? JSON.parse(faq_contents) : [],
       }
       console.log('tempBotInfo', tempBotInfo)
       setBotInfo(tempBotInfo)

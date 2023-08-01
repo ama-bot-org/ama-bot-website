@@ -93,7 +93,7 @@ const RegisterForm = (props: RegisterFormProps) => {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format', defaultMessage: '请输入正确的名称' })))
     }
     if (value.length > 30 || value.length < 3) {
-      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length', defaultMessage: '名称长度在 3~30 之间' })))
+      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length', defaultMessage: '名称长度在 2~30 之间' })))
     }
     return Promise.resolve()
   }
