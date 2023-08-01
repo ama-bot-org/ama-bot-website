@@ -52,12 +52,13 @@ const BaseInfoForm = ({ onChange }: { onChange: (botInfo: BotDataType) => void }
     try {
       const res = await BotAPI.fetchBotInfo(bot_id)
       if (res?.ActionType === ActionType.OK) {
-        const { name, image_url, welcomes, bgImg_url, contact, faq_contents } = res
+        const { name, image_url, welcomes, html_url, bgImg_url, contact, faq_contents } = res
         const botInfo = {
           id: bot_id,
           name,
           image_url,
           bgImg_url,
+          html_url,
           welcomes: welcomes ? JSON.parse(welcomes) : [],
           contact: contact ? JSON.parse(contact) : [],
           faq_contents: faq_contents ? JSON.parse(faq_contents) : [],

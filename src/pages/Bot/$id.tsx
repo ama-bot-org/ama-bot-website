@@ -82,8 +82,11 @@ const Bot: React.FC = () => {
   return (
     <div className={`${styles.bg} w-full`}>
       <div className={containerClassName}>
-        <div style={{ flex: 1, padding: '12px 18px 10px 18px', overflow: 'hidden', background: '#f0f8ff55' }} className="fcc-between">
-          <h2 className="text-center my-0 text-black">{botInfo?.name}</h2>
+        <div style={{ flex: 1, padding: '10px 0px', overflow: 'hidden', background: '#f0f8ff55' }} className="fcc-between">
+          <div className="w-full frc-center">
+            <img src={botInfo?.image_url} alt="" style={{ width: 40, height: 40, borderRadius: 20 }} />
+            <h3 className="text-center my-0 ml-8 text-black">{botInfo?.name}</h3>
+          </div>
           <Divider style={{ margin: '12px 0 12px 0' }} />
           <QA
             style={{ flex: 1, overflow: 'auto' }}
@@ -91,6 +94,7 @@ const Bot: React.FC = () => {
             contactCode={botInfo.contact}
             FAQContents={botInfo.faq_contents}
             welcomes={botInfo.welcomes}
+            disabledAd
           />
           <div style={{ textAlign: 'center', padding: 2, color: '#000000', fontSize: 12 }}>
             ©2023 <span onClick={handleJump}>Askio （ 悦问AI ）</span> 提供技术支持

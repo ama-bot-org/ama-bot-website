@@ -178,7 +178,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
         {welcomes && welcomes.length > 0
           ? welcomes.map((welcome, index) => {
               return (
-                <li key={index} className="my-2 h-auto">
+                <li key={index} className="my-2 mx-18 h-auto">
                   <Dialog position="left-bottom">{welcome}</Dialog>
                 </li>
               )
@@ -186,7 +186,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
           : null}
         {dialogs.map((dialog, index) => {
           return (
-            <li key={index} className="my-2 h-auto">
+            <li key={index} className="my-2 mx-18 h-auto">
               <Dialog position={dialog.type === 'question' ? 'right-bottom' : 'left-bottom'}>{dialog.content}</Dialog>
             </li>
           )
@@ -195,7 +195,8 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
       <div
         style={{
           width: 'auto',
-          height: disabledAd ? '60px' : '90px',
+          height: disabledAd ? '54px' : '90px',
+          textAlign: 'center',
         }}
       >
         <div
@@ -260,6 +261,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
             onChange={handleChange}
             placeholder={'请输入问题'}
             style={{
+              width: '90%',
               height: 48,
               lineHeight: '48px',
               borderRadius: 24,

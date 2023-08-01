@@ -12,7 +12,7 @@ async function checkBotValid(id: string): Promise<BotValid> {
     data: { id },
     getResponse: true,
   })
-  return res
+  return res.data
 }
 
 async function fetchBotInfo(bot_id: string): Promise<BotResult> {
