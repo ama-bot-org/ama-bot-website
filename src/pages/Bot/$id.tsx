@@ -49,7 +49,7 @@ const Bot: React.FC = () => {
             contactCode={botInfo.contact}
             FAQContents={botInfo.faq_contents}
             welcomes={botInfo.welcomes}
-            disabledAd
+            disabledAd={true}
           />
           <div style={{ textAlign: 'center', padding: 2, color: '#000000', fontSize: 12 }}>
             ©2023 <span onClick={handleJump}>Askio （ 悦问AI ）</span> 提供技术支持
