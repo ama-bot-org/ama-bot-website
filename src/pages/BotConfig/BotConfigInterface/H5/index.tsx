@@ -105,7 +105,7 @@ const H5 = () => {
             handleChange(e)
           }}
           allowClear
-          prefix={`${REACT_APP_OFFICIAL_SITE}/`}
+          prefix={`${REACT_APP_OFFICIAL_SITE}/bot/`}
         />
         {disabled ? (
           <CopyLink linkUrl={value} />
