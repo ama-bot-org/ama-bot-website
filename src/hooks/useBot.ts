@@ -5,7 +5,7 @@ import BotAPI from '@/services/web-api/bot'
 import { useEffect, useState } from 'react'
 import { BotDataType } from '../models/bot'
 
-export default function BotModel() {
+export default function useBotModel() {
   const { id } = useParams()
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
