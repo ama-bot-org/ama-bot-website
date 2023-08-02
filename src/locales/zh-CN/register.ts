@@ -11,7 +11,7 @@ export default {
   'register.create': '创建 AI',
   'register.name.required': '请输入 AI 客服昵称',
   'register.name.wrong-format': '请输入正确的名称',
-  'register.name.wrong-length': '名称长度在 2~30 之间',
+  'register.name.wrong-length': '昵称长度在 2~30 之间',
   'register.account.complete': '完善账户信息',
   'register.email.required': '请输入邮箱',
   'register.email.wrong-format': '邮箱格式错误',
