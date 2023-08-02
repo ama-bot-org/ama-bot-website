@@ -24,7 +24,7 @@ export interface CurrentUser {
 export interface User {
   name: string
   email: string
-  org_id: string // 名称
+  org_id: string
   bot_id: string
   level: AuthorityLevel
   image_url: string

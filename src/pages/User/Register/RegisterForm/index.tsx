@@ -90,7 +90,7 @@ const RegisterForm = (props: RegisterFormProps) => {
     }
     const reg = /[^\u4E00-\u9FA5A-Za-z0-9_]/
     if (reg.test(value)) {
-      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format', defaultMessage: '请输入正确的名称' })))
+      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format', defaultMessage: '请输入正确的昵称' })))
     }
     if (value.length > 30 || value.length < 3) {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length', defaultMessage: '昵称长度在 2~30 之间' })))
