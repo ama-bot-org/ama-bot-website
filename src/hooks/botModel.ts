@@ -3,7 +3,7 @@ import { ActionType } from '@/constants/enums'
 import message from 'antd/es/message'
 import BotAPI from '@/services/web-api/bot'
 import { useEffect, useState } from 'react'
-import { BotDataType } from './bot'
+import { BotDataType } from '../models/bot'
 
 export default function BotModel() {
   const { id } = useParams()

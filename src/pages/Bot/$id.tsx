@@ -1,6 +1,6 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { history } from '@umijs/max'
-import useBotModel from '@/models/botModel'
+import useBotModel from '@/hooks/botModel'
 import QA from './QA'
 import Divider from 'antd/es/divider'
 import styles from './index.less'

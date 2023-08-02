@@ -1,4 +1,4 @@
-import useBotModel from '@/models/botModel'
+import useBotModel from '@/hooks/botModel'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useIntl, Helmet } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
