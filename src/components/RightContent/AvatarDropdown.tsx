@@ -70,15 +70,16 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
   const { initialState, setInitialState } = useModel('@@initialState')
 
   const onMenuClick = useCallback(
-    (event: MenuInfo) => {
-      const { key } = event
+    async (event: MenuInfo) => {
+      const { key, domEvent } = event
+      domEvent.stopPropagation()
       if (key === 'logout') {
         localStorage.removeItem('user')
         localStorage.removeItem('token')
         flushSync(() => {
-          setInitialState(s => ({ ...s, currentUser: undefined }))
+          setInitialState((s: any) => ({ ...s, currentUser: undefined }))
         })
-        loginOut()
+        await loginOut()
         return
       }
       // 如果点击的不是 "logout" 菜单项，则会根据菜单项的 key 值生成一个路由路径，然后使用 history.push() 方法来在路由之间导航到对应的路径
@@ -142,8 +143,9 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
       onClick={e => {
         e.stopPropagation()
         e.preventDefault()
-        if (location.pathname === '/database-config/corpus') return
-        history.push('/database-config/corpus')
+        if (location.pathname === '/landing') {
+          history.push('/database-config/corpus')
+        }
       }}
     >
       <HeaderDropdown
