@@ -1,6 +1,6 @@
 // import { outLogin } from '@/services/web-api/api'
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
-import UserOutlined from '@ant-design/icons/UserOutlined'
+// import UserOutlined from '@ant-design/icons/UserOutlined'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { history, useModel } from '@umijs/max'
 import Spin from 'antd/es/spin'
@@ -19,7 +19,12 @@ export const AvatarName = () => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   return (
-    <span className="anticon frc-center cursor-pointer">
+    <span
+      className="anticon frc-center cursor-pointer"
+      style={{
+        display: 'inline-flex',
+      }}
+    >
       {/* <img src={currentUser?.image_url} alt="avatar" style={{ width: 22, height: 22, borderRadius: 10, marginRight: 6 }} /> */}
       <span>{currentUser?.email}</span>
     </span>
@@ -78,9 +83,9 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
       }
       // 如果点击的不是 "logout" 菜单项，则会根据菜单项的 key 值生成一个路由路径，然后使用 history.push() 方法来在路由之间导航到对应的路径
       // history.push(`/account/${key}`)
-      else if (key === 'center') {
-        history.push(`/database-config/corpus`)
-      }
+      // else if (key === 'center') {
+      //   history.push(`/database-config/corpus`)
+      // }
     },
     [setInitialState],
   )
@@ -110,19 +115,19 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
   const menuItems = [
     ...(menu
       ? [
-          {
-            key: 'center',
-            icon: <UserOutlined />,
-            label: '个人中心',
-          },
+          // {
+          //   key: 'center',
+          //   icon: <UserOutlined />,
+          //   label: '个人中心',
+          // },
           // {
           //   key: 'settings',
           //   icon: <SettingOutlined />,
           //   label: '个人设置',
           // },
-          {
-            type: 'divider' as const,
-          },
+          // {
+          //   type: 'divider' as const,
+          // },
         ]
       : []),
     {
@@ -133,14 +138,23 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
   ]
 
   return (
-    <HeaderDropdown
-      menu={{
-        selectedKeys: [],
-        onClick: onMenuClick,
-        items: menuItems,
+    <div
+      onClick={e => {
+        e.stopPropagation()
+        e.preventDefault()
+        if (location.pathname === '/database-config/corpus') return
+        history.push('/database-config/corpus')
       }}
     >
-      {children}
-    </HeaderDropdown>
+      <HeaderDropdown
+        menu={{
+          selectedKeys: [],
+          onClick: onMenuClick,
+          items: menuItems,
+        }}
+      >
+        {children}
+      </HeaderDropdown>
+    </div>
   )
 }
