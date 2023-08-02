@@ -149,7 +149,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
         </li> */}
         {dialogs.map((dialog, index) => {
           return (
-            <li key={index} className="my-4">
+            <li key={index} className="my-4 mx-18">
               <p
                 className={`p-10 m-0 rounded-lg ${
                   dialog.type === 'question' ? 'bg-orange color-white float-right' : 'bg-white float-left'
