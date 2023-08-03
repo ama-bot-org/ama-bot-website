@@ -83,17 +83,16 @@ const RegisterForm = (props: RegisterFormProps) => {
         new Error(
           intl.formatMessage({
             id: 'register.name.required',
-            defaultMessage: '请输入 AI 客服昵称',
           }),
         ),
       )
     }
     const reg = /[^\u4E00-\u9FA5A-Za-z0-9_]/
     if (reg.test(value)) {
-      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format', defaultMessage: '请输入正确的昵称' })))
+      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format' })))
     }
     if (value.length > 30 || value.length < 3) {
-      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length', defaultMessage: '昵称长度在 2~30 之间' })))
+      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length' })))
     }
     return Promise.resolve()
   }
@@ -160,7 +159,7 @@ const RegisterForm = (props: RegisterFormProps) => {
       >
         <Form.Item
           name="name"
-          label={intl.formatMessage({ id: 'register.name.register', defaultMessage: 'AI 客服昵称' })}
+          label={intl.formatMessage({ id: 'register.name.register' })}
           rules={[{ validator: (rule, value) => validIsUnique(rule, value) }]}
         >
           <Input placeholder="请输入 AI 客服昵称" />
@@ -168,7 +167,7 @@ const RegisterForm = (props: RegisterFormProps) => {
         <div className="flex flex-wrap">
           <Form.Item
             name="image_url"
-            label={intl.formatMessage({ id: 'register.logo', defaultMessage: '头像' })}
+            label={intl.formatMessage({ id: 'register.logo' })}
             valuePropName="fileList"
             getValueFromEvent={event => event.fileList}
             rules={[{ validator: validateImage }]}
@@ -213,7 +212,6 @@ const RegisterForm = (props: RegisterFormProps) => {
           <Button type="primary" style={{ width: '100%', height: '48px', fontSize: 18 }} htmlType="submit" id="myButton">
             {intl.formatMessage({
               id: 'landing.createmyai',
-              defaultMessage: '创建我的 AI',
             })}
           </Button>
         </ConfigProvider>

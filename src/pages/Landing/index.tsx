@@ -69,7 +69,6 @@ const LoginButton = () => {
           <Button type="primary" style={{ width: '100%', height: '100%' }}>
             {intl.formatMessage({
               id: 'menu.login',
-              defaultMessage: '登录',
             })}
           </Button>
         </ConfigProvider>
@@ -136,7 +135,6 @@ const Landing: React.FC = () => {
         <title>
           {intl.formatMessage({
             id: 'menu.welcome',
-            defaultMessage: '欢迎页',
           })}
           - {Settings.title}
         </title>

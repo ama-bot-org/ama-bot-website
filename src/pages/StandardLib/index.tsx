@@ -165,7 +165,6 @@ const StandardLib: React.FC = () => {
         <title>
           {intl.formatMessage({
             id: 'menu.database-config.standard-lib',
-            defaultMessage: '标准问答库',
           })}
           - {Settings.title}
         </title>

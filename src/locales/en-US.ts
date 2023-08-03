@@ -8,6 +8,7 @@ import settings from './en-US/settings'
 import landing from './en-US/landing'
 import register from './en-US/register'
 import agreement from './en-US/agreement'
+import button from './en-US/button'
 
 export default {
   'navBar.lang': 'Languages',
@@ -28,4 +29,5 @@ export default {
   ...landing,
   ...register,
   ...agreement,
+  ...button,
 }

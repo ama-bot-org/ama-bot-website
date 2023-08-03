@@ -23,7 +23,6 @@ const Balance: React.FC = () => {
         <title>
           {intl.formatMessage({
             id: 'menu.balance',
-            defaultMessage: '账户余额',
           })}
           - {Settings.title}
         </title>

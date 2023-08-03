@@ -59,7 +59,6 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
           <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
             {intl.formatMessage({
               id: 'button.edit',
-              defaultMessage: '编辑',
             })}
           </Button>
           <Popconfirm
@@ -69,17 +68,14 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
             onConfirm={() => handleDeleteRow(rowData)}
             cancelText={intl.formatMessage({
               id: 'button.cancel',
-              defaultMessage: '取消',
             })}
             okText={intl.formatMessage({
               id: 'button.ok',
-              defaultMessage: '确认',
             })}
           >
             <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
               {intl.formatMessage({
                 id: 'button.delete',
-                defaultMessage: '删除',
               })}
             </Button>
           </Popconfirm>

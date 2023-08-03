@@ -154,17 +154,16 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
         new Error(
           intl.formatMessage({
             id: 'register.name.required',
-            defaultMessage: '请输入 AI 客服昵称',
           }),
         ),
       )
     }
     const reg = /[^\u4E00-\u9FA5A-Za-z0-9_]/
     if (reg.test(value)) {
-      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format', defaultMessage: '请输入正确的昵称' })))
+      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format' })))
     }
     if (value.length > 30 || value.length < 2) {
-      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length', defaultMessage: '昵称长度在 2~30 之间' })))
+      return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length' })))
     }
     return Promise.resolve()
   }
@@ -232,7 +231,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
     >
       <Form.Item
         name="name"
-        label={intl.formatMessage({ id: 'register.name.register', defaultMessage: 'AI 客服昵称' })}
+        label={intl.formatMessage({ id: 'register.name.register' })}
         rules={[{ validator: (rule, value) => validIsUnique(rule, value) }]}
       >
         <Input placeholder="请输入 AI 客服昵称" />
@@ -240,7 +239,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
       <div className="flex flex-wrap">
         <Form.Item
           name="image_url"
-          label={intl.formatMessage({ id: 'register.logo', defaultMessage: '上传头像' })}
+          label={intl.formatMessage({ id: 'register.logo' })}
           valuePropName="fileList"
           getValueFromEvent={event => event.fileList}
           rules={[{ validator: validateImage }, { required: true }]}

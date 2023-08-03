@@ -8,6 +8,7 @@ import settings from './zh-CN/settings'
 import landing from './zh-CN/landing'
 import register from './zh-CN/register'
 import agreement from './zh-CN/agreement'
+import button from './zh-CN/button'
 
 export default {
   'navBar.lang': '语言',
@@ -28,4 +29,5 @@ export default {
   ...landing,
   ...register,
   ...agreement,
+  ...button,
 }

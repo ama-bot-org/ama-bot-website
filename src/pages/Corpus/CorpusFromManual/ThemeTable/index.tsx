@@ -66,15 +66,15 @@ const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteR
             onConfirm={() => handleDeleteRow(rowData)}
             cancelText={intl.formatMessage({
               id: 'button.cancel',
-              defaultMessage: '取消',
             })}
             okText={intl.formatMessage({
               id: 'button.ok',
-              defaultMessage: '确认',
             })}
           >
             <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
-              删除
+              {intl.formatMessage({
+                id: 'button.delete',
+              })}
             </Button>
           </Popconfirm>
         </>

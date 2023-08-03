@@ -46,7 +46,6 @@ const Register = () => {
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({
         id: 'pages.register.failure',
-        defaultMessage: '注册失败，请重试！',
       })
       console.log(error)
       message.error(defaultLoginFailureMessage)

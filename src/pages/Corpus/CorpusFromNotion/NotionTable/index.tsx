@@ -66,7 +66,9 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDel
             编辑
           </Button> */}
           <Button type="text" onClick={() => handlePreviewRow(rowData)} icon={<EyeOutlined />}>
-            预览
+            {intl.formatMessage({
+              id: 'button.preview',
+            })}
           </Button>
           <Popconfirm
             title="删除这条语料"
@@ -75,15 +77,15 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDel
             onConfirm={() => handleDeleteRow(rowData)}
             cancelText={intl.formatMessage({
               id: 'button.cancel',
-              defaultMessage: '取消',
             })}
             okText={intl.formatMessage({
               id: 'button.ok',
-              defaultMessage: '确认',
             })}
           >
             <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
-              删除
+              {intl.formatMessage({
+                id: 'button.delete',
+              })}
             </Button>
           </Popconfirm>
         </>

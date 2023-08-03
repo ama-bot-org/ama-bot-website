@@ -245,7 +245,9 @@ const CorpusFromFile = () => {
                         handlePreview(item.file_content)
                       }}
                     >
-                      预览
+                      {intl.formatMessage({
+                        id: 'button.preview',
+                      })}
                     </Button>
                     <Button
                       type="text"
@@ -254,7 +256,9 @@ const CorpusFromFile = () => {
                         handleDownload(item.id, item.file_name)
                       }}
                     >
-                      下载
+                      {intl.formatMessage({
+                        id: 'button.download',
+                      })}
                     </Button>
                     <Popconfirm
                       title="删除这个文件"
@@ -263,15 +267,15 @@ const CorpusFromFile = () => {
                       onConfirm={() => handleDeleteRow(item)}
                       cancelText={intl.formatMessage({
                         id: 'button.cancel',
-                        defaultMessage: '取消',
                       })}
                       okText={intl.formatMessage({
                         id: 'button.ok',
-                        defaultMessage: '确认',
                       })}
                     >
                       <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
-                        删除
+                        {intl.formatMessage({
+                          id: 'button.delete',
+                        })}
                       </Button>
                     </Popconfirm>
                   </div>
