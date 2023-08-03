@@ -64,7 +64,7 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
           borderRadius: '10px',
         }}
       ></iframe>
-      <div className={btnClassName}>
+      <div className={btnClassName} onClick={() => setIframeVisible(!iframeVisible)}>
         <span
           style={{
             color: '#e65c41',
@@ -76,7 +76,6 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
           在线咨询
         </span>
         <div
-          onClick={() => setIframeVisible(!iframeVisible)}
           style={{
             position: 'absolute',
             width: '52px',
