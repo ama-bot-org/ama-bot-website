@@ -36,11 +36,9 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
           onSuccess('上传成功')
           onSuccessUpload()
         } else {
-          if (res?.message) {
-            message.error(res.message)
-            // 过滤掉上面上传失败的这个文件
-            setValidFiles((prevFiles: any) => prevFiles.filter((file: any) => file.uid !== fileContent.uid))
-          }
+          setValidFiles((prevFiles: any) => prevFiles.filter((file: any) => file?.uid !== fileContent?.uid))
+          message.error(res?.message || '上传失败')
+          // 过滤掉上面上传失败的这个文件
           onError(new Error('上传失败'))
         }
       } catch (error) {

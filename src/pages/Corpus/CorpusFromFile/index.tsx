@@ -49,6 +49,8 @@ const CorpusFromFile = () => {
         if (res.ActionType === ActionType.OK) {
           setList(res.data.content)
           setTotal(res.data.count)
+        } else {
+          message.error(res?.message || '获取列表失败')
         }
       } catch (error) {
         console.log(error)
@@ -106,6 +108,8 @@ const CorpusFromFile = () => {
       })
       if (res.ActionType === ActionType.OK) {
         init()
+      } else {
+        message.error(res?.message || '删除失败')
       }
     } catch (error) {
       console.log(error)
@@ -125,6 +129,8 @@ const CorpusFromFile = () => {
       })
       if (res.ActionType === ActionType.OK && res.downloadUrl) {
         window.open(res.downloadUrl, '_blank')
+      } else {
+        message.error(res?.message || '下载失败')
       }
     } catch (error) {
       console.log(error)

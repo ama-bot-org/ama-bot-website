@@ -111,7 +111,7 @@ const RegisterForm = (props: RegisterFormProps) => {
         form.setFieldValue('image_url', res.image_url)
         onSuccess('上传成功')
       } else {
-        onError(new Error('上传失败'))
+        onError(new Error(res?.message || '上传失败'))
       }
     } catch (error) {
       onError(new Error('上传失败'))

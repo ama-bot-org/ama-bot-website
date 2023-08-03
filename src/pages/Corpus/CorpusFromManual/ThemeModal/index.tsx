@@ -1,5 +1,5 @@
 import corpus from '@/services/web-api/corpus'
-import { FileInfo } from '@/services/web-api/models/corpus'
+import { FileInfo, UploadFileResponseType } from '@/services/web-api/models/corpus'
 import { ActionType } from '@/constants/enums'
 import { useModel } from '@umijs/max'
 import { Input, Modal, Form, Button, message } from 'antd'
@@ -32,7 +32,7 @@ const ThemeModal = (props: ThemeModalProps) => {
     setLoading(true)
     if (currentUser?.bot_id) {
       try {
-        let res: any
+        let res: UploadFileResponseType = { ActionType: ActionType.False, message: '上传失败' }
         if (modalType === 'add') {
           res = await corpus.uploadCorpusByManual({
             bot_id: currentUser?.bot_id,
@@ -48,13 +48,12 @@ const ThemeModal = (props: ThemeModalProps) => {
             content: values.content,
           })
         }
-
         if (res.ActionType === ActionType.OK) {
           setTableReFresh(new Date().getTime())
           form.setFieldsValue([])
           setVisible(false)
         } else {
-          message.error('上传失败')
+          message.error(res?.message || '上传失败')
         }
       } catch (error) {
         message.error('上传失败')
@@ -62,6 +61,7 @@ const ThemeModal = (props: ThemeModalProps) => {
         setLoading(false)
       }
     } else {
+      message.error('未登录')
     }
   }
 

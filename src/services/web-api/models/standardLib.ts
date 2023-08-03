@@ -1,4 +1,4 @@
-import { ActionType } from '@/constants/enums'
+import { ErrorResponse } from './common'
 
 // 前端给后台
 export interface QAFormInfo {
@@ -16,16 +16,14 @@ export interface QATableGetProps {
 }
 
 // 后台给前端
-export interface GetStandardTableInfoResponse {
-  ActionType: ActionType
+export interface GetStandardTableInfoResponse extends ErrorResponse {
   data: {
     content: QAFormInfo[]
     count: number
   }
 }
 
-export interface QAResponse {
-  ActionType: ActionType
+export interface QAResponse extends ErrorResponse {
   data: QAFormInfo[]
 }
 
@@ -42,5 +40,5 @@ export interface QAInfoAddProps {
 }
 
 export interface AddStandardInfosResponse {
-  ActionType: ActionType
+  message?: string
 }

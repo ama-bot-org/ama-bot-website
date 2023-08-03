@@ -43,6 +43,8 @@ const CaptchaForm = (props: CaptFormProps) => {
             }
           }, 1000)
           message.success(intl.formatMessage({ id: 'register.code.available' }))
+        } else {
+          message.error(res?.message || intl.formatMessage({ id: 'register.code.unavailable' }))
         }
       } else {
         form.validateFields(['email'])
