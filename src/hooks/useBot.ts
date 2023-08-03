@@ -4,10 +4,12 @@ import message from 'antd/es/message'
 import BotAPI from '@/services/web-api/bot'
 import { useEffect, useState } from 'react'
 import { BotDataType } from '../models/bot'
+import { flushSync } from 'react-dom'
+import { loginOut } from '@/components/RightContent/AvatarDropdown'
 
 export default function useBotModel() {
+  const { initialState, setInitialState } = useModel('@@initialState')
   const { id } = useParams()
-  const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
 
   const [botInfo, setBotInfo] = useState<BotDataType>({} as BotDataType)
@@ -44,14 +46,23 @@ export default function useBotModel() {
       if (res?.ActionType === ActionType.False) {
         message.error(res.message)
         history.push('/user/register')
-      } else {
+        setLoading(false)
+      } else if (res?.ActionType === ActionType.OK) {
         await initBotInfo(botIdResult.bot_id)
         if (botInfo.bgImg_url) {
           document.getElementsByTagName('body')[0].style.backgroundImage = `url('${botInfo.bgImg_url}')`
         }
       }
-    } else if (botIdResult.message) {
-      console.log('botIdResult.message', botIdResult.message)
+    } else if (botIdResult && botIdResult.ActionType === ActionType.False) {
+      setLoading(false)
+      message.error(botIdResult.message)
+      message.error('系统已升级，请重新登录后再试')
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
+      flushSync(() => {
+        setInitialState((s: any) => ({ ...s, currentUser: undefined }))
+      })
+      await loginOut()
     }
   }
 

@@ -10,6 +10,27 @@ import React, { useCallback } from 'react'
 import { flushSync } from 'react-dom'
 import HeaderDropdown from '../HeaderDropdown'
 
+/**
+ * 退出登录，并且将当前的 url 保存
+ */
+export const loginOut = async () => {
+  // 暂无退出接口
+  // await outLogin()
+  const { search, pathname } = window.location
+  const urlParams = new URL(window.location.href).searchParams
+  /** 此方法会跳转到 redirect 参数所在的位置 */
+  const redirect = urlParams.get('redirect')
+  // Note: There may be security issues, please note
+  if (window.location.pathname !== '/landing' && !redirect) {
+    history.replace({
+      pathname: '/landing',
+      search: stringify({
+        redirect: pathname + search,
+      }),
+    })
+  }
+}
+
 export type GlobalHeaderRightProps = {
   menu?: boolean
   children?: React.ReactNode
@@ -32,26 +53,6 @@ export const AvatarName = () => {
 }
 
 export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, children }) => {
-  /**
-   * 退出登录，并且将当前的 url 保存
-   */
-  const loginOut = async () => {
-    // 暂无退出接口
-    // await outLogin()
-    const { search, pathname } = window.location
-    const urlParams = new URL(window.location.href).searchParams
-    /** 此方法会跳转到 redirect 参数所在的位置 */
-    const redirect = urlParams.get('redirect')
-    // Note: There may be security issues, please note
-    if (window.location.pathname !== '/landing' && !redirect) {
-      history.replace({
-        pathname: '/landing',
-        search: stringify({
-          redirect: pathname + search,
-        }),
-      })
-    }
-  }
   const actionClassName = useEmotionCss(({ token }) => {
     return {
       display: 'flex',
