@@ -1,10 +1,12 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
-import { history } from '@umijs/max'
+import { history, useModel } from '@umijs/max'
 import Divider from 'antd/es/divider'
 import QA from '@/pages/Bot/QA'
 import { BotDataType } from '@/models/bot'
 
 const BaseInfoPreview = ({ botInfo }: { botInfo: BotDataType }) => {
+  const { initialState } = useModel('@@initialState')
+  const { currentUser } = initialState || {}
   const containerClassName = useEmotionCss(() => {
     return {
       flex: 1,
@@ -32,14 +34,16 @@ const BaseInfoPreview = ({ botInfo }: { botInfo: BotDataType }) => {
           <h3 className="text-center my-0 ml-8 text-black">{botInfo?.name}</h3>
         </div>
         <Divider style={{ margin: '12px 0 12px 0' }} />
-        <QA
-          disabledAd
-          id=""
-          style={{ flex: 1, overflow: 'auto' }}
-          contactCode={botInfo.contact}
-          FAQContents={botInfo.faq_contents}
-          welcomes={botInfo.welcomes}
-        />
+        {currentUser?.bot_id ? (
+          <QA
+            disabledAd
+            id={currentUser?.bot_id}
+            style={{ flex: 1, overflow: 'auto' }}
+            contactCode={botInfo.contact}
+            FAQContents={botInfo.faq_contents}
+            welcomes={botInfo.welcomes}
+          />
+        ) : null}
         <div style={{ textAlign: 'center', padding: 2, color: '#000000', fontSize: 12 }}>
           ©2023 <span onClick={handleJump}>Askio （ 悦问AI ）</span> 提供技术支持
         </div>
