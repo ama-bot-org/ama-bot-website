@@ -9,7 +9,7 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import corpus from '@/services/web-api/corpus'
 import { ActionType } from '@/constants/enums'
 
-const MAX_UPLOAD_SIZE = 5 * 1024 * 1024 // 5MB
+const MAX_UPLOAD_SIZE = 10 * 1024 * 1024 // 5MB
 
 type CustomUploadProps = {
   onSuccessUpload: () => void
@@ -35,6 +35,9 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
           onSuccess('上传成功')
           onSuccessUpload()
         } else {
+          if (res?.message) {
+            message.error(res.message)
+          }
           onError(new Error('上传失败'))
         }
       } catch (error) {
@@ -55,11 +58,11 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
     if (!isDoc) {
       message.error('只能上传 doc, docx 或者 pdf 文件！')
     }
-    const isLt5M = file.size < MAX_UPLOAD_SIZE
-    if (!isLt5M) {
-      message.error('上传文件不能超过 5MB！')
+    const isLt10M = file.size < MAX_UPLOAD_SIZE
+    if (!isLt10M) {
+      message.error('上传文件不能超过 10MB！')
     }
-    return isDoc && isLt5M
+    return isDoc && isLt10M
   }
 
   const uploadWrapClassname = useEmotionCss(() => ({

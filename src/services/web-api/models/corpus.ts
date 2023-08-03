@@ -9,6 +9,7 @@ export type UploadFileParamType = {
 
 export type UploadFileResponseType = {
   ActionType: ActionType
+  message?: string
 }
 
 export type UpdateFileParamType = {

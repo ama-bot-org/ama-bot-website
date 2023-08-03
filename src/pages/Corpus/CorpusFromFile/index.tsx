@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useModel } from '@umijs/max'
+import { useIntl, useModel } from '@umijs/max'
 import { Button, Pagination, Popconfirm, message } from 'antd'
 import corpus from '@/services/web-api/corpus'
 import { DocInfo } from '@/services/web-api/models/corpus'
@@ -22,6 +22,7 @@ dayjs.extend(utc)
 
 const CorpusFromFile = () => {
   const [loading, setLoading] = useState<boolean>(true)
+  const intl = useIntl()
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const [page, setPage] = useState<number>(1)
@@ -260,6 +261,14 @@ const CorpusFromFile = () => {
                       description="删除后将无法找回，确认删除吗?"
                       icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                       onConfirm={() => handleDeleteRow(item)}
+                      cancelText={intl.formatMessage({
+                        id: 'button.cancel',
+                        defaultMessage: '取消',
+                      })}
+                      okText={intl.formatMessage({
+                        id: 'button.ok',
+                        defaultMessage: '确认',
+                      })}
                     >
                       <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
                         删除
