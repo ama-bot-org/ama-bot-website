@@ -30,7 +30,6 @@ const DNA: React.FC = () => {
           <title>
             {intl.formatMessage({
               id: 'menu.dnastaff',
-              defaultMessage: 'DNA的AI小客服',
             })}
             - Askio
           </title>

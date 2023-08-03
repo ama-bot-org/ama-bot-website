@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useModel } from '@umijs/max'
+import { useIntl, useModel } from '@umijs/max'
 import { Button, Pagination, Popconfirm, message } from 'antd'
 import corpus from '@/services/web-api/corpus'
 import { DocInfo } from '@/services/web-api/models/corpus'
@@ -22,6 +22,7 @@ dayjs.extend(utc)
 
 const CorpusFromFile = () => {
   const [loading, setLoading] = useState<boolean>(true)
+  const intl = useIntl()
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const [page, setPage] = useState<number>(1)
@@ -48,6 +49,8 @@ const CorpusFromFile = () => {
         if (res.ActionType === ActionType.OK) {
           setList(res.data.content)
           setTotal(res.data.count)
+        } else {
+          message.error(res?.message || '获取列表失败')
         }
       } catch (error) {
         console.log(error)
@@ -105,6 +108,8 @@ const CorpusFromFile = () => {
       })
       if (res.ActionType === ActionType.OK) {
         init()
+      } else {
+        message.error(res?.message || '删除失败')
       }
     } catch (error) {
       console.log(error)
@@ -124,6 +129,8 @@ const CorpusFromFile = () => {
       })
       if (res.ActionType === ActionType.OK && res.downloadUrl) {
         window.open(res.downloadUrl, '_blank')
+      } else {
+        message.error(res?.message || '下载失败')
       }
     } catch (error) {
       console.log(error)
@@ -244,7 +251,9 @@ const CorpusFromFile = () => {
                         handlePreview(item.file_content)
                       }}
                     >
-                      预览
+                      {intl.formatMessage({
+                        id: 'button.preview',
+                      })}
                     </Button>
                     <Button
                       type="text"
@@ -253,16 +262,26 @@ const CorpusFromFile = () => {
                         handleDownload(item.id, item.file_name)
                       }}
                     >
-                      下载
+                      {intl.formatMessage({
+                        id: 'button.download',
+                      })}
                     </Button>
                     <Popconfirm
                       title="删除这个文件"
                       description="删除后将无法找回，确认删除吗?"
                       icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                       onConfirm={() => handleDeleteRow(item)}
+                      cancelText={intl.formatMessage({
+                        id: 'button.cancel',
+                      })}
+                      okText={intl.formatMessage({
+                        id: 'button.ok',
+                      })}
                     >
                       <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
-                        删除
+                        {intl.formatMessage({
+                          id: 'button.delete',
+                        })}
                       </Button>
                     </Popconfirm>
                   </div>

@@ -81,7 +81,6 @@ const Corpus: React.FC = () => {
         <title>
           {intl.formatMessage({
             id: 'menu.robot-config.corpus',
-            defaultMessage: '语料库',
           })}
           - {Settings.title}
         </title>

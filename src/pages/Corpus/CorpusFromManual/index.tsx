@@ -37,6 +37,8 @@ const CorpusFromManual: React.FC = () => {
         if (res.ActionType === ActionType.OK) {
           setData(res.data.content)
           setTotal(res.data.count)
+        } else {
+          message.error(res?.message || '获取 File 语料表失败')
         }
       } catch (error) {
         message.error('获取 File 语料表失败')
@@ -78,6 +80,8 @@ const CorpusFromManual: React.FC = () => {
         })
         if (res.ActionType === ActionType.OK) {
           await initFileTable()
+        } else {
+          message.error(res?.message || '删除失败')
         }
       } finally {
         setLoading(false)

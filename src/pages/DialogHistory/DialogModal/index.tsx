@@ -44,6 +44,9 @@ const NotionModal = (props: DialogModalProps) => {
   //         form.setFieldsValue([])
   //         setVisible(false)
   //       }
+  //       else{
+  //         message.error(res?.message || '新增 Notion 语料源失败')
+  //       }
   //     } catch (error) {
   //       console.log(error)
   //     } finally {

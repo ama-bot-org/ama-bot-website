@@ -2,9 +2,9 @@ import corpus from '@/services/web-api/corpus'
 
 import { ActionType } from '@/constants/enums'
 import { useModel } from '@umijs/max'
-import { Input, Modal, Form, Button, Checkbox } from 'antd'
+import { Input, Modal, Form, Button, Checkbox, message } from 'antd'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { NotionTableRow } from '@/services/web-api/models/corpus'
+import { CreateNotionResponseType, NotionTableRow } from '@/services/web-api/models/corpus'
 
 type NotionModalProps = {
   visible: boolean
@@ -31,7 +31,17 @@ const NotionModal = (props: NotionModalProps) => {
     setLoading(true)
     if (currentUser?.bot_id && values.token && values.pagelink && values.doc_name) {
       try {
-        let res: any
+        let res: CreateNotionResponseType = {
+          ActionType: ActionType.False,
+          data: {
+            bot_id: '',
+            doc_name: '',
+            type: 0,
+            content: '',
+            page_id: '',
+            doc_hash: '',
+          },
+        }
         let params = {
           bot_id: currentUser.bot_id,
           token: values.token,
@@ -45,6 +55,8 @@ const NotionModal = (props: NotionModalProps) => {
           setTableReFresh()
           form.setFieldsValue([])
           setVisible(false)
+        } else {
+          message.error(res?.message || '上传失败')
         }
       } catch (error) {
         console.log(error)

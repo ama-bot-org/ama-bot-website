@@ -3,7 +3,7 @@ import { ActionType } from '@/constants/enums'
 import { QAFormInfo } from '@/services/web-api/models/standardLib'
 import { addStandardInfos, updateStandardInfo } from '@/services/web-api/standardLib'
 import { useModel } from '@umijs/max'
-import { Input, Modal, Form, Button } from 'antd'
+import { Input, Modal, Form, Button, message } from 'antd'
 
 type QAModalProps = {
   visible: boolean
@@ -47,6 +47,8 @@ const QAModal = (props: QAModalProps) => {
         form.resetFields()
         setTableRefresh()
         setVisible(false)
+      } else {
+        message.error(res?.message || '保存失败')
       }
     } catch (error) {
       console.log(error)

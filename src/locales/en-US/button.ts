@@ -1,0 +1,16 @@
+export default {
+  'button.ok': 'Ok',
+  'button.cancel': 'Cancel',
+  'button.delete': 'Delete',
+  'button.edit': 'Edit',
+  'button.save': 'Save',
+  'button.add': 'Add',
+  'button.download': 'Download',
+  'button.upload': 'Upload',
+  'button.search': 'Search',
+  'button.reset': 'Reset',
+  'button.submit': 'Submit',
+  'button.back': 'Back',
+  'button.next': 'Next',
+  'button.preview': 'Preview',
+}

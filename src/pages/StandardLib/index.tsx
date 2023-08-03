@@ -40,6 +40,8 @@ const StandardLib: React.FC = () => {
         if (res.ActionType === ActionType.OK) {
           setData(res.data.content)
           setTotal(res.data.count)
+        } else {
+          message.error(res?.message || '获取标准问答库失败')
         }
       } catch (error) {
         message.error('获取标准问答库失败')
@@ -84,9 +86,11 @@ const StandardLib: React.FC = () => {
         })
         if (res.ActionType === ActionType.OK) {
           await initQATable()
+        } else {
+          message.error(res?.message || '删除标准问答失败')
         }
       } catch (error) {
-        message.error('获取标准问答库失败')
+        message.error('删除标准问答失败')
       } finally {
         setLoading(false)
       }
@@ -165,7 +169,6 @@ const StandardLib: React.FC = () => {
         <title>
           {intl.formatMessage({
             id: 'menu.database-config.standard-lib',
-            defaultMessage: '标准问答库',
           })}
           - {Settings.title}
         </title>

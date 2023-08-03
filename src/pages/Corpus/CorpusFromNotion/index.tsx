@@ -37,6 +37,8 @@ const CorpusFromNotion: React.FC = () => {
         if (res.ActionType === ActionType.OK) {
           setData(res.data.content)
           setTotal(res.data.count)
+        } else {
+          message.error(res?.message || '获取 Notion 语料表失败')
         }
       } catch (error) {
         message.error('获取 Notion 语料表失败')
@@ -84,6 +86,8 @@ const CorpusFromNotion: React.FC = () => {
         })
         if (res.ActionType === ActionType.OK) {
           await initNotionTable()
+        } else {
+          message.error(res?.message || '删除失败')
         }
       } finally {
         setLoading(false)

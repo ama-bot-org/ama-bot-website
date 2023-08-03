@@ -23,7 +23,6 @@ const VisualProgramming: React.FC = () => {
         <title>
           {intl.formatMessage({
             id: 'menu.robot-config.visual-programming',
-            defaultMessage: '可视化编程',
           })}
           - {Settings.title}
         </title>

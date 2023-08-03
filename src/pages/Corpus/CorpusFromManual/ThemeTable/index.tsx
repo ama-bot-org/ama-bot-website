@@ -9,6 +9,7 @@ import Popconfirm from 'antd/es/popconfirm'
 import Table from 'antd/lib/table'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import { useIntl } from '@umijs/max'
 dayjs.extend(utc)
 
 type ThemeTableProps = {
@@ -23,6 +24,8 @@ type ThemeTableProps = {
 }
 
 const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow, onPageChange }: ThemeTableProps) => {
+  const intl = useIntl()
+
   const handleEditRow = (rowData: FileInfo) => {
     onEditRow(rowData)
   }
@@ -61,9 +64,17 @@ const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteR
             description="删除后将无法找回，确认删除吗?"
             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
             onConfirm={() => handleDeleteRow(rowData)}
+            cancelText={intl.formatMessage({
+              id: 'button.cancel',
+            })}
+            okText={intl.formatMessage({
+              id: 'button.ok',
+            })}
           >
             <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
-              删除
+              {intl.formatMessage({
+                id: 'button.delete',
+              })}
             </Button>
           </Popconfirm>
         </>

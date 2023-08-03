@@ -64,7 +64,6 @@ const Layout: React.FC = () => {
         <title>
           {intl.formatMessage({
             id: 'menu.login',
-            defaultMessage: '登录页',
           })}
           - {Settings.title}
         </title>

@@ -1,24 +1,26 @@
 import { ActionType } from '@/constants/enums'
+import { ErrorResponse } from './common'
 
-export type UploadFileParamType = {
+export interface UploadFileParamType {
   bot_id: string
   type: 1 | 2 | 3 // 文件类型 1为pdf 2为txt 3为手动
   doc_name: string
   content: string //文件内容
 }
 
-export type UploadFileResponseType = {
+export interface UploadFileResponseType {
   ActionType: ActionType
+  message?: string
 }
 
-export type UpdateFileParamType = {
+export interface UpdateFileParamType {
   id: number
   type: 1 | 2 | 3 // 文件类型 1为pdf 2为txt 3为手动
   doc_name: string
   content: string
 }
 
-export type GetFileListParamsType = {
+export interface GetFileListParamsType {
   // 机器人id
   bot_id: string
 
@@ -32,7 +34,7 @@ export type GetFileListParamsType = {
   pageSize: number
 }
 
-export type DocInfo = {
+export interface DocInfo {
   //编号
   id: number
 
@@ -55,7 +57,7 @@ export type DocInfo = {
   date: number
 }
 
-export type FileInfo = {
+export interface FileInfo {
   //编号
   bot_id: string
   content: string
@@ -65,41 +67,38 @@ export type FileInfo = {
   type: number
 }
 
-export type FileListResponse = {
-  ActionType: ActionType
+export interface FileListResponse extends ErrorResponse {
   data: {
     count: number
     content: FileInfo[]
   }
 }
 
-export type DocListResponse = {
-  ActionType: ActionType
+export interface DocListResponse extends ErrorResponse {
   data: {
     count: number
     content: DocInfo[]
   }
 }
 
-export type NotionDeleteParamsType = {
+export interface NotionDeleteParamsType {
   id: string
 }
 
-export type FileDeleteParamsType = {
+export interface FileDeleteParamsType {
   id: number //编号
   bot_id: string //机器人id
 }
 
-export type FileDeleteResponse = {
+export interface FileDeleteResponse extends ErrorResponse {
   ActionType: ActionType
 }
 
-export type FileDownloadResponse = {
-  ActionType: ActionType
+export interface FileDownloadResponse extends ErrorResponse {
   downloadUrl: string
 }
 
-export type NotionInfoAddProps = {
+export interface NotionInfoAddProps {
   bot_id: string
   token: string
   pagelink: string
@@ -107,7 +106,7 @@ export type NotionInfoAddProps = {
   subPage: boolean
 }
 
-export type NotionTableRow = {
+export interface NotionTableRow {
   bot_id: string
   id: string
   doc_name: string
@@ -120,20 +119,18 @@ export type NotionTableRow = {
   subPage?: boolean
 }
 
-export type NotionInfoAddResponse = {
-  ActionType: ActionType
+export interface NotionInfoAddResponse extends ErrorResponse {
   data: NotionTableRow
 }
 
-export type NotionTableResponse = {
-  ActionType: ActionType
+export interface NotionTableResponse extends ErrorResponse {
   data: {
     count: number
     content: NotionTableRow[]
   }
 }
 
-export type GetDocsListParamsType = {
+export interface GetDocsListParamsType {
   // 机器人id
   bot_id: string
 
@@ -146,34 +143,33 @@ export type GetDocsListParamsType = {
   pageSize: number
 }
 
-export type UploadDocParamType = {
+export interface UploadDocParamType {
   bot_id: string
   file_name: string
   file: any
   file_type: 'docx' | 'pdf'
 }
 
-export type DocDownloadParamsType = {
+export interface DocDownloadParamsType {
   bot_id: string
   id: number
   file_name: string
 }
 
-export type GetNotionTableResponseType = {
-  ActionType: ActionType
+export interface GetNotionTableResponseType extends ErrorResponse {
   data: {
     count: number
     content: NotionTableRow[]
   }
 }
 
-export type GetNotionTableParamsType = {
+export interface GetNotionTableParamsType {
   bot_id: string
   page: number
   pageSize: number
 }
 
-export type CreateNotionParamsType = {
+export interface CreateNotionParamsType {
   bot_id: string
   token: string
   pagelink: string
@@ -181,8 +177,7 @@ export type CreateNotionParamsType = {
   subPage: boolean
 }
 
-export type CreateNotionResponseType = {
-  ActionType: string
+export interface CreateNotionResponseType extends ErrorResponse {
   data: {
     bot_id: string
     doc_name: string
@@ -193,11 +188,11 @@ export type CreateNotionResponseType = {
   }
 }
 
-export type DeleteNotionParamsType = {
+export interface DeleteNotionParamsType {
   bot_id: string
   id: string
 }
 
-export type DeleteNotionResponseType = {
+export interface DeleteNotionResponseType extends ErrorResponse {
   ActionType: ActionType
 }

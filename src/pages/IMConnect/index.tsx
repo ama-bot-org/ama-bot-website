@@ -23,7 +23,6 @@ const IMConnect: React.FC = () => {
         <title>
           {intl.formatMessage({
             id: 'menu.robot-config.im-connect',
-            defaultMessage: '账户余额',
           })}
           - {Settings.title}
         </title>

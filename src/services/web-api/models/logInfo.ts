@@ -1,4 +1,4 @@
-import { ActionType } from '@/constants/enums'
+import { ErrorResponse } from './common'
 
 export interface GetLogInfoTableParamsType {
   bot_id: string
@@ -14,8 +14,7 @@ export interface LogInfoTableRow {
   create_date: number //创建时间
 }
 
-export interface LogInfoTableResponseType {
-  ActionType: ActionType
+export interface LogInfoTableResponseType extends ErrorResponse {
   data: {
     count: number
     content: LogInfoTableRow[]

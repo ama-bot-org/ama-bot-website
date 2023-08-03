@@ -1,4 +1,5 @@
 import { ActionType, AuthorityLevel, CheckType, NoticeIconItemType } from '@/constants/enums'
+import { ErrorResponse } from './common'
 
 export interface CurrentUser {
   name?: string
@@ -79,14 +80,14 @@ export interface LoginParams {
   interface?: string
 }
 
-export interface ErrorResponse {
-  /** 业务约定的错误码 */
-  errorCode: string
-  /** 业务上的错误信息 */
-  errorMessage?: string
-  /** 业务上的请求是否成功 */
-  success?: boolean
-}
+// export interface ErrorResponse {
+//   /** 业务约定的错误码 */
+//   errorCode: string
+//   /** 业务上的错误信息 */
+//   errorMessage?: string
+//   /** 业务上的请求是否成功 */
+//   success?: boolean
+// }
 
 export interface NoticeIconList {
   data?: NoticeIconItem[]
@@ -119,10 +120,8 @@ export interface UserRegisterResponse {
   message?: string //验证码错误
 }
 
-export interface CaptchaResponse {
-  ActionType: ActionType
+export interface CaptchaResponse extends ErrorResponse {
   status?: number
-  message?: string
 }
 
 export interface UploadImageParams {
@@ -130,8 +129,7 @@ export interface UploadImageParams {
   file: File
 }
 
-export interface UploadImageResponseType {
-  ActionType: ActionType
+export interface UploadImageResponseType extends ErrorResponse {
   image_url: string
 }
 
@@ -140,7 +138,6 @@ export interface UpdateImageParams {
   file: File
 }
 
-export interface UpdateImageResponseType {
-  ActionType: ActionType
+export interface UpdateImageResponseType extends ErrorResponse {
   image_url: string
 }

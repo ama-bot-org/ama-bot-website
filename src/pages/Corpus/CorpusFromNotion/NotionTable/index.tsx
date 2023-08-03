@@ -9,6 +9,7 @@ import Table from 'antd/lib/table'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { NotionTableRow } from '@/services/web-api/models/corpus'
+import { useIntl } from '@umijs/max'
 dayjs.extend(utc)
 
 type NotionTableProps = {
@@ -24,6 +25,7 @@ type NotionTableProps = {
 }
 
 const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDeleteRow, onPageChange }: NotionTableProps) => {
+  const intl = useIntl()
   const handlePreviewRow = (rowData: NotionTableRow) => {
     onPreviewRow(rowData)
   }
@@ -64,16 +66,26 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDel
             编辑
           </Button> */}
           <Button type="text" onClick={() => handlePreviewRow(rowData)} icon={<EyeOutlined />}>
-            预览
+            {intl.formatMessage({
+              id: 'button.preview',
+            })}
           </Button>
           <Popconfirm
             title="删除这条语料"
             description="删除后将无法找回，确认删除吗?"
             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
             onConfirm={() => handleDeleteRow(rowData)}
+            cancelText={intl.formatMessage({
+              id: 'button.cancel',
+            })}
+            okText={intl.formatMessage({
+              id: 'button.ok',
+            })}
           >
             <Button style={{ marginLeft: '4px' }} danger type="text" icon={<DeleteOutlined />}>
-              删除
+              {intl.formatMessage({
+                id: 'button.delete',
+              })}
             </Button>
           </Popconfirm>
         </>

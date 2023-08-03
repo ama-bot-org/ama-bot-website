@@ -69,21 +69,18 @@ const CreateAISteps = (props: CreateAIStepsProps) => {
       id: 1,
       title: intl.formatMessage({
         id: 'landing.steps.register',
-        defaultMessage: '注册帐号',
       }),
     },
     {
       id: 2,
       title: intl.formatMessage({
         id: 'landing.steps.upload',
-        defaultMessage: '上传文本素材',
       }),
     },
     {
       id: 3,
       title: intl.formatMessage({
         id: 'landing.steps.invite',
-        defaultMessage: '注册帐号',
       }),
     },
   ]
