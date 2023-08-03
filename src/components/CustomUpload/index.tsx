@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'antd/es/button'
 import Upload from 'antd/es/upload'
 import message from 'antd/es/message'
@@ -18,6 +18,7 @@ type CustomUploadProps = {
 const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
+  const [validFiles, setValidFiles] = useState<any>([])
 
   const handleUpload = async (options: any) => {
     const { fileContent, filename, onError, onSuccess } = options
@@ -37,6 +38,8 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
         } else {
           if (res?.message) {
             message.error(res.message)
+            // 过滤掉上面上传失败的这个文件
+            setValidFiles((prevFiles: any) => prevFiles.filter((file: any) => file.uid !== fileContent.uid))
           }
           onError(new Error('上传失败'))
         }
@@ -62,7 +65,12 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
     if (!isLt10M) {
       message.error('上传文件不能超过 10MB！')
     }
-    return isDoc && isLt10M
+    if (isDoc && isLt10M) {
+      setValidFiles((prevFiles: any) => [...prevFiles, file])
+      return true
+    }
+
+    return false
   }
 
   const uploadWrapClassname = useEmotionCss(() => ({
@@ -88,7 +96,7 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
   }))
 
   return (
-    <Upload customRequest={handleCustomRequest} beforeUpload={beforeUpload} className={uploadWrapClassname}>
+    <Upload customRequest={handleCustomRequest} fileList={validFiles} beforeUpload={beforeUpload} className={uploadWrapClassname}>
       <Button className={uploadBtnClassname}>
         <Image
           preview={false}
@@ -118,7 +126,7 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
             marginTop: '0px',
           }}
         >
-          文件大小不超过 5MB
+          文件大小不超过 10MB
         </p>
       </Button>
     </Upload>
