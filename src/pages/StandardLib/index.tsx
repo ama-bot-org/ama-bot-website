@@ -122,7 +122,7 @@ const StandardLib: React.FC = () => {
   useEffect(() => {
     setSearchValue(undefined)
     initQATable()
-  }, [page])
+  }, [page, pageSize])
 
   useEffect(() => {
     if (!modalVisible) {

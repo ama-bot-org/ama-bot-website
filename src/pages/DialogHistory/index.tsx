@@ -92,7 +92,7 @@ const DialogHistory: React.FC = () => {
 
   useEffect(() => {
     initDialogHistoryTable()
-  }, [page])
+  }, [page, pageSize])
 
   return (
     <div className={containerClassName}>
