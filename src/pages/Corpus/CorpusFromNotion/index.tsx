@@ -111,7 +111,7 @@ const CorpusFromNotion: React.FC = () => {
 
   useEffect(() => {
     initNotionTable()
-  }, [page, searchValue])
+  }, [page, pageSize, searchValue])
 
   const topClassName = useEmotionCss(() => {
     return {

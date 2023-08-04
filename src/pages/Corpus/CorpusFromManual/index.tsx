@@ -105,7 +105,7 @@ const CorpusFromManual: React.FC = () => {
 
   useEffect(() => {
     initFileTable()
-  }, [page, searchValue])
+  }, [page, pageSize, searchValue])
 
   const topClassName = useEmotionCss(() => {
     return {
