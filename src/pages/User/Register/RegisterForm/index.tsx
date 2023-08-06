@@ -91,7 +91,7 @@ const RegisterForm = (props: RegisterFormProps) => {
     if (reg.test(value)) {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-format' })))
     }
-    if (value.length > 30 || value.length < 3) {
+    if (value.length > 30 || value.length < 2) {
       return Promise.reject(new Error(intl.formatMessage({ id: 'register.name.wrong-length' })))
     }
     return Promise.resolve()
