@@ -11,7 +11,7 @@ export default {
   'register.create': 'Create AI',
   'register.name.required': 'Please enter name of your bot',
   'register.name.wrong-format': 'Please enter the correct name',
-  'register.name.wrong-length': 'The name is between 3 and 30 characters',
+  'register.name.wrong-length': 'The name is between 2 and 30 characters',
   'register.account.complete': 'Complete account information',
   'register.email.required': 'Please enter your email',
   'register.email.wrong-format': 'Incorrect email format',
