@@ -15,7 +15,7 @@ const Bot: React.FC = () => {
       flexDirection: 'column',
       alignContent: 'space-between',
       justifyContent: 'space-between',
-      height: '100vh',
+      minHeight: '100vh',
       overflow: 'auto',
       maxWidth: '688px',
       width: '80%',
