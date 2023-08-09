@@ -12,9 +12,9 @@ export default function SectionScene() {
   const sectionClassName = useEmotionCss(() => {
     return {
       minHeight: '100vh',
+      padding: '40px 0',
       '@media screen and (max-width: 768px)': {
         height: 'auto',
-        padding: '40px 0',
         background: '#ffffff',
       },
     }
