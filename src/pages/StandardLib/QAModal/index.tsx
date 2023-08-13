@@ -8,13 +8,14 @@ import { Input, Modal, Form, Button, message } from 'antd'
 type QAModalProps = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
-  setTableRefresh: () => void
+  okCallback?: () => void
   QAInfo?: QAFormInfo
   modalType?: 'add' | 'edit'
+  forceInitialValues?: boolean // 强制有初始值
 }
 
 const QAModal = (props: QAModalProps) => {
-  const { visible, setVisible, QAInfo, modalType = 'add', setTableRefresh } = props
+  const { visible, setVisible, QAInfo, modalType = 'add', okCallback, forceInitialValues} = props
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const { initialState } = useModel('@@initialState')
@@ -45,7 +46,7 @@ const QAModal = (props: QAModalProps) => {
       }
       if (res.ActionType === ActionType.OK) {
         form.resetFields()
-        setTableRefresh()
+        okCallback?.()
         setVisible(false)
       } else {
         message.error(res?.message || '保存失败')
@@ -69,7 +70,7 @@ const QAModal = (props: QAModalProps) => {
     >
       <Form
         form={modalType === 'add' ? undefined : form}
-        initialValues={modalType === 'edit' ? QAInfo : undefined}
+        initialValues={ forceInitialValues || modalType === 'edit' ? QAInfo : undefined}
         layout="vertical"
         onFinish={handleFinished}
       >

@@ -210,7 +210,7 @@ const StandardLib: React.FC = () => {
           setVisible={setModalVisible}
           QAInfo={currentRow}
           modalType={currentRow ? 'edit' : 'add'}
-          setTableRefresh={setTableRefresh}
+          okCallback={setTableRefresh}
         />
       </div>
     </div>
