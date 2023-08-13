@@ -14,7 +14,7 @@ const AskMeAnything: React.FC = () => {
     return {
       display: 'flex',
       flexDirection: 'column',
-      height: '100vh',
+      minHeight: '100vh',
       overflow: 'auto',
     }
   })

@@ -103,7 +103,7 @@ const Landing: React.FC = () => {
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
-      height: '100vh',
+      minHeight: '100vh',
       overflow: 'auto',
       backgroundColor: '#bfbfbf25',
     }

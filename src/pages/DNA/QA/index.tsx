@@ -50,14 +50,14 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans
       } else {
-        temp[temp.length - 1].content = '抱歉，我还不知道怎么回答这个问题'
+        temp[temp.length - 1].content = '哎呀，系统开了会儿小差，请重新提问下'
         console.log(result?.err)
       }
       setDialogs(temp)
       setQuestion('')
     } catch (error) {
       console.log(error)
-      temp[temp.length - 1].content = '抱歉，我还不知道怎么回答这个问题'
+      temp[temp.length - 1].content = '哎呀，系统开了会儿小差，请重新提问下'
       setDialogs(temp)
       setQuestion('')
     }

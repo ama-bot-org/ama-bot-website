@@ -15,7 +15,7 @@ const Bot: React.FC = () => {
       flexDirection: 'column',
       alignContent: 'space-between',
       justifyContent: 'space-between',
-      height: '100vh',
+      minHeight: '100vh',
       overflow: 'auto',
       maxWidth: '688px',
       width: '80%',
@@ -50,6 +50,7 @@ const Bot: React.FC = () => {
             FAQContents={botInfo.faq_contents}
             welcomes={botInfo.welcomes}
             disabledAd={true}
+            hasEvaluateFix={false}
           />
           <div style={{ textAlign: 'center', padding: 2, color: '#000000', fontSize: 12 }}>
             ©2023 <span onClick={handleJump}>Askio （ 悦问AI ）</span> 提供技术支持

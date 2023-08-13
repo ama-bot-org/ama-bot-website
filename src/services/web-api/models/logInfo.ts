@@ -6,6 +6,16 @@ export interface GetLogInfoTableParamsType {
   pageSize: number
 }
 
+export enum CommentType {
+  like = 1, //点赞
+  unlike = 2, //点踩
+}
+export interface CommentInfoParamsType {
+  bot_id: string
+  question: string
+  comment_type: CommentType
+}
+
 export interface LogInfoTableRow {
   id: number //编号
   bot_id: string //机器人id

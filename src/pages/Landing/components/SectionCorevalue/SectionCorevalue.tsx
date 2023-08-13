@@ -39,7 +39,7 @@ const slideData = [
 export default function SectionCorevalue() {
   const sectionClassName = useEmotionCss(() => {
     return {
-      height: '100vh',
+      minHeight: '100vh',
       '@media screen and (max-width: 768px)': {
         height: 'auto',
         padding: '80px 0',
