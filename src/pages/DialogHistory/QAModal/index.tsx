@@ -1,21 +1,20 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { ActionType } from '@/constants/enums'
 import { QAFormInfo } from '@/services/web-api/models/standardLib'
-import { addStandardInfos, updateStandardInfo } from '@/services/web-api/standardLib'
+import { addStandardWithLog } from '@/services/web-api/standardLib'
 import { useModel } from '@umijs/max'
-import { Input, Modal, Form, Button, message } from 'antd'
+import { Button, Form, Input, message, Modal } from 'antd'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type QAModalProps = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
   okCallback?: () => void
   QAInfo?: QAFormInfo
-  modalType?: 'add' | 'edit'
-  forceInitialValues?: boolean // 强制有初始值
+  log_id: number
 }
 
 const QAModal = (props: QAModalProps) => {
-  const { visible, setVisible, QAInfo, modalType = 'add', okCallback, forceInitialValues} = props
+  const { visible, setVisible, QAInfo, okCallback, log_id } = props
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const { initialState } = useModel('@@initialState')
@@ -38,11 +37,8 @@ const QAModal = (props: QAModalProps) => {
     setLoading(true)
     try {
       let res: any
-      if (modalType === 'add' && currentUser?.bot_id) {
-        res = await addStandardInfos([{ ...values, bot_id: currentUser?.bot_id }])
-      } else {
-        res = await updateStandardInfo({ ...values, bot_id: currentUser?.bot_id, id: QAInfo?.id })
-        console.log('editStandardTableInfo', res)
+      if (currentUser?.bot_id) {
+        res = await addStandardWithLog({ ...values, bot_id: currentUser?.bot_id, log_id })
       }
       if (res.ActionType === ActionType.OK) {
         form.resetFields()
@@ -60,7 +56,7 @@ const QAModal = (props: QAModalProps) => {
 
   return (
     <Modal
-      title={modalType === 'add' ? '新增问答' : '编辑问答'}
+      title={'新增问答'}
       open={visible}
       footer={null}
       destroyOnClose
@@ -68,12 +64,7 @@ const QAModal = (props: QAModalProps) => {
         handleCancel()
       }}
     >
-      <Form
-        form={modalType === 'add' ? undefined : form}
-        initialValues={ forceInitialValues || modalType === 'edit' ? QAInfo : undefined}
-        layout="vertical"
-        onFinish={handleFinished}
-      >
+      <Form form={form} initialValues={QAInfo} layout="vertical" onFinish={handleFinished}>
         {/* 问题输入已经从关键词升级成句子：请输入问题 */}
         <Form.Item
           label="问题"

@@ -7,6 +7,8 @@ import {
   QAResponse,
   QAInfoDeleteProps,
   QAInfoAddProps,
+  AddStandardWithLogParams,
+  AddStandardWithLogResponse
 } from './models/standardLib'
 
 /** 获取机器人的标准问答 */
@@ -47,6 +49,17 @@ export async function deleteStandardInfo(params: QAInfoDeleteProps) {
 /** 添加标准问答 */
 export async function addStandardInfos(params: QAInfoAddProps[]) {
   return request<AddStandardInfosResponse>('/api/app/bot/addStandardInfos', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem('token') || '',
+    },
+    data: params,
+  })
+}
+
+/** 增加标准问答并进行日志修正记录 */
+export async function addStandardWithLog(params: AddStandardWithLogParams) {
+  return request<AddStandardWithLogResponse>('/api/app/bot/addStandardWithLog', {
     method: 'POST',
     headers: {
       Authorization: localStorage.getItem('token') || '',

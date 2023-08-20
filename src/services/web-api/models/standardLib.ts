@@ -39,6 +39,21 @@ export interface QAInfoAddProps {
   completion: string
 }
 
+export interface QAInfoAddProps {
+  bot_id: string
+  prompt: string
+  completion: string
+}
+
 export interface AddStandardInfosResponse {
   message?: string
 }
+
+export interface AddStandardWithLogParams {
+  bot_id: string
+  prompt: string
+  completion: string
+  log_id: number
+}
+
+export interface AddStandardWithLogResponse extends ErrorResponse {}

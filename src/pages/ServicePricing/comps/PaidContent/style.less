@@ -1,0 +1,53 @@
+.wrap {
+  padding: 29px 16px;
+  overflow-x: scroll;
+  background-color: #fff;
+  border-radius: 10px;
+  max-width: 1000px;
+}
+.table {
+  min-width: 900px;
+}
+.trow {
+  display: flex;
+  &:nth-child(2n + 1):not(:first-child) {
+    background: rgba(229, 229, 229, 0.2);
+  }
+}
+.tcell {
+  flex: 1;
+  align-items: center;
+  padding: 13px 25px;
+  color: #24262f;
+  font-size: 16px;
+  font-family: AlibabaPuHuiTi_2_55__Regular;
+  letter-spacing: 0.06px;
+}
+.version_cell {
+  color: #131415;
+  font-size: 16px;
+  font-family: AlibabaPuHuiTi_2_55__Regular;
+  .name {
+    font-weight: 500;
+    font-family: AlibabaPuHuiTi_2_65_Medium;
+  }
+  .price {
+    margin-top: 4px;
+    margin-bottom: 16px;
+    letter-spacing: 0.06px;
+    > span:nth-child(1) {
+      font-weight: 600;
+      font-size: 24px;
+      font-family: AlibabaPuHuiTi_2-85-Bold;
+      letter-spacing: 0.09px;
+    }
+  }
+  .curVBtn {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 32px;
+    background-color: #e7e7e7;
+    border-radius: 4px;
+  }
+}

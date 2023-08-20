@@ -4,6 +4,7 @@ export default {
   'menu.dnastaff': 'DNA AI Service',
   'menu.services-group': 'Services',
   'menu.dialog-history': 'Dialog History',
+  'menu.service-pricing': 'Service Pricing',
   'menu.config-group': 'AI Config Group',
   'menu.database-config': 'Database Config',
   'menu.database-config.corpus': 'Corpus',

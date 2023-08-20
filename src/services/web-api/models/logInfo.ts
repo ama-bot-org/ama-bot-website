@@ -22,6 +22,7 @@ export interface LogInfoTableRow {
   question: string //问题
   answer: string //答案
   create_date: number //创建时间
+  fix_info: 0 | 1 // 是否已修正
 }
 
 export interface LogInfoTableResponseType extends ErrorResponse {

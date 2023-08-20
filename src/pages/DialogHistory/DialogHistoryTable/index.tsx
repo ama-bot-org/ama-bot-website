@@ -8,7 +8,7 @@ import utc from 'dayjs/plugin/utc'
 import { ReactComponent as LikeIcon } from '@/components/EvaluateBtn/icons/like.svg'
 import { ReactComponent as UnlikeIcon } from '@/components/EvaluateBtn/icons/unlike.svg'
 import { ReactComponent as EditIcon } from './icons/edit.svg'
-import QAModal from '@/pages/StandardLib/QAModal'
+import QAModal from '../QAModal'
 import { useState } from 'react'
 import { noop } from 'lodash'
 
@@ -100,10 +100,14 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
           {/* <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
             编辑
           </Button> */}
-          {/* <Button type="text" onClick={() => handleFixRow(rowData)} icon={<EditIcon />}>
-            修正
-          </Button>
-          <Divider type="vertical" style={{background:'#979797'}}/> */}
+          {rowData.fix_info === 1 ? (
+            <span style={{ paddingRight: 15 }}>已修正</span>
+          ) : (
+            <Button type="text" onClick={() => handleFixRow(rowData)} icon={<EditIcon />}>
+              修正
+            </Button>
+          )}
+          <Divider type="vertical" style={{background:'#979797'}}/>
           <Button type="text" onClick={() => handlePreviewRow(rowData)} icon={<EyeOutlined />}>
             查看
           </Button>
@@ -149,9 +153,8 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
         visible={modalVisible}
         setVisible={setModalVisible}
         QAInfo={QAInfo}
-        modalType="add"
         okCallback={okCallback}
-        forceInitialValues={true}
+        log_id={editData?.id as number}
       />
     </>
 
