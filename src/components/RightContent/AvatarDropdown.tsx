@@ -47,7 +47,7 @@ export const AvatarName = () => {
       }}
     >
       {/* <img src={currentUser?.image_url} alt="avatar" style={{ width: 22, height: 22, borderRadius: 10, marginRight: 6 }} /> */}
-      <span>{currentUser?.email}</span>
+      <span>{currentUser?.phone || currentUser?.email}</span>
     </span>
   )
 }

@@ -12,7 +12,7 @@ import { history } from '@umijs/max'
 import RegisterForm from './RegisterForm'
 import EmailPassForm from './EmailPassForm'
 import registerAPI from '@/services/web-api/register'
-import { RegisterParams, UserRegisterResponse } from '@/services/web-api/models/user'
+import { PhoneRegisterParams, UserRegisterResponse } from '@/services/web-api/models/user'
 import { ActionType } from '@/constants/enums'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -25,7 +25,7 @@ const Register = () => {
 
   const [submitting, setSubmitting] = useState(false)
   const [registerStep, setRegisterStep] = useState(step ? Number(step) : 1)
-  const [registerParams, setRegisterParams] = useState<RegisterParams>({} as RegisterParams)
+  const [registerParams, setRegisterParams] = useState<PhoneRegisterParams>({} as PhoneRegisterParams)
 
   useEffect(() => {
     const query = new URLSearchParams(history.location.search)
@@ -33,11 +33,11 @@ const Register = () => {
     setRegisterStep(step ? Number(step) : 1)
   }, [location])
 
-  const handleSubmit = async (values: RegisterParams) => {
+  const handleSubmit = async (values: PhoneRegisterParams) => {
     setSubmitting(true)
     try {
       // 注册成功后跳转到登录页
-      const registerResult: UserRegisterResponse = await registerAPI.registerNewUser(values)
+      const registerResult: UserRegisterResponse = await registerAPI.registerUser(values)
       if (registerResult.ActionType === ActionType.OK) {
         history.push('/user/login')
       } else {
@@ -59,8 +59,8 @@ const Register = () => {
     setRegisterStep(2)
   }
 
-  const onCompleteRegister = (email: string, password: string, captcha: string) => {
-    const allParams = { ...registerParams, email, password, email_check: captcha }
+  const onCompleteRegister = (phone: string, password: string, captcha: string) => {
+    const allParams = { ...registerParams, phone, password, phone_check: captcha }
     setRegisterParams(allParams)
     handleSubmit(allParams)
   }

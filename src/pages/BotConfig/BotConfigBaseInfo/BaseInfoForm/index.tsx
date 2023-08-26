@@ -85,13 +85,14 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
       setIsInit(false)
       return
     }
-    if (currentUser?.email && currentUser?.bot_id) {
+    if (currentUser?.phone && currentUser?.bot_id) {
       const updateParams: BotRequestType = {
         ...values,
         welcomes: JSON.stringify(values.welcomes),
         contact: JSON.stringify(values.contact),
         faq_contents: JSON.stringify(values.faq_contents),
         email: currentUser?.email,
+        phone: currentUser?.phone,
         bot_id: currentUser?.bot_id,
       }
       const result = await BotAPI.updateBotInfo(updateParams)

@@ -12,7 +12,7 @@ import { ActionType, CheckType, RegisterType } from '@/constants/enums'
 import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
 import AgreementFormItem from '../components/AgreementFormItem'
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { User, LoginFormParams, LoginParams } from '@/services/web-api/models/user'
+import { User, LoginFormParams, PhoneLoginParams } from '@/services/web-api/models/user'
 
 const Login: React.FC = () => {
   const { setInitialState } = useModel('@@initialState')
@@ -62,17 +62,17 @@ const Login: React.FC = () => {
       // 登录
       setSubmitting(true)
 
-      const params: LoginParams = {
-        email: values.email,
+      const params: PhoneLoginParams = {
+        phone: values.phone,
         checkType: isCheckBuyCaptcha ? CheckType.Captcha : CheckType.Password,
       }
       if (!isCheckBuyCaptcha) {
         Object.assign(params, { password: values.password })
       } else {
-        Object.assign(params, { email_check: values.captcha })
+        Object.assign(params, { phone_check: values.captcha })
       }
 
-      const msg = await loginAPI.login(params)
+      const msg = await loginAPI.loginByPhone(params)
       if (msg.ActionType === ActionType.OK) {
         asyncUserInfo(msg.data)
         const defaultLoginSuccessMessage = intl.formatMessage({
@@ -157,23 +157,23 @@ const Login: React.FC = () => {
             width: '100%',
           }}
         >
-          <span>{intl.formatMessage({ id: 'pages.login.emailLogin.tab' })}</span>
+          <span>{intl.formatMessage({ id: 'pages.login.phoneLogin.tab' })}</span>
         </div>
         <Form form={form} name="UserRegister" onFinish={onFinish} style={{ width: '100%', overflow: 'hidden' }} scrollToFirstError>
           <Form.Item
-            name="email"
+            name="phone"
             rules={[
               {
                 required: true,
-                message: intl.formatMessage({ id: 'register.email.required' }),
+                message: intl.formatMessage({ id: 'register.phone.required' }),
               },
               {
-                type: 'email',
-                message: intl.formatMessage({ id: 'register.email.wrong-format' }),
+                type: 'string',
+                message: intl.formatMessage({ id: 'register.phone.wrong-format' }),
               },
             ]}
           >
-            <Input size="large" style={{ height: '48px' }} placeholder={intl.formatMessage({ id: 'register.email.placeholder' })} />
+            <Input size="large" style={{ height: '48px' }} placeholder={intl.formatMessage({ id: 'register.phone.placeholder' })} />
           </Form.Item>
           {isCheckBuyCaptcha ? (
             <CaptchaForm form={form} registerType={RegisterType.Login} onCaptchaChange={handleDynamicFieldChange} />
@@ -208,8 +208,8 @@ const Login: React.FC = () => {
               }}
             >
               {isCheckBuyCaptcha
-                ? intl.formatMessage({ id: 'pages.login.emailLogin.passwordLogin' })
-                : intl.formatMessage({ id: 'pages.login.emailLogin.captchaLogin' })}
+                ? intl.formatMessage({ id: 'pages.login.phoneLogin.passwordLogin' })
+                : intl.formatMessage({ id: 'pages.login.phoneLogin.captchaLogin' })}
             </Button>
           </div>
           <AgreementFormItem handleCheckboxChange={handleCheckboxChange} />

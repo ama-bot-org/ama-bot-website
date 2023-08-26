@@ -12,6 +12,8 @@ export default {
   'pages.login.password.required': 'Please input your password!',
   'pages.login.phoneLogin.tab': 'Phone Login',
   'pages.login.phoneLogin.errorMessage': 'Verification Code Error',
+  'pages.login.phoneLogin.passwordLogin': 'Login by password',
+  'pages.login.phoneLogin.captchaLogin': 'Login by captcha',
   'pages.login.phoneNumber.placeholder': 'Phone Number',
   'pages.login.phoneNumber.required': 'Please input your phone number!',
   'pages.login.phoneNumber.invalid': 'Phone number is invalid!',
