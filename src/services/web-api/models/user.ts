@@ -35,6 +35,8 @@ export interface User {
 export interface LoginResult {
   ActionType: ActionType
   data: User
+  message?: string
+  code?: number
 }
 
 export interface PageParams {

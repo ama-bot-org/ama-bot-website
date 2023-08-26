@@ -83,6 +83,8 @@ const Login: React.FC = () => {
         const urlParams = new URL(window.location.href).searchParams
         history.push(urlParams.get('redirect') || '/database-config/corpus')
         return
+      } else {
+        message.error(msg.message)
       }
       console.log(msg)
     } catch (error) {
