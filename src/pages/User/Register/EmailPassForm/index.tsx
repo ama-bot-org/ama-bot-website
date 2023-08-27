@@ -88,6 +88,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
         >
           <Input size="large" placeholder={intl.formatMessage({ id: 'register.phone.placeholder' })} />
         </Form.Item>
+        <CaptchaForm form={form} registerType={RegisterType.Register} />
         <Form.Item
           name="password"
           rules={[
@@ -119,7 +120,6 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
         >
           <Input.Password size="large" placeholder={intl.formatMessage({ id: 'register.password.required' })} />
         </Form.Item>
-        <CaptchaForm form={form} registerType={RegisterType.Register} />
         <AgreementFormItem handleCheckboxChange={handleCheckboxChange} />
         <Form.Item>
           <ConfigProvider
