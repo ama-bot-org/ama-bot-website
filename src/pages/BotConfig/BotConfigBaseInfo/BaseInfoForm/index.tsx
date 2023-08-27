@@ -134,7 +134,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
     }
     const isLt1M = file.size / 1024 / 1024 < 1
     if (!isLt1M) {
-      message.error('Image must smaller than 2MB!')
+      message.error('Image must smaller than 1MB!')
     }
     return isJpgOrPng && isLt1M
   }
