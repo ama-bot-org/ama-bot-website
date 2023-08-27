@@ -8,7 +8,7 @@ import utc from 'dayjs/plugin/utc'
 import { ReactComponent as LikeIcon } from '@/components/EvaluateBtn/icons/like.svg'
 import { ReactComponent as UnlikeIcon } from '@/components/EvaluateBtn/icons/unlike.svg'
 import { ReactComponent as EditIcon } from './icons/edit.svg'
-import QAModal from '../QAModal'
+import QAModal from '@/components/QAModal'
 import { useState } from 'react'
 import { noop } from 'lodash'
 

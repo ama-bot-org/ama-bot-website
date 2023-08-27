@@ -1,4 +1,4 @@
-import QAModal from '@/pages/StandardLib/QAModal'
+import QAModal from '@/components/QAModal'
 import logInfoApi from '@/services/web-api/logInfo'
 import { CommentType } from '@/services/web-api/models/logInfo'
 import { useModel } from '@umijs/max'
@@ -24,6 +24,7 @@ const Evaluate: FC<Iprops> = ({ show = true, hasFix = true, className, size = 'b
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const [activeBtn, setActiveBtn] = useState<ActiveBtn>()
+  const [log_id, setLogId] = useState<number>()
   const [isFixed, setIsFixed] = useState(false)
   const [modalVisible, setModalVisible] = useState<boolean>(false)
 
@@ -32,12 +33,13 @@ const Evaluate: FC<Iprops> = ({ show = true, hasFix = true, className, size = 'b
       if (!currentUser?.bot_id) {
         return false
       }
-      const { ActionType, message } = await logInfoApi.commentInfo({
+      const { ActionType, message, LogId } = await logInfoApi.commentInfo({
         bot_id: currentUser.bot_id,
         comment_type,
         question: prompt,
       })
       if (ActionType === 'OK') {
+        setLogId(LogId)
         return true
       } else {
         throw message
@@ -80,6 +82,7 @@ const Evaluate: FC<Iprops> = ({ show = true, hasFix = true, className, size = 'b
       setActiveBtn(undefined)
       setIsFixed(false)
       setModalVisible(false)
+      setLogId(undefined)
     }
   }, [show])
 
@@ -102,9 +105,8 @@ const Evaluate: FC<Iprops> = ({ show = true, hasFix = true, className, size = 'b
             prompt,
             completion,
           }}
-          modalType="add"
           okCallback={onFixed}
-          forceInitialValues={true}
+          log_id={log_id as number}
         />
       )}
     </>
