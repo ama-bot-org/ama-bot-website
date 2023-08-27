@@ -20,7 +20,7 @@ export type CONFIG_ITEM_TYPE = {
 export const CONFIG: CONFIG_ITEM_TYPE[] = [
   {
     version: VERSION_TYPE.free,
-    name: '免费版',
+    name: '免费试用版',
     price: 0,
     standard_total: 30,
     corpus_total: 10000,
