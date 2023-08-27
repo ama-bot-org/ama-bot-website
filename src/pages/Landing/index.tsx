@@ -254,7 +254,7 @@ const Landing: React.FC = () => {
           <SectionTryFree />
         </div>
       </div>
-      <OnlineFAQ width={320} />
+      <OnlineFAQ width={isMobile ? 160 : 320} />
       <Footer />
     </div>
   )

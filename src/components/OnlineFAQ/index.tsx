@@ -1,5 +1,6 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useState } from 'react'
+import { isMobile } from 'react-device-detect'
 
 type OnlineFAQProps = {
   top?: number
@@ -44,8 +45,17 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
       paddingLeft: 20,
       cursor: 'pointer',
       '@media screen and (max-width: 768px)': {
+        float: 'right',
         margin: '20px',
         boxShadow: 'rgba(0, 0, 0, 0.07) 0px 2px 10px 2px, rgba(0, 0, 0, 0.15) 0px 2px 2px -2px',
+      },
+    }
+  })
+
+  const iframeClassName = useEmotionCss(() => {
+    return {
+      '@media screen and (max-width: 768px)': {
+        float: 'right',
       },
     }
   })
@@ -55,14 +65,15 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
       <iframe
         src={`${REACT_APP_OFFICIAL_SITE}/bot/askio`}
         style={{
-          width: width,
+          width: width < 320 ? 320 : width,
           height: iframeVisible ? height : 0,
           border: 'none',
-          marginBottom: -60,
+          marginBottom: isMobile ? -20 : -60,
           transition: 'height 0.3s',
           overflow: 'hidden',
           borderRadius: '10px',
         }}
+        className={iframeClassName}
       ></iframe>
       <div className={btnClassName} onClick={() => setIframeVisible(!iframeVisible)}>
         <span
