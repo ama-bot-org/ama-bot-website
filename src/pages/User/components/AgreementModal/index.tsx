@@ -17,7 +17,7 @@ const ServiceContent = () => {
           id: 'agreement.service.welcome',
         })}
       </p>
-      <h3>
+      <h3 style={{ fontWeight: 600 }}>
         {Inlt.formatMessage({
           id: 'agreement.service.h3_1',
         })}
@@ -37,7 +37,7 @@ const ServiceContent = () => {
           id: 'agreement.service.p_1_3',
         })}
       </p>
-      <h3>
+      <h3 style={{ fontWeight: 600 }}>
         {Inlt.formatMessage({
           id: 'agreement.service.h3_2',
         })}
@@ -56,7 +56,7 @@ const ServiceContent = () => {
           </li>
         ))}
       </ol>
-      <h3>
+      <h3 style={{ fontWeight: 600 }}>
         {Inlt.formatMessage({
           id: 'agreement.service.h3_3',
         })}
@@ -70,7 +70,7 @@ const ServiceContent = () => {
           </li>
         ))}
       </ol>
-      <h3>
+      <h3 style={{ fontWeight: 600 }}>
         {Inlt.formatMessage({
           id: 'agreement.service.h3_4',
         })}
@@ -98,7 +98,7 @@ const PrivacyContent = () => {
           id: 'agreement.privacy.welcome',
         })}
       </p>
-      <h3>
+      <h3 style={{ fontWeight: 600 }}>
         {Inlt.formatMessage({
           id: 'agreement.privacy.h3_1',
         })}
@@ -169,7 +169,7 @@ const PrivacyContent = () => {
           })}
         </li>
       </ul>
-      <h3>
+      <h3 style={{ fontWeight: 600 }}>
         {Inlt.formatMessage({
           id: 'agreement.privacy.h3_2',
         })}
@@ -179,7 +179,7 @@ const PrivacyContent = () => {
           id: 'agreement.privacy.p_4',
         })}
       </p>
-      <h3>
+      <h3 style={{ fontWeight: 600 }}>
         {Inlt.formatMessage({
           id: 'agreement.privacy.h3_3',
         })}
@@ -189,7 +189,7 @@ const PrivacyContent = () => {
           id: 'agreement.privacy.p_5',
         })}
       </p>
-      <h3>
+      <h3 style={{ fontWeight: 600 }}>
         {Inlt.formatMessage({
           id: 'agreement.privacy.h3_4',
         })}
