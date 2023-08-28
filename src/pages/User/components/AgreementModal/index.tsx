@@ -27,6 +27,16 @@ const ServiceContent = () => {
           id: 'agreement.service.p_1',
         })}
       </p>
+      <p>
+        {Inlt.formatMessage({
+          id: 'agreement.service.p_1_2',
+        })}
+      </p>
+      <p>
+        {Inlt.formatMessage({
+          id: 'agreement.service.p_1_3',
+        })}
+      </p>
       <h3>
         {Inlt.formatMessage({
           id: 'agreement.service.h3_2',
@@ -37,65 +47,44 @@ const ServiceContent = () => {
           id: 'agreement.service.p_2',
         })}
       </p>
-      <ol style={{ paddingInlineStart: '20px' }}>
-        <li>
-          {Inlt.formatMessage({
-            id: 'agreement.service.p_2_1',
-          })}
-        </li>
-        <li>
-          {Inlt.formatMessage({
-            id: 'agreement.service.p_2_2',
-          })}
-        </li>
-        <li>
-          {Inlt.formatMessage({
-            id: 'agreement.service.p_2_3',
-          })}
-        </li>
+      <ol style={{ paddingInlineStart: '20px', listStyle: 'auto' }}>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(item => (
+          <li key={item} className="mb-4">
+            {Inlt.formatMessage({
+              id: `agreement.service.p_2_${item}`,
+            })}
+          </li>
+        ))}
       </ol>
-      <p>
-        {Inlt.formatMessage({
-          id: 'agreement.service.p_2_4',
-        })}
-      </p>
       <h3>
         {Inlt.formatMessage({
           id: 'agreement.service.h3_3',
         })}
       </h3>
-      <ol style={{ paddingInlineStart: '20px' }}>
-        <li>
-          {Inlt.formatMessage({
-            id: 'agreement.service.p_3_1',
-          })}
-        </li>
-        <li>
-          {Inlt.formatMessage({
-            id: 'agreement.service.p_3_2',
-          })}
-        </li>
-        <li>
-          {Inlt.formatMessage({
-            id: 'agreement.service.p_3_3',
-          })}
-        </li>
+      <ol style={{ paddingInlineStart: '20px', listStyle: 'auto' }}>
+        {[1, 2, 3, 4, 5, 6].map(item => (
+          <li key={item} className="mb-4">
+            {Inlt.formatMessage({
+              id: `agreement.service.p_3_${item}`,
+            })}
+          </li>
+        ))}
       </ol>
       <h3>
         {Inlt.formatMessage({
           id: 'agreement.service.h3_4',
         })}
       </h3>
-      <p>
-        {Inlt.formatMessage({
-          id: 'agreement.service.p_4_1',
-        })}
-      </p>
-      <p>
-        {Inlt.formatMessage({
-          id: 'agreement.service.p_4_2',
-        })}
-      </p>
+      <ol style={{ paddingInlineStart: '20px', listStyle: 'auto' }}>
+        {[1, 2, 3, 4, 5, 6, 7, 8].map(item => (
+          <li key={item} className="mb-4">
+            {Inlt.formatMessage({
+              id: `agreement.service.p_4_${item}`,
+            })}
+          </li>
+        ))}
+      </ol>
+      <p className="w-full text-right">2023 年2月深海蓝鳍（南京）科技有限公司</p>
     </div>
   )
 }
