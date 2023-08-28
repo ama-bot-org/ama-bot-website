@@ -2,7 +2,6 @@ import { LogInfoTableRow } from '@/services/web-api/models/logInfo'
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import Button from 'antd/es/button'
 import Table from 'antd/lib/table'
-import Divider from 'antd/lib/divider'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { ReactComponent as LikeIcon } from '@/components/EvaluateBtn/icons/like.svg'
@@ -11,6 +10,7 @@ import { ReactComponent as EditIcon } from './icons/edit.svg'
 import QAModal from '@/components/QAModal'
 import { useState } from 'react'
 import { noop } from 'lodash'
+import Tooltip from 'antd/es/tooltip'
 
 dayjs.extend(utc)
 
@@ -61,22 +61,42 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
       title: '问题',
       dataIndex: 'question',
       key: 'history_question',
+      ellipsis: {
+        showTitle: false,
+      },
+      width: 300,
+      render: (question: string) => (
+        <Tooltip placement="topLeft" title={question}>
+          {question}
+        </Tooltip>
+      ),
     },
     {
       title: '回答',
       dataIndex: 'answer',
       key: 'history_answer',
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (answer: string) => (
+        <Tooltip placement="topLeft" title={answer}>
+          {answer}
+        </Tooltip>
+      ),
     },
     {
       title: '创建时间',
       dataIndex: 'create_date',
       key: 'create_date',
+      width: 180,
+      align: 'center' as any,
       render: (date: number) => dayjs.utc(date).format('YYYY-MM-DD HH:mm:ss'),
     },
     {
       title: '评价',
       dataIndex: 'comment_type',
       key: 'comment_type',
+      align: 'center' as any,
       width: 120,
       render: (comment_type: CommentType) => {
         if (comment_type === CommentType.like) {
@@ -105,20 +125,20 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
       dataIndex: 'operation',
       key: 'operation',
       width: 220,
+      align: 'center' as any,
       render: (_: any, rowData: LogInfoTableRow) => (
-        <>
+        <span className="frc-center">
           {/* <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
             编辑
           </Button> */}
           {rowData.fix_info === 1 ? (
-            <span style={{ paddingRight: 15 }}>已修正</span>
+            <Button type="text">已修正</Button>
           ) : (
-            <Button type="text" onClick={() => handleFixRow(rowData)} icon={<EditIcon />}>
+            <Button type="text" onClick={() => handleFixRow(rowData)} icon={<EditIcon className="mr-4" />}>
               修正
             </Button>
           )}
-          <Divider type="vertical" style={{ background: '#979797' }} />
-          <Button type="text" onClick={() => handlePreviewRow(rowData)} icon={<EyeOutlined />}>
+          <Button type="text" onClick={() => handlePreviewRow(rowData)} icon={<EyeOutlined className="mr-4" />}>
             查看
           </Button>
           {/* <Popconfirm
@@ -131,7 +151,7 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
               删除
             </Button>
           </Popconfirm> */}
-        </>
+        </span>
       ),
     },
   ]
