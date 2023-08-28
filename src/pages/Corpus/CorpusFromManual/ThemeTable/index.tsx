@@ -45,7 +45,7 @@ const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteR
       },
       width: 180,
       render: (doc_name: string) => (
-        <Tooltip title={doc_name} placement="bottom">
+        <Tooltip title={doc_name} placement="bottomLeft">
           <div className="w-auto">{doc_name}</div>
         </Tooltip>
       ),
@@ -59,9 +59,14 @@ const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteR
       },
       width: 500,
       render: (content: string) => (
-        <Tooltip title={content} placement="bottom">
-          <div className="w-auto"> {content}</div>
-        </Tooltip>
+        <div
+          className="w-auto"
+          style={{
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {content}
+        </div>
       ),
     },
     {

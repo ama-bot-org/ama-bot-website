@@ -42,7 +42,7 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
         showTitle: false,
       },
       render: (prompt: string) => (
-        <Tooltip title={prompt} placement="bottom">
+        <Tooltip title={prompt} placement="bottomLeft">
           <span>{prompt}</span>
         </Tooltip>
       ),
@@ -55,7 +55,7 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
         showTitle: false,
       },
       render: (completion: string) => (
-        <Tooltip title={completion} placement="bottom">
+        <Tooltip title={completion} placement="bottomLeft">
           <span>{completion}</span>
         </Tooltip>
       ),

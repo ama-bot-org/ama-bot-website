@@ -49,7 +49,7 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDel
       },
       width: 300,
       render: (doc_name: string) => (
-        <Tooltip placement="bottom" title={doc_name}>
+        <Tooltip placement="bottomLeft" title={doc_name}>
           <div className="w-auto">{doc_name}</div>
         </Tooltip>
       ),
@@ -62,7 +62,7 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDel
         showTitle: false,
       },
       render: (content: string) => (
-        <Tooltip placement="bottom" title={content}>
+        <Tooltip placement="bottomLeft" title={content}>
           <div className="w-auto">{content}</div>
         </Tooltip>
       ),
@@ -76,7 +76,7 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onDel
       },
       width: 160,
       render: (page_id: string) => (
-        <Tooltip placement="bottom" title={page_id}>
+        <Tooltip placement="bottomLeft" title={page_id}>
           <div className="w-auto">{page_id}</div>
         </Tooltip>
       ),
