@@ -16,33 +16,49 @@ type Iprops = {
   className?: string
   disabled?: boolean
   onClick?: MouseEventHandler
+  color?: string
 }
 
 type Iprops2 = Omit<Iprops, 'text' | 'icon'>
 
-const Btn: FC<Iprops> = ({ size = 'base', active = false, icon = null, text = '', className = '', disabled = false, onClick = noop }) => {
+const Btn: FC<Iprops> = ({
+  size = 'base',
+  color = '#a1a1a1',
+  active = false,
+  icon = null,
+  text = '',
+  className = '',
+  disabled = false,
+  onClick = noop,
+}) => {
   return (
     <div
       className={cls(styles.btnRoot, className, styles[size], { [styles.active]: active, [styles.disabled]: disabled })}
-      onClick={(e) => {
+      onClick={e => {
         if (disabled) return
         onClick(e)
       }}
     >
       {icon && <div className={styles.icon}>{icon}</div>}
-      <span>{text}</span>
+      <span
+        style={{
+          color,
+        }}
+      >
+        {text}
+      </span>
     </div>
   )
 }
 
 export const LikeBtn: FC<Iprops2> = props => {
-  const color = props.active ? '#131415' : '#717177'
-  return <Btn text="答得不错" icon={<LikeIcon fill={color} />} {...props} />
+  const color = props.active ? '#000000' : '#a1a1a1'
+  return <Btn text="答得不错" icon={<LikeIcon fill={color} />} {...props} color={color} />
 }
 
 export const UnLikeBtn: FC<Iprops2> = props => {
-  const color = props.active ? '#131415' : '#717177'
-  return <Btn text="差点意思" icon={<UnlikeIcon fill={color} />} {...props} />
+  const color = props.active ? '#000000' : '#a1a1a1'
+  return <Btn text="差点意思" icon={<UnlikeIcon fill={color} />} {...props} color={color} />
 }
 
 export const FixBtn: FC<Iprops2> = props => {
