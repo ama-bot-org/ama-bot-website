@@ -5,6 +5,7 @@ import { Button, Input, message } from 'antd'
 import CopyLink from '../components/CopyLink'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import BotAPI from '@/services/web-api/bot'
+import { getOrigin } from '@/utils'
 
 const H5 = () => {
   const { initialState, setInitialState } = useModel('@@initialState')
@@ -18,7 +19,7 @@ const H5 = () => {
   useEffect(() => {
     if (currentUser?.bot_id || currentUser?.html_url) {
       setSubDomain(`${currentUser?.html_url || currentUser.bot_id}`)
-      setValue(`${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.html_url || currentUser.bot_id}`)
+      setValue(`${getOrigin()}/bot/${currentUser?.html_url || currentUser.bot_id}`)
     }
     return () => {}
   }, [currentUser])
@@ -61,7 +62,7 @@ const H5 = () => {
           }))
         })
         setDisabled(true)
-        setValue(`${REACT_APP_OFFICIAL_SITE}/${subDomain}`)
+        setValue(`${getOrigin()}/${subDomain}`)
         setErrorMessage('')
       } else if (result.message) {
         setErrorMessage(result.message)
@@ -105,7 +106,7 @@ const H5 = () => {
             handleChange(e)
           }}
           allowClear
-          prefix={`${REACT_APP_OFFICIAL_SITE}/bot/`}
+          prefix={`${getOrigin()}/bot/`}
         />
         {disabled ? (
           <CopyLink linkUrl={value} />

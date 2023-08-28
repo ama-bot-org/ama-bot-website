@@ -24,14 +24,6 @@ const Footer: React.FC = () => {
           background: 'none',
         }}
         copyright={`${currentYear} ${defaultMessage}`}
-        // links={[
-        //   {
-        //     key: 'Askio',
-        //     title: <GlobalOutlined />,
-        //     href: REACT_APP_OFFICIAL_SITE,
-        //     blankTarget: true,
-        //   },
-        // ]}
       />
 
       <a

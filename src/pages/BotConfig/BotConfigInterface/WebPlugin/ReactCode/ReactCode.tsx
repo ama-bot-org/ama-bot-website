@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import MonacoEditor from '@monaco-editor/react'
 import { useModel } from '@umijs/max'
 import CopyLink from '../../components/CopyLink'
+import { getOrigin } from '@/utils'
 
 export default function ReactCode() {
   const { initialState } = useModel('@@initialState')
@@ -28,7 +29,7 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
   return (
     <div className="askio-btn-wrap">
       <iframe 
-        src="${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.html_url}"
+        src="${getOrigin()}/bot/${currentUser?.html_url}"
         style={{
           width: \`\${width}px\`,
           height: \`\${iframeVisible ? height : 0}px\`,

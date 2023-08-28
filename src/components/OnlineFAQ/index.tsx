@@ -1,3 +1,4 @@
+import { getOrigin } from '@/utils'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useState } from 'react'
 import { isMobile } from 'react-device-detect'
@@ -63,7 +64,7 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
   return (
     <div className={btnWrapClassName}>
       <iframe
-        src={`${REACT_APP_OFFICIAL_SITE}/bot/askio`}
+        src={`${getOrigin()}/bot/askio`}
         style={{
           width: width < 320 ? 320 : width,
           height: iframeVisible ? height : 0,

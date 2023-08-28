@@ -3,6 +3,7 @@ import { useModel } from '@umijs/max'
 import { Input } from 'antd'
 import React, { useMemo } from 'react'
 import CopyLink from '../../components/CopyLink'
+import { getOrigin } from '@/utils'
 
 export default function HTMLCode() {
   const { initialState } = useModel('@@initialState')
@@ -52,7 +53,7 @@ export default function HTMLCode() {
     
         // Iframe
         const iframe = createElement('iframe', {
-          src: '${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.html_url}',
+          src: '${getOrigin()}/bot/${currentUser?.html_url}',
           style:\`
             width: \${width}px;
             height: \${iframeVisible ? height : 0}px;
