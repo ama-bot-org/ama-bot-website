@@ -55,8 +55,8 @@ export default function useBotModel() {
       }
     } else if (botIdResult && botIdResult.ActionType === ActionType.False) {
       setLoading(false)
-      message.error(botIdResult.message)
-      message.error('系统已升级，请重新登录后再试')
+      // message.error(botIdResult.message)
+      message.error('系统已升级，原访问地址可能已失效，请确认后重新登录再试')
       localStorage.removeItem('user')
       localStorage.removeItem('token')
       flushSync(() => {
