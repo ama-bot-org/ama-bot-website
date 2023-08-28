@@ -14,7 +14,7 @@ type OnlineFAQProps = {
 
 // 定制悬浮实时客服组件
 const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
-  const { width = 300, height = 500, bottom = 60, right = 60 } = props
+  const { width = 300, height = 500, bottom = 20, right = 60 } = props
   const [iframeVisible, setIframeVisible] = useState(false)
 
   const btnWrapClassName = useEmotionCss(() => {
@@ -25,7 +25,6 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
       overflow: 'hidden',
       zIndex: 9999,
       '@media screen and (max-width: 768px)': {
-        bottom: '60px',
         right: '10px',
       },
     }
