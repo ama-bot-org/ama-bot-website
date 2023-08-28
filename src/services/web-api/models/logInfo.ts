@@ -16,6 +16,10 @@ export interface CommentInfoParamsType {
   comment_type: CommentType
 }
 
+export interface CommentInfoResponse extends ErrorResponse {
+  LogId: number
+}
+
 export interface LogInfoTableRow {
   id: number //编号
   bot_id: string //机器人id

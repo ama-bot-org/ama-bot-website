@@ -11,11 +11,10 @@ type QAModalProps = {
   okCallback?: () => void
   QAInfo?: QAFormInfo
   modalType?: 'add' | 'edit'
-  forceInitialValues?: boolean // 强制有初始值
 }
 
 const QAModal = (props: QAModalProps) => {
-  const { visible, setVisible, QAInfo, modalType = 'add', okCallback, forceInitialValues} = props
+  const { visible, setVisible, QAInfo, modalType = 'add', okCallback } = props
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const { initialState } = useModel('@@initialState')
@@ -70,7 +69,7 @@ const QAModal = (props: QAModalProps) => {
     >
       <Form
         form={modalType === 'add' ? undefined : form}
-        initialValues={ forceInitialValues || modalType === 'edit' ? QAInfo : undefined}
+        initialValues={modalType === 'edit' ? QAInfo : undefined}
         layout="vertical"
         onFinish={handleFinished}
       >

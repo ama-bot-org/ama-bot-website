@@ -20,7 +20,7 @@ export type CONFIG_ITEM_TYPE = {
 export const CONFIG: CONFIG_ITEM_TYPE[] = [
   {
     version: VERSION_TYPE.free,
-    name: '免费版',
+    name: '免费试用版',
     price: 0,
     standard_total: 30,
     corpus_total: 10000,
@@ -76,7 +76,7 @@ export function formatNum(num: number, unit: string = '', hideUnitWhenSmall = fa
   } else if (num < 10000) {
     return hideUnitWhenSmall ? num : `${num}${unit}`
   } else {
-    num = num / 10000
-    return `${num}万${unit}`
+    const _num = num / 10000
+    return `${_num}万${unit}`
   }
 }

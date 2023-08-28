@@ -8,7 +8,7 @@ import utc from 'dayjs/plugin/utc'
 import { ReactComponent as LikeIcon } from '@/components/EvaluateBtn/icons/like.svg'
 import { ReactComponent as UnlikeIcon } from '@/components/EvaluateBtn/icons/unlike.svg'
 import { ReactComponent as EditIcon } from './icons/edit.svg'
-import QAModal from '../QAModal'
+import QAModal from '@/components/QAModal'
 import { useState } from 'react'
 import { noop } from 'lodash'
 
@@ -31,7 +31,7 @@ enum CommentType {
   all = 0,
   like = 1,
   unlike = 2,
-  noAnswer = 3
+  noAnswer = 3,
 }
 
 const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPageChange, refreshTable = noop }: NotionTableProps) => {
@@ -52,7 +52,7 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
   }
 
   const okCallback = () => {
-    setEditData(undefined);
+    setEditData(undefined)
     refreshTable()
   }
 
@@ -79,15 +79,25 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
       key: 'comment_type',
       width: 120,
       render: (comment_type: CommentType) => {
-        if ( comment_type === CommentType.like ) {
-          return <div className='frc-center'><LikeIcon/><span className='ml-8'>答得不错</span></div>
-        } else if( comment_type === CommentType.unlike ) {
-          return <div className='frc-center'><UnlikeIcon/><span className='ml-8'>差点意思</span></div>
-        } else if( comment_type === CommentType.noAnswer ){
+        if (comment_type === CommentType.like) {
+          return (
+            <div className="frc-center">
+              <LikeIcon />
+              <span className="ml-8">答得不错</span>
+            </div>
+          )
+        } else if (comment_type === CommentType.unlike) {
+          return (
+            <div className="frc-center">
+              <UnlikeIcon />
+              <span className="ml-8">差点意思</span>
+            </div>
+          )
+        } else if (comment_type === CommentType.noAnswer) {
           return '' // 暂无答案
         } else {
           return null
-        } 
+        }
       },
     },
     {
@@ -107,7 +117,7 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
               修正
             </Button>
           )}
-          <Divider type="vertical" style={{background:'#979797'}}/>
+          <Divider type="vertical" style={{ background: '#979797' }} />
           <Button type="text" onClick={() => handlePreviewRow(rowData)} icon={<EyeOutlined />}>
             查看
           </Button>
@@ -149,7 +159,7 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
           onPageChange(pagination.current!)
         }}
       />
-      <QAModal 
+      <QAModal
         visible={modalVisible}
         setVisible={setModalVisible}
         QAInfo={QAInfo}
@@ -157,7 +167,6 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
         log_id={editData?.id as number}
       />
     </>
-
   )
 }
 
