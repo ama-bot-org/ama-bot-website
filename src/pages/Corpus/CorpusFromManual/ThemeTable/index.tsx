@@ -10,6 +10,7 @@ import Table from 'antd/lib/table'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { useIntl } from '@umijs/max'
+import Tooltip from 'antd/es/tooltip'
 dayjs.extend(utc)
 
 type ThemeTableProps = {
@@ -39,18 +40,44 @@ const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteR
       title: '标题',
       dataIndex: 'doc_name',
       key: 'doc_name',
+      ellipsis: {
+        showTitle: false,
+      },
+      width: 180,
+      render: (doc_name: string) => (
+        <Tooltip title={doc_name} placement="bottom">
+          <div className="w-auto">{doc_name}</div>
+        </Tooltip>
+      ),
+    },
+    {
+      title: '内容',
+      dataIndex: 'content',
+      key: 'content',
+      ellipsis: {
+        showTitle: false,
+      },
+      width: 500,
+      render: (content: string) => (
+        <Tooltip title={content} placement="bottom">
+          <div className="w-auto"> {content}</div>
+        </Tooltip>
+      ),
     },
     {
       title: '创建时间',
       dataIndex: 'date',
       key: 'date',
+      width: 180,
+      align: 'center' as any,
       render: (date: number) => dayjs.utc(date).format('YYYY-MM-DD HH:mm:ss'),
     },
     {
       title: '操作',
       dataIndex: 'operation',
       key: 'operation',
-      width: '200px',
+      width: 220,
+      align: 'center' as any,
       render: (_: any, rowData: FileInfo) => (
         <>
           <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
