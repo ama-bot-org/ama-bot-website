@@ -12,6 +12,7 @@ const Dialog = ({ position, children }: { position: string; children: React.Reac
         fontSize: '16px',
       },
       lineHeight: '1.5',
+      wordBreak: 'break-all',
     }
   })
 
