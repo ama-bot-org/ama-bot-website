@@ -64,6 +64,9 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
   }
 
   const handleTestQuery = async () => {
+    if (!question) {
+      return
+    }
     const temp = await loadQuery()
     await requestQuery(temp)
   }

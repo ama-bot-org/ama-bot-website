@@ -24,7 +24,7 @@ type QAProps = {
 
 const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance, disabledAd, hasEvaluateFix = true }: QAProps) => {
   const [question, setQuestion] = React.useState('')
-  const [dialogs, setDialogs] = React.useState<{ type: string; content: any, isApiAwnser?: boolean }[]>([])
+  const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
 
   const loadQuery = async (text?: string | React.ReactNode) => {
     const temp = dialogs.slice()
@@ -66,6 +66,9 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
   }
 
   const handleTestQuery = async () => {
+    if (!question) {
+      return
+    }
     const temp = await loadQuery()
     await requestQuery(temp)
   }
@@ -172,9 +175,9 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
   }
 
   const renderEvaluate = () => {
-    const [ dialog1, dialog2 ] = dialogs.slice(-2)
+    const [dialog1, dialog2] = dialogs.slice(-2)
     let show = false
-    if(dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAwnser ){
+    if (dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAwnser) {
       show = true
     }
     return (

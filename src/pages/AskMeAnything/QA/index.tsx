@@ -16,7 +16,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const [question, setQuestion] = React.useState('')
-  const [dialogs, setDialogs] = React.useState<{ type: string; content: any, isApiAwnser?: boolean }[]>([])
+  const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
 
   const loadQuery = async () => {
     const temp = dialogs.slice()
@@ -33,7 +33,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
   }
 
   const handleTestQuery = async () => {
-    if (!currentUser?.bot_id) {
+    if (!currentUser?.bot_id || !question) {
       return
     }
     setQuestion('')
@@ -74,9 +74,9 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
   }
 
   const renderEvaluate = () => {
-    const [ dialog1, dialog2 ] = dialogs.slice(-2)
+    const [dialog1, dialog2] = dialogs.slice(-2)
     let show = false
-    if( dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAwnser ){
+    if (dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAwnser) {
       show = true
     }
     return (
