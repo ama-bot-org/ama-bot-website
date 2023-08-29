@@ -16,6 +16,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const [question, setQuestion] = React.useState('')
+  const [isShowErrorTip, setIsShowErrorTip] = React.useState(false)
   const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
 
   const loadQuery = async () => {
@@ -33,7 +34,11 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
   }
 
   const handleTestQuery = async () => {
-    if (!currentUser?.bot_id || !question) {
+    if (!currentUser?.bot_id) {
+      return
+    }
+    if (!question) {
+      setIsShowErrorTip(true)
       return
     }
     setQuestion('')
@@ -62,6 +67,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.target.value)
+    setIsShowErrorTip(false)
   }
 
   const updateScroll = () => {
@@ -226,6 +232,11 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
           />
         </Tooltip>
       </div>
+      {isShowErrorTip && (
+        <div className="w-full text-left" style={{ color: '#e65c41', width: 'calc(100% - 36px)', marginTop: 8, paddingLeft: 28 }}>
+          不可发送空消息
+        </div>
+      )}
     </div>
   )
 }
