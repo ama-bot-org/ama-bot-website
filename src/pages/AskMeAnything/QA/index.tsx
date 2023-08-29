@@ -180,6 +180,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
                 }`}
                 style={{
                   maxWidth: '70%',
+                  wordBreak: 'break-all',
                 }}
               >
                 {dialog.content}
