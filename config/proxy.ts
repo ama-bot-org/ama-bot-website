@@ -14,7 +14,7 @@ export default {
     // localhost:8000/api/** -> https://preview.pro.ant.design/api/**
     '/api/': {
       // 要代理的地址
-      target: process.env.API_URL, // "http://localhost:3003",
+      target: process.env.API_URL_DEV, // "http://localhost:3003",
       // 配置了这个可以从 http 代理到 https
       // 依赖 origin 的功能可能需要这个，比如 cookie
       changeOrigin: true,
@@ -43,7 +43,7 @@ export default {
   },
   pre: {
     '/api/': {
-      target: process.env.API_URL,
+      target: process.env.API_URL_DEV,
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },

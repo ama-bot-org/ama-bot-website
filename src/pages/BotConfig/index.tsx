@@ -3,11 +3,11 @@ import { Helmet } from '@umijs/max'
 import React from 'react'
 import Tabs from 'antd/es/tabs'
 import BasicSvg from './Icons/BasicSvg'
-import CustomSvg from './Icons/CustomSvg'
+// import CustomSvg from './Icons/CustomSvg'
 import InterfaceSvg from './Icons/InterfaceSvg'
 import type { TabsProps } from 'antd/es/tabs'
 import BaseInfo from './BotConfigBaseInfo'
-import Custom from './BotConfigCustom'
+// import Custom from './BotConfigCustom'
 import Interface from './BotConfigInterface'
 
 const BotConfig: React.FC = () => {
@@ -31,21 +31,21 @@ const BotConfig: React.FC = () => {
       ),
       children: <BaseInfo />,
     },
-    {
-      key: '2',
-      label: (
-        <span
-          className="frc-center"
-          style={{
-            fontSize: 16,
-          }}
-        >
-          <CustomSvg />
-          <span className="ml-4">品牌定制</span>
-        </span>
-      ),
-      children: <Custom />,
-    },
+    // {
+    //   key: '2',
+    //   label: (
+    //     <span
+    //       className="frc-center"
+    //       style={{
+    //         fontSize: 16,
+    //       }}
+    //     >
+    //       <CustomSvg />
+    //       <span className="ml-4">品牌定制</span>
+    //     </span>
+    //   ),
+    //   children: <Custom />,
+    // },
     {
       key: '3',
       label: (

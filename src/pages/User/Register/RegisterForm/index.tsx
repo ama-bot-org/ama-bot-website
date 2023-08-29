@@ -62,7 +62,7 @@ const RegisterForm = (props: RegisterFormProps) => {
     }
     const isLt1M = file.size / 1024 / 1024 < 1
     if (!isLt1M) {
-      message.error('Image must smaller than 2MB!')
+      message.error('Image must smaller than 1MB!')
     }
     return isJpgOrPng && isLt1M
   }
@@ -160,7 +160,7 @@ const RegisterForm = (props: RegisterFormProps) => {
         <Form.Item
           name="name"
           label={intl.formatMessage({ id: 'register.name.register' })}
-          rules={[{ validator: (rule, value) => validIsUnique(rule, value) }]}
+          rules={[{ required: true, message: '' }, { validator: (rule, value) => validIsUnique(rule, value) }]}
         >
           <Input placeholder="请输入 AI 客服昵称" />
         </Form.Item>
@@ -170,7 +170,7 @@ const RegisterForm = (props: RegisterFormProps) => {
             label={intl.formatMessage({ id: 'register.logo' })}
             valuePropName="fileList"
             getValueFromEvent={event => event.fileList}
-            rules={[{ validator: validateImage }]}
+            rules={[{ required: true, message: '' }, { validator: validateImage }]}
             style={{ width: 98 }}
           >
             <ImgCrop modalClassName="cursor-pointer" fillColor="rgba(0, 0, 0, 0)" aspect={1} cropShape="round">

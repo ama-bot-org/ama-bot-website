@@ -5,6 +5,7 @@ import TimeLineStep from './TimeLineStep'
 import { useModel } from '@umijs/max'
 import Divider from 'antd/es/divider'
 import { isMobile } from 'react-device-detect'
+import { getOrigin } from '@/utils'
 
 const WeChat = () => {
   const { initialState } = useModel('@@initialState')
@@ -13,7 +14,7 @@ const WeChat = () => {
 
   useEffect(() => {
     if (currentUser?.bot_id) {
-      setValue(`${REACT_APP_OFFICIAL_SITE}/bot/${currentUser.bot_id}`)
+      setValue(`${getOrigin()}/bot/${currentUser.bot_id}`)
     }
     return () => {}
   }, [currentUser])

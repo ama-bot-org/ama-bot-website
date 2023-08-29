@@ -2,6 +2,7 @@ import { Editor } from '@monaco-editor/react'
 import { useModel } from '@umijs/max'
 import React, { useMemo } from 'react'
 import CopyLink from '../../components/CopyLink'
+import { getOrigin } from '@/utils'
 
 export default function VueCode() {
   const { initialState } = useModel('@@initialState')
@@ -12,7 +13,7 @@ export default function VueCode() {
     <div class="askio-btn-wrap">
       <iframe
         v-show="iframeVisible"
-        src="${REACT_APP_OFFICIAL_SITE}/bot/${currentUser?.html_url}"
+        src="${getOrigin()}/bot/${currentUser?.html_url}"
         class="askio-iframe-class"
         :style="{
           width: \`\${width}px\`,

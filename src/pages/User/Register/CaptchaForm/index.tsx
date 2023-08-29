@@ -25,12 +25,12 @@ const CaptchaForm = (props: CaptFormProps) => {
   const onGetCaptcha = async () => {
     setSendLoading(true)
     try {
-      await form.validateFields(validFields || ['email', 'password', 'confirm'])
+      await form.validateFields(validFields || ['phone']) //此处调换了顺序，先发验证码再输密码，所以先不校验密码, 'password', 'confirm'
 
       // 获取验证码
-      const email = form.getFieldValue('email')
-      if (email) {
-        const res = await userAPI.requestCaptcha(email, registerType)
+      const phone = form.getFieldValue('phone')
+      if (phone) {
+        const res = await userAPI.requestPhoneCaptcha(phone, registerType)
         if (res.ActionType === ActionType.OK) {
           // 倒计时
           let count = 59
@@ -47,7 +47,7 @@ const CaptchaForm = (props: CaptFormProps) => {
           message.error(res?.message || intl.formatMessage({ id: 'register.code.unavailable' }))
         }
       } else {
-        form.validateFields(['email'])
+        form.validateFields(['phone'])
       }
     } catch (error) {
       console.log(error)

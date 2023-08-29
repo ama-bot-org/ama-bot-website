@@ -1,7 +1,7 @@
 // @ts-ignore
 /* eslint-disable */
 import { request } from '@umijs/max'
-import { FakeCaptcha, LoginParams, LoginResult } from './models/user'
+import { FakeCaptcha, LoginParams, LoginResult, PhoneLoginParams } from './models/user'
 
 /** 发送验证码 POST /api/login/captcha */
 async function getFakeCaptcha(
@@ -35,7 +35,21 @@ async function login(body: LoginParams): Promise<LoginResult> {
   return res.data
 }
 
+/** 登录接口 POST /api/app/user/login */
+async function loginByPhone(body: PhoneLoginParams): Promise<LoginResult> {
+  const res = await request('/api/app/user/loginByPhone', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    getResponse: true,
+  })
+  localStorage.setItem('token', res.headers.authorization || '')
+  return res.data
+}
 export default {
   getFakeCaptcha,
   login,
+  loginByPhone,
 }

@@ -24,7 +24,8 @@ export interface CurrentUser {
 
 export interface User {
   name: string
-  email: string
+  email?: string
+  phone: string
   org_id: string
   bot_id: string
   level: AuthorityLevel
@@ -34,6 +35,8 @@ export interface User {
 export interface LoginResult {
   ActionType: ActionType
   data: User
+  message?: string
+  code?: number
 }
 
 export interface PageParams {
@@ -64,8 +67,26 @@ export interface RegisterParams {
   email_check: string //邮箱验证码
 }
 
+export interface PhoneRegisterParams {
+  bot_id?: string //机器人id，默认为0
+
+  level?: AuthorityLevel //用户的权限，默认为2
+
+  org_id: string //用户头注册的ai名称
+
+  name: string //用户名
+
+  image_url: string //用户头像地址
+
+  phone: string //用户手机号
+
+  password: string //用户密码
+
+  phone_check: string //手机号验证码
+}
+
 export interface LoginFormParams {
-  email: string
+  phone: string
   password: string
   captcha: string
   checkType: CheckType
@@ -76,6 +97,14 @@ export interface LoginParams {
   email: string
   password?: string
   email_check?: string
+  checkType: CheckType
+  interface?: string
+}
+
+export interface PhoneLoginParams {
+  phone: string
+  password?: string
+  phone_check?: string
   checkType: CheckType
   interface?: string
 }

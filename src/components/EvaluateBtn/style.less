@@ -1,0 +1,55 @@
+.btnRoot {
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  color: #a1a1a1;
+  font-size: 14px;
+  background-color: #f7f6f6;
+  border-radius: 4px;
+  cursor: pointer;
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    color: inherit;
+  }
+  &.small {
+    padding: 0 10px;
+    .icon {
+      margin-right: 4px;
+    }
+  }
+  &:not(.active):not(.disabled):hover {
+    background-color: #fff;
+  }
+  &.active {
+    color: #131415;
+    background-color: #f7f6f6;
+  }
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+
+.fixBtn {
+  color: #131415;
+  background-color: #f7f6f6;
+  border: solid 1px #131415;
+
+  &:hover {
+    color: #131415;
+    background-color: #f7f6f6;
+    border: solid 1px #131415;
+  }
+
+  &.active {
+    border: none;
+    cursor: not-allowed;
+  }
+}

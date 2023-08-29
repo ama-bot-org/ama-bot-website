@@ -16,7 +16,9 @@ export interface Bot {
 }
 
 export interface BotRequestType extends Bot {
-  email: string
+  email?: string
+  phone: string
+
   bot_id: string
 }
 

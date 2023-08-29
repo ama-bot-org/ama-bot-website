@@ -5,7 +5,7 @@ import defaultSettings from './defaultSettings'
 import proxy from './proxy'
 import routes from './routes'
 
-const { REACT_APP_ENV = 'dev', REACT_APP_OFFICIAL_SITE, REACT_APP_GITHUB_SITE } = process.env
+const { REACT_APP_ENV = 'dev', REACT_APP_GITHUB_SITE } = process.env
 
 export default defineConfig({
   esbuildMinifyIIFE: true,
@@ -156,7 +156,6 @@ export default defineConfig({
   },
   requestRecord: {},
   define: {
-    REACT_APP_OFFICIAL_SITE: REACT_APP_OFFICIAL_SITE || false,
     REACT_APP_GITHUB_SITE: REACT_APP_GITHUB_SITE || false,
   },
 })

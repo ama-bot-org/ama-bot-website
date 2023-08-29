@@ -8,13 +8,13 @@ import { Input, Modal, Form, Button, message } from 'antd'
 type QAModalProps = {
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
-  setTableRefresh: () => void
+  okCallback?: () => void
   QAInfo?: QAFormInfo
   modalType?: 'add' | 'edit'
 }
 
 const QAModal = (props: QAModalProps) => {
-  const { visible, setVisible, QAInfo, modalType = 'add', setTableRefresh } = props
+  const { visible, setVisible, QAInfo, modalType = 'add', okCallback } = props
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const { initialState } = useModel('@@initialState')
@@ -24,12 +24,12 @@ const QAModal = (props: QAModalProps) => {
     if (QAInfo && visible) {
       form.setFieldsValue(QAInfo)
     } else {
-      form.setFieldsValue([])
+      form.setFieldsValue({})
     }
   }, [visible, QAInfo])
 
   const handleCancel = () => {
-    form.setFieldsValue([])
+    form.setFieldsValue({})
     setVisible(false)
   }
 
@@ -45,7 +45,7 @@ const QAModal = (props: QAModalProps) => {
       }
       if (res.ActionType === ActionType.OK) {
         form.resetFields()
-        setTableRefresh()
+        okCallback?.()
         setVisible(false)
       } else {
         message.error(res?.message || '保存失败')

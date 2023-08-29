@@ -130,6 +130,13 @@ export default [
     component: './DialogHistory',
   },
   {
+    path: '/service-pricing',
+    name: 'service-pricing',
+    icon: 'switcherOutlined',
+    access: 'user',
+    component: './ServicePricing',
+  },
+  {
     path: '/balance',
     name: 'balance',
     icon: 'hourglassOutlined',

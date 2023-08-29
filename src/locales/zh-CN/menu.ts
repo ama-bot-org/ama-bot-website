@@ -4,6 +4,7 @@ export default {
   'menu.dnastaff': 'DNA的AI小客服',
   'menu.services-group': '服务',
   'menu.dialog-history': '对话历史',
+  'menu.service-pricing': '服务定价',
   'menu.config-group': 'AI 配置',
   'menu.database-config': 'AI 训练资料',
   'menu.database-config.corpus': '语料库',

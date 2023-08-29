@@ -9,13 +9,15 @@ import React, { useEffect } from 'react'
 import Tooltip from 'antd/es/tooltip'
 import Button from 'antd/es/button'
 import Dialog from '@/pages/Bot/Dialog'
+import Evaluate from '@/components/Evaluate'
 
 const QA = ({ welcomes }: { welcomes: string[] }) => {
   //   const intl = useIntl()
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const [question, setQuestion] = React.useState('')
-  const [dialogs, setDialogs] = React.useState<{ type: string; content: any }[]>([])
+  const [isShowErrorTip, setIsShowErrorTip] = React.useState(false)
+  const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
 
   const loadQuery = async () => {
     const temp = dialogs.slice()
@@ -35,6 +37,10 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
     if (!currentUser?.bot_id) {
       return
     }
+    if (!question) {
+      setIsShowErrorTip(true)
+      return
+    }
     setQuestion('')
 
     const temp = await loadQuery()
@@ -45,14 +51,15 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans
+        temp[temp.length - 1].isApiAwnser = true
+        setDialogs(temp.slice())
+        return
       } else {
-        temp[temp.length - 1].content = '抱歉，我还不知道怎么回答这个问题'
-        console.log(result?.err)
+        throw result.err
       }
-      setDialogs(temp.slice())
     } catch (error) {
       console.log(error)
-      temp[temp.length - 1].content = '抱歉，我还不知道怎么回答这个问题'
+      temp[temp.length - 1].content = '哎呀，系统开了会儿小差，请重新提问下'
       setDialogs(temp)
       setQuestion('')
     }
@@ -60,6 +67,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.target.value)
+    setIsShowErrorTip(false)
   }
 
   const updateScroll = () => {
@@ -69,6 +77,22 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
         element.scrollTop = element.scrollHeight
       }, 300)
     }
+  }
+
+  const renderEvaluate = () => {
+    const [dialog1, dialog2] = dialogs.slice(-2)
+    let show = false
+    if (dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAwnser) {
+      show = true
+    }
+    return (
+      <>
+        <div className="clearfix"></div>
+        <div className="mx-18">
+          <Evaluate show={show} prompt={dialog1?.content} completion={dialog2?.content} className="mt-12" />
+        </div>
+      </>
+    )
   }
 
   useEffect(() => {
@@ -156,6 +180,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
                 }`}
                 style={{
                   maxWidth: '70%',
+                  wordBreak: 'break-all',
                 }}
               >
                 {dialog.content}
@@ -163,6 +188,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
             </li>
           )
         })}
+        {renderEvaluate()}
       </ul>
       <div
         className="frc-between relative"
@@ -207,6 +233,11 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
           />
         </Tooltip>
       </div>
+      {isShowErrorTip && (
+        <div className="w-full text-left" style={{ color: '#e65c41', width: 'calc(100% - 36px)', marginTop: 8, paddingLeft: 28 }}>
+          不可发送空消息
+        </div>
+      )}
     </div>
   )
 }

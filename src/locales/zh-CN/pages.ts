@@ -11,6 +11,8 @@ export default {
   'pages.login.password.required': '密码是必填项！',
   'pages.login.phoneLogin.tab': '手机号登录',
   'pages.login.phoneLogin.errorMessage': '验证码错误',
+  'pages.login.phoneLogin.passwordLogin': '密码登录',
+  'pages.login.phoneLogin.captchaLogin': '验证码登录',
   'pages.login.phoneNumber.placeholder': '请输入手机号！',
   'pages.login.phoneNumber.required': '手机号是必填项！',
   'pages.login.phoneNumber.invalid': '不合法的手机号！',

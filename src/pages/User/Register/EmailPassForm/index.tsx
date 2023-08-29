@@ -11,7 +11,7 @@ import AgreementFormItem from '../../components/AgreementFormItem'
 import userAPI from '@/services/web-api/register'
 
 type EmailPassFormProps = {
-  onCompleteRegister: (email: string, password: string, captcha: string) => void
+  onCompleteRegister: (phone: string, password: string, captcha: string) => void
   submitting?: boolean
   visible: boolean
 }
@@ -40,7 +40,7 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
 
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values)
-    onCompleteRegister(values.email, values.password, values.captcha)
+    onCompleteRegister(values.phone, values.password, values.captcha)
   }
 
   const handleCheckboxChange = (e: any) => {
@@ -57,15 +57,15 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
       <div className={styles.title}>{intl.formatMessage({ id: 'register.account.complete' })}</div>
       <Form form={form} name="UserRegister" onFinish={onFinish} scrollToFirstError>
         <Form.Item
-          name="email"
+          name="phone"
           rules={[
             {
               required: true,
-              message: intl.formatMessage({ id: 'register.email.required' }),
+              message: intl.formatMessage({ id: 'register.phone.required' }),
             },
             {
-              type: 'email',
-              message: intl.formatMessage({ id: 'register.email.wrong-format' }),
+              type: 'string',
+              message: intl.formatMessage({ id: 'register.phone.wrong-format' }),
             },
             {
               validator: async (rule, value) => {
@@ -73,11 +73,11 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
                 if (!visible) {
                   return
                 }
-                const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                if (!value || EMAIL_REGEX.test(value) === false) {
-                  return Promise.reject()
+                const PHONE_REGEX = /^1[3-9]\d{9}$/
+                if (!value || PHONE_REGEX.test(value) === false) {
+                  return Promise.reject(intl.formatMessage({ id: 'register.phone.wrong-format' }))
                 }
-                const msg = await userAPI.checkEmailUnique(value)
+                const msg = await userAPI.checkPhoneUnique(value)
                 if (msg.ActionType === ActionType.OK && msg.message === 'success') {
                   return Promise.resolve()
                 }
@@ -86,8 +86,9 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
             },
           ]}
         >
-          <Input size="large" placeholder={intl.formatMessage({ id: 'register.email.placeholder' })} />
+          <Input size="large" placeholder={intl.formatMessage({ id: 'register.phone.placeholder' })} />
         </Form.Item>
+        <CaptchaForm form={form} registerType={RegisterType.Register} />
         <Form.Item
           name="password"
           rules={[
@@ -119,7 +120,6 @@ const EmailPassForm: React.FC<EmailPassFormProps> = props => {
         >
           <Input.Password size="large" placeholder={intl.formatMessage({ id: 'register.password.required' })} />
         </Form.Item>
-        <CaptchaForm form={form} registerType={RegisterType.Register} />
         <AgreementFormItem handleCheckboxChange={handleCheckboxChange} />
         <Form.Item>
           <ConfigProvider

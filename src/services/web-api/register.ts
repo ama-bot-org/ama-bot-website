@@ -9,14 +9,27 @@ import {
   UpdateImageParams,
   UpdateImageResponseType,
   UploadImageResponseType,
+  PhoneRegisterParams,
 } from './models/user'
 
-/** 验证邮箱唯一性 POST /app/user/email */
+/** 验证邮箱唯一性 POST /app/user/emailCheck */
 async function checkEmailUnique(email: string) {
   const res = await request<UniqueResponse>('/api/app/user/emailCheck', {
     method: 'POST',
     data: {
       email,
+    },
+    getResponse: true,
+  })
+  return res.data
+}
+
+/** 验证手机号唯一性 POST /app/user/phoneCheck */
+async function checkPhoneUnique(phone: string) {
+  const res = await request<UniqueResponse>('/api/app/user/phoneCheck', {
+    method: 'POST',
+    data: {
+      phone,
     },
     getResponse: true,
   })
@@ -43,12 +56,33 @@ async function registerNewUser(userInfo: RegisterParams) {
   })
 }
 
+/** 手机号注册新用户 */
+async function registerUser(userInfo: PhoneRegisterParams) {
+  return request<UserRegisterResponse>('/api/app/user/register', {
+    method: 'POST',
+    data: {
+      ...userInfo,
+    },
+  })
+}
+
 /** 发邮箱验证码 */
 async function requestCaptcha(email: string, register: RegisterType) {
   return request<CaptchaResponse>('/api/app/user/captcha', {
     method: 'POST',
     data: {
       email,
+      register,
+    },
+  })
+}
+
+/** 发手机验证码 */
+async function requestPhoneCaptcha(phone: string, register: RegisterType) {
+  return request<CaptchaResponse>('/api/app/user/phoneCaptcha', {
+    method: 'POST',
+    data: {
+      phone,
       register,
     },
   })
@@ -89,9 +123,12 @@ async function updateImage(params: UpdateImageParams) {
 
 export default {
   checkEmailUnique,
+  checkPhoneUnique,
   checkAIDomainUnique,
   registerNewUser,
+  registerUser,
   requestCaptcha,
+  requestPhoneCaptcha,
   uploadImage,
   updateImage,
 }

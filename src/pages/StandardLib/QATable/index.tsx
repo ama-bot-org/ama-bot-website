@@ -8,6 +8,7 @@ import Button from 'antd/lib/button'
 import Popconfirm from 'antd/lib/popconfirm'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import { Tooltip } from 'antd'
 dayjs.extend(utc)
 
 type QATableProps = {
@@ -36,24 +37,43 @@ const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow,
       title: '问题',
       dataIndex: 'prompt',
       key: 'prompt',
+      width: 300,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (prompt: string) => (
+        <Tooltip title={prompt} placement="bottomLeft">
+          <span>{prompt}</span>
+        </Tooltip>
+      ),
     },
     {
       title: '回答',
       dataIndex: 'completion',
       key: 'completion',
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (completion: string) => (
+        <Tooltip title={completion} placement="bottomLeft">
+          <span>{completion}</span>
+        </Tooltip>
+      ),
     },
     {
       title: '创建时间',
       dataIndex: 'date',
       key: 'date',
       render: (date: number) => dayjs.utc(date).format('YYYY-MM-DD HH:mm:ss'),
-      width: '200px',
+      width: 180,
+      align: 'center' as any,
     },
     {
       title: '操作',
       dataIndex: 'operation',
       key: 'operation',
-      width: '200px',
+      width: 220,
+      align: 'center' as any,
       render: (_: any, rowData: QAFormInfo) => (
         <>
           <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>

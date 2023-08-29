@@ -9,6 +9,7 @@ import React, { useEffect } from 'react'
 import Dialog from '../Dialog'
 import ConfigProvider from 'antd/es/config-provider'
 import Tag from 'antd/es/tag'
+import Evaluate from '@/components/Evaluate'
 
 type QAProps = {
   style: React.CSSProperties
@@ -18,11 +19,12 @@ type QAProps = {
   contactCode?: string
   notShowFastEntrance?: boolean // 默认 undefined 显示快捷入口
   disabledAd?: boolean // 默认 undefined 不显示 Askio 广告
+  hasEvaluateFix?: boolean // 是否有评论修复
 }
 
-const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance, disabledAd }: QAProps) => {
+const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance, disabledAd, hasEvaluateFix = true }: QAProps) => {
   const [question, setQuestion] = React.useState('')
-  const [dialogs, setDialogs] = React.useState<{ type: string; content: any }[]>([])
+  const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
 
   const loadQuery = async (text?: string | React.ReactNode) => {
     const temp = dialogs.slice()
@@ -48,21 +50,25 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans
+        temp[temp.length - 1].isApiAwnser = true
       } else {
-        temp[temp.length - 1].content = '抱歉，我还不知道怎么回答这个问题'
+        temp[temp.length - 1].content = '哎呀，系统开了会儿小差，请重新提问下'
         console.log(result?.err)
       }
       setDialogs(temp)
       setQuestion('')
     } catch (error) {
       console.log(error)
-      temp[temp.length - 1].content = '抱歉，我还不知道怎么回答这个问题'
+      temp[temp.length - 1].content = '哎呀，系统开了会儿小差，请重新提问下'
       setDialogs(temp)
       setQuestion('')
     }
   }
 
   const handleTestQuery = async () => {
+    if (!question) {
+      return
+    }
     const temp = await loadQuery()
     await requestQuery(temp)
   }
@@ -168,6 +174,22 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
     }
   }
 
+  const renderEvaluate = () => {
+    const [dialog1, dialog2] = dialogs.slice(-2)
+    let show = false
+    if (dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAwnser) {
+      show = true
+    }
+    return (
+      <>
+        <div className="clearfix"></div>
+        <div className="mx-18">
+          <Evaluate hasFix={hasEvaluateFix} show={show} prompt={dialog1?.content} completion={dialog2?.content} className="mt-12" />
+        </div>
+      </>
+    )
+  }
+
   useEffect(() => {
     updateScroll()
   }, [dialogs])
@@ -191,6 +213,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
             </li>
           )
         })}
+        {renderEvaluate()}
       </ul>
       <div
         style={{

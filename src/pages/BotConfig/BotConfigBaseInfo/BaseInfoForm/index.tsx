@@ -59,7 +59,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
           image_url,
           bgImg_url,
           html_url,
-          welcomes: welcomes ? JSON.parse(welcomes) : [],
+          welcomes: welcomes && welcomes[0] ? JSON.parse(welcomes) : [],
           contact: contact ? JSON.parse(contact) : [],
           faq_contents: faq_contents ? JSON.parse(faq_contents) : [],
         }
@@ -85,19 +85,20 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
       setIsInit(false)
       return
     }
-    if (currentUser?.email && currentUser?.bot_id) {
+    if (currentUser?.phone && currentUser?.bot_id) {
       const updateParams: BotRequestType = {
         ...values,
-        welcomes: JSON.stringify(values.welcomes),
+        welcomes: values.welcomes && values.welcomes[0] ? JSON.stringify(values.welcomes) : '[]',
         contact: JSON.stringify(values.contact),
         faq_contents: JSON.stringify(values.faq_contents),
         email: currentUser?.email,
+        phone: currentUser?.phone,
         bot_id: currentUser?.bot_id,
       }
       const result = await BotAPI.updateBotInfo(updateParams)
       if (result.ActionType === ActionType.OK) {
         message.success('保存成功')
-        onSaved(values)
+        onSaved({ ...values, welcomes: values.welcomes && values.welcomes[0] ? values.welcomes : [] })
       }
     } else {
       message.error('请先登录')
@@ -133,7 +134,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
     }
     const isLt1M = file.size / 1024 / 1024 < 1
     if (!isLt1M) {
-      message.error('Image must smaller than 2MB!')
+      message.error('Image must smaller than 1MB!')
     }
     return isJpgOrPng && isLt1M
   }
@@ -232,7 +233,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
       <Form.Item
         name="name"
         label={intl.formatMessage({ id: 'register.name.register' })}
-        rules={[{ validator: (rule, value) => validIsUnique(rule, value) }]}
+        rules={[{ required: true, message: '' }, { validator: (rule, value) => validIsUnique(rule, value) }]}
       >
         <Input placeholder="请输入 AI 客服昵称" />
       </Form.Item>
