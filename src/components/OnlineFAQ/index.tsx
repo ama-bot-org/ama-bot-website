@@ -2,6 +2,7 @@ import { getOrigin } from '@/utils'
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useState } from 'react'
 import { isMobile } from 'react-device-detect'
+import Loading from '../Loading'
 
 type OnlineFAQProps = {
   top?: number
@@ -16,6 +17,7 @@ type OnlineFAQProps = {
 const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
   const { width = 300, height = 500, bottom = 20, right = 60 } = props
   const [iframeVisible, setIframeVisible] = useState(false)
+  const [loaded, setLoaded] = useState(false)
 
   const btnWrapClassName = useEmotionCss(() => {
     return {
@@ -62,11 +64,16 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
 
   return (
     <div className={btnWrapClassName}>
+      {!loaded && <Loading />}
       <iframe
+        onLoad={() => {
+          setLoaded(true)
+        }}
         src={`${getOrigin()}/bot/askio`}
         style={{
+          display: loaded ? 'block' : 'none',
           width: width < 320 ? 320 : width,
-          height: iframeVisible ? height : 0,
+          height: iframeVisible && loaded ? height : 0,
           border: 'none',
           marginBottom: isMobile ? -20 : -60,
           transition: 'height 0.3s',
