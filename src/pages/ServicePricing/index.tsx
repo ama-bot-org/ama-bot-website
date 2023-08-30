@@ -120,7 +120,7 @@ export default () => {
       <ConcatModal
         type={modalType}
         open={!!modalType}
-        onCancel={e => {
+        onCancel={() => {
           setModalType(undefined)
         }}
       />

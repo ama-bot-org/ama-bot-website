@@ -186,7 +186,14 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
       <>
         <div className="clearfix"></div>
         <div className="mx-18">
-          <Evaluate hasFix={hasEvaluateFix} show={show} prompt={dialog1?.content} completion={dialog2?.content} className="mt-12" />
+          <Evaluate
+            botId={id}
+            hasFix={hasEvaluateFix}
+            show={show}
+            prompt={dialog1?.content}
+            completion={dialog2?.content}
+            className="mt-12"
+          />
         </div>
       </>
     )
@@ -198,7 +205,7 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
 
   return (
     <div style={style} className="w-full flex flex-column overflow-hidden mb-8">
-      <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} className="flex-1" id="bot-dialog">
+      <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto', flex: 1 }} id="bot-dialog">
         {welcomes && welcomes.length > 0
           ? welcomes.map((welcome, index) => {
               return (

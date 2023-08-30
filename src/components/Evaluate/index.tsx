@@ -13,6 +13,7 @@ type Iprops = {
   size?: Size
   prompt: string
   completion: string
+  botId?: string
 }
 
 enum ActiveBtn {
@@ -20,7 +21,7 @@ enum ActiveBtn {
   unlike = 'unlike',
 }
 
-const Evaluate: FC<Iprops> = ({ show = true, hasFix = true, className, size = 'base', prompt, completion }) => {
+const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, size = 'base', prompt, completion }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const [activeBtn, setActiveBtn] = useState<ActiveBtn>()
@@ -30,14 +31,17 @@ const Evaluate: FC<Iprops> = ({ show = true, hasFix = true, className, size = 'b
 
   const evaluate = async (comment_type: CommentType) => {
     try {
-      if (!currentUser?.bot_id) {
+      if (!botId && !currentUser?.bot_id) {
         return false
       }
+      // eslint-disable-next-line no-debugger
+      debugger
       const { ActionType, message, LogId } = await logInfoApi.commentInfo({
-        bot_id: currentUser.bot_id,
+        bot_id: (botId || currentUser?.bot_id)!,
         comment_type,
         question: prompt,
       })
+
       if (ActionType === 'OK') {
         setLogId(LogId)
         return true

@@ -89,7 +89,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
       <>
         <div className="clearfix"></div>
         <div className="mx-18">
-          <Evaluate show={show} prompt={dialog1?.content} completion={dialog2?.content} className="mt-12" />
+          <Evaluate botId={currentUser?.bot_id} show={show} prompt={dialog1?.content} completion={dialog2?.content} className="mt-12" />
         </div>
       </>
     )
