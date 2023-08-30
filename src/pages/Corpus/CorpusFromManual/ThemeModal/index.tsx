@@ -74,7 +74,7 @@ const ThemeModal = (props: ThemeModalProps) => {
         content: '',
       })
     }
-  }, [visible])
+  }, [visible, fileInfo])
 
   return (
     <Modal

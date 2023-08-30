@@ -59,7 +59,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
           image_url,
           bgImg_url,
           html_url,
-          welcomes: welcomes && welcomes[0] ? JSON.parse(welcomes) : [],
+          welcomes: welcomes ? JSON.parse(welcomes) : [],
           contact: contact ? JSON.parse(contact) : [],
           faq_contents: faq_contents ? JSON.parse(faq_contents) : [],
         }
@@ -88,7 +88,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
     if (currentUser?.phone && currentUser?.bot_id) {
       const updateParams: BotRequestType = {
         ...values,
-        welcomes: values.welcomes && values.welcomes[0] ? JSON.stringify(values.welcomes) : '[]',
+        welcomes: values.welcomes ? JSON.stringify(values.welcomes) : '[]',
         contact: JSON.stringify(values.contact),
         faq_contents: JSON.stringify(values.faq_contents),
         email: currentUser?.email,
@@ -98,7 +98,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
       const result = await BotAPI.updateBotInfo(updateParams)
       if (result.ActionType === ActionType.OK) {
         message.success('保存成功')
-        onSaved({ ...values, welcomes: values.welcomes && values.welcomes[0] ? values.welcomes : [] })
+        onSaved({ ...values, welcomes: values.welcomes || [] })
       }
     } else {
       message.error('请先登录')
@@ -281,9 +281,9 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
                   validateTrigger={['onChange', 'onBlur']}
                   rules={[
                     {
-                      required: false,
+                      required: true,
                       whitespace: true,
-                      message: '请输入欢迎语',
+                      message: '请输入欢迎语或者删除此输入框',
                     },
                   ]}
                   noStyle

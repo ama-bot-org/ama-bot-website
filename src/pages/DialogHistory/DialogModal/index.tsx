@@ -58,7 +58,7 @@ const NotionModal = (props: DialogModalProps) => {
   const modalTitle = {
     // add: '新增 Notion 语料源',
     // edit: '编辑 Notion 语料源',
-    preview: 'Notion 语料源预览',
+    preview: '问答记录',
   }
 
   return (
