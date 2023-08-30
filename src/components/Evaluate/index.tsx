@@ -34,8 +34,6 @@ const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, si
       if (!botId && !currentUser?.bot_id) {
         return false
       }
-      // eslint-disable-next-line no-debugger
-      debugger
       const { ActionType, message, LogId } = await logInfoApi.commentInfo({
         bot_id: (botId || currentUser?.bot_id)!,
         comment_type,
