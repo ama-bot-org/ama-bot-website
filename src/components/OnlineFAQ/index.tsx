@@ -77,7 +77,6 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
           border: 'none',
           marginBottom: isMobile ? -20 : -60,
           transition: 'height 0.3s',
-          overflow: 'hidden',
           borderRadius: '10px',
         }}
         className={iframeClassName}
