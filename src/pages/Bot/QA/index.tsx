@@ -10,6 +10,7 @@ import Dialog from '../Dialog'
 import ConfigProvider from 'antd/es/config-provider'
 import Tag from 'antd/es/tag'
 import Evaluate from '@/components/Evaluate'
+import { message } from 'antd'
 
 type QAProps = {
   style: React.CSSProperties
@@ -66,7 +67,8 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
   }
 
   const handleTestQuery = async () => {
-    if (!question) {
+    if (!question || !question.trim()) {
+      message.error('不可以发送空消息')
       return
     }
     const temp = await loadQuery()

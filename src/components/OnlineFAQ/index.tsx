@@ -24,7 +24,6 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
       position: 'fixed',
       bottom: bottom,
       right: right,
-      overflow: 'hidden',
       zIndex: 9999,
       '@media screen and (max-width: 768px)': {
         right: '10px',

@@ -37,7 +37,7 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
     if (!currentUser?.bot_id) {
       return
     }
-    if (!question) {
+    if (!question || !question.trim()) {
       setIsShowErrorTip(true)
       return
     }
