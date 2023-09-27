@@ -34,7 +34,7 @@ const AskMeAnything: React.FC = () => {
         </title>
       </Helmet>
       <div style={{ flex: 1, padding: 24, overflow: 'auto' }}>
-        <QA welcomes={botInfo.welcomes} />
+        <QA welcomes={botInfo.welcomes} model_type={botInfo.model_type} />
       </div>
     </div>
   )

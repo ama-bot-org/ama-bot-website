@@ -42,6 +42,8 @@ const BaseInfoPreview = ({ botInfo }: { botInfo: BotDataType }) => {
             contactCode={botInfo.contact}
             FAQContents={botInfo.faq_contents}
             welcomes={botInfo.welcomes}
+            model_type={botInfo.model_type}
+            uuid={currentUser?.bot_id}
           />
         ) : null}
         <div style={{ textAlign: 'center', padding: 2, color: '#000000', fontSize: 12 }}>

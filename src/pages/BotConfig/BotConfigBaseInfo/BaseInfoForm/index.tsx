@@ -1,6 +1,6 @@
 import { ActionType } from '@/constants/enums'
 import ImgCrop from 'antd-img-crop'
-import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
+import { LoadingOutlined, CaretRightOutlined } from '@ant-design/icons'
 import { useIntl, useModel, history } from '@umijs/max'
 import userAPI from '@/services/web-api/register'
 import Form, { RuleObject } from 'antd/es/form'
@@ -16,7 +16,10 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import BotAPI from '@/services/web-api/bot'
 import { BotDataType } from '@/models/bot'
 import { BotRequestType } from '@/services/web-api/models/bot'
-import { Skeleton } from 'antd'
+import { Skeleton, Select } from 'antd'
+import cls from 'classnames'
+
+import styles from './style.less'
 
 const formItemLayout = {
   labelCol: {
@@ -29,22 +32,30 @@ const formItemLayout = {
   },
 }
 
+const MODEL_TYPE_OPTS = [
+  { label: '默认模型（推荐）', value: 0 },
+  { label: '文心一言', value: 1 },
+  { label: 'ChatGLM', value: 2 },
+]
+
 const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const intl = useIntl()
   const [form] = useForm()
-  const [botInfo, setBotInfo] = useState<BotDataType>({} as BotDataType)
+  const [botInfo, setBotInfo] = useState<BotDataType>({ model_type: 0 } as BotDataType)
   const [imageUrl, setImageUrl] = useState<string>('')
   const [postImageUrl, setPostImageUrl] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [formLoading, setFormLoading] = useState<boolean>(false)
   const [isInit, setIsInit] = useState<boolean>(true)
+  const [spread, setSpread] = useState<boolean>(false) // 是否展开高级配置
 
   const initForm = (botInfo: BotDataType) => {
     setBotInfo(botInfo)
     setPostImageUrl(botInfo.image_url)
     setImageUrl(botInfo.image_url)
+    form.setFieldsValue(botInfo)
   }
 
   const initBotInfo = async (bot_id: string) => {
@@ -52,7 +63,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
     try {
       const res = await BotAPI.fetchBotInfo(bot_id)
       if (res?.ActionType === ActionType.OK) {
-        const { name, image_url, welcomes, html_url, bgImg_url, contact, faq_contents } = res
+        const { name, image_url, welcomes, html_url, bgImg_url, contact, faq_contents, model_type } = res
         const botInfo = {
           id: bot_id,
           name,
@@ -62,6 +73,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
           welcomes: welcomes && welcomes[0] ? JSON.parse(welcomes) : [],
           contact: contact ? JSON.parse(contact) : [],
           faq_contents: faq_contents ? JSON.parse(faq_contents) : [],
+          model_type,
         }
         initForm(botInfo)
         onSaved(botInfo)
@@ -235,7 +247,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
         label={intl.formatMessage({ id: 'register.name.register' })}
         rules={[{ required: true, message: '' }, { validator: (rule, value) => validIsUnique(rule, value) }]}
       >
-        <Input placeholder="请输入 AI 客服昵称" />
+        <Input placeholder="请输入 AI 客服昵称" style={{maxWidth: 320}}/>
       </Form.Item>
       <div className="flex flex-wrap">
         <Form.Item
@@ -303,7 +315,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
                   }
                   add()
                 }}
-                style={{ width: '60%' }}
+                style={{maxWidth: 320, width: '100%'}}
                 icon={<PlusOutlined />}
               >
                 添加欢迎语
@@ -314,6 +326,22 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
           </>
         )}
       </Form.List>
+      <div className={cls(styles.advance_config,{[styles.spread]: spread})}>
+        <div 
+          className={cls(styles.title,'frc-start')} 
+          onClick={()=>{
+            setSpread(!spread)
+          }}
+        >
+          <CaretRightOutlined className={cls(styles.arrow)}/>
+          <span>高级配置</span>
+        </div>
+        <div className={styles.content}>
+          <Form.Item label="模型选择" name="model_type" required rules={[{required:true, message:'请选择模型类型'}]}>
+            <Select options={MODEL_TYPE_OPTS} style={{maxWidth: 300}}/>
+          </Form.Item>
+        </div>
+      </div>
       <Form.Item style={{ textAlign: 'left' }}>
         <Button type="primary" htmlType="submit" id="myButton">
           保存

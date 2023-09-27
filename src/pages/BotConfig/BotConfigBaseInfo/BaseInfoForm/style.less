@@ -1,0 +1,30 @@
+.advance_config {
+  max-height: 24px;
+  overflow: hidden;
+  margin-bottom: 35px;
+  transition: all 0.3s ease;
+  .title {
+    display: inline-flex;
+    color: #131415;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: AlibabaPuHuiTi_2_65_;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .content {
+    padding-top: 24px;
+    padding-left: 24px;
+    overflow: hidden;
+  }
+  .arrow {
+    margin-right: 5px;
+    transition: all 0.2s ease;
+  }
+  &.spread {
+    max-height: 1000px;
+    .arrow {
+      transform: rotate(90deg);
+    }
+  }
+}

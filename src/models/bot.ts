@@ -7,4 +7,5 @@ export interface BotDataType {
   faq_contents: string[]
   welcomes: string[]
   contact: string
+  model_type: number
 }

@@ -8,6 +8,9 @@ import Input from 'antd/es/input'
 import React, { useEffect } from 'react'
 import Dialog from '../Dialog'
 import { ConfigProvider, Tag } from 'antd'
+import {v5 as uuidv5 } from 'uuid'
+
+const UUID = uuidv5(window.navigator.userAgent, uuidv5.URL)
 
 const FAQContents = [
   '如何预定？',
@@ -46,6 +49,8 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
       const result = await api.testQuery({
         bot_id: 'suosuo1221@126.com',
         content: text || question,
+        uuid: UUID,
+        model_type: 0
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans

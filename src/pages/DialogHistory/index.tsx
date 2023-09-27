@@ -3,7 +3,7 @@ import { useModel } from '@umijs/max'
 import { useEffect, useState } from 'react'
 import { message, Form, Select } from 'antd'
 // import Input from 'antd/es/input'
-import DialogModal from './DialogModal'
+import ViewModal from './ViewModal'
 import DialogHistoryTable from './DialogHistoryTable'
 import { ActionType } from '@/constants/enums'
 import logInfo from '@/services/web-api/logInfo'
@@ -13,10 +13,10 @@ import { ReactComponent as UnlikeIcon } from '@/components/EvaluateBtn/icons/unl
 
 const { useForm } = Form
 const commentTypeOpts = [
-  { label: '全部', value: 0 },
-  { label: '暂无答案', value: 3 },
-  { label: <div className='frc-start'><LikeIcon/><span className='ml-8'>答得不错</span></div>, value: 1 },
-  { label: <div className='frc-start'><UnlikeIcon/><span className='ml-8'>差点意思</span></div>, value: 2 },
+  { value: '0-0', label: '全部' }, // answer_type-comment_type
+  { value: '1-0', label: '暂无答案' },
+  { value: '0-1', label: <div className='frc-start'><LikeIcon/><span className='ml-8'>答得不错</span></div> },
+  { value: '0-2', label: <div className='frc-start'><UnlikeIcon/><span className='ml-8'>差点意思</span></div> },
 ]
 
 const DialogHistory: React.FC = () => {
@@ -38,11 +38,15 @@ const DialogHistory: React.FC = () => {
       setLoading(true)
       try {
         const values = form.getFieldsValue()
+        const [ answer_type, comment_type ] = values.answer_comment_type?.split('-') || []
         const res = await logInfo.getHistoryTable({
           bot_id: currentUser.bot_id,
           page,
           pageSize,
-          ...values
+          ...values,
+          answer_type: +answer_type,
+          comment_type: +comment_type,
+          answer_comment_type: undefined,
         })
         if (res.ActionType === ActionType.OK) {
           setData(res.data.content)
@@ -120,12 +124,12 @@ const DialogHistory: React.FC = () => {
           form={form} 
           layout="inline" 
           initialValues={{
-            comment_type: 0
+            answer_comment_type: '0-0'
           }}
           className='mb-16'
           onValuesChange={onValuesChange}
         >
-          <Form.Item name="comment_type" label='筛选回答'>
+          <Form.Item name="answer_comment_type" label='筛选回答'>
             <Select options={commentTypeOpts} style={{width: 180}}/>
           </Form.Item>
         </Form>
@@ -141,7 +145,7 @@ const DialogHistory: React.FC = () => {
           // onDeleteRow={handleDeleteRow}
           refreshTable={() => handlePageChange(page)}
         />
-        <DialogModal visible={modalVisible} setVisible={setModalVisible} dialogInfo={currentRow} />
+        <ViewModal open={modalVisible} onCancel={()=>{setModalVisible(false)}} dialogInfo={currentRow} />
       </div>
     </div>
   )

@@ -11,7 +11,7 @@ import Button from 'antd/es/button'
 import Dialog from '@/pages/Bot/Dialog'
 import Evaluate from '@/components/Evaluate'
 
-const QA = ({ welcomes }: { welcomes: string[] }) => {
+const QA = ({ welcomes, model_type }: { welcomes: string[], model_type: number }) => {
   //   const intl = useIntl()
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
@@ -48,6 +48,8 @@ const QA = ({ welcomes }: { welcomes: string[] }) => {
       const result = await api.testQuery({
         bot_id: currentUser.bot_id,
         content: question,
+        uuid: currentUser.bot_id,
+        model_type
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans

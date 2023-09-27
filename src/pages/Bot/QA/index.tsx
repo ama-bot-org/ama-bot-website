@@ -14,6 +14,8 @@ import Evaluate from '@/components/Evaluate'
 type QAProps = {
   style: React.CSSProperties
   id: string
+  uuid: string
+  model_type: number
   FAQContents?: string[]
   welcomes: string[]
   contactCode?: string
@@ -22,7 +24,7 @@ type QAProps = {
   hasEvaluateFix?: boolean // 是否有评论修复
 }
 
-const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance, disabledAd, hasEvaluateFix = true }: QAProps) => {
+const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, notShowFastEntrance, disabledAd, hasEvaluateFix = true }: QAProps) => {
   const [question, setQuestion] = React.useState('')
   const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
 
@@ -47,6 +49,8 @@ const QA = ({ style, id, FAQContents, contactCode, welcomes, notShowFastEntrance
       const result = await api.testQuery({
         bot_id: id,
         content: text || question,
+        uuid,
+        model_type
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans

@@ -5,6 +5,9 @@ import QA from './QA'
 import Divider from 'antd/es/divider'
 import styles from './index.less'
 import Loading from '@/components/Loading'
+import {v5 as uuidv5 } from 'uuid'
+
+const UUID = uuidv5(window.navigator.userAgent, uuidv5.URL)
 
 const Bot: React.FC = () => {
   const { loading, botInfo } = useBotModel()
@@ -49,6 +52,8 @@ const Bot: React.FC = () => {
             contactCode={botInfo.contact}
             FAQContents={botInfo.faq_contents}
             welcomes={botInfo.welcomes}
+            model_type={botInfo.model_type}
+            uuid={UUID}
             disabledAd={true}
             hasEvaluateFix={false}
           />

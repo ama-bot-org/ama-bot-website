@@ -31,7 +31,6 @@ enum CommentType {
   all = 0,
   like = 1,
   unlike = 2,
-  noAnswer = 3,
 }
 
 const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPageChange, refreshTable = noop }: NotionTableProps) => {
@@ -113,8 +112,6 @@ const NotionTable = ({ data, pageSize, total, page, loading, onPreviewRow, onPag
               <span className="ml-8">差点意思</span>
             </div>
           )
-        } else if (comment_type === CommentType.noAnswer) {
-          return '' // 暂无答案
         } else {
           return null
         }

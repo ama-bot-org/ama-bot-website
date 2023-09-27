@@ -13,6 +13,7 @@ export interface Bot {
   contact: string
   faq_contents: string
   welcomes: string
+  model_type: number
 }
 
 export interface BotRequestType extends Bot {

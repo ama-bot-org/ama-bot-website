@@ -4,6 +4,8 @@ export interface GetLogInfoTableParamsType {
   bot_id: string
   page: number
   pageSize: number
+  answer_type: number
+  comment_type: number
 }
 
 export enum CommentType {
@@ -27,9 +29,27 @@ export interface LogInfoTableRow {
   answer: string //答案
   create_date: number //创建时间
   fix_info: 0 | 1 // 是否已修正
+  uuid: string
+  comment_type: number,
+  answer_type: number
 }
 
 export interface LogInfoTableResponseType extends ErrorResponse {
+  data: {
+    count: number
+    content: LogInfoTableRow[]
+  }
+}
+
+export interface GetlogInfoByIdParamsType {
+  bot_id: string
+  uuid: string
+  page?: number
+  pageSize?: number
+  id: number
+}
+
+export interface GetlogInfoByIdResponse extends ErrorResponse {
   data: {
     count: number
     content: LogInfoTableRow[]
