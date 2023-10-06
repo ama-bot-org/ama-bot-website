@@ -126,9 +126,9 @@ export default defineConfig({
    * @description 配置 <head> 中额外的 script
    */
   headScripts: [
-    // 解决首次加载时白屏的问题
+    // 解决首次加载时白屏的问题.
     // { src: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/scripts/loadFonts.js', async: true },
-    // { src: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/scripts/loading.js', async: true },
+    { src: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/scripts/loading.js', async: true },
   ],
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
