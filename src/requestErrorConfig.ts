@@ -73,6 +73,8 @@ export const errorConfig: RequestConfig = {
         // Axios 的错误
         // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
         if (error.response.status === 401) {
+          // eslint-disable-next-line no-debugger
+          debugger
           window.location.href = '/user/login'
         } else {
           message.error(

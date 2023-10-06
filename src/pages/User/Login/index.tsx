@@ -109,7 +109,8 @@ const Login: React.FC = () => {
   const handleCheckboxChange = (e: any) => {
     setChecked(e.target.checked)
   }
-
+  // eslint-disable-next-line no-debugger
+  debugger
   return (
     <div className={`${containerClassName} login-page`}>
       <Helmet>
