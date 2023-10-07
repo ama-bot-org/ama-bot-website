@@ -14,7 +14,7 @@ const WeChat = () => {
 
   useEffect(() => {
     if (currentUser?.bot_id) {
-      setValue(`${getOrigin()}/bot/${currentUser.bot_id}`)
+      setValue(`${getOrigin()}/bot/${currentUser.html_url}`)
     }
     return () => {}
   }, [currentUser])
