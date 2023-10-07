@@ -24,7 +24,6 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
       position: 'fixed',
       bottom: bottom,
       right: right,
-      overflow: 'hidden',
       zIndex: 9999,
       '@media screen and (max-width: 768px)': {
         right: '10px',
@@ -77,7 +76,6 @@ const OnlineFAQ: React.FC<OnlineFAQProps> = (props: OnlineFAQProps) => {
           border: 'none',
           marginBottom: isMobile ? -20 : -60,
           transition: 'height 0.3s',
-          overflow: 'hidden',
           borderRadius: '10px',
         }}
         className={iframeClassName}

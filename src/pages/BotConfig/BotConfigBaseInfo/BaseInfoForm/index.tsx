@@ -70,7 +70,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
           image_url,
           bgImg_url,
           html_url,
-          welcomes: welcomes && welcomes[0] ? JSON.parse(welcomes) : [],
+          welcomes: welcomes ? JSON.parse(welcomes) : [],
           contact: contact ? JSON.parse(contact) : [],
           faq_contents: faq_contents ? JSON.parse(faq_contents) : [],
           model_type,
@@ -100,7 +100,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
     if (currentUser?.phone && currentUser?.bot_id) {
       const updateParams: BotRequestType = {
         ...values,
-        welcomes: values.welcomes && values.welcomes[0] ? JSON.stringify(values.welcomes) : '[]',
+        welcomes: values.welcomes ? JSON.stringify(values.welcomes) : '[]',
         contact: JSON.stringify(values.contact),
         faq_contents: JSON.stringify(values.faq_contents),
         email: currentUser?.email,
@@ -110,7 +110,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
       const result = await BotAPI.updateBotInfo(updateParams)
       if (result.ActionType === ActionType.OK) {
         message.success('保存成功')
-        onSaved({ ...values, welcomes: values.welcomes && values.welcomes[0] ? values.welcomes : [] })
+        onSaved({ ...values, welcomes: values.welcomes || [] })
       }
     } else {
       message.error('请先登录')
@@ -142,11 +142,11 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
-      message.error('You can only upload JPEG/PNG file!')
+      message.error('只支持上传 JPEG/PNG 文件')
     }
     const isLt1M = file.size / 1024 / 1024 < 1
     if (!isLt1M) {
-      message.error('Image must smaller than 1MB!')
+      message.error('图片必须小于 1MB!')
     }
     return isJpgOrPng && isLt1M
   }
@@ -247,7 +247,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
         label={intl.formatMessage({ id: 'register.name.register' })}
         rules={[{ required: true, message: '' }, { validator: (rule, value) => validIsUnique(rule, value) }]}
       >
-        <Input placeholder="请输入 AI 客服昵称" style={{maxWidth: 320}}/>
+        <Input placeholder="请输入 AI 客服昵称" style={{ maxWidth: 320 }} />
       </Form.Item>
       <div className="flex flex-wrap">
         <Form.Item
@@ -293,9 +293,9 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
                   validateTrigger={['onChange', 'onBlur']}
                   rules={[
                     {
-                      required: false,
+                      required: true,
                       whitespace: true,
-                      message: '请输入欢迎语',
+                      message: '请输入欢迎语或者删除此输入框',
                     },
                   ]}
                   noStyle
@@ -315,7 +315,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
                   }
                   add()
                 }}
-                style={{maxWidth: 320, width: '100%'}}
+                style={{ maxWidth: 320, width: '100%' }}
                 icon={<PlusOutlined />}
               >
                 添加欢迎语
@@ -326,19 +326,19 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
           </>
         )}
       </Form.List>
-      <div className={cls(styles.advance_config,{[styles.spread]: spread})}>
-        <div 
-          className={cls(styles.title,'frc-start')} 
-          onClick={()=>{
+      <div className={cls(styles.advance_config, { [styles.spread]: spread })}>
+        <div
+          className={cls(styles.title, 'frc-start')}
+          onClick={() => {
             setSpread(!spread)
           }}
         >
-          <CaretRightOutlined className={cls(styles.arrow)}/>
+          <CaretRightOutlined className={cls(styles.arrow)} />
           <span>高级配置</span>
         </div>
         <div className={styles.content}>
-          <Form.Item label="模型选择" name="model_type" required rules={[{required:true, message:'请选择模型类型'}]}>
-            <Select options={MODEL_TYPE_OPTS} style={{maxWidth: 300}}/>
+          <Form.Item label="模型选择" name="model_type" required rules={[{ required: true, message: '请选择模型类型' }]}>
+            <Select options={MODEL_TYPE_OPTS} style={{ maxWidth: 300 }} />
           </Form.Item>
         </div>
       </div>

@@ -34,6 +34,12 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
         })
         if (res.ActionType === ActionType.OK) {
           onSuccess('上传成功')
+          setValidFiles((prevFiles: any) =>
+            prevFiles.map((file: any) => {
+              file.status = 'done'
+              return file
+            }),
+          )
           onSuccessUpload()
         } else {
           setValidFiles((prevFiles: any) => prevFiles.filter((file: any) => file?.uid !== fileContent?.uid))
@@ -64,11 +70,25 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
       message.error('上传文件不能超过 10MB！')
     }
     if (isDoc && isLt10M) {
-      setValidFiles((prevFiles: any) => [...prevFiles, file])
+      if (file) {
+        Object.assign(file, { status: 'uploading' })
+
+        // 设置状态为 uploading
+        setValidFiles((prevFiles: any) => {
+          return [...prevFiles, file]
+        })
+      }
+
       return true
     }
 
     return false
+  }
+
+  const handleRemove = (file: any) => {
+    setValidFiles((prevFiles: any) => {
+      return prevFiles ? prevFiles.filter((_file: any) => file?.uid !== _file?.uid) : []
+    })
   }
 
   const uploadWrapClassname = useEmotionCss(() => ({
@@ -94,7 +114,13 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
   }))
 
   return (
-    <Upload customRequest={handleCustomRequest} fileList={validFiles} beforeUpload={beforeUpload} className={uploadWrapClassname}>
+    <Upload
+      customRequest={handleCustomRequest}
+      onRemove={handleRemove}
+      fileList={validFiles}
+      beforeUpload={beforeUpload}
+      className={uploadWrapClassname}
+    >
       <Button className={uploadBtnClassname}>
         <Image
           preview={false}
@@ -105,7 +131,15 @@ const CustomUploadComponent: React.FC<CustomUploadProps> = ({ onSuccessUpload })
           className="mb-0"
           style={{
             fontSize: 18,
-            marginTop: '72px',
+            marginTop: '48px',
+          }}
+        >
+          点击或拖曳文件到这里
+        </h3>
+        <h3
+          className="mb-0"
+          style={{
+            fontSize: 18,
           }}
         >
           上传训练资料

@@ -10,6 +10,7 @@ import Dialog from '../Dialog'
 import ConfigProvider from 'antd/es/config-provider'
 import Tag from 'antd/es/tag'
 import Evaluate from '@/components/Evaluate'
+import { message } from 'antd'
 
 type QAProps = {
   style: React.CSSProperties
@@ -24,7 +25,18 @@ type QAProps = {
   hasEvaluateFix?: boolean // 是否有评论修复
 }
 
-const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, notShowFastEntrance, disabledAd, hasEvaluateFix = true }: QAProps) => {
+const QA = ({
+  style,
+  id,
+  uuid,
+  model_type,
+  FAQContents,
+  contactCode,
+  welcomes,
+  notShowFastEntrance,
+  disabledAd,
+  hasEvaluateFix = true,
+}: QAProps) => {
   const [question, setQuestion] = React.useState('')
   const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
 
@@ -50,7 +62,7 @@ const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, n
         bot_id: id,
         content: text || question,
         uuid,
-        model_type
+        model_type,
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans
@@ -70,7 +82,8 @@ const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, n
   }
 
   const handleTestQuery = async () => {
-    if (!question) {
+    if (!question || !question.trim()) {
+      message.error('不可以发送空消息')
       return
     }
     const temp = await loadQuery()
@@ -188,7 +201,14 @@ const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, n
       <>
         <div className="clearfix"></div>
         <div className="mx-18">
-          <Evaluate hasFix={hasEvaluateFix} show={show} prompt={dialog1?.content} completion={dialog2?.content} className="mt-12" />
+          <Evaluate
+            botId={id}
+            hasFix={hasEvaluateFix}
+            show={show}
+            prompt={dialog1?.content}
+            completion={dialog2?.content}
+            className="mt-12"
+          />
         </div>
       </>
     )
@@ -200,7 +220,7 @@ const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, n
 
   return (
     <div style={style} className="w-full flex flex-column overflow-hidden mb-8">
-      <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto' }} className="flex-1" id="bot-dialog">
+      <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto', flex: 1 }} id="bot-dialog">
         {welcomes && welcomes.length > 0
           ? welcomes.map((welcome, index) => {
               return (

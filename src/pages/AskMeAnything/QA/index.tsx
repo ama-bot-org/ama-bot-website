@@ -11,7 +11,7 @@ import Button from 'antd/es/button'
 import Dialog from '@/pages/Bot/Dialog'
 import Evaluate from '@/components/Evaluate'
 
-const QA = ({ welcomes, model_type }: { welcomes: string[], model_type: number }) => {
+const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }) => {
   //   const intl = useIntl()
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
@@ -37,7 +37,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[], model_type: number }
     if (!currentUser?.bot_id) {
       return
     }
-    if (!question) {
+    if (!question || !question.trim()) {
       setIsShowErrorTip(true)
       return
     }
@@ -49,7 +49,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[], model_type: number }
         bot_id: currentUser.bot_id,
         content: question,
         uuid: currentUser.bot_id,
-        model_type
+        model_type,
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans
@@ -91,7 +91,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[], model_type: number }
       <>
         <div className="clearfix"></div>
         <div className="mx-18">
-          <Evaluate show={show} prompt={dialog1?.content} completion={dialog2?.content} className="mt-12" />
+          <Evaluate botId={currentUser?.bot_id} show={show} prompt={dialog1?.content} completion={dialog2?.content} className="mt-12" />
         </div>
       </>
     )

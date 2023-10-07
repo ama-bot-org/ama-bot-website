@@ -127,7 +127,7 @@ export default defineConfig({
    */
   headScripts: [
     // 解决首次加载时白屏的问题
-    { src: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/scripts/loadFonts.js', async: true },
+    // { src: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/scripts/loadFonts.js', async: true },
     { src: 'https://aiyinchat-1316443200.cos.ap-shanghai.myqcloud.com/public/scripts/loading.js', async: true },
   ],
   //================ pro 插件配置 =================

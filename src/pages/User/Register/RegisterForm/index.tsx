@@ -164,7 +164,7 @@ const RegisterForm = (props: RegisterFormProps) => {
         >
           <Input placeholder="请输入 AI 客服昵称" />
         </Form.Item>
-        <div className="flex flex-wrap">
+        <div className="w-full flex flex-wrap">
           <Form.Item
             name="image_url"
             label={intl.formatMessage({ id: 'register.logo' })}

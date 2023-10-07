@@ -3,14 +3,14 @@ import { FileInfo, UploadFileResponseType } from '@/services/web-api/models/corp
 import { ActionType } from '@/constants/enums'
 import { useModel } from '@umijs/max'
 import { Input, Modal, Form, Button, message } from 'antd'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type ThemeModalProps = {
   visible: boolean
   fileInfo?: FileInfo
   modalType?: 'add' | 'edit' | 'preview' | undefined
-  setVisible: Dispatch<SetStateAction<boolean>>
-  setTableReFresh: Dispatch<React.SetStateAction<number>>
+  setVisible: (visibility: boolean) => void
+  setTableReFresh: (date: number) => void
 }
 
 const ThemeModal = (props: ThemeModalProps) => {
@@ -21,10 +21,6 @@ const ThemeModal = (props: ThemeModalProps) => {
   const { currentUser } = initialState || {}
 
   const handleCancel = () => {
-    form.setFieldsValue({
-      doc_name: '',
-      content: '',
-    })
     setVisible(false)
   }
 
@@ -49,32 +45,34 @@ const ThemeModal = (props: ThemeModalProps) => {
           })
         }
         if (res.ActionType === ActionType.OK) {
-          setTableReFresh(new Date().getTime())
-          form.setFieldsValue([])
+          setLoading(false)
           setVisible(false)
+          setTableReFresh(new Date().getTime())
         } else {
           message.error(res?.message || '上传失败')
+          setLoading(false)
         }
       } catch (error) {
-        message.error('上传失败')
-      } finally {
         setLoading(false)
+        message.error('上传失败')
       }
     } else {
       message.error('未登录')
+      setLoading(false)
     }
   }
 
   useEffect(() => {
-    if (fileInfo && form) {
-      form.setFieldsValue(fileInfo)
-    } else {
+    if (visible && fileInfo) {
+      form?.setFieldsValue(fileInfo)
+    }
+    return () => {
       form.setFieldsValue({
         doc_name: '',
         content: '',
       })
     }
-  }, [visible])
+  }, [visible, fileInfo])
 
   return (
     <Modal
