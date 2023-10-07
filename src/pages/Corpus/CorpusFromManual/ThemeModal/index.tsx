@@ -66,10 +66,16 @@ const ThemeModal = (props: ThemeModalProps) => {
   }
 
   useEffect(() => {
-    if (fileInfo && form) {
-      form.setFieldsValue(fileInfo)
+    if (visible && fileInfo) {
+      form?.setFieldsValue(fileInfo)
     } else {
-      form.setFieldsValue({
+      form?.setFieldsValue({
+        doc_name: '',
+        content: '',
+      })
+    }
+    return () => {
+      form?.setFieldsValue({
         doc_name: '',
         content: '',
       })
@@ -77,13 +83,7 @@ const ThemeModal = (props: ThemeModalProps) => {
   }, [visible, fileInfo])
 
   return (
-    <Modal
-      title={modalType === 'add' ? '新增文本' : '编辑文本'}
-      open={visible}
-      destroyOnClose
-      footer={null}
-      onCancel={() => handleCancel()}
-    >
+    <Modal title={modalType === 'add' ? '新增文本' : '编辑文本'} open={visible} footer={null} onCancel={() => handleCancel()}>
       <Form form={form} layout="vertical" onFinish={handleFinished} initialValues={fileInfo}>
         <Form.Item
           label="文本标题"
