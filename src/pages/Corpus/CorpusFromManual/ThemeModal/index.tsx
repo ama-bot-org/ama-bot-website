@@ -21,10 +21,6 @@ const ThemeModal = (props: ThemeModalProps) => {
   const { currentUser } = initialState || {}
 
   const handleCancel = () => {
-    form.setFieldsValue({
-      doc_name: '',
-      content: '',
-    })
     setVisible(false)
   }
 
@@ -50,10 +46,6 @@ const ThemeModal = (props: ThemeModalProps) => {
         }
         if (res.ActionType === ActionType.OK) {
           setLoading(false)
-          form.setFieldsValue({
-            doc_name: '',
-            content: '',
-          })
           setVisible(false)
           setTableReFresh(new Date().getTime())
         } else {
@@ -73,8 +65,9 @@ const ThemeModal = (props: ThemeModalProps) => {
   useEffect(() => {
     if (visible && fileInfo) {
       form?.setFieldsValue(fileInfo)
-    } else {
-      form?.setFieldsValue({
+    }
+    return () => {
+      form.setFieldsValue({
         doc_name: '',
         content: '',
       })
@@ -84,12 +77,12 @@ const ThemeModal = (props: ThemeModalProps) => {
   return (
     <Modal
       title={modalType === 'add' ? '新增文本' : '编辑文本'}
-      open={modalType === 'add' ? visible : visible && !!fileInfo}
+      open={visible}
       destroyOnClose
       footer={null}
       onCancel={() => handleCancel()}
     >
-      <Form form={form} layout="vertical" onFinish={handleFinished}>
+      <Form form={form} layout="vertical" onFinish={handleFinished} initialValues={fileInfo}>
         <Form.Item
           label="文本标题"
           name="doc_name"
