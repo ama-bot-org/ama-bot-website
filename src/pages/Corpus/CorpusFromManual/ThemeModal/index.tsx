@@ -67,14 +67,20 @@ const ThemeModal = (props: ThemeModalProps) => {
 
   useEffect(() => {
     if (visible && fileInfo) {
+      // eslint-disable-next-line no-debugger
+      debugger
       form?.setFieldsValue(fileInfo)
     } else {
+      // eslint-disable-next-line no-debugger
+      debugger
       form?.setFieldsValue({
         doc_name: '',
         content: '',
       })
     }
     return () => {
+      // eslint-disable-next-line no-debugger
+      debugger
       form?.setFieldsValue({
         doc_name: '',
         content: '',
