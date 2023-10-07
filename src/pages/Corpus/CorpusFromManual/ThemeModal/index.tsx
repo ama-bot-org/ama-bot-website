@@ -90,7 +90,7 @@ const ThemeModal = (props: ThemeModalProps) => {
 
   return (
     <Modal title={modalType === 'add' ? '新增文本' : '编辑文本'} open={visible} footer={null} onCancel={() => handleCancel()}>
-      <Form form={form} layout="vertical" onFinish={handleFinished} initialValues={fileInfo}>
+      <Form form={form} layout="vertical" onFinish={handleFinished}>
         <Form.Item
           label="文本标题"
           name="doc_name"
