@@ -95,8 +95,8 @@ const CorpusFromManual: React.FC = () => {
     setPage(_page)
   }
 
-  const setTableReFresh = () => {
-    initFileTable()
+  const setTableReFresh = async () => {
+    await initFileTable()
   }
 
   // const handleSearch = (value: string) => {
@@ -172,9 +172,13 @@ const CorpusFromManual: React.FC = () => {
         />
         <ThemeModal
           visible={modalVisible}
-          setVisible={setModalVisible}
+          setVisible={(visibility: boolean) => {
+            setModalVisible(visibility)
+          }}
           fileInfo={currentRow}
-          setTableReFresh={setTableReFresh}
+          setTableReFresh={() => {
+            setTableReFresh()
+          }}
           modalType={modalType}
         />
       </div>

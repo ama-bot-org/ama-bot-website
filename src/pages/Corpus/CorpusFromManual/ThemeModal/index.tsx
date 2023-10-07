@@ -3,14 +3,14 @@ import { FileInfo, UploadFileResponseType } from '@/services/web-api/models/corp
 import { ActionType } from '@/constants/enums'
 import { useModel } from '@umijs/max'
 import { Input, Modal, Form, Button, message } from 'antd'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type ThemeModalProps = {
   visible: boolean
   fileInfo?: FileInfo
   modalType?: 'add' | 'edit' | 'preview' | undefined
-  setVisible: Dispatch<SetStateAction<boolean>>
-  setTableReFresh: Dispatch<React.SetStateAction<number>>
+  setVisible: (visibility: boolean) => void
+  setTableReFresh: (date: number) => void
 }
 
 const ThemeModal = (props: ThemeModalProps) => {
@@ -49,38 +49,31 @@ const ThemeModal = (props: ThemeModalProps) => {
           })
         }
         if (res.ActionType === ActionType.OK) {
-          setTableReFresh(new Date().getTime())
-          form.setFieldsValue([])
+          setLoading(false)
+          form.setFieldsValue({
+            doc_name: '',
+            content: '',
+          })
           setVisible(false)
+          setTableReFresh(new Date().getTime())
         } else {
           message.error(res?.message || '上传失败')
+          setLoading(false)
         }
       } catch (error) {
-        message.error('上传失败')
-      } finally {
         setLoading(false)
+        message.error('上传失败')
       }
     } else {
       message.error('未登录')
+      setLoading(false)
     }
   }
 
   useEffect(() => {
     if (visible && fileInfo) {
-      // eslint-disable-next-line no-debugger
-      debugger
       form?.setFieldsValue(fileInfo)
     } else {
-      // eslint-disable-next-line no-debugger
-      debugger
-      form?.setFieldsValue({
-        doc_name: '',
-        content: '',
-      })
-    }
-    return () => {
-      // eslint-disable-next-line no-debugger
-      debugger
       form?.setFieldsValue({
         doc_name: '',
         content: '',
@@ -89,7 +82,13 @@ const ThemeModal = (props: ThemeModalProps) => {
   }, [visible, fileInfo])
 
   return (
-    <Modal title={modalType === 'add' ? '新增文本' : '编辑文本'} open={visible} footer={null} onCancel={() => handleCancel()}>
+    <Modal
+      title={modalType === 'add' ? '新增文本' : '编辑文本'}
+      open={modalType === 'add' ? visible : visible && !!fileInfo}
+      destroyOnClose
+      footer={null}
+      onCancel={() => handleCancel()}
+    >
       <Form form={form} layout="vertical" onFinish={handleFinished}>
         <Form.Item
           label="文本标题"
