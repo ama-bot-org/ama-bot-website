@@ -19,40 +19,49 @@ export default ({ open, onCancel, dialogInfo }: Iprops) => {
 
   useEffect(() => {
     if (open && dialogInfo) {
-      logInfo.getlogInfoById({
-        page: 1,
-        pageSize: 5,
-        bot_id: dialogInfo.bot_id,
-        uuid: dialogInfo.uuid,
-        id: dialogInfo.id
-      }).then(res=>{
-        if(res.ActionType === 'OK'){
-          let _dialogs: DialogItem[] = [];
-          res.data.content.forEach(item=>{
-            const q: DialogItem = {
-              type: 'question',
-              content: item.question
-            }
-            const a: DialogItem = {
-              type: 'answer',
-              content: item.answer
-            }
-            _dialogs = [..._dialogs, q, a]
-          })
-          setDialogs(_dialogs)
-        }
-      })
+      logInfo
+        .getlogInfoById({
+          page: 1,
+          pageSize: 5,
+          bot_id: dialogInfo.bot_id,
+          uuid: dialogInfo.uuid,
+          id: dialogInfo.id,
+        })
+        .then(res => {
+          if (res.ActionType === 'OK') {
+            let _dialogs: DialogItem[] = []
+            const sortedData = res.data.content.sort((a, b) => new Date(a.create_date).getTime() - new Date(b.create_date).getTime())
+            sortedData.forEach(item => {
+              const q: DialogItem = {
+                type: 'question',
+                content: item.question,
+              }
+              const a: DialogItem = {
+                type: 'answer',
+                content: item.answer,
+              }
+              _dialogs = [..._dialogs, q, a]
+            })
+            setDialogs(_dialogs)
+            setTimeout(() => {
+              const dom = document.getElementById('bot-view-dialog')
+              if (dom) {
+                dom.scrollTop = dom.scrollHeight
+              }
+            }, 200)
+          }
+        })
     }
   }, [open, dialogInfo])
 
   return (
-    <Modal title="查看上下文" open={open} onCancel={onCancel} footer={null} bodyStyle={{ maxHeight: 540, overflow: 'auto'}}>
+    <Modal title="查看上下文" open={open} onCancel={onCancel} footer={null}>
       {dialogs.length ? (
         <div className="w-full flex flex-column overflow-hidden mb-8">
           <ul
-            style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0}}
+            style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, maxHeight: 540, overflow: 'auto' }}
             className="flex-1"
-            id="bot-dialog"
+            id="bot-view-dialog"
           >
             {dialogs.map((dialog, index) => {
               return (
