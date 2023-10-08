@@ -20,6 +20,7 @@ import {
   CreateNotionResponseType,
   DeleteNotionParamsType,
   DeleteNotionResponseType,
+  SearchFileListParamsType,
 } from './models/corpus'
 
 /**
@@ -129,6 +130,17 @@ async function getFileList(params: GetFileListParamsType) {
   })
 }
 
+// 根据机器人id和关键词获取文件相关的语料数据
+async function searchFileList(params: SearchFileListParamsType) {
+  return request<FileListResponse>('/api/app/file/searchFileInfo', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem('token') || '',
+    },
+    data: params,
+  })
+}
+
 // 根据条件删除手动上传的语料文件
 async function deleteFile(params: FileDeleteParamsType) {
   return request<FileDeleteResponse>('/api/app/file/deleteFile', {
@@ -192,6 +204,7 @@ export default {
   // 手动
   uploadCorpusByManual,
   getFileList,
+  searchFileList,
   deleteFile,
   updateCorpusFile,
   // notion

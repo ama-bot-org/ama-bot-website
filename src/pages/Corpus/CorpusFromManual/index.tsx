@@ -2,7 +2,7 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useModel } from '@umijs/max'
 import { useEffect, useState } from 'react'
 import { Button, ConfigProvider, message } from 'antd'
-// import Input from 'antd/es/input'
+import Input from 'antd/es/input'
 import ThemeModal from './ThemeModal'
 import ThemeTable from './ThemeTable'
 import { ActionType } from '@/constants/enums'
@@ -18,7 +18,7 @@ const CorpusFromManual: React.FC = () => {
   const [page, setPage] = useState(1)
   const [pageSize] = useState(10)
   const [loading, setLoading] = useState(false)
-  const [searchValue] = useState<string | undefined>()
+  const [searchValue, setSearchValue] = useState<string | undefined>()
 
   const [currentRow, setCurrentRow] = useState<FileInfo | undefined>()
   const [modalVisible, setModalVisible] = useState(false)
@@ -28,11 +28,12 @@ const CorpusFromManual: React.FC = () => {
     if (currentUser?.bot_id) {
       setLoading(true)
       try {
-        const res = await corpus.getFileList({
+        const res = await corpus.searchFileList({
           bot_id: currentUser?.bot_id,
           type: 3,
           page,
           pageSize,
+          searchWord: searchValue,
         })
         if (res.ActionType === ActionType.OK) {
           setData(res.data.content)
@@ -99,9 +100,9 @@ const CorpusFromManual: React.FC = () => {
     await initFileTable()
   }
 
-  // const handleSearch = (value: string) => {
-  //   setSearchValue(value)
-  // }
+  const handleSearch = (value: string) => {
+    setSearchValue(value)
+  }
 
   useEffect(() => {
     initFileTable()
@@ -125,28 +126,29 @@ const CorpusFromManual: React.FC = () => {
     return {
       flex: 1,
       display: 'flex',
-      justifyContent: 'flex-end',
       alignItems: 'center',
       flexDirection: 'row',
       marginBottom: '20px',
     }
   })
 
-  // const searchClassName = useEmotionCss(() => {
-  //   return {
-  //     width: '375px',
-  //     '@media screen and (max-width: 768px)': {
-  //       width: '100%',
-  //     },
-  //   }
-  // })
+  const searchClassName = useEmotionCss(() => {
+    return {
+      width: '375px',
+      marginRight: '32px',
+      '@media screen and (max-width: 768px)': {
+        width: '100%',
+        marginRight: 0,
+      },
+    }
+  })
 
   return (
     <div className={containerClassName}>
       <div style={{ flex: 1, overflow: 'auto' }}>
         <div className={topClassName}>
           <div className={searchWrapClassName}>
-            {/* <Input.Search className={searchClassName} onSearch={handleSearch} /> */}
+            <Input.Search className={searchClassName} onSearch={handleSearch} />
             <ConfigProvider
               theme={{
                 token: {

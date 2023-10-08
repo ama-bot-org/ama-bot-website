@@ -34,6 +34,23 @@ export interface GetFileListParamsType {
   pageSize: number
 }
 
+export interface SearchFileListParamsType {
+  // 机器人id
+  bot_id: string
+
+  // 文件类型 1为pdf 2为txt 3为文本输入
+  type: 1 | 2 | 3
+
+  // 当前页面
+  page: number
+
+  // 每页显示的条数
+  pageSize: number
+
+  // 关键词
+  searchWord?: string
+}
+
 export interface DocInfo {
   //编号
   id: number
