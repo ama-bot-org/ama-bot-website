@@ -12,7 +12,7 @@ export default function useHistoryDialogs() {
 
   const [data, setData] = useState<LogInfoTableRow[]>([])
   const [total, setTotal] = useState(0)
-  const [pageSize] = useState(4)
+  const [pageSize] = useState(20)
   const [loading, setLoading] = useState(false)
 
   const transferTableData = (rows: LogInfoTableRow[]) => {
@@ -38,6 +38,7 @@ export default function useHistoryDialogs() {
           bot_id: currentUser.bot_id,
           page: _page,
           pageSize,
+          uuid: currentUser.bot_id,
         })
         if (res.ActionType === ActionType.OK) {
           const sortedData = res.data.content.sort((a, b) => new Date(a.create_date).getTime() - new Date(b.create_date).getTime())

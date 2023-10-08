@@ -113,32 +113,25 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
     )
   }
 
+  // 设置防抖间隔时间，单位毫秒
   const handleScrollDebounced = debounce(async (event: React.WheelEvent<HTMLDivElement>, total: number) => {
     // 判断滚轮方向
     if (event.deltaY < 0) {
-      console.log('向上滚动')
       // 滚动到顶部了
       const datas = await getPreviousDialogs(total)
       if (datas) {
         const temp = datas.concat(dialogs)
         setDialogs(temp)
       }
-    } else if (event.deltaY > 0) {
-      console.log('向下滚动')
-      // TODO: 处理向下滚动的逻辑
     }
-  }, 300) // 设置防抖间隔时间，单位毫秒
+  }, 300)
 
   const handleScroll = (event: React.WheelEvent<HTMLDivElement>) => {
     handleScrollDebounced(event, total)
   }
 
-  useEffect(() => {
-    console.log('dialogs', dialogs)
-  }, [dialogs])
-
   return (
-    <div className="ama-qa-container h-full fcc-start">
+    <div className="ama-qa-container h-auto text-center fcc-start">
       <ul
         style={{
           display: 'flex',
@@ -248,6 +241,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
           flexDirection: 'column',
           paddingInlineStart: 0,
           flex: 1,
+          width: '100%',
           maxHeight: 'calc(100vh - 500px)',
           overflow: 'auto',
         }}

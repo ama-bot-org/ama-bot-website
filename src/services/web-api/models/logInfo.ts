@@ -6,6 +6,7 @@ export interface GetLogInfoTableParamsType {
   pageSize: number
   answer_type?: number
   comment_type?: number
+  uuid?: string
 }
 
 export enum CommentType {
