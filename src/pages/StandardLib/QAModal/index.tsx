@@ -22,9 +22,9 @@ const QAModal = (props: QAModalProps) => {
 
   useEffect(() => {
     if (QAInfo && visible) {
-      form.setFieldsValue(QAInfo)
+      form?.setFieldsValue(QAInfo)
     } else {
-      form.setFieldsValue({})
+      form?.setFieldsValue({})
     }
   }, [visible, QAInfo])
 

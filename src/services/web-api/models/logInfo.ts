@@ -4,8 +4,8 @@ export interface GetLogInfoTableParamsType {
   bot_id: string
   page: number
   pageSize: number
-  answer_type: number
-  comment_type: number
+  answer_type?: number
+  comment_type?: number
 }
 
 export enum CommentType {
@@ -30,7 +30,7 @@ export interface LogInfoTableRow {
   create_date: number //创建时间
   fix_info: 0 | 1 // 是否已修正
   uuid: string
-  comment_type: number,
+  comment_type: number
   answer_type: number
 }
 

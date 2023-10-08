@@ -5,11 +5,14 @@ import SendOutlined from '@ant-design/icons/SendOutlined'
 import Steps from 'antd/es/steps'
 import { useModel } from '@umijs/max'
 import Divider from 'antd/es/divider'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Tooltip from 'antd/es/tooltip'
 import Button from 'antd/es/button'
 import Dialog from '@/pages/Bot/Dialog'
 import Evaluate from '@/components/Evaluate'
+import useHistoryDialogs from './useHistory.hook'
+import { Spin } from 'antd'
+import { debounce } from 'lodash'
 
 const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }) => {
   //   const intl = useIntl()
@@ -18,6 +21,26 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
   const [question, setQuestion] = React.useState('')
   const [isShowErrorTip, setIsShowErrorTip] = React.useState(false)
   const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
+  const { total, loading, getPreviousDialogs, getHistoryTable } = useHistoryDialogs()
+  const ulRef = useRef<HTMLUListElement | null>(null)
+
+  const initHistory = async () => {
+    const datas = await getHistoryTable(1)
+    setDialogs(datas)
+  }
+
+  useEffect(() => {
+    initHistory()
+  }, [])
+
+  const updateScroll = () => {
+    const element = document.getElementById('ama-dialog')
+    if (element) {
+      setTimeout(() => {
+        element.scrollTop = element.scrollHeight
+      }, 300)
+    }
+  }
 
   const loadQuery = async () => {
     const temp = dialogs.slice()
@@ -55,6 +78,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
         temp[temp.length - 1].content = result.ans
         temp[temp.length - 1].isApiAwnser = true
         setDialogs(temp.slice())
+        updateScroll()
         return
       } else {
         throw result.err
@@ -63,6 +87,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
       console.log(error)
       temp[temp.length - 1].content = '哎呀，系统开了会儿小差，请重新提问下'
       setDialogs(temp)
+      updateScroll()
       setQuestion('')
     }
   }
@@ -70,15 +95,6 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.target.value)
     setIsShowErrorTip(false)
-  }
-
-  const updateScroll = () => {
-    const element = document.getElementById('ama-dialog')
-    if (element) {
-      setTimeout(() => {
-        element.scrollTop = element.scrollHeight
-      }, 300)
-    }
   }
 
   const renderEvaluate = () => {
@@ -97,25 +113,43 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
     )
   }
 
+  const handleScrollDebounced = debounce(async (event: React.WheelEvent<HTMLDivElement>, total: number) => {
+    // 判断滚轮方向
+    if (event.deltaY < 0) {
+      console.log('向上滚动')
+      // 滚动到顶部了
+      const datas = await getPreviousDialogs(total)
+      if (datas) {
+        const temp = datas.concat(dialogs)
+        setDialogs(temp)
+      }
+    } else if (event.deltaY > 0) {
+      console.log('向下滚动')
+      // TODO: 处理向下滚动的逻辑
+    }
+  }, 300) // 设置防抖间隔时间，单位毫秒
+
+  const handleScroll = (event: React.WheelEvent<HTMLDivElement>) => {
+    handleScrollDebounced(event, total)
+  }
+
   useEffect(() => {
-    updateScroll()
+    console.log('dialogs', dialogs)
   }, [dialogs])
 
   return (
     <div className="ama-qa-container h-full fcc-start">
       <ul
-        id="ama-dialog"
         style={{
           display: 'flex',
           flexDirection: 'column',
           paddingInlineStart: 0,
-          flex: 1,
-          maxHeight: 'calc(100vh - 220px)',
+          height: '260px',
           overflow: 'auto',
         }}
       >
-        <li className="mb-4 mx-18 ">
-          <p
+        <li className="mb-4 mx-18">
+          <div
             className="p-16 my-4 bg-white rounded-lg float-left"
             style={{
               whiteSpace: 'pre-line',
@@ -154,7 +188,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
                 },
               ]}
             />
-          </p>
+          </div>
         </li>
         {welcomes && welcomes.length > 0
           ? welcomes.map((welcome, index) => {
@@ -165,7 +199,8 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
               )
             })
           : null}
-        {/* <li className="my-4">
+      </ul>
+      {/* <li className="my-4">
           <div className="p-10 bg-white rounded-lg float-left">
             <p className="my-4 mb-16">立即接入Askio，精准定制属于你的企业AI客服，共创AI新纪元！</p>
             <p className="my-4">企业邮箱：askiocontact@gmail.com</p>
@@ -173,6 +208,50 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
             <img src={'/images/leon.svg'} alt="leon" />
           </div>
         </li> */}
+      {!loading && total * 2 <= dialogs.length ? (
+        <div>没有更多历史信息了</div>
+      ) : (
+        <div
+          style={{
+            width: '100%',
+            height: 20,
+            opacity: 0,
+          }}
+        >
+          过渡
+        </div>
+      )}
+      {loading ? (
+        <div>
+          <Spin />
+          加载更多
+        </div>
+      ) : (
+        <div
+          style={{
+            width: '100%',
+            height: 20,
+            opacity: 0,
+          }}
+        >
+          过渡
+        </div>
+      )}
+      <ul
+        ref={ulRef}
+        onWheel={(e: any) => {
+          handleScroll(e)
+        }}
+        id="ama-dialog"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          paddingInlineStart: 0,
+          flex: 1,
+          maxHeight: 'calc(100vh - 500px)',
+          overflow: 'auto',
+        }}
+      >
         {dialogs.map((dialog, index) => {
           return (
             <li key={index} className="my-4 mx-18">
