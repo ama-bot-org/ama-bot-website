@@ -58,11 +58,11 @@ const RegisterForm = (props: RegisterFormProps) => {
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
-      message.error('You can only upload JPEG/PNG file!')
+      message.error('只支持 JPEG/PNG 格式的文件!')
     }
     const isLt1M = file.size / 1024 / 1024 < 1
     if (!isLt1M) {
-      message.error('Image must smaller than 1MB!')
+      message.error('图片必须小于 1MB!')
     }
     return isJpgOrPng && isLt1M
   }
