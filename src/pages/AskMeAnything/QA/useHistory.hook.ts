@@ -5,7 +5,6 @@ import { message } from 'antd'
 import { useState } from 'react'
 import { useModel } from '@umijs/max'
 
-let page = 1
 export default function useHistoryDialogs() {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
@@ -13,6 +12,7 @@ export default function useHistoryDialogs() {
   const [data, setData] = useState<LogInfoTableRow[]>([])
   const [total, setTotal] = useState(0)
   const [pageSize] = useState(20)
+  const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
   const transferTableData = (rows: LogInfoTableRow[]) => {
@@ -67,8 +67,9 @@ export default function useHistoryDialogs() {
     if (_total <= page * pageSize) {
       return
     }
-    page = page + 1
-    const rows = await getHistoryTable(page)
+    setPage(page + 1)
+    console.log('page', page + 1)
+    const rows = await getHistoryTable(page + 1)
     return rows
   }
 

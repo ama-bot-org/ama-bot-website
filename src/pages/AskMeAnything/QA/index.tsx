@@ -5,7 +5,7 @@ import SendOutlined from '@ant-design/icons/SendOutlined'
 import Steps from 'antd/es/steps'
 import { useModel } from '@umijs/max'
 import Divider from 'antd/es/divider'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Tooltip from 'antd/es/tooltip'
 import Button from 'antd/es/button'
 import Dialog from '@/pages/Bot/Dialog'
@@ -23,15 +23,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
   const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
   const { total, loading, getPreviousDialogs, getHistoryTable } = useHistoryDialogs()
   const ulRef = useRef<HTMLUListElement | null>(null)
-
-  const initHistory = async () => {
-    const datas = await getHistoryTable(1)
-    setDialogs(datas)
-  }
-
-  useEffect(() => {
-    initHistory()
-  }, [])
+  const [scrollPosition, setScrollPosition] = useState(0)
 
   const updateScroll = () => {
     const element = document.getElementById('ama-dialog')
@@ -41,6 +33,16 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
       }, 300)
     }
   }
+
+  const initHistory = async () => {
+    const datas = await getHistoryTable(1)
+    setDialogs(datas)
+    updateScroll()
+  }
+
+  useEffect(() => {
+    initHistory()
+  }, [])
 
   const loadQuery = async () => {
     const temp = dialogs.slice()
@@ -53,6 +55,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
       content: <LoadingOutlined />,
     })
     setDialogs(temp)
+    updateScroll()
     return Promise.resolve(temp)
   }
 
@@ -107,7 +110,13 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
       <>
         <div className="clearfix"></div>
         <div className="mx-18">
-          <Evaluate botId={currentUser?.bot_id} show={show} prompt={dialog1?.content} completion={dialog2?.content} className="mt-12" />
+          <Evaluate
+            botId={currentUser?.bot_id}
+            show={show}
+            prompt={dialog1?.content}
+            completion={dialog2?.content}
+            className="mt-12 text-left"
+          />
         </div>
       </>
     )
@@ -117,16 +126,21 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
   const handleScrollDebounced = debounce(async (event: React.WheelEvent<HTMLDivElement>, total: number) => {
     // 判断滚轮方向
     if (event.deltaY < 0) {
+      console.log('向上滚动')
       // 滚动到顶部了
       const datas = await getPreviousDialogs(total)
       if (datas) {
         const temp = datas.concat(dialogs)
         setDialogs(temp)
+        if (ulRef.current) {
+          ulRef.current.scrollTop = ulRef.current.scrollHeight - scrollPosition
+        }
       }
     }
   }, 300)
 
   const handleScroll = (event: React.WheelEvent<HTMLDivElement>) => {
+    setScrollPosition(ulRef.current!.scrollTop)
     handleScrollDebounced(event, total)
   }
 
@@ -201,35 +215,12 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
             <img src={'/images/leon.svg'} alt="leon" />
           </div>
         </li> */}
-      {!loading && total * 2 <= dialogs.length ? (
-        <div>没有更多历史信息了</div>
-      ) : (
-        <div
-          style={{
-            width: '100%',
-            height: 20,
-            opacity: 0,
-          }}
-        >
-          过渡
-        </div>
-      )}
       {loading ? (
         <div>
           <Spin />
           加载更多
         </div>
-      ) : (
-        <div
-          style={{
-            width: '100%',
-            height: 20,
-            opacity: 0,
-          }}
-        >
-          过渡
-        </div>
-      )}
+      ) : null}
       <ul
         ref={ulRef}
         onWheel={(e: any) => {
@@ -246,6 +237,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
           overflow: 'auto',
         }}
       >
+        <li className="my-4 mx-18 text-center">{!loading && total * 2 <= dialogs.length ? '没有更多历史信息了' : null}</li>
         {dialogs.map((dialog, index) => {
           return (
             <li key={index} className="my-4 mx-18">

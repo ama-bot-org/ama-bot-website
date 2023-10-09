@@ -40,13 +40,21 @@ const QA = ({
   hasEvaluateFix = true,
 }: QAProps) => {
   const [question, setQuestion] = React.useState('')
-  const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
+  const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAnswer?: boolean }[]>([])
   const { total, loading, getPreviousDialogs, getHistoryTable } = useHistoryDialogs()
   const ulRef = useRef<HTMLUListElement | null>(null)
+
+  const updateScroll = () => {
+    const element = document.getElementById('bot-dialog')
+    if (element) {
+      element.scrollTop = element.scrollHeight
+    }
+  }
 
   const initHistory = async () => {
     const datas = await getHistoryTable(1)
     setDialogs(datas)
+    updateScroll()
   }
 
   useEffect(() => {
@@ -65,6 +73,7 @@ const QA = ({
     })
     setDialogs(temp)
     setQuestion('')
+    updateScroll()
     return Promise.resolve(temp)
   }
 
@@ -79,7 +88,7 @@ const QA = ({
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans
-        temp[temp.length - 1].isApiAwnser = true
+        temp[temp.length - 1].isApiAnswer = true
       } else {
         temp[temp.length - 1].content = '哎呀，系统开了会儿小差，请重新提问下'
         console.log(result?.err)
@@ -91,6 +100,8 @@ const QA = ({
       temp[temp.length - 1].content = '哎呀，系统开了会儿小差，请重新提问下'
       setDialogs(temp)
       setQuestion('')
+    } finally {
+      updateScroll()
     }
   }
 
@@ -146,6 +157,7 @@ const QA = ({
       content: content,
     })
     setDialogs(temp)
+    updateScroll()
   }
 
   const showCode = () => {
@@ -169,6 +181,7 @@ const QA = ({
       content: content,
     })
     setDialogs(temp)
+    updateScroll()
   }
 
   const showAskio = () => {
@@ -193,21 +206,13 @@ const QA = ({
       content: content,
     })
     setDialogs(temp)
-  }
-
-  const updateScroll = () => {
-    const element = document.getElementById('bot-dialog')
-    if (element) {
-      setTimeout(() => {
-        element.scrollTop = element.scrollHeight
-      }, 300)
-    }
+    updateScroll()
   }
 
   const renderEvaluate = () => {
     const [dialog1, dialog2] = dialogs.slice(-2)
     let show = false
-    if (dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAwnser) {
+    if (dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAnswer) {
       show = true
     }
     return (
@@ -220,20 +225,19 @@ const QA = ({
             show={show}
             prompt={dialog1?.content}
             completion={dialog2?.content}
-            className="mt-12"
+            className="mt-12 text-left"
           />
         </div>
       </>
     )
   }
-  useEffect(() => {
-    updateScroll()
-  }, [dialogs])
 
   // 设置防抖间隔时间，单位毫秒
   const handleScrollDebounced = debounce(async (event: React.WheelEvent<HTMLDivElement>, total: number) => {
     // 判断滚轮方向
     if (event.deltaY < 0) {
+      console.log('向上滚动')
+
       // 滚动到顶部了
       const datas = await getPreviousDialogs(total)
       if (datas) {
@@ -250,7 +254,7 @@ const QA = ({
   return (
     <div style={style} className="w-full flex flex-column overflow-hidden text-center mb-8">
       {welcomes && welcomes.length > 0 ? (
-        <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto', flex: 1 }} id="bot-dialog">
+        <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto', flex: 1 }}>
           {welcomes && welcomes.length > 0
             ? welcomes.map((welcome, index) => {
                 return (
@@ -262,7 +266,6 @@ const QA = ({
             : null}
         </ul>
       ) : null}
-      {!loading && total * 2 <= dialogs.length ? <div>没有更多历史信息了</div> : null}
       {loading ? (
         <div>
           <Spin />
@@ -270,11 +273,11 @@ const QA = ({
         </div>
       ) : null}
       <ul
+        id="bot-dialog"
         ref={ulRef}
         onWheel={(e: any) => {
           handleDialogScroll(e)
         }}
-        id="ama-dialog"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -285,6 +288,7 @@ const QA = ({
           overflow: 'auto',
         }}
       >
+        <li className="my-4 mx-18 text-center">{!loading && total * 2 <= dialogs.length ? '没有更多历史信息了' : null}</li>
         {dialogs.map((dialog, index) => {
           return (
             <li key={index} className="my-2 mx-18 h-auto">
@@ -292,7 +296,6 @@ const QA = ({
             </li>
           )
         })}
-
         {renderEvaluate()}
       </ul>
       <div
