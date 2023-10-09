@@ -47,7 +47,9 @@ const QA = ({
   const updateScroll = () => {
     const element = document.getElementById('bot-dialog')
     if (element) {
-      element.scrollTop = element.scrollHeight
+      setTimeout(() => {
+        element.scrollTop = element.scrollHeight
+      }, 300)
     }
   }
 
