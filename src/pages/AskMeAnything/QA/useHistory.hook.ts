@@ -11,7 +11,7 @@ export default function useHistoryDialogs() {
 
   const [data, setData] = useState<LogInfoTableRow[]>([])
   const [total, setTotal] = useState(0)
-  const [pageSize] = useState(20)
+  const [pageSize] = useState(40)
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
