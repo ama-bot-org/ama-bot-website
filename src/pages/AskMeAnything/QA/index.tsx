@@ -12,7 +12,7 @@ import Dialog from '@/pages/Bot/Dialog'
 import Evaluate from '@/components/Evaluate'
 import useHistoryDialogs from './useHistory.hook'
 import { Spin } from 'antd'
-import { debounce } from 'lodash'
+import { DialogsType } from '@/pages/Bot/QA'
 
 const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }) => {
   //   const intl = useIntl()
@@ -20,10 +20,36 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
   const { currentUser } = initialState || {}
   const [question, setQuestion] = React.useState('')
   const [isShowErrorTip, setIsShowErrorTip] = React.useState(false)
-  const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAwnser?: boolean }[]>([])
-  const { total, loading, getPreviousDialogs, getHistoryTable } = useHistoryDialogs()
+  const [dialogs, setDialogs] = React.useState<DialogsType>([])
+  const { page, total, loading, getPreviousDialogs, getHistoryTable } = useHistoryDialogs()
   const ulRef = useRef<HTMLUListElement | null>(null)
-  const [scrollPosition, setScrollPosition] = useState(0)
+  const [locked, setLocked] = useState(false)
+
+  const handleScrollTop = () => {
+    setTimeout(() => {
+      const liItems = document.querySelectorAll(`.dialog-li-${page}`)
+      console.log('page', page)
+
+      let totalHeight = 0
+      liItems.forEach(item => {
+        totalHeight += item.clientHeight + 8 // height of each list item
+      })
+      // 如果是最后一个page, 需要算上欢迎语的高度
+      if (total * 2 <= dialogs.length) {
+        const liItems = document.querySelectorAll(`.dialog-li-welcome`)
+        let welcomesHeight = 0
+        liItems.forEach(item => {
+          welcomesHeight += item.clientHeight + 8 // height of each list item
+        })
+        totalHeight += welcomesHeight
+      }
+      ulRef.current!.scrollTop = totalHeight
+    }, 300)
+  }
+
+  useEffect(() => {
+    handleScrollTop()
+  }, [dialogs])
 
   const updateScroll = () => {
     const element = document.getElementById('ama-dialog')
@@ -36,6 +62,9 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
 
   const initHistory = async () => {
     const datas = await getHistoryTable(1)
+    datas.forEach(data => {
+      Object.assign(data, { selectClass: `dialog-li-${page}` })
+    })
     setDialogs(datas)
     updateScroll()
   }
@@ -79,7 +108,6 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans
-        temp[temp.length - 1].isApiAwnser = true
         setDialogs(temp.slice())
         updateScroll()
         return
@@ -103,7 +131,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
   const renderEvaluate = () => {
     const [dialog1, dialog2] = dialogs.slice(-2)
     let show = false
-    if (dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAwnser) {
+    if (dialog1 && dialog2 && dialog2?.type === 'answer') {
       show = true
     }
     return (
@@ -115,6 +143,8 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
             show={show}
             prompt={dialog1?.content}
             completion={dialog2?.content}
+            commentType={dialog2?.commentType}
+            hasFix={dialog2?.fixInfo === 1}
             className="mt-12 text-left"
           />
         </div>
@@ -123,90 +153,34 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
   }
 
   // 设置防抖间隔时间，单位毫秒
-  const handleScrollDebounced = debounce(async (event: React.WheelEvent<HTMLDivElement>, total: number) => {
+  const handleScrollDebounced = async (event: React.WheelEvent<HTMLDivElement>, total: number) => {
+    if (locked) {
+      return
+    }
+
     // 判断滚轮方向
-    if (event.deltaY < 0) {
+    if (event.deltaY < 0 && ulRef.current && ulRef.current.scrollTop === 0) {
       console.log('向上滚动')
+      setLocked(true)
       // 滚动到顶部了
-      const datas = await getPreviousDialogs(total)
-      if (datas) {
-        const temp = datas.concat(dialogs)
-        setDialogs(temp)
-        if (ulRef.current) {
-          ulRef.current.scrollTop = ulRef.current.scrollHeight - scrollPosition
+      const res = await getPreviousDialogs(total)
+      if (res) {
+        const { datas, currentPage } = res
+        if (datas) {
+          datas.forEach(data => {
+            Object.assign(data, { selectClass: `dialog-li-${currentPage}` })
+          })
+          console.log('page', currentPage)
+          const temp = datas.concat(dialogs)
+          setDialogs(temp)
+          setLocked(false)
         }
       }
     }
-  }, 300)
-
-  const handleScroll = (event: React.WheelEvent<HTMLDivElement>) => {
-    setScrollPosition(ulRef.current!.scrollTop)
-    handleScrollDebounced(event, total)
   }
 
   return (
-    <div className="ama-qa-container h-auto text-center fcc-start">
-      <ul
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          paddingInlineStart: 0,
-          height: '260px',
-          overflow: 'auto',
-        }}
-      >
-        <li className="mb-4 mx-18">
-          <div
-            className="p-16 my-4 bg-white rounded-lg float-left"
-            style={{
-              whiteSpace: 'pre-line',
-              maxWidth: '90%',
-            }}
-          >
-            <div>
-              {`嗨，你已经配置完训练资料了吗？欢迎使用 AI 问答预览功能！在这里，你可以: 
-              1. 先随意提问，测试 Askio AI 的回复效果; 
-              2. 测试完成后将 Askio 接入你的企业客服渠道，如微信，公众号，企业官网等。对接后，Askio 将扮演一个24小时极速响应的企业客服专家，为您的顾客带来极好的问答咨询体验。`}
-            </div>
-            <Divider />
-            <h4>Askio AI客服部署流程👇</h4>
-            <Steps
-              responsive
-              size="small"
-              current={1}
-              items={[
-                {
-                  disabled: true,
-                  title: 'AI 训练资料',
-                  description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>定制问答库</span>,
-                  status: 'process',
-                },
-                {
-                  disabled: true,
-                  title: 'AI问答预览',
-                  status: 'process',
-                  description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>测试 AI 问答效果</span>,
-                },
-                {
-                  disabled: true,
-                  status: 'process',
-                  title: 'AI客服配置',
-                  description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>接入企业客服渠道</span>,
-                },
-              ]}
-            />
-          </div>
-        </li>
-        {welcomes && welcomes.length > 0
-          ? welcomes.map((welcome, index) => {
-              return (
-                <li key={index} className="my-2 mx-18 h-auto">
-                  <Dialog position="left-bottom">{welcome}</Dialog>
-                </li>
-              )
-            })
-          : null}
-      </ul>
+    <div className="ama-qa-container h-auto fcc-start">
       {/* <li className="my-4">
           <div className="p-10 bg-white rounded-lg float-left">
             <p className="my-4 mb-16">立即接入Askio，精准定制属于你的企业AI客服，共创AI新纪元！</p>
@@ -216,7 +190,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
           </div>
         </li> */}
       {loading ? (
-        <div>
+        <div className="w-full text-center">
           <Spin />
           加载更多
         </div>
@@ -224,7 +198,7 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
       <ul
         ref={ulRef}
         onWheel={(e: any) => {
-          handleScroll(e)
+          handleScrollDebounced(e, total)
         }}
         id="ama-dialog"
         style={{
@@ -233,14 +207,71 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
           paddingInlineStart: 0,
           flex: 1,
           width: '100%',
-          maxHeight: 'calc(100vh - 500px)',
+          maxHeight: 'calc(100vh - 240px)',
           overflow: 'auto',
         }}
       >
-        <li className="my-4 mx-18 text-center">{!loading && total * 2 <= dialogs.length ? '没有更多历史信息了' : null}</li>
+        {!loading && total * 2 <= dialogs.length ? (
+          <>
+            <li className="my-4 mx-18 text-center">
+              {dialogs.length > 0 && total * 2 <= dialogs.length ? '—— 没有更多历史信息了 ——' : ''}
+            </li>
+            <div className="mb-4 mx-18 dialog-li-welcome">
+              <div
+                className="p-16 my-4 bg-white rounded-lg float-left"
+                style={{
+                  whiteSpace: 'pre-line',
+                  maxWidth: '90%',
+                }}
+              >
+                <div>
+                  {`嗨，你已经配置完训练资料了吗？欢迎使用 AI 问答预览功能！在这里，你可以: 
+              1. 先随意提问，测试 Askio AI 的回复效果; 
+              2. 测试完成后将 Askio 接入你的企业客服渠道，如微信，公众号，企业官网等。对接后，Askio 将扮演一个24小时极速响应的企业客服专家，为您的顾客带来极好的问答咨询体验。`}
+                </div>
+                <Divider />
+                <h4>Askio AI客服部署流程👇</h4>
+                <Steps
+                  responsive
+                  size="small"
+                  current={1}
+                  items={[
+                    {
+                      disabled: true,
+                      title: 'AI 训练资料',
+                      description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>定制问答库</span>,
+                      status: 'process',
+                    },
+                    {
+                      disabled: true,
+                      title: 'AI问答预览',
+                      status: 'process',
+                      description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>测试 AI 问答效果</span>,
+                    },
+                    {
+                      disabled: true,
+                      status: 'process',
+                      title: 'AI客服配置',
+                      description: <span style={{ color: 'rgba(0, 0, 0, 0.4)', fontSize: 14 }}>接入企业客服渠道</span>,
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+            {welcomes && welcomes.length > 0 && !loading && total * 2 <= dialogs.length
+              ? welcomes.map((welcome, index) => {
+                  return (
+                    <li key={index} className="my-2 mx-18 h-auto dialog-li-welcome">
+                      <Dialog position="left-bottom">{welcome}</Dialog>
+                    </li>
+                  )
+                })
+              : null}
+          </>
+        ) : null}
         {dialogs.map((dialog, index) => {
           return (
-            <li key={index} className="my-4 mx-18">
+            <li key={index} className={`my-4 mx-18 ${dialog.selectClass}`}>
               <p
                 className={`p-10 m-0 rounded-lg ${
                   dialog.type === 'question' ? 'bg-orange color-white float-right' : 'bg-white float-left'

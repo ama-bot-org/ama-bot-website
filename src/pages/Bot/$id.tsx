@@ -55,7 +55,6 @@ const Bot: React.FC = () => {
           model_type={botInfo.model_type}
           uuid={UUID}
           disabledAd={true}
-          hasEvaluateFix={false}
         />
         <div style={{ textAlign: 'center', padding: 2, color: '#000000', fontSize: 12 }}>
           ©2023 <span onClick={handleJump}>Askio （ 悦问AI ）</span> 提供技术支持

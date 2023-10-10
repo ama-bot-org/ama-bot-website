@@ -14,6 +14,7 @@ type Iprops = {
   prompt: string
   completion: string
   botId?: string
+  commentType?: number // 1like 2unlike
 }
 
 enum ActiveBtn {
@@ -21,13 +22,22 @@ enum ActiveBtn {
   unlike = 'unlike',
 }
 
-const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, size = 'base', prompt, completion }) => {
+const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, size = 'base', prompt, completion, commentType }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
-  const [activeBtn, setActiveBtn] = useState<ActiveBtn>()
+  const [activeBtn, setActiveBtn] = useState<ActiveBtn | undefined>()
   const [log_id, setLogId] = useState<number>()
-  const [isFixed, setIsFixed] = useState(false)
+  const [isFixed, setIsFixed] = useState(hasFix)
   const [modalVisible, setModalVisible] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsFixed(hasFix)
+  }, [hasFix])
+
+  useEffect(() => {
+    const initCommentType = commentType === 1 ? ActiveBtn.like : commentType === 2 ? ActiveBtn.unlike : undefined
+    setActiveBtn(initCommentType)
+  }, [commentType])
 
   const evaluate = async (comment_type: CommentType) => {
     try {
@@ -94,10 +104,10 @@ const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, si
         <div className={className}>
           <LikeBtn size={size} onClick={onLike} active={activeBtn === ActiveBtn.like} disabled={isFixed} />
           <UnLikeBtn className="ml-8" size={size} onClick={onUnlike} active={activeBtn === ActiveBtn.unlike} disabled={isFixed} />
-          {hasFix && activeBtn === ActiveBtn.unlike && <FixBtn className="ml-8" size={size} onClick={onFix} active={isFixed} />}
+          {activeBtn === ActiveBtn.unlike && <FixBtn className="ml-8" size={size} onClick={onFix} active={isFixed} />}
         </div>
       )}
-      {hasFix && (
+      {!isFixed && (
         <QAModal
           visible={modalVisible}
           setVisible={setModalVisible}

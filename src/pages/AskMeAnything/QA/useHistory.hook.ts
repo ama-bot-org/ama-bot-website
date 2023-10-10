@@ -11,12 +11,12 @@ export default function useHistoryDialogs() {
 
   const [data, setData] = useState<LogInfoTableRow[]>([])
   const [total, setTotal] = useState(0)
-  const [pageSize] = useState(20)
+  const [pageSize] = useState(12)
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
   const transferTableData = (rows: LogInfoTableRow[]) => {
-    let dialogs: { type: string; content: string }[] = []
+    let dialogs: { type: string; content: string; commentType?: number; fixInfo?: number }[] = []
     rows.forEach(row => {
       dialogs.push({
         type: 'question',
@@ -25,6 +25,8 @@ export default function useHistoryDialogs() {
       dialogs.push({
         type: 'answer',
         content: row.answer,
+        commentType: row.comment_type,
+        fixInfo: row.fix_info,
       })
     })
     return dialogs
@@ -67,15 +69,16 @@ export default function useHistoryDialogs() {
     if (_total <= page * pageSize) {
       return
     }
+    console.log('hook.page', page)
     setPage(page + 1)
-    console.log('page', page + 1)
     const rows = await getHistoryTable(page + 1)
-    return rows
+    return { datas: rows, currentPage: page + 1 }
   }
 
   return {
     total,
     data,
+    page,
     loading,
     getHistoryTable,
     getPreviousDialogs,

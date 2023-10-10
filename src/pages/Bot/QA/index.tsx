@@ -5,14 +5,13 @@ import SendOutlined from '@ant-design/icons/SendOutlined'
 // import { useIntl } from '@ant-design/pro-components'
 import Button from 'antd/es/button'
 import Input from 'antd/es/input'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Dialog from '../Dialog'
 import ConfigProvider from 'antd/es/config-provider'
 import Tag from 'antd/es/tag'
 import Evaluate from '@/components/Evaluate'
 import { Spin, message } from 'antd'
 import useHistoryDialogs from '@/pages/AskMeAnything/QA/useHistory.hook'
-import { debounce } from 'lodash'
 
 type QAProps = {
   style: React.CSSProperties
@@ -24,37 +23,63 @@ type QAProps = {
   contactCode?: string
   notShowFastEntrance?: boolean // 默认 undefined 显示快捷入口
   disabledAd?: boolean // 默认 undefined 不显示 Askio 广告
-  hasEvaluateFix?: boolean // 是否有评论修复
 }
 
-const QA = ({
-  style,
-  id,
-  uuid,
-  model_type,
-  FAQContents,
-  contactCode,
-  welcomes,
-  notShowFastEntrance,
-  disabledAd,
-  hasEvaluateFix = true,
-}: QAProps) => {
+export type DialogsType = {
+  type: string
+  content: any
+  commentType?: number
+  fixInfo?: number
+  selectClass?: string
+}[]
+
+const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, notShowFastEntrance, disabledAd }: QAProps) => {
   const [question, setQuestion] = React.useState('')
-  const [dialogs, setDialogs] = React.useState<{ type: string; content: any; isApiAnswer?: boolean }[]>([])
-  const { total, loading, getPreviousDialogs, getHistoryTable } = useHistoryDialogs()
+  const [dialogs, setDialogs] = React.useState<DialogsType>([])
+  const { page, total, loading, getPreviousDialogs, getHistoryTable } = useHistoryDialogs()
   const ulRef = useRef<HTMLUListElement | null>(null)
+  const [locked, setLocked] = useState(false)
+
+  const handleScrollTop = () => {
+    setTimeout(() => {
+      const liItems = document.querySelectorAll(`.dialog-li-${page}`)
+      console.log('page', page)
+
+      let totalHeight = 0
+      liItems.forEach(item => {
+        totalHeight += item.clientHeight + 8 // height of each list item
+      })
+      // 如果是最后一个page, 需要算上欢迎语的高度
+      if (total * 2 <= dialogs.length) {
+        const liItems = document.querySelectorAll(`.dialog-li-welcome`)
+        let welcomesHeight = 0
+        liItems.forEach(item => {
+          welcomesHeight += item.clientHeight + 8 // height of each list item
+        })
+        totalHeight += welcomesHeight
+      }
+      ulRef.current!.scrollTop = totalHeight
+    }, 300)
+  }
+
+  useEffect(() => {
+    handleScrollTop()
+  }, [dialogs])
 
   const updateScroll = () => {
     const element = document.getElementById('bot-dialog')
     if (element) {
       setTimeout(() => {
         element.scrollTop = element.scrollHeight
-      }, 300)
+      }, 500)
     }
   }
 
   const initHistory = async () => {
     const datas = await getHistoryTable(1)
+    datas.forEach(data => {
+      Object.assign(data, { selectClass: `dialog-li-${page}` })
+    })
     setDialogs(datas)
     updateScroll()
   }
@@ -90,7 +115,6 @@ const QA = ({
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans
-        temp[temp.length - 1].isApiAnswer = true
       } else {
         temp[temp.length - 1].content = '哎呀，系统开了会儿小差，请重新提问下'
         console.log(result?.err)
@@ -214,7 +238,7 @@ const QA = ({
   const renderEvaluate = () => {
     const [dialog1, dialog2] = dialogs.slice(-2)
     let show = false
-    if (dialog1 && dialog2 && dialog2?.type === 'answer' && dialog2?.isApiAnswer) {
+    if (dialog1 && dialog2 && dialog2?.type === 'answer') {
       show = true
     }
     return (
@@ -223,11 +247,12 @@ const QA = ({
         <div className="mx-18">
           <Evaluate
             botId={id}
-            hasFix={hasEvaluateFix}
             show={show}
             prompt={dialog1?.content}
             completion={dialog2?.content}
-            className="mt-12 text-left"
+            commentType={dialog2?.commentType}
+            hasFix={dialog2?.fixInfo === 1}
+            className="mt-12"
           />
         </div>
       </>
@@ -235,41 +260,35 @@ const QA = ({
   }
 
   // 设置防抖间隔时间，单位毫秒
-  const handleScrollDebounced = debounce(async (event: React.WheelEvent<HTMLDivElement>, total: number) => {
-    // 判断滚轮方向
-    if (event.deltaY < 0) {
-      console.log('向上滚动')
+  const handleScrollDebounced = async (event: React.WheelEvent<HTMLDivElement>, total: number) => {
+    if (locked) {
+      return
+    }
 
+    // 判断滚轮方向
+    if (event.deltaY < 0 && ulRef.current && ulRef.current.scrollTop === 0) {
+      console.log('向上滚动')
+      setLocked(true)
       // 滚动到顶部了
-      const datas = await getPreviousDialogs(total)
-      if (datas) {
-        const temp = datas.concat(dialogs)
-        setDialogs(temp)
+      const res = await getPreviousDialogs(total)
+      if (res) {
+        const { datas, currentPage } = res
+        if (datas) {
+          datas.forEach(data => {
+            Object.assign(data, { selectClass: `dialog-li-${currentPage}` })
+          })
+          const temp = datas.concat(dialogs)
+          setDialogs(temp)
+          setLocked(false)
+        }
       }
     }
-  }, 300)
-
-  const handleDialogScroll = (event: React.WheelEvent<HTMLDivElement>) => {
-    handleScrollDebounced(event, total)
   }
 
   return (
-    <div style={style} className="w-full flex flex-column overflow-hidden text-center mb-8">
-      {welcomes && welcomes.length > 0 ? (
-        <ul style={{ display: 'flex', flexDirection: 'column', paddingInlineStart: 0, overflow: 'auto', flex: 1 }}>
-          {welcomes && welcomes.length > 0
-            ? welcomes.map((welcome, index) => {
-                return (
-                  <li key={index} className="my-2 mx-18 h-auto">
-                    <Dialog position="left-bottom">{welcome}</Dialog>
-                  </li>
-                )
-              })
-            : null}
-        </ul>
-      ) : null}
+    <div style={style} className="w-full flex flex-column overflow-hidden mb-8">
       {loading ? (
-        <div>
+        <div className="w-full text-center">
           <Spin />
           加载更多
         </div>
@@ -278,7 +297,7 @@ const QA = ({
         id="bot-dialog"
         ref={ulRef}
         onWheel={(e: any) => {
-          handleDialogScroll(e)
+          handleScrollDebounced(e, total)
         }}
         style={{
           display: 'flex',
@@ -290,10 +309,19 @@ const QA = ({
           overflow: 'auto',
         }}
       >
-        <li className="my-4 mx-18 text-center">{!loading && total * 2 <= dialogs.length ? '没有更多历史信息了' : null}</li>
+        <li className="my-4 mx-18 text-center">{!loading && total * 2 <= dialogs.length ? '—— 没有更多历史信息了 ——' : null}</li>
+        {welcomes && welcomes.length > 0
+          ? welcomes.map((welcome, index) => {
+              return (
+                <li key={index} className="my-2 mx-18 h-auto dialog-li-welcome">
+                  <Dialog position="left-bottom">{welcome}</Dialog>
+                </li>
+              )
+            })
+          : null}
         {dialogs.map((dialog, index) => {
           return (
-            <li key={index} className="my-2 mx-18 h-auto">
+            <li key={index} className={`my-4 mx-18 h-auto ${dialog.selectClass}`}>
               <Dialog position={dialog.type === 'question' ? 'right-bottom' : 'left-bottom'}>{dialog.content}</Dialog>
             </li>
           )
