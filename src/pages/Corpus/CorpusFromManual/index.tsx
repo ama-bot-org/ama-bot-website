@@ -148,7 +148,7 @@ const CorpusFromManual: React.FC = () => {
       <div style={{ flex: 1, overflow: 'auto' }}>
         <div className={topClassName}>
           <div className={searchWrapClassName}>
-            <Input.Search className={searchClassName} onSearch={handleSearch} />
+            <Input.Search className={searchClassName} placeholder="请输入要搜索的标题或内容" onSearch={handleSearch} />
             <ConfigProvider
               theme={{
                 token: {
