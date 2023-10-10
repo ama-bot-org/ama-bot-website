@@ -213,9 +213,6 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
       >
         {!loading && total * 2 <= dialogs.length ? (
           <>
-            <li className="my-4 mx-18 text-center">
-              {dialogs.length > 0 && total * 2 <= dialogs.length ? '—— 没有更多历史信息了 ——' : ''}
-            </li>
             <div className="mb-4 mx-18 dialog-li-welcome">
               <div
                 className="p-16 my-4 bg-white rounded-lg float-left"
@@ -258,6 +255,9 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
                 />
               </div>
             </div>
+            <li className="my-4 mx-18 text-center">
+              {dialogs.length > 0 && total * 2 <= dialogs.length && dialogs.length > 40 ? '—— 没有更多历史信息了 ——' : ''}
+            </li>
             {welcomes && welcomes.length > 0 && !loading && total * 2 <= dialogs.length
               ? welcomes.map((welcome, index) => {
                   return (

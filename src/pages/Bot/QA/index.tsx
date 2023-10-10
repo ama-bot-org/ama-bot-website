@@ -309,7 +309,9 @@ const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, n
           overflow: 'auto',
         }}
       >
-        <li className="my-4 mx-18 text-center">{!loading && total * 2 <= dialogs.length ? '—— 没有更多历史信息了 ——' : null}</li>
+        <li className="my-4 mx-18 text-center">
+          {!loading && total * 2 <= dialogs.length && dialogs.length > 40 ? '—— 没有更多历史信息了 ——' : null}
+        </li>
         {welcomes && welcomes.length > 0
           ? welcomes.map((welcome, index) => {
               return (

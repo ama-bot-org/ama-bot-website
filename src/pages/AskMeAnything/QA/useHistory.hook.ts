@@ -60,7 +60,6 @@ export default function useHistoryDialogs() {
         return transferTableData(data)
       }
     } else {
-      message.error('获取机器人ID失败')
       return transferTableData(data)
     }
   }
