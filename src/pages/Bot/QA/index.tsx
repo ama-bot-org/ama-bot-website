@@ -305,7 +305,6 @@ const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, n
           paddingInlineStart: 0,
           flex: 1,
           width: '100%',
-          maxHeight: 'calc(100vh - 500px)',
           overflow: 'auto',
         }}
       >
