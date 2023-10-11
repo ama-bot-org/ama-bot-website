@@ -11,7 +11,7 @@ import Button from 'antd/es/button'
 import ConfigProvider from 'antd/es/config-provider'
 import type { UploadProps } from 'antd/es/upload'
 import message from 'antd/es/message'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'antd/es/form/Form'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -129,12 +129,12 @@ const RegisterForm = (props: RegisterFormProps) => {
     await handleUpload({ fileContent: file, filename: file.name, onError, onSuccess })
   }
 
-  useEffect(() => {
-    if (postImageUrl) {
-      const button = document.getElementById('myButton')
-      button?.click()
-    }
-  }, [postImageUrl])
+  // useEffect(() => {
+  //   if (postImageUrl) {
+  //     const button = document.getElementById('myButton')
+  //     button?.click()
+  //   }
+  // }, [postImageUrl])
 
   return (
     <Form
