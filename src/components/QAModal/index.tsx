@@ -36,16 +36,17 @@ const QAModal = (props: QAModalProps) => {
   const handleFinished = async (values: QAFormInfo) => {
     setLoading(true)
     try {
-      let res: any
       if (currentUser?.bot_id) {
-        res = await addStandardWithLog({ ...values, bot_id: currentUser?.bot_id, log_id })
-      }
-      if (res.ActionType === ActionType.OK) {
-        form.resetFields()
-        okCallback?.()
-        setVisible(false)
+        const res = await addStandardWithLog({ ...values, bot_id: currentUser?.bot_id, log_id })
+        if (res.ActionType === ActionType.OK) {
+          form.resetFields()
+          okCallback?.()
+          setVisible(false)
+        } else {
+          message.error(res?.message || '保存失败')
+        }
       } else {
-        message.error(res?.message || '保存失败')
+        message.error('请登录后再重试')
       }
     } catch (error) {
       console.log(error)

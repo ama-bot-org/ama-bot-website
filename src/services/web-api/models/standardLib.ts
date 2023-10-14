@@ -1,4 +1,5 @@
 import { ErrorResponse } from './common'
+import { LogInfoTableRow } from './logInfo'
 
 // 前端给后台
 export interface QAFormInfo {
@@ -56,4 +57,9 @@ export interface AddStandardWithLogParams {
   log_id: number
 }
 
-export interface AddStandardWithLogResponse extends ErrorResponse {}
+export interface AddStandardWithLogResponse extends ErrorResponse {
+  data: {
+    count: number
+    content: LogInfoTableRow[]
+  }
+}
