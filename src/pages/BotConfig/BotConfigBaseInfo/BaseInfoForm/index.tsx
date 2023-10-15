@@ -16,7 +16,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import BotAPI from '@/services/web-api/bot'
 import { BotDataType } from '@/models/bot'
 import { BotRequestType } from '@/services/web-api/models/bot'
-import { Skeleton, Select } from 'antd'
+import { Skeleton, Select, Switch } from 'antd'
 import cls from 'classnames'
 
 import styles from './style.less'
@@ -50,6 +50,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
   const [formLoading, setFormLoading] = useState<boolean>(false)
   const [isInit, setIsInit] = useState<boolean>(true)
   const [spread, setSpread] = useState<boolean>(false) // 是否展开高级配置
+  const [cuserModifyChecked, setCuserModifyChecked] = useState<boolean>(false)
 
   const initForm = (botInfo: BotDataType) => {
     setBotInfo(botInfo)
@@ -63,7 +64,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
     try {
       const res = await BotAPI.fetchBotInfo(bot_id)
       if (res?.ActionType === ActionType.OK) {
-        const { name, image_url, welcomes, html_url, bgImg_url, contact, faq_contents, model_type } = res
+        const { name, image_url, welcomes, html_url, bgImg_url, contact, faq_contents, model_type, is_cuser_modify } = res
         const botInfo = {
           id: bot_id,
           name,
@@ -73,8 +74,10 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
           welcomes: welcomes ? JSON.parse(welcomes) : [],
           contact: contact ? JSON.parse(contact) : [],
           faq_contents: faq_contents ? JSON.parse(faq_contents) : [],
+          is_cuser_modify: is_cuser_modify || 0,
           model_type,
         }
+        setCuserModifyChecked(is_cuser_modify === 1)
         initForm(botInfo)
         onSaved(botInfo)
       }
@@ -103,6 +106,7 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
         welcomes: values.welcomes ? JSON.stringify(values.welcomes) : '[]',
         contact: JSON.stringify(values.contact),
         faq_contents: JSON.stringify(values.faq_contents),
+        is_cuser_modify: cuserModifyChecked ? 1 : 0,
         email: currentUser?.email,
         phone: currentUser?.phone,
         bot_id: currentUser?.bot_id,
@@ -220,6 +224,10 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
     }
   }, [postImageUrl])
 
+  const handleSwitchChange = (checked: boolean) => {
+    setCuserModifyChecked(checked)
+  }
+
   return formLoading ? (
     <Skeleton
       style={{
@@ -239,7 +247,6 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
         flex: 1,
         overflow: 'auto',
         background: '#ffffff96',
-        padding: '24px',
       }}
     >
       <Form.Item
@@ -326,6 +333,17 @@ const BaseInfoForm = ({ onSaved }: { onSaved: (botInfo: BotDataType) => void }) 
           </>
         )}
       </Form.List>
+      <Form.Item name="is_cuser_modify" label="回答修正">
+        <div className="frc-start">
+          <div className="mr-26 text-#131415 opacity-0.6">
+            <p className="mb-0">关闭时，仅在后台可修正，管理员提交的修正结果将无需审核；</p>
+            <p className="mt-0 mb-0">
+              打开后，在H5、网站、微信公众号这些平台，所有人和AI对话时都可修正，用户提供的修正内容将会被记录到【标准问答库-待处理】内，等待管理员的审核和确认。
+            </p>
+          </div>
+          <Switch checked={cuserModifyChecked} onChange={handleSwitchChange} />
+        </div>
+      </Form.Item>
       <div className={cls(styles.advance_config, { [styles.spread]: spread })}>
         <div
           className={cls(styles.title, 'frc-start')}

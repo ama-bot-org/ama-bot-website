@@ -1,5 +1,5 @@
 import logInfo from '@/services/web-api/logInfo'
-import { LogInfoTableRow } from '@/services/web-api/models/logInfo'
+import { CommentType, LogInfoTableRow } from '@/services/web-api/models/logInfo'
 import { ActionType } from '@/constants/enums'
 import { message } from 'antd'
 import { useState } from 'react'
@@ -16,7 +16,7 @@ export default function useHistoryDialogs() {
   const [loading, setLoading] = useState(false)
 
   const transferTableData = (rows: LogInfoTableRow[]) => {
-    let dialogs: { type: string; content: string; commentType?: number; fixInfo?: number }[] = []
+    let dialogs: { type: string; content: string; commentType?: CommentType; fixInfo?: number }[] = []
     rows.forEach(row => {
       dialogs.push({
         type: 'question',

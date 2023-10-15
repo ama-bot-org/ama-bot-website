@@ -5,14 +5,42 @@
   background: #e65c41;
 }
 
+@font-face {
+  font-family: AlibabaPuHuiTi-2-85-Bold;
+  src: url(https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-2/AlibabaPuHuiTi-2-85-Bold/AlibabaPuHuiTi-2-85-Bold.ttf)
+    format('TrueType');
+}
+
+@font-face {
+  font-family: AlibabaPuHuiTi-2-65-Medium;
+  src: url(https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-2/AlibabaPuHuiTi-2-65-Medium/AlibabaPuHuiTi-2-65-Medium.ttf)
+    format('TrueType');
+}
+
+@font-face {
+  font-family: AlibabaPuHuiTi-2-55-Regular;
+  src: url(https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-2/AlibabaPuHuiTi-2-55-Regular/AlibabaPuHuiTi-2-55-Regular.ttf)
+    format('TrueType');
+}
+
+@font-face {
+  font-family: AlibabaSans-Regular;
+  src: url(https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaSans/AlibabaSans-Regular/AlibabaSans-Regular.ttf) format('TrueType');
+}
+
+@font-face {
+  font-family: AlibabaSans-Medium;
+  src: url(https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaSans/AlibabaSans-Medium/AlibabaSans-Medium.ttf) format('TrueType');
+}
+
 html,
 body,
 #root {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: AlibabaPuHuiTi-2-55-Regular, PingFang SC Regular, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 button {
@@ -76,6 +104,11 @@ button {
 // 头像隐藏
 .ant-dropdown-trigger .ant-avatar.ant-avatar-circle {
   display: none;
+}
+
+.ant-layout-content.ant-pro-layout-content {
+  padding-inline: 40px !important;
+  padding-block: 40px !important;
 }
 
 // 表单间距和字体大小
@@ -378,6 +411,9 @@ ol {
 .mr-8 {
   margin-right: 8px;
 }
+.mr-26 {
+  margin-right: 26px;
+}
 .mt-0 {
   margin-top: 0px;
 }
@@ -420,6 +456,9 @@ ol {
 .p-16 {
   padding: 16px;
 }
+.p-24 {
+  padding: 24px;
+}
 .text-40 {
   font-size: 40px;
 }
@@ -451,11 +490,16 @@ ol {
 .text-\#e65c41 {
   color: #e65c41;
 }
+.text-\#131415 {
+  color: #131415;
+}
 
 .text-shadow {
   text-shadow: 0px 1px black;
 }
-
+.opacity-0\.6 {
+  opacity: 0.6;
+}
 .font-bold {
   font-weight: bold;
 }
@@ -466,6 +510,10 @@ ol {
 
 .rounded-lg {
   border-radius: 8px;
+}
+
+.rounded-md {
+  border-radius: 4pt;
 }
 
 .bg-white {

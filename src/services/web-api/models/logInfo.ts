@@ -5,14 +5,30 @@ export interface GetLogInfoTableParamsType {
   page: number
   pageSize: number
   answer_type?: number
-  comment_type?: number
+  comment_type?: CommentType
   uuid?: string
 }
 
+/**
+ * 枚举定义评论类型
+ */
 export enum CommentType {
-  like = 1, //点赞
-  unlike = 2, //点踩
+  /**
+   * 没有交互
+   */
+  noAction = 0,
+
+  /**
+   * 点赞
+   */
+  like = 1,
+
+  /**
+   * 点踩
+   */
+  unlike = 2,
 }
+
 export interface CommentInfoParamsType {
   bot_id: string
   question: string
@@ -31,7 +47,7 @@ export interface LogInfoTableRow {
   create_date: number //创建时间
   fix_info: 0 | 1 // 是否已修正
   uuid: string
-  comment_type: number
+  comment_type: CommentType
   answer_type: number
 }
 

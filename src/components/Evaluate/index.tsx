@@ -7,25 +7,20 @@ import { FC, useEffect, useState } from 'react'
 import { FixBtn, LikeBtn, Size, UnLikeBtn } from '../EvaluateBtn'
 
 type Iprops = {
-  hasFix?: boolean
+  hasFix: boolean
   show: boolean
   className?: string
   size?: Size
   prompt: string
   completion: string
   botId?: string
-  commentType?: number // 1like 2unlike
+  commentType: CommentType
 }
 
-enum ActiveBtn {
-  like = 'like',
-  unlike = 'unlike',
-}
-
-const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, size = 'base', prompt, completion, commentType }) => {
+const Evaluate: FC<Iprops> = ({ botId, show, hasFix, className, size = 'base', prompt, completion, commentType }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
-  const [activeBtn, setActiveBtn] = useState<ActiveBtn | undefined>()
+  const [commentStatus, setCommentStatus] = useState<CommentType>(commentType)
   const [log_id, setLogId] = useState<number>()
   const [isFixed, setIsFixed] = useState(hasFix)
   const [modalVisible, setModalVisible] = useState<boolean>(false)
@@ -33,11 +28,6 @@ const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, si
   useEffect(() => {
     setIsFixed(hasFix)
   }, [hasFix])
-
-  useEffect(() => {
-    const initCommentType = commentType === 1 ? ActiveBtn.like : commentType === 2 ? ActiveBtn.unlike : undefined
-    setActiveBtn(initCommentType)
-  }, [commentType])
 
   const evaluate = async (comment_type: CommentType) => {
     try {
@@ -63,18 +53,18 @@ const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, si
   }
 
   const onLike = async () => {
-    if (activeBtn === ActiveBtn.like) return
+    if (commentStatus === CommentType.like) return
     const res = await evaluate(CommentType.like)
     if (res) {
-      setActiveBtn(ActiveBtn.like)
+      setCommentStatus(CommentType.like)
     }
   }
 
   const onUnlike = async () => {
-    if (activeBtn === ActiveBtn.unlike) return
+    if (commentStatus === CommentType.unlike) return
     const res = await evaluate(CommentType.unlike)
     if (res) {
-      setActiveBtn(ActiveBtn.unlike)
+      setCommentStatus(CommentType.unlike)
     }
   }
 
@@ -91,7 +81,7 @@ const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, si
   useEffect(() => {
     if (!show) {
       // 重置
-      setActiveBtn(undefined)
+      setCommentStatus(CommentType.noAction)
       setIsFixed(false)
       setModalVisible(false)
       setLogId(undefined)
@@ -102,9 +92,9 @@ const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, si
     <>
       {show && (
         <div className={className}>
-          <LikeBtn size={size} onClick={onLike} active={activeBtn === ActiveBtn.like} disabled={isFixed} />
-          <UnLikeBtn className="ml-8" size={size} onClick={onUnlike} active={activeBtn === ActiveBtn.unlike} disabled={isFixed} />
-          {activeBtn === ActiveBtn.unlike && <FixBtn className="ml-8" size={size} onClick={onFix} active={isFixed} />}
+          <LikeBtn size={size} onClick={onLike} active={commentStatus === CommentType.like} disabled={isFixed} />
+          <UnLikeBtn className="ml-8" size={size} onClick={onUnlike} active={commentStatus === CommentType.unlike} disabled={isFixed} />
+          <FixBtn className="ml-8" size={size} onClick={onFix} active={isFixed} />
         </div>
       )}
       {!isFixed && (

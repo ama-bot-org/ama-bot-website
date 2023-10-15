@@ -1,3 +1,5 @@
+import { isCuserModifyType } from '@/services/web-api/models/bot'
+
 export interface BotDataType {
   id: string
   name: string
@@ -8,4 +10,5 @@ export interface BotDataType {
   welcomes: string[]
   contact: string
   model_type: number
+  is_cuser_modify: isCuserModifyType
 }

@@ -13,6 +13,7 @@ import Evaluate from '@/components/Evaluate'
 import useHistoryDialogs from './useHistory.hook'
 import { Spin } from 'antd'
 import { DialogsType } from '@/pages/Bot/QA'
+import { CommentType } from '@/services/web-api/models/logInfo'
 
 const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }) => {
   //   const intl = useIntl()
@@ -108,6 +109,8 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
       })
       if (result.ActionType === 'OK' && result.ans) {
         temp[temp.length - 1].content = result.ans
+        temp[temp.length - 1].commentType = CommentType.noAction
+        temp[temp.length - 1].fixInfo = 0
         setDialogs(temp.slice())
         updateScroll()
         return
@@ -130,24 +133,28 @@ const QA = ({ welcomes, model_type }: { welcomes: string[]; model_type: number }
 
   const renderEvaluate = () => {
     const [dialog1, dialog2] = dialogs.slice(-2)
+
     let show = false
     if (dialog1 && dialog2 && dialog2?.type === 'answer') {
       show = true
     }
+
     return (
       <>
         <div className="clearfix"></div>
-        <div className="mx-18">
-          <Evaluate
-            botId={currentUser?.bot_id}
-            show={show}
-            prompt={dialog1?.content}
-            completion={dialog2?.content}
-            commentType={dialog2?.commentType}
-            hasFix={dialog2?.fixInfo === 1}
-            className="mt-12 text-left"
-          />
-        </div>
+        {dialog2?.commentType !== undefined && (
+          <div className="mx-18">
+            <Evaluate
+              botId={currentUser?.bot_id}
+              show={show}
+              prompt={dialog1?.content}
+              completion={dialog2?.content}
+              commentType={dialog2.commentType}
+              hasFix={dialog2?.fixInfo === 1}
+              className="mt-12 text-left"
+            />
+          </div>
+        )}
       </>
     )
   }

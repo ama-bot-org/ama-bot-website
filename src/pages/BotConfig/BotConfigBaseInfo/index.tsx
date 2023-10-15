@@ -14,12 +14,11 @@ const BaseInfo = () => {
 
   return (
     <div className={`${isMobile ? 'fcs-between' : 'frs-between'}`}>
-      <div className="flex-1 overflow-auto p-10">
-        <h3>机器人配置：</h3>
+      <div className="flex-1 overflow-auto p-24 bg-white rounded-md">
         <BaseInfoForm onSaved={handleBaseInfoChange} />
       </div>
       <Divider type={isMobile ? 'horizontal' : 'vertical'} />
-      <div className="flex-1 overflow-auto p-10">
+      <div className="flex-1 overflow-auto p-24">
         <h3
           style={{
             maxWidth: '688px',

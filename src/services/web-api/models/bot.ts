@@ -16,17 +16,33 @@ export interface Bot {
   model_type: number
 }
 
+/**
+ * C端用户是否有修改回答的权限
+ */
+export enum isCuserModifyType {
+  /**
+   * 没权限
+   */
+  disabled = 0,
+  /**
+   * 有权限
+   */
+  enabled = 1,
+}
+
 export interface BotRequestType extends Bot {
   email?: string
   phone: string
 
   bot_id: string
+  is_cuser_modify: isCuserModifyType
 }
 
 export interface BotResult extends Bot {
   ActionType: ActionType
   message?: string
   bot_id: string
+  is_cuser_modify: isCuserModifyType
 }
 
 export interface BotSubDomainRequestType {

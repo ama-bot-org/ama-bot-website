@@ -12,6 +12,7 @@ import Tag from 'antd/es/tag'
 import Evaluate from '@/components/Evaluate'
 import { Spin, message } from 'antd'
 import useHistoryDialogs from '@/pages/AskMeAnything/QA/useHistory.hook'
+import { CommentType } from '@/services/web-api/models/logInfo'
 
 type QAProps = {
   style: React.CSSProperties
@@ -28,7 +29,7 @@ type QAProps = {
 export type DialogsType = {
   type: string
   content: any
-  commentType?: number
+  commentType?: CommentType
   fixInfo?: number
   selectClass?: string
 }[]
@@ -241,20 +242,23 @@ const QA = ({ style, id, uuid, model_type, FAQContents, contactCode, welcomes, n
     if (dialog1 && dialog2 && dialog2?.type === 'answer') {
       show = true
     }
+
     return (
       <>
         <div className="clearfix"></div>
-        <div className="mx-18">
-          <Evaluate
-            botId={id}
-            show={show}
-            prompt={dialog1?.content}
-            completion={dialog2?.content}
-            commentType={dialog2?.commentType}
-            hasFix={dialog2?.fixInfo === 1}
-            className="mt-12"
-          />
-        </div>
+        {dialog2?.commentType !== undefined && (
+          <div className="mx-18">
+            <Evaluate
+              botId={id}
+              show={show}
+              prompt={dialog1?.content}
+              completion={dialog2?.content}
+              commentType={dialog2.commentType}
+              hasFix={dialog2?.fixInfo === 1}
+              className="mt-12"
+            />
+          </div>
+        )}
       </>
     )
   }
