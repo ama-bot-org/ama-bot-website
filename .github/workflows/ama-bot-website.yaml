@@ -3,7 +3,7 @@ name: ama-bot-website-ci
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build:
@@ -50,7 +50,7 @@ jobs:
       - name: SSH deploy to production server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.TEST_IP }}
-          username: ${{ secrets.TEST_USER }}
-          password: ${{ secrets.TEST_PASSWORD }}
+          host: ${{ secrets.TENCENT_CLOUD_IP }}
+          username: ${{ secrets.TENCENT_CLOUD_NAME }}
+          password: ${{ secrets.TENCENT_CLOUD_PASSWORD }}
           script: cd ~ && cd ../home/ubuntu && sh deploy.sh
