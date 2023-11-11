@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { ActionType } from '@/constants/enums'
 import { QAFormInfo } from '@/services/web-api/models/standardLib'
-import { addStandardInfos, updateStandardInfo } from '@/services/web-api/standardLib'
+import standardLibAPI from '@/services/web-api/standardLib'
 import { useModel } from '@umijs/max'
 import { Input, Modal, Form, Button, message } from 'antd'
 
@@ -38,9 +38,9 @@ const QAModal = (props: QAModalProps) => {
     try {
       let res: any
       if (modalType === 'add' && currentUser?.bot_id) {
-        res = await addStandardInfos([{ ...values, bot_id: currentUser?.bot_id }])
+        res = await standardLibAPI.addStandardInfos([{ ...values, bot_id: currentUser?.bot_id }])
       } else {
-        res = await updateStandardInfo({ ...values, bot_id: currentUser?.bot_id, id: QAInfo?.id })
+        res = await standardLibAPI.updateStandardInfo({ ...values, bot_id: currentUser?.bot_id, id: QAInfo?.id })
         console.log('editStandardTableInfo', res)
       }
       if (res.ActionType === ActionType.OK) {
