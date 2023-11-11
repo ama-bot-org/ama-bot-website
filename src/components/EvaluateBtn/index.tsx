@@ -11,6 +11,7 @@ export type Size = 'base' | 'small'
 type Iprops = {
   size?: Size
   active?: boolean
+  isFixed?: boolean
   text: string
   icon?: ReactNode
   className?: string
@@ -24,7 +25,7 @@ type Iprops2 = Omit<Iprops, 'text' | 'icon'>
 const Btn: FC<Iprops> = ({
   size = 'base',
   color = '#a1a1a1',
-  active = false,
+  isFixed = false,
   icon = null,
   text = '',
   className = '',
@@ -33,7 +34,7 @@ const Btn: FC<Iprops> = ({
 }) => {
   return (
     <div
-      className={cls(styles.btnRoot, className, styles[size], { [styles.active]: active, [styles.disabled]: disabled })}
+      className={cls(styles.btnRoot, className, styles[size], { [styles.active]: isFixed, [styles.disabled]: disabled })}
       onClick={e => {
         if (disabled) return
         onClick(e)
@@ -52,18 +53,27 @@ const Btn: FC<Iprops> = ({
 }
 
 export const LikeBtn: FC<Iprops2> = props => {
-  const color = props.active ? '#000000' : '#a1a1a1'
+  const color = props.active ? '#e65c41' : '#a1a1a1'
   return <Btn text="答得不错" icon={<LikeIcon fill={color} />} {...props} color={color} />
 }
 
 export const UnLikeBtn: FC<Iprops2> = props => {
-  const color = props.active ? '#000000' : '#a1a1a1'
+  const color = props.active ? '#e65c41' : '#a1a1a1'
   return <Btn text="差点意思" icon={<UnlikeIcon fill={color} />} {...props} color={color} />
 }
 
 export const FixBtn: FC<Iprops2> = props => {
-  const text = props.active ? '已修正' : '修正问答'
-  return <Btn text={text} icon={<FixIcon />} {...props} className={cls(styles.fixBtn, props.className)} />
+  const text = props.isFixed ? '已修正' : '修正问答'
+  const color = props.isFixed ? '#e65c41' : '#a1a1a1'
+  return (
+    <Btn
+      text={text}
+      icon={<FixIcon fill={color} color={color} />}
+      {...props}
+      className={cls(styles.fixBtn, props.className)}
+      color={color}
+    />
+  )
 }
 
 export default Btn

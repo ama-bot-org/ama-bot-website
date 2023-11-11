@@ -1,79 +1,72 @@
-import { FileInfo } from '@/services/web-api/models/corpus'
-import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
+import { QAFormInfo } from '@/services/web-api/models/standardLib'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
-import Button from 'antd/es/button'
-import Popconfirm from 'antd/es/popconfirm'
-import Table from 'antd/lib/table'
+import QuestionCircleOutlined from '@ant-design/icons/QuestionCircleOutlined'
+import { useIntl } from '@umijs/max'
+import Table from 'antd/es/table'
+import Button from 'antd/lib/button'
+import Popconfirm from 'antd/lib/popconfirm'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { useIntl } from '@umijs/max'
-import Tooltip from 'antd/es/tooltip'
+import { Tooltip } from 'antd'
 dayjs.extend(utc)
 
-type ThemeTableProps = {
-  data: FileInfo[]
+type QATableProps = {
+  data: QAFormInfo[]
   pageSize: number
   total: number
   page: number
   loading: boolean
   onPageChange: (page: number) => void
-  onEditRow: (rowData: FileInfo) => void
-  onDeleteRow: (rowData: FileInfo) => void
+  onEditRow: (rowData: QAFormInfo) => void
+  onDeleteRow: (rowData: QAFormInfo) => void
 }
 
-const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow, onPageChange }: ThemeTableProps) => {
+const QATable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteRow, onPageChange }: QATableProps) => {
   const intl = useIntl()
-
-  const handleEditRow = (rowData: FileInfo) => {
+  const handleEditRow = (rowData: QAFormInfo) => {
     onEditRow(rowData)
   }
 
-  const handleDeleteRow = (rowData: FileInfo) => {
+  const handleDeleteRow = (rowData: QAFormInfo) => {
     onDeleteRow(rowData)
   }
 
   const columns = [
     {
-      title: '标题',
-      dataIndex: 'doc_name',
-      key: 'doc_name',
+      title: '问题',
+      dataIndex: 'prompt',
+      key: 'prompt',
+      width: 300,
       ellipsis: {
         showTitle: false,
       },
-      width: 180,
-      render: (doc_name: string) => (
-        <Tooltip title={doc_name} placement="bottomLeft">
-          <div className="w-auto">{doc_name}</div>
+      render: (prompt: string) => (
+        <Tooltip title={prompt} placement="bottomLeft">
+          <span>{prompt}</span>
         </Tooltip>
       ),
     },
     {
-      title: '内容',
-      dataIndex: 'content',
-      key: 'content',
+      title: '回答',
+      dataIndex: 'completion',
+      key: 'completion',
       ellipsis: {
         showTitle: false,
       },
-      width: 500,
-      render: (content: string) => (
-        <div
-          className="w-auto"
-          style={{
-            textOverflow: 'ellipsis',
-          }}
-        >
-          {content}
-        </div>
+      render: (completion: string) => (
+        <Tooltip title={completion} placement="bottomLeft">
+          <span>{completion}</span>
+        </Tooltip>
       ),
     },
     {
       title: '创建时间',
       dataIndex: 'date',
       key: 'date',
+      render: (date: number) => dayjs.utc(date).format('YYYY-MM-DD HH:mm:ss'),
       width: 180,
       align: 'center' as any,
-      render: (date: number) => dayjs.utc(date).format('YYYY-MM-DD HH:mm:ss'),
     },
     {
       title: '操作',
@@ -81,14 +74,13 @@ const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteR
       key: 'operation',
       width: 220,
       align: 'center' as any,
-      render: (_: any, rowData: FileInfo) => (
+      render: (_: any, rowData: QAFormInfo) => (
         <>
           <Button onClick={() => handleEditRow(rowData)} icon={<EditOutlined />}>
-            编辑
+            {intl.formatMessage({
+              id: 'button.edit',
+            })}
           </Button>
-          {/* <Button type="text" onClick={() => handlePreviewRow(rowData)} icon={<EyeOutlined />}>
-            预览
-          </Button> */}
           <Popconfirm
             title="删除这条语料"
             description="删除后将无法找回，确认删除吗?"
@@ -132,4 +124,4 @@ const ThemeTable = ({ data, pageSize, total, page, loading, onEditRow, onDeleteR
   )
 }
 
-export default ThemeTable
+export default QATable

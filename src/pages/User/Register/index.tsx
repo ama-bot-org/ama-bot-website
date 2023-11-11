@@ -4,7 +4,8 @@
 // step3. 跳到登录页，通过邮箱密码登录
 
 import styles from './register.less'
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
+import ArrowLeftOutlined from '@ant-design/icons/ArrowLeftOutlined'
+import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined'
 import { useIntl, Link, useLocation } from '@umijs/max'
 import message from 'antd/es/message'
 import { useEffect, useState } from 'react'

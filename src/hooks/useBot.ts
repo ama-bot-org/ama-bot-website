@@ -18,7 +18,7 @@ export default function useBotModel() {
   const initBotInfo = async (bot_id: string) => {
     const res = await BotAPI.fetchBotInfo(bot_id)
     if (res?.ActionType === ActionType.OK) {
-      const { name, image_url, html_url, welcomes, bgImg_url, contact, faq_contents, model_type } = res
+      const { name, image_url, html_url, welcomes, bgImg_url, contact, faq_contents, model_type, is_cuser_modify } = res
       const tempBotInfo = {
         id: bot_id,
         name,
@@ -28,7 +28,8 @@ export default function useBotModel() {
         welcomes: welcomes && welcomes.length > 0 ? JSON.parse(welcomes) : [],
         contact: contact && welcomes.length > 0 ? JSON.parse(contact) : [],
         faq_contents: faq_contents && welcomes.length > 0 ? JSON.parse(faq_contents) : [],
-        model_type
+        is_cuser_modify: is_cuser_modify || 0,
+        model_type,
       }
       console.log('tempBotInfo', tempBotInfo)
       setBotInfo(tempBotInfo)

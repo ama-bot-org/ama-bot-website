@@ -14,10 +14,11 @@ type Iprops = {
   prompt: string
   completion: string
   botId?: string
+  uuid?: string
   commentType: CommentType
 }
 
-const Evaluate: FC<Iprops> = ({ botId, show, hasFix, className, size = 'base', prompt, completion, commentType }) => {
+const Evaluate: FC<Iprops> = ({ botId, uuid, show, hasFix, className, size = 'base', prompt, completion, commentType }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const [commentStatus, setCommentStatus] = useState<CommentType>(commentType)
@@ -75,7 +76,7 @@ const Evaluate: FC<Iprops> = ({ botId, show, hasFix, className, size = 'base', p
 
   const onFixed = () => {
     setIsFixed(true)
-    message.success('保存成功，已新增到标准问答库')
+    message.success(uuid ? '保存成功，管理员将尽快审核，感谢您的反馈' : '保存成功，已新增到标准问答库')
   }
 
   useEffect(() => {
@@ -94,7 +95,7 @@ const Evaluate: FC<Iprops> = ({ botId, show, hasFix, className, size = 'base', p
         <div className={className}>
           <LikeBtn size={size} onClick={onLike} active={commentStatus === CommentType.like} disabled={isFixed} />
           <UnLikeBtn className="ml-8" size={size} onClick={onUnlike} active={commentStatus === CommentType.unlike} disabled={isFixed} />
-          <FixBtn className="ml-8" size={size} onClick={onFix} active={isFixed} />
+          {commentStatus === CommentType.unlike && !isFixed && <FixBtn className="ml-8" size={size} onClick={onFix} isFixed={isFixed} />}
         </div>
       )}
       {!isFixed && (
@@ -106,6 +107,8 @@ const Evaluate: FC<Iprops> = ({ botId, show, hasFix, className, size = 'base', p
             completion,
           }}
           okCallback={onFixed}
+          uuid={uuid}
+          bot_id={botId || currentUser?.bot_id}
           log_id={log_id as number}
         />
       )}

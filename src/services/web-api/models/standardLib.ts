@@ -5,8 +5,9 @@ import { LogInfoTableRow } from './logInfo'
 export interface QAFormInfo {
   id?: number
   bot_id?: string
-  prompt: string //问题
-  completion: string //回答
+  prompt: string // 问题
+  completion: string // 原回答
+  modified_answer?: string // 修正后的回答
 }
 
 export interface QATableGetProps {
@@ -53,7 +54,7 @@ export interface AddStandardInfosResponse {
 export interface AddStandardWithLogParams {
   bot_id: string
   prompt: string
-  completion: string
+  completion: string // 原答案
   log_id: number
 }
 

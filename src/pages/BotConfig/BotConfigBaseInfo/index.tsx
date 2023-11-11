@@ -18,15 +18,16 @@ const BaseInfo = () => {
         <BaseInfoForm onSaved={handleBaseInfoChange} />
       </div>
       <Divider type={isMobile ? 'horizontal' : 'vertical'} />
-      <div className="flex-1 overflow-auto p-24">
+      <div className="flex-1 overflow-auto px-24">
         <h3
           style={{
             maxWidth: '688px',
             marginLeft: 'auto',
             marginRight: 'auto',
+            fontSize: '12px',
           }}
         >
-          效果预览：
+          以下为预览展示：
         </h3>
         <BaseInfoPreview botInfo={baseInfo} />
       </div>

@@ -8,11 +8,11 @@ import {
   QAInfoDeleteProps,
   QAInfoAddProps,
   AddStandardWithLogParams,
-  AddStandardWithLogResponse
+  AddStandardWithLogResponse,
 } from './models/standardLib'
 
 /** 获取机器人的标准问答 */
-export async function getStandardTableInfo(params: QATableGetProps) {
+async function getStandardTableInfo(params: QATableGetProps) {
   return request<GetStandardTableInfoResponse>('/api/app/bot/standardInfo', {
     method: 'POST',
     headers: {
@@ -25,7 +25,7 @@ export async function getStandardTableInfo(params: QATableGetProps) {
 }
 
 /** 更新一条标准问答 */
-export async function updateStandardInfo(params: QAFormInfo) {
+async function updateStandardInfo(params: QAFormInfo) {
   return request<QAResponse>('/api/app/bot/updateStandardInfo', {
     method: 'POST',
     headers: {
@@ -36,7 +36,7 @@ export async function updateStandardInfo(params: QAFormInfo) {
 }
 
 /** 删除一条标准问答 */
-export async function deleteStandardInfo(params: QAInfoDeleteProps) {
+async function deleteStandardInfo(params: QAInfoDeleteProps) {
   return request<QAResponse>('/api/app/bot/deleteStandardInfo', {
     method: 'POST',
     headers: {
@@ -47,7 +47,7 @@ export async function deleteStandardInfo(params: QAInfoDeleteProps) {
 }
 
 /** 添加标准问答 */
-export async function addStandardInfos(params: QAInfoAddProps[]) {
+async function addStandardInfos(params: QAInfoAddProps[]) {
   return request<AddStandardInfosResponse>('/api/app/bot/addStandardInfos', {
     method: 'POST',
     headers: {
@@ -58,7 +58,7 @@ export async function addStandardInfos(params: QAInfoAddProps[]) {
 }
 
 /** 增加标准问答并进行日志修正记录 */
-export async function addStandardWithLog(params: AddStandardWithLogParams) {
+async function addStandardWithLog(params: AddStandardWithLogParams) {
   return request<AddStandardWithLogResponse>('/api/app/bot/addStandardWithLog', {
     method: 'POST',
     headers: {
@@ -66,4 +66,12 @@ export async function addStandardWithLog(params: AddStandardWithLogParams) {
     },
     data: params,
   })
+}
+
+export default {
+  getStandardTableInfo,
+  updateStandardInfo,
+  deleteStandardInfo,
+  addStandardInfos,
+  addStandardWithLog,
 }
