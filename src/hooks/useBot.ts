@@ -28,9 +28,8 @@ export default function useBotModel() {
         welcomes: welcomes && welcomes.length > 0 ? JSON.parse(welcomes) : [],
         contact: contact && welcomes.length > 0 ? JSON.parse(contact) : [],
         faq_contents: faq_contents && welcomes.length > 0 ? JSON.parse(faq_contents) : [],
-        model_type
+        model_type,
       }
-      console.log('tempBotInfo', tempBotInfo)
       setBotInfo(tempBotInfo)
       setLoading(false)
     } else {

@@ -16,7 +16,7 @@ export default function useHistoryDialogs() {
   const [loading, setLoading] = useState(false)
 
   const transferTableData = (rows: LogInfoTableRow[]) => {
-    let dialogs: { type: string; content: string; commentType?: number; fixInfo?: number }[] = []
+    let dialogs: { type: string; content: string; commentType?: number; fixInfo?: number; id?: number }[] = []
     rows.forEach(row => {
       dialogs.push({
         type: 'question',
@@ -27,6 +27,7 @@ export default function useHistoryDialogs() {
         content: row.answer,
         commentType: row.comment_type,
         fixInfo: row.fix_info,
+        id: row.id, // log_id
       })
     })
     return dialogs

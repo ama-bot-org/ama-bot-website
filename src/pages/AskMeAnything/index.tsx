@@ -3,8 +3,8 @@ import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { useIntl, Helmet } from '@umijs/max'
 import Settings from '../../../config/defaultSettings'
 import React from 'react'
-import QA from './QA'
 import Loading from '@/components/Loading'
+import QA from '../Bot/QA'
 
 const AskMeAnything: React.FC = () => {
   const intl = useIntl()
@@ -34,7 +34,15 @@ const AskMeAnything: React.FC = () => {
         </title>
       </Helmet>
       <div style={{ flex: 1, padding: 24, overflow: 'auto' }}>
-        <QA welcomes={botInfo.welcomes} model_type={botInfo.model_type} />
+        <QA
+          withHistory
+          disabledAd
+          isShowAskioProcess
+          welcomes={botInfo.welcomes}
+          model_type={botInfo.model_type}
+          id={botInfo.id}
+          uuid={botInfo.id}
+        />
       </div>
     </div>
   )

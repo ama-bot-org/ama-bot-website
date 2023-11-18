@@ -8,6 +8,7 @@ import { FixBtn, LikeBtn, Size, UnLikeBtn } from '../EvaluateBtn'
 
 type Iprops = {
   hasFix?: boolean
+  logId?: number
   show: boolean
   className?: string
   size?: Size
@@ -22,7 +23,7 @@ enum ActiveBtn {
   unlike = 'unlike',
 }
 
-const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, size = 'base', prompt, completion, commentType }) => {
+const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, size = 'base', prompt, completion, commentType, logId }) => {
   const { initialState } = useModel('@@initialState')
   const { currentUser } = initialState || {}
   const [activeBtn, setActiveBtn] = useState<ActiveBtn | undefined>()
@@ -116,7 +117,7 @@ const Evaluate: FC<Iprops> = ({ botId, show = true, hasFix = true, className, si
             completion,
           }}
           okCallback={onFixed}
-          log_id={log_id as number}
+          log_id={(log_id || logId)!}
         />
       )}
     </>

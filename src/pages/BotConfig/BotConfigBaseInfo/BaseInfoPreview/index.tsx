@@ -1,8 +1,8 @@
 import { useEmotionCss } from '@ant-design/use-emotion-css'
 import { history, useModel } from '@umijs/max'
 import Divider from 'antd/es/divider'
-import QA from '@/pages/Bot/QA'
 import { BotDataType } from '@/models/bot'
+import QA from '@/pages/Bot/QA'
 
 const BaseInfoPreview = ({ botInfo }: { botInfo: BotDataType }) => {
   const { initialState } = useModel('@@initialState')
@@ -36,6 +36,7 @@ const BaseInfoPreview = ({ botInfo }: { botInfo: BotDataType }) => {
         <Divider style={{ margin: '12px 0 12px 0' }} />
         {currentUser?.bot_id ? (
           <QA
+            withHistory
             disabledAd
             id={currentUser?.bot_id}
             style={{ flex: 1, overflow: 'auto' }}
