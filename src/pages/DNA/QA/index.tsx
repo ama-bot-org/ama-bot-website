@@ -224,13 +224,6 @@ const QA = ({ style }: { style: React.CSSProperties }) => {
           >
             🔍人类小伙伴
           </Tag>
-          <Tag
-            color="#ffffff"
-            style={{ fontSize: 14, padding: 3, marginRight: 0, flex: 1, color: 'black', textAlign: 'center', cursor: 'pointer' }}
-            onClick={showAskio}
-          >
-            👉了解Askio
-          </Tag>
         </div>
         <ConfigProvider
           theme={{
