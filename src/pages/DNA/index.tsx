@@ -36,9 +36,6 @@ const DNA: React.FC = () => {
         </Helmet>
         <div style={{ flex: 1, padding: '12px 18px 10px 18px', overflow: 'auto', background: '#ffffff33' }} className="fcc-between">
           <QA style={{ flex: 1, overflow: 'hidden' }} />
-          <div style={{ textAlign: 'center', padding: 2, color: '#ffffff', fontSize: 12 }}>
-            ©2023 <span onClick={handleJump}>Askio （ 悦问AI ）</span> 提供技术支持
-          </div>
         </div>
       </div>
     </div>
